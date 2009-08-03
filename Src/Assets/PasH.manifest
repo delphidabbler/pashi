@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<!--
+  PasH.manifest
+
+  Manifest file for PasH Pascal Highlighter. Specifies execution level required
+  for Vista.
+
+  v1.0 of 29 May 2009 -	  Original version that permits application to run
+                          without elevation on Vista.
+-->
+
+
+<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
+  <assemblyIdentity
+    type="win32"
+    name="PasH"
+    version="1.0.0.0"
+    processorArchitecture="*"
+  />
+  <trustInfo xmlns="urn:schemas-microsoft-com:asm.v2">
+    <security>
+      <requestedPrivileges>
+        <requestedExecutionLevel level="asInvoker" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+</assembly>
+

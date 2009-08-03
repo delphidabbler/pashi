@@ -1,0 +1,373 @@
+@PROJECT_NAME           PasH
+@PROJECT_DESC           Generates highlighted Pascal source code as HTML.
+@OWNER                  DelphiDabbler
+@AUTHOR                 Peter D Johnson, Ceredigion, West Wales
+@EMAIL                  delphidabbler@tiscali.co.uk
+@WEBSITE                http://www.delphidabbler.com/
+@COPYRIGHT              © Peter D Johnson, 2005-2006
+@LEGAL_NOTICE           This program is distributed under the Mozilla Public
+                        License - see below.
+@ROOT                   ..\Src
+@HISTORY(
+  @REVISION(
+    @VERSION            0.1.0 (build 1)
+    @DATE               28/05/2005
+    @COMMENTS           Original alpha release.
+    @COMPILERS          + Delphi 7
+                        + Version Information Editor 2.11
+                        + Borland Resource Compiler 5.4
+    @FILES(
+      @NEW(
+        @FILE           PasH.dpr
+        @VERSION        1.0
+      )
+      @NEW(
+        @FILE           IntfCommon.pas
+        @VERSION        1.0
+      )
+      @NEW(
+        @FILE           IntfHiliter.pas
+        @VERSION        1.0
+      )
+      @NEW(
+        @FILE           UCharStack.pas
+        @VERSION        1.0
+      )
+      @NEW(
+        @FILE           UClipboardMgr.pas
+        @VERSION        1.0
+      )
+      @NEW(
+        @FILE           UClipboardStreams.pas
+        @VERSION        1.0
+      )
+      @NEW(
+        @FILE           UHiliteAttrs.pas
+        @VERSION        1.0
+      )
+      @NEW(
+        @FILE           UHilitePasLexer.pas
+        @VERSION        1.0
+      )
+      @NEW(
+        @FILE           UHilitePasParser.pas
+        @VERSION        1.0
+      )
+      @NEW(
+        @FILE           UHTMLUtils.pas
+        @VERSION        1.0
+      )
+      @NEW(
+        @FILE           UStdIOStreams.pas
+        @VERSION        1.0
+      )
+      @NEW(
+        @FILE           UStrStreamWriter.pas
+        @VERSION        1.0
+      )
+      @NEW(
+        @FILE           USyntaxHiliters.pas
+        @VERSION        1.0
+      )
+      @NEW(
+        @FILE           UTextStreamReader.pas
+        @VERSION        1.0
+      )
+      @NEW(
+        @FILE           VerInfo.vi
+        @DATE           28/05/2005
+        @COMMENTS       Version information resource file - original version.
+      )
+      @NEW(
+        @FILE           Images.rc
+        @VERSION        1.0
+      )
+      @NEW(
+        @FILE           Img\DelphiDabbler.ico
+        @DATE           10/09/2003
+        @COMMENTS       Generic DelphiDabbler icon.
+      )
+    )
+  )
+  @REVISION(
+    @VERSION            0.1.1 (build 2)
+    @DATE               04/06/2005
+    @COMMENTS           + Made lexer recognise multi-line comments and deals
+                          with new lines correctly.
+    @COMPILERS          + Delphi 7
+                        + Version Information Editor 2.11
+                        + Borland Resource Compiler 5.4
+    @FILES(
+      @UPDATED(
+        @FILE           PasH.dpr
+        @VERSION        1.1
+      )
+      @UPDATED(
+        @FILE           UHilitePasLexer.pas
+        @VERSION        1.1
+      )
+      @UPDATED(
+        @FILE           VerInfo.vi
+        @DATE           04/06/2005
+        @COMMENTS       File and product numbers updated to v0.1.1 build 2.
+      )
+    )
+  )
+  @REVISION(
+    @VERSION            0.1.2 (build 3)
+    @DATE               03/11/2005
+    @COMPILERS          + Delphi 7
+                        + Version Information Editor 2.11
+                        + Borland Resource Compiler 5.4
+    @COMMENTS           + Exceptions now handled by program and error messages
+                          displayed. Exceptions were previously crashing
+                          program.
+                        + Documentation now HTML rather than plain text.
+    @FILES(
+      @UPDATED(
+        @FILE           PasH.dpr
+        @VERSION        1.2
+      )
+      @UPDATED(
+        @FILE           VerInfo.vi
+        @DATE           02/11/2005
+        @COMMENTS       + Updated file and product number to v0.1.2 build 3.
+                        + Added VS_FF_SPECIALBUILD and changed SpecialBuild from
+                          "Alpha" to "Beta".
+      )
+    )
+  )
+  @REVISION(
+    @VERSION            0.1.3 (build 4)
+    @DATE               09/12/2005
+    @COMMENTS           Fixed bug that was causing program to crash when
+                        standard error output was redirected to a pipe when
+                        under control of external program.
+    @COMPILERS          + Delphi 7
+                        + Version Information Editor 2.11
+                        + Borland Resource Compiler 5.4
+    @FILES(
+      @UPDATED(
+        @FILE           PasH.dpr
+        @VERSION        1.3
+      )
+      @NEW(
+        @FILE           UConsole.pas
+        @VERSION        1.0
+      )
+      @NEW(
+        @FILE           UStdIO.pas
+        @VERSION        1.0
+      )
+      @UPDATED(
+        @FILE           UStdIOStreams.pas
+        @VERSION        1.3
+      )
+      @UPDATED(
+        @FILE           VerInfo.vi
+        @DATE           09/12/2005
+        @COMMENTS       Updated file, product and build numbers to v0.1.3 (build
+                        4).
+      )
+    )
+  )
+  @REVISION(
+    @VERSION            0.1.4 (build 5)
+    @DATE               17/04/2006
+    @COMMENTS           Fixed error in title of generated XHTML documents - used
+                        to refer to CodeSnip Database and now refers to PasH.
+    @COMPILERS          + Delphi 7
+                        + Version Information Editor 2.11
+                        + Borland Resource Compiler 5.4
+    @FILES(
+      @UPDATED(
+        @FILE           USyntaxHiliters.pas
+        @VERSION        1.1
+      )
+      @UPDATED(
+        @FILE           VerInfo.vi
+        @DATE           17/04/2006
+        @COMMENTS       + Updated file, product and build numbers to v0.1.4
+                          (build 5).
+                        + Modified copyright date to range from 2005 to present
+                          year.
+      )
+    )
+  )
+  @REVISION(
+    @VERSION            0.1.5 (build 6)
+    @DATE               10/03/2007
+    @COMMENTS           + Heavily refactored main program and parameter handling
+                          code.
+                        + Invalid command line parameters now halt program with
+                          error message.
+                        + Cosmetic changes to help display.
+                        + Added new batch file to build program.
+                        + Changed to new end user license agreement for the
+                          executable program. The program remains open source.
+    @COMPILERS          + Delphi 7
+                        + Version Information Editor 2.11
+                        + Borland Resource Compiler v5.4
+    @FILES(
+      @UPDATED(
+        @FILE           PasH.dpr
+        @VERSION        2.0
+      )
+      @NEW(
+        @FILE           UConfig.pas
+        @VERSION        1.0
+      )
+      @UPDATED(
+        @FILE           UConsole.pas
+        @VERSION        1.1
+      )
+      @NEW(
+        @FILE           UMain.pas
+        @VERSION        1.0
+      )
+      @NEW(
+        @FILE           UParams.pas
+        @VERSION        1.0
+      )
+      @UPDATED(
+        @FILE           VerInfo.vi
+        @DATE           10/03/2007
+        @COMMENTS       + Changed comments to refer to new license.
+                        + Deleted Resource output directory.
+                        + Updated program and file versions to v0.1.5 (build 6).
+                        + Added Mozilla Public License to file.
+      )
+      @NEW(
+        @FILE           Build.bat
+        @VERSION        1.0
+        @COMMENTS       Batch file that can build the program.
+      )
+    )
+  )
+  @REVISION(
+    @VERSION            1.0.0 (build 7)
+    @DATE               29/05/2009
+    @COMMENTS           + Added new -hidecss switch. Specifying it hides
+                          contents of <style> tag in HTML comments. Default is
+                          now not to hide contents.
+                        + Replaced on-the-fly generation of embedded style
+                          sheets for XHTML documents with a default style sheet
+                          read from resources.
+                        + Updated to use Delphi 2006 keyword and directives list
+                          from Delphi 7.
+                        + Replaced generic DelphiDabbler icon with custom PasH
+                          icon set.
+                        + Added Vista manifest.
+                        + Removed unnecessary compiler directives in units, i.e.
+                          those that replicate directives in project file.
+                        + Made localisable string literals into resource
+                          strings.
+                        + Fixed potential future bug in clipboard handling code.
+    @COMPILERS          + Delphi 7
+                        + Version Information Editor 2.11.2
+                        + Borland Resource Compiler v5.4
+    @FILES(
+      @REMOVED          Img\DelphiDabbler.ico
+      @REMOVED          UHiliteAttrs.pas
+      @UPDATED(
+        @FILE           Build.bat
+        @VERSION        1.1
+      )
+      @UPDATED(
+        @FILE           IntfCommon.pas
+        @VERSION        1.1
+      )
+      @UPDATED(
+        @FILE           IntfHiliter.pas
+        @VERSION        1.1
+      )
+      @UPDATED(
+        @FILE           PasH.dpr
+        @VERSION        2.1
+      )
+      @UPDATED(
+        @FILE           Resources.rc
+        @VERSION        2.0
+        @RENAMED_FROM   Images.rc
+      )
+      @UPDATED(
+        @FILE           UCharStack.pas
+        @VERSION        1.1
+      )
+      @UPDATED(
+        @FILE           UClipboardMgr.pas
+        @VERSION        1.1
+      )
+      @UPDATED(
+        @FILE           UClipboardStreams.pas
+        @VERSION        1.1
+      )
+      @UPDATED(
+        @FILE           UConfig.pas
+        @VERSION        1.1
+      )
+      @UPDATED(
+        @FILE           UHilitePasLexer.pas
+        @VERSION        1.2
+      )
+      @UPDATED(
+        @FILE           UHilitePasParser.pas
+        @VERSION        1.1
+      )
+      @UPDATED(
+        @FILE           UHTMLUtils.pas
+        @VERSION        1.1
+      )
+      @UPDATED(
+        @FILE           UMain.pas
+        @VERSION        1.1
+      )
+      @UPDATED(
+        @FILE           UParams.pas
+        @VERSION        1.1
+      )
+      @UPDATED(
+        @FILE           UStdIO.pas
+        @VERSION        1.1
+      )
+      @UPDATED(
+        @FILE           UStdIOStreams.pas
+        @VERSION        1.2
+      )
+      @UPDATED(
+        @FILE           UStrStreamWriter.pas
+        @VERSION        1.1
+      )
+      @UPDATED(
+        @FILE           USyntaxHiliters.pas
+        @VERSION        1.2
+      )
+      @UPDATED(
+        @FILE           UTextStreamReader.pas
+        @VERSION        1.1
+      )
+      @UPDATED(
+        @FILE           VerInfo.vi
+        @DATE           29/05/2009
+        @COMMENTS       + Updated program and file versions to v1.0.0 (build 7).
+                        + Corrcted Comments - had referred to wrong program.
+                        + Removed all file flags, deleted SpecialBuild string
+                          and removed from ProductVersion.
+      )
+      @NEW(
+        @FILE           Assets\Default.css
+        @VERSION        1.0
+      )
+      @NEW(
+        @FILE           Assest\PasH.ico
+        @DATE           29/05/2009
+        @COMMENTS       New custom program icon containing three different
+                        resolutions.
+      )
+      @NEW(
+        @FILE           Assets\PasH.manifest
+        @VERSION        1.0
+      )
+    )
+  )
+)

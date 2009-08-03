@@ -1,0 +1,72 @@
+
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+PASH SOURCE CODE LICENSING
+________________________________________________________________________________
+
+This document discusses and presents the relevant licenses governing the PasH
+source code available from DelphiDabbler.com as part of the PasH source code
+download.
+
+The download includes:
+
++ Original Source Code written by Peter Johnson.
++ Some binary resource files that may be difficult to recompile from source.
++ Image files.
+
+Please refer to the relevant section below fo details of licensing.
+
+The download does not include all the source code required to rebuild PasH.
+Explicitly it doesn't include:
+
++ Source files from the Delphi 7 VCL. You must have Delphi in order to access
+  these files.
++ DelphiDabbler library units. These are all available from
+  http://www.delphidabbler.com/software?id=pash&tab=download
+  
+
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+Original Source Code
+________________________________________________________________________________
+
+Original source files are stored in the the following directories:
+
+  Src
+  Src\Assets
+
+Any original source code file that is governed by a license has a comment to
+that effect in the source file.
+
+Any other source code files that contain no copyright or license information are
+public domain.
+
+Many source code files are licensed under the Mozilla Public License. A full
+copy of that license can be found in MPL.txt
+
+
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+Binary Resource Files
+________________________________________________________________________________
+
+The following binary files are provided in the Bin directory. Governing licenses
+are those that apply to their source files.
+
++ Resources.res - compiled from Resources.rc
++ VersionInfo.res - compiled from VersionInfo.vi
+
+
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+Image Files
+________________________________________________________________________________
+
+The only image provided is the program's icon, PasH.ico. This file is copyright
+(C) 2009 Peter Johnson (www.delphidabbler.com).
+
+The file may not be altered in any way and may not be used in any other
+programs, included programs derived from the PasH source code, unless explicit
+permission is given by the author.
+
+This means that if you modify PasH and publish your changes then you must
+remove the icon or repace it with you own.
+
+
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯

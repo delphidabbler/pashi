@@ -1,0 +1,48 @@
+/*
+ * Resources.rc
+ *
+ * Resource file containing icon and manifest.
+ *
+ * Renamed to Resources.rc from Images.rc at v2.0.
+ *
+ * v1.0 of 28 May 2005  - Original version.
+ * v2.0 of 31 May 2009  - Renamed as Resources.rc from Images.rc.
+ *                      - Replaced generic DelphiDabbler from Img directory with
+ *                        custom icon in Assets directory.
+ *                      - Added Vista manifest.
+ *                      - Added default style sheet as RCDATA.
+ *
+ *
+ * ***** BEGIN LICENSE BLOCK *****
+ *
+ * Version: MPL 1.1
+ *
+ * The contents of this file are subject to the Mozilla Public License Version
+ * 1.1 (the "License"); you may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at http://www.mozilla.org/MPL/
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for
+ * the specific language governing rights and limitations under the License.
+ *
+ * The Original Code is Resources.rc in PasH..
+ *
+ * The Initial Developer of the Original Code is Peter Johnson
+ * (http://www.delphidabbler.com/).
+ *
+ * Portions created by the Initial Developer are Copyright (C) 2005-2009 Peter
+ * Johnson. All Rights Reserved.
+ *
+ * ***** END LICENSE BLOCK *****
+ */
+
+
+/* Main icon */
+MAINICON ICON Assets\PasH.ico
+
+/* Vista manifest file */
+1 24 Assets\PasH.manifest
+
+/* Default CSS */
+CSS_DEFAULT RCDATA Assets\Default.css
+

@@ -1,0 +1,662 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!--
+	Copyright (C) 2005-2009 Peter Johnson (www.delphidabbler.com)
+	
+	This document may only be re-distributed or re-published only with the
+	DelphiDabbler PasH Pascal Highlighter program available from 
+	http://www.delphidabbler.com/software/pash
+	
+	The document may be modified only if distributed with a modified version
+	DelphiDabbler PasH Pascal Highlighter. Modified version must retain this
+	copyright message and the author and copyright meta tags.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+
+	<title>
+		DelphiDabbler || PasH Pascal Highlighter
+	</title>
+
+	<meta
+		http-equiv="Content-Type"
+		content="text/html; charset=UTF-8"
+	/>
+	<meta
+		http-equiv="Content-Language"
+		content="en"
+	/>
+	<meta
+		name="author" 
+		content="Peter Johnson (www.delphidabbler.com)"
+	/>
+	<meta
+		name="copyright" 
+		content="(C) 2005-2009 Peter Johnson (www.delphidabbler.com)"
+	/>
+	<meta
+		name="description" 
+		content="Readme for DelphiDabbler PasH Pascal Highlighter" 
+	/>
+
+	<style>
+		<!--
+		body {
+			margin: 1em;
+			padding: 0;
+			font-family: Verdana, Arial, sans-serif;
+			font-size: 9pt;
+			line-height: 150%;
+		}
+		table {
+			font-size: 9pt;
+			margin: 0.5em 0 0 0;
+			padding: 0;
+		}
+		h1 {
+			margin: 0 0 1em 0;
+			padding: 0.5em;
+			border: 1px silver solid;
+			background-color: #eee;
+			font-size: 13pt;
+			font-weight: bold;
+			text-align: center;
+		}
+		h1 .subtitle {
+			font-style: italic;
+			color: #336;
+		}
+		h2 {
+			margin: 1em 0 0 0;
+			padding: 0;
+			padding-bottom: 6px;
+			border-bottom: 1px silver solid;
+			font-size: 11pt;
+			font-weight: bold;
+		}
+		h3 {
+			margin: 0.5em 0 0 0;
+			padding: 0;
+			font-size: 9pt;
+			font-weight: bold;
+		}
+		p {
+			margin: 0.5em 0 0 0;
+			padding: 0;
+		}
+		pre {
+			font-family: "Courier New", Courier, monospace;
+			margin: 0.5em 0 0 0;
+			padding: 0;
+		}
+		pre.block {
+			background-color: #eef;
+			border: 1px #ccd solid;
+			padding: 0.5em;
+		}
+		ul, ol {
+			margin: 0.5em 0 0 3em;
+			padding: 0;
+		}
+		ul {
+			list-style-type: square;
+		}
+		ul.spaced li,
+		ol.spaced li {
+			margin-top: 0.5em;
+		}
+		ul.spaced li,
+		ol.spaced li {
+			margin-top: 0.5em;
+		}
+		ul.unspaced li,
+		ol.unspaced li {
+			margin-top: 0;
+		}
+		ul.unspaced li.first,
+		ol.unspaced li.first {
+			margin-top: 0.5em;
+		}
+		code {
+			font-family: "Courier New", Courier, monospace;
+		}
+		a:link {
+			color: #336;
+			text-decoration: underline;
+		}
+		a:visited {
+			color: #669;
+			text-decoration: underline;
+		}
+		a:active {
+			color: #336;
+			text-decoration: underline;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
+		.gototop {
+			margin: 1em 0 0 0;
+			padding: 0.3em 0 0 0;
+			text-align: center;
+			position: relative;
+			float: right;
+			font-weight: bold;
+		}
+		.pullout {
+			border-left: 8px silver solid;
+			xborder-bottom: 2px silver solid;
+			xborder-top: 2px silver solid;
+			background-color: #eee;
+			margin: 0.5em 0 0 0;
+			padding: 0.25em 0.5em;
+			font-style: italic;
+		}
+		.indent {
+			margin-left: 3em;
+		}
+		.hilite {
+			color: #336;
+			font-style: italic;
+			font-weight: bold;
+		}
+		.endnotes {
+			margin: 1.5em 0 0 0;
+			padding: 1em 0 0 0;
+			border-top: 1px silver solid;
+		}
+		.comments {
+			font-style: italic;
+		}
+		.copyright,
+		.copyright a:link,
+		.copyright a:visited,
+		.copyright a:active {
+			margin: 1em 0 0 0;
+			color: gray;
+			font-size: 8pt;
+			text-align: right;
+		}
+		td.pad-left, th.pad-left {
+			padding-left: 2em;
+		}
+		th.left-align {
+			text-align: left;
+		}
+		-->
+	</style>
+
+</head>
+
+<body>
+
+<h1>
+	<div><em>PasH</em> Pascal Highlighter</div>
+	<div class="subtitle">Read Me Document</div>
+</h1>
+
+<h2 id="contents">
+	Contents
+</h2>
+
+<ul>
+	<li>
+		<a href="#introduction">Introduction</a>
+	</li>
+	<li>
+		<a href="#why">Why another Pascal highlighter?</a>
+	</li>
+	<li>
+		<a href="#install">Installing <em>PasH</em></a>
+	</li>
+	<li>
+		<a href="#usage">Using <em>PasH</em></a>
+	</li>
+	<li>
+		<a href="#css">CSS styles used by <em>PasH</em></a>
+	</li>
+	<li>
+		<a href="#source">Source code</a>
+	</li>
+</ul>
+
+<p class="gototop">
+	&raquo; <a href="#contents">Contents</a>
+</p>
+
+<h2 id="introduction">
+	Introduction
+</h2>
+
+<p>
+	<em>PasH</em> is a simple command line program that highlights Pascal source
+	code. It reads the original source code from standard input or the clipboard
+	and writes the highlighted code to standard output or the clipboard. XHTML
+	is used for the highlighted code and cascading style sheets are used to do
+	the styling.
+</p>
+
+<p>
+	<em>PasH</em> can either generate complete XHTML documents or just fragments
+	of XHTML code containing the highlighted source. Complete XHTML documents
+	contain an embedded CSS style sheet while code fragments require the user to
+	provide the required CSS classes. This last feature makes it easy to embed
+	code highlighted by <em>PasH</em> into exiting web pages with highlight
+	colours defined by the web page author.
+</p>
+
+<p class="gototop">
+	&raquo; <a href="#contents">Contents</a>
+</p>
+
+<h2 id="why">
+	Why another Pascal highlighter?
+</h2>
+
+<p>
+	Simple, I wanted an easy to use tool to format Pascal code for the
+	<a
+		href="http://www.delphidabbler.com/"
+	>DelphiDabbler website</a>. I wanted the following:
+</p>
+
+<ol>
+	<li>
+		Cascading style sheets.
+	</li>
+	<li>
+		Valid XHTML.
+	</li>
+	<li>
+		Full control over the appearance of the output code.
+	</li>
+	<li>
+		Ability to highlight via the clipboard.
+	</li>
+	<li>
+		The option to generate XHTML fragments for inserting into existing
+		documents.
+	</li>
+</ol>
+
+<p>
+	On checking the available free tools I've found they were either too complex
+	or didn't provide one of the features I wanted. I'd already written
+	highlighter code for my <em>CodeSnip</em> program, so I extracted that,
+	tweaked it and wrapped it up in a command line program. Having made it I
+	thought I'd release it in case anyone else finds it useful.
+</p>
+
+<p>
+	Check these two sites for examples of <em>PasH</em> in use:
+	<a
+		href="http://rvelthuis.de/"
+	>Rudy's Delphi Corner</a> and
+	<a
+		href="http://hallvards.blogspot.com/"
+	>Hallvard's Blog</a>. PasH has also been used to highlight example source
+	code on the DelphiDabbler
+	<a
+		href="http://www.delphidabbler.com/tips"
+	>Delphi Tips</a> and
+	<a
+		href="http://www.delphidabbler.com/articles"
+	>Articles</a> pages.
+</p>
+
+<p class="gototop">
+	&raquo; <a href="#contents">Contents</a>
+</p>
+
+<h2 id="install">
+	Installation
+</h2>
+
+<p>
+	<em>PasH</em>'s simplicity means it that has no dependencies and creates no
+	config files or registry entries. So, I haven't provided an installer, just
+	a zip file containing a few files. They are:
+</p>
+
+<ul class="spaced">
+	<li>
+		<code>PasH.exe</code><br />
+		This is the program's executable file. Just copy it to a directory of
+		your choice. Then open a command console and run <em>PasH</em>. See 
+		<a
+			href="#usage">Using <em>PasH</em></a> below for details of
+		<em>PasH</em>'s command line switches. You'll find <em>PasH</em>
+		more usable if you place it somewhere on your path or if you add
+		<em>PasH</em>'s directory to the path.
+	</li>
+	<li>
+		<code>License.txt</code><br />
+		Contains the program's license. Please read this and only use
+		<em>PasH</em> if you agree with it. OK, given that you probably won't
+		read I'll tell you now it's a pretty permissive open source
+		license. You can use and distribute <em>PasH</em> freely and get the
+		source code and modify it. If you release your changes there are two
+		conditions: (1) you must make the source available under the
+		<a
+			href="http://www.mozilla.org/MPL/"
+		>Mozilla Public License</a> and (2) you must delete the program icon or
+		use your own.
+	</li>
+	<li>
+		<code>ReadMe.html</code><br />
+		This file. Nuff said.
+	</li>
+</ul>
+
+<p>
+	To uninstall, just delete <code>Pash.exe</code>. It makes no changes to your
+	system.
+</p>
+
+<p class="gototop">
+	&raquo; <a href="#contents">Contents</a>
+</p>
+
+<h2 id="usage">
+	Using <em>PasH</em>
+</h2>
+
+<p>
+	<em>PasH</em>'s usage is:
+</p>
+
+<pre class="indent">PasH ([-rc] [-wc] [-frag | -hidecss] [-q] | -h</pre>
+
+<p>
+	By default <em>PasH</em> reads the unformatted source text from standard
+	input and writes a complete XHTML document containing the highlighted code
+	to standard output. To read source from a file and output to another file
+	use shell redirection. E.g. to highlight <code>source.pas</code> and output
+	to <code>source.html</code> use:
+</p>
+
+<pre class="indent">PasH &lt;source.pas &gt;source.html</pre>
+
+<p>
+	You can modify <em>PasH</em>'s behaviour by using the following command line
+	switches.
+</p>
+
+<dl>
+	<dt>
+		<code>-rc</code>
+	</dt>
+	<dd>
+		Reads source code from the clipboard instead of standard input.
+	</dd>
+	<dt>
+		<code>-wc</code>
+	</dt>
+	<dd>
+		Writes highlighted code to the clipboard instead of standard output.
+	</dd>
+	<dt>
+		<code>-frag</code>
+	</dt>
+	<dd>
+		Outputs a XHTML code fragment containing just the highlighted code
+		contained in a <code>&lt;pre&gt;</code> ... <code>&lt;/pre&gt;</code>
+		tag pair. This option is designed for pasting code fragment into an
+		exiting XHTML document. This is a common option when adding highlighted
+		code to a web page. The web page will need to provide suitable CSS code
+		to style the fragment &ndash; see below for details of the required
+		CSS classes. <em>You should not combine this switch with
+		<code>-hidecss</code>.</em>
+	</dd>
+	<dt>
+		<code>-hidecss</code>
+	</dt>
+	<dd>
+		Complete XHTML documents output by <em>PasH</em> have the necessary CSS
+		classes contained in a <code>&lt;style&gt;</code> section in the
+		document header. The CSS is <em>not</em> protected by HTML comment tags
+		(<code>&lt;!--</code> ... <code>--&gt;</code> by default. This may cause
+		problems for older browsers which may render the CSS as text. If you
+		have this problem use this switch to enclose the CSS in HTML comments.
+		<em>The switch is not valid for HTML fragments, so it shouldn't be
+		combined with <code>-frag</code>.</em>
+	</dd>
+	<dt>
+		<code>-q</code>
+	</dt>
+	<dd>
+		Specifies &quot;quite mode&quot;. <em>PasH</em> does not write output to
+		the console. Note that <em>PasH</em> writes console output to standard
+		error since standard output can be used to output the highlighted source
+		code. The switch is ignored when the <code>-h</code> switch is used or
+		if <em>PasH</em> detects command line errors.
+	</dd>
+	<dt>
+		<code>-h</code>
+	</dt>
+	<dd>
+		Displays the help screen. All other switches are ignored.
+	</dd>
+</dl>
+
+<p>
+	If <em>PasH</em> exits normally then 0 is returned to the OS as an exit
+	code. In case of error the exit code is 1.
+</p>
+
+<p>
+	Perhaps the most common usage of <em>PasH</em> is to read source code from
+	the clipboard and replace it with a highlighted fragment. Here's what I do
+	when pasting highlighted source into a web page:
+</p>
+
+<ol>
+	<li>
+		Select the unformatted source in an editor and copy it to the clipboard.
+	</li>
+	<li>
+		Switch to a command window and do
+		<pre style="display:inline">PasH -rc -wc -frag</pre>.
+	</li>
+	<li>
+		Switch to editor containing the web page and paste in the highlighted
+		code.
+	</li>
+</ol>
+
+<p class="gototop">
+	&raquo; <a href="#contents">Contents</a>
+</p>
+
+<h2 id="css">
+	CSS styles used by <em>PasH</em>
+</h2>
+
+<p>
+	The HTML produced by <em>PasH</em> uses the following CSS classes:
+</p>
+
+<dl>
+    <dt>
+    	.pas-source
+    </dt>
+    <dd>
+    	Used to provide the name and size of font for the whole source code.
+    	You could also specify a background colour here. Alternatively use a
+    	containing <code>&lt;div&gt;</code> to supply the background.
+    </dd>
+    <dt>
+    	.pas-comment
+    </dt>
+    <dd>
+    	Style for comments.
+    </dd>
+    <dt>
+    	.pas-kwd
+    </dt>
+    <dd>
+    	Style for keywords and reserved words.
+    </dd>
+    <dt>
+    	.pas-str
+    </dt>
+    <dd>
+    	Style for string literals.
+    </dd>
+    <dt>
+    	.pas-num
+    </dt>
+    <dd>
+    	Style for whole numbers (integers).
+    </dd>
+    <dt>
+    	.pas-float
+    </dt>
+    <dd>
+    	Style for floating point numbers.
+    </dd>
+    <dt>
+    	.pas-hex
+    </dt>
+    <dd>
+    	Style for hexadecimal numbers.
+    </dd>
+    <dt>
+    	.pas-preproc
+    </dt>
+    <dd>
+    	Style for preprocessor directives.
+    </dd>
+    <dt>
+    	.pas-asm
+    </dt>
+    <dd>
+    	Style for assembler.
+    </dd>
+    <dt>
+    	.pas-err
+    </dt>
+    <dd>
+    	Style for any errors detected.
+    </dd>
+</dt>
+
+<p>
+	All classes excpet <em>.pas-source</em> just define text colour, style and
+	weight. 
+</p>
+
+<p>
+	When you use <em>PasH</em> to create complete HTML documents the style
+	definitions of the above styles are included in the document header (and
+	can't be changed). However, when you produce HTML fragments using the
+	<code>-frag</code> switch no style definitions are included in the output
+	&ndash; You must provide the definitions yourself.
+</p>
+
+<p>
+	To help with this, here are the default definitions for the classes that are
+	used by <em>PasH</em>:
+</p>
+
+<pre class="block">.pas-source {
+    font-family: "Courier New", monospace;
+    font-size: 9pt;
+}
+.pas-comment {
+    font-style: italic;
+    font-weight: normal;
+    text-decoration: none;
+    color: #000080;
+}
+.pas-kwd {
+    font-style: normal;
+    font-weight: bold;
+    text-decoration: none;
+}
+.pas-str {
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: none;
+    color: #800080;
+}
+.pas-num, .pas-float, .pas-hex {
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: none;
+    color: #800000;
+}
+.pas-preproc {
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: none;
+    color: #008000;
+}
+.pas-asm {
+    font-style: italic;
+    font-weight: normal;
+    text-decoration: none;
+}
+.pas-err {
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: none;
+    color: #FF0000;
+}</pre>
+
+<p>
+	You can include these classes in a &lt;style&gt; tag in your document's
+	&lt;head&gt; section, or place them in a <code>.css</code> file that your
+	HTML document links to. Change the styles to suit your needs.
+</p>
+
+<p>
+	Future versions of <em>PasH</em> may include the facility to use external
+	style sheets or read custom style information from style sheets. If you want
+	this feature please ask me &ndash; contact details below.
+</p>
+
+<p class="gototop">
+	&raquo; <a href="#contents">Contents</a>
+</p>
+
+<h2 id="source">
+	Source code
+</h2>
+
+<p>
+	The source code for this program is available from
+	<a
+		href="http://www.delphidabbler.com/software/pash"
+	>the <em>PasH</em> home page</a>.
+</p>
+
+<div class="endnotes">
+
+	<div class="comments">
+		If you have any comments about this program, or if you have found a bug,
+		please let me know. You can contact me via my website
+		<a
+			href="http://www.delphidabbler.com/contact"
+		>contact page</a>.
+	</div>
+
+	<div class="copyright">
+		<em>PasH</em>'s license is available
+		<a
+			href="http://www.delphidabbler.com/software/pash/license"
+		>here</a>.<br />
+		This document is copyright &copy; 2005-2009, P D Johnson,
+		<a
+			href="http://www.delphidabbler.com/"
+		>www.delphidabbler.com</a>
+	</div>
+
+</div>
+
+</body>
+
+</html>
