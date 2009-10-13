@@ -1,0 +1,41 @@
+Version 1.0 - released 31 May 2009
+PasH v1.0 of 31 May 2009
++ Added new -hidecss switch. Specifying it hides contents of <style> tag in HTML comments. Default is now not to hide contents.
++ Replaced on-the-fly generation of embedded style sheets for XHTML documents with a default style sheet read from resources.
++ Updated to use Delphi 2006 keyword and directives list from Delphi 7.
++ Replaced generic DelphiDabbler icon with custom PasH icon set.
++ Added Vista manifest.
++ Removed unnecessary compiler directives in units, i.e. those that replicate directives in project file.
++ Made localisable string literals into resource strings.
++ Fixed potential future bug in clipboard handling code.
+
+Version 0.1.5 Beta - released 10 March 2007
+PasH v0.1.5 Beta of 10 March 2007
++ Heavily refactored main program and parameter handling code.
++ Invalid command line parameters now halt program with error message.
++ Cosmetic changes to help display.
++ Added new batch file to build program.
++ Changed to new end user license agreement for the executable program. The program remains open source.
+
+Version 0.1.4 Beta - released 17 April 2006
+PasH v0.1.4 Beta of 17 April 2006
++ Corrected title tag written to XHTML documents. Used to refer to CodeSnip Database, now refers to PasH.
+
+Version 0.1.3 Beta - released 9 December 2005
+PasH v0.1.3 of 9 December 2005
++ Fixed bug that was causing program to crash when standard error output was redirected to a pipe when under control of an external program.
+
+Version 0.1.2 Beta - released 3 November 2005
+PasH v0.1.2 of 3 November 2005
++ Program now traps exceptions and displays error message before terminating rather than exceptions crashing program.
++ Documentation updated and changed to HTML from plain text.
++ Moved program from alpha to beta.
+
+Version 0.1.1 Alpha - released 4 June 2005
+PasH v0.1.1 of 4 June 2005
++ Made multi-line comments generate correctly formatted HTML when processed by syntax highlighter.
++ Corrected minor typo in help screen.
+
+Version 0.1.0 Alpha - released 28 May 2005
+PasH v0.1.0 of 28 May 2005
++ Original alpha version.
