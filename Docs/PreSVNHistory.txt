@@ -1,0 +1,475 @@
+================================================================================
+
+PasH: Historical update information from v0.1 to v1.0
+
+================================================================================
+
+This file records known changes to files and releases of PasH from the first
+release (v1.0) until release 1.2 when the project was placed was placed under
+version control with Subversion.
+
+There are two sections:
+
+  1 Files: Lists all source code and development tools and provides details of
+    changes to these files that preceded version control.
+
+  2 Releases: Lists all the releases of PasH and notes which file revisions were
+    included in each release.
+
+================================================================================
+FILES
+================================================================================
+
+This section lists all files for which update history is known between v0.1
+and v1.0.
+
+--------------------------------------------------------------------------------
+DevTools\BuildAll.bat
+--------------------------------------------------------------------------------
+v1.0 of 10 Mar 2007  - Original version.
+        03 Aug 2009  - MOVED TO SUBVERSION
+
+--------------------------------------------------------------------------------
+DevTools\BuildAndRelease.bat
+--------------------------------------------------------------------------------
+v1.0 of 10 Mar 2007  - Original version.
+        03 Aug 2009  - MOVED TO SUBVERSION
+
+--------------------------------------------------------------------------------
+DevTools\BuildPascal.bat
+--------------------------------------------------------------------------------
+v1.0 of 10 Mar 2007  - Original version.
+        03 Aug 2009  - MOVED TO SUBVERSION
+
+--------------------------------------------------------------------------------
+DevTools\BuildResources.bat
+--------------------------------------------------------------------------------
+v1.0 of 28 May 2005  - Original version.
+v2.0 of 10 Mar 2007  - Rewrote to call build.bat
+        03 Aug 2009  - MOVED TO SUBVERSION
+
+--------------------------------------------------------------------------------
+DevTools\ReleaseExe.bat
+--------------------------------------------------------------------------------
+v1.0 of 10 Mar 2007  - Original version.
+        03 Aug 2009  - MOVED TO SUBVERSION
+
+--------------------------------------------------------------------------------
+DevTools\ReleaseSrc.bat
+--------------------------------------------------------------------------------
+v1.0 of 10 Mar 2007  - Original version.
+        03 Aug 2009  - MOVED TO SUBVERSION
+
+--------------------------------------------------------------------------------
+DevTools\Tidy.bat
+--------------------------------------------------------------------------------
+v1.0 of 10 Mar 2007  - Original version.
+        03 Aug 2009  - MOVED TO SUBVERSION
+
+--------------------------------------------------------------------------------
+Docs\Test.pas
+--------------------------------------------------------------------------------
+        04 Jun 2005  - Original version.
+        30 May 2009  - Changed $MESSAGE compiler directive message type from
+                       "WARN" to "FATAL".
+        03 Aug 2009  - MOVED TO SUBVERSION
+
+--------------------------------------------------------------------------------
+Src\Build.bat
+--------------------------------------------------------------------------------
+v1.0 of 10 Mar 2007  - First version that builds project.
+v1.1 of 29 May 2009  - Revised to use renamed Resources.rc.
+        03 Aug 2009  - MOVED TO SUBVERSION
+
+--------------------------------------------------------------------------------
+Src\IntfCommon.pas
+--------------------------------------------------------------------------------
+v1.0 of 28 May 2005  - Original version.
+v1.1 of 29 May 2009  - Removed all compiler directives.
+        03 Aug 2009  - MOVED TO SUBVERSION
+
+--------------------------------------------------------------------------------
+Src\IntfHilititer.pas
+--------------------------------------------------------------------------------
+v1.0 of 28 May 2005  - Original version.
+v1.1 of 30 May 2009  - Removed all compiler directives.
+                     - Added support for new highlighter kind that creates
+                       complete XHTML document with CSS hidden by comments.
+                     - Removed IHiliteAttrs and IHiliteElemAttrs interface
+                       declarations.
+        03 Aug 2009  - MOVED TO SUBVERSION
+
+--------------------------------------------------------------------------------
+Src\PasH.dor
+--------------------------------------------------------------------------------
+v1.0 of 28 May 2005  - Original version.
+v1.1 of 04 Jun 2005  - Fixed minor typo in help display.
+v1.2 of 02 Nov 2005  - Exceptions now handled by program and error messages
+                       displayed. Exceptions were previously crashing program.
+v1.3 of 09 Dec 2005  - Added new UStdIO and UConsole units.
+                     - Changed code that writes to console to use new TConsole
+                       class. This fixes an obscure bug that was crashing
+                       program when redirecting standard error to a pipe.
+v2.0 of 10 Mar 2007  - Added new UConfig, UMain, UParams units.
+                     - Removed all main program code (it is now in TMain).
+                       Project code now only creates, executes and frees TMain.
+                     - Changed to use long version of compiler directives and
+                       changed value of some of these and added and deleted
+                       others.
+v2.1 of 30 May 2009  - Changed to use Resources.res instead of Images.res.
+                     - Removed UHiliteAttrs unit.
+        03 Aug 2009  - MOVED TO SUBVERSION
+
+--------------------------------------------------------------------------------
+Src\Resources.rc
+--------------------------------------------------------------------------------
+v1.0 of 28 May 2005  - Original version named Images.rc.
+v2.0 of 31 May 2009  - Renamed as Resources.rc from Images.rc.
+                     - Replaced generic DelphiDabbler from Img directory with
+                       custom icon in Assets directory.
+                     - Added Vista manifest.
+                     - Added default style sheet as RCDATA.
+        03 Aug 2009  - MOVED TO SUBVERSION
+
+--------------------------------------------------------------------------------
+Src\UCharStack.pas
+--------------------------------------------------------------------------------
+v1.0 of 28 May 2005  - Original version.
+v1.1 of 29 May 2009  - Removed all except $WARN compiler directives.
+        03 Aug 2009  - MOVED TO SUBVERSION
+
+--------------------------------------------------------------------------------
+Src\UClipboardMgr.pas
+--------------------------------------------------------------------------------
+v1.0 of 28 May 2005  - Original version.
+v1.1 of 29 May 2009  - Removed all compiler directives.
+                     - Moved error message string literal to resource string.
+        03 Aug 2009  - MOVED TO SUBVERSION
+
+--------------------------------------------------------------------------------
+Src\UClipboardStreams.pas
+--------------------------------------------------------------------------------
+v1.0 of 28 May 2005  - Original version.
+v1.1 of 29 May 2009  - Corrected error where required clipboard format was being
+                       ignored and CF_TEXT always used in its place.
+                     - Removed all but $WARN compiler directives.
+        03 Aug 2009  - MOVED TO SUBVERSION
+
+--------------------------------------------------------------------------------
+Src\UConfig.pas
+--------------------------------------------------------------------------------
+v1.0 of 10 Mar 2007 -  Original version.
+v1.1 of 29 May 2009 -  Added support for doc type that generates a complete
+                       XHTML document but which hides embedded CSS from browser
+                       in HTML comments.
+        03 Aug 2009  - MOVED TO SUBVERSION
+
+--------------------------------------------------------------------------------
+Src\UConsole.pas
+--------------------------------------------------------------------------------
+v1.0 of 09 Dec 2005 - Original version.
+v1.1 of 10 Mar 2007 - Removed Silent parameter from TConsole constructor and
+                      replaced with read/write property.
+                    - Removed compiler directives. These are now set in project
+                      file.
+        03 Aug 2009  - MOVED TO SUBVERSION
+
+--------------------------------------------------------------------------------
+Src\UHiliteAttrs.pas
+--------------------------------------------------------------------------------
+v1.0 of 28 May 2005  - Original version.
+        29 May 2009  - DELETED.
+
+--------------------------------------------------------------------------------
+Src\UHilitePasLexer.pas
+--------------------------------------------------------------------------------
+v1.0 of 28 May 2005  - Original version.
+v1.1 of 04 Jun 2005  - Made lexer detect line ends in multiline comments and
+                       return alternate comment and new line tokens until
+                       comment is closed.
+v1.2 of 31 May 2009  - Added new keywords and directives as supported in Delphi
+                       2006.
+                     - Deleted all compiler directives.
+        03 Aug 2009  - MOVED TO SUBVERSION
+
+--------------------------------------------------------------------------------
+Src\UHilitePasParser.pas
+--------------------------------------------------------------------------------
+v1.0 of 28 May 2005  - Original version.
+v1.1 of 29 May 2009  - Removed compiler directives and TODO directives.
+        03 Aug 2009  - MOVED TO SUBVERSION
+
+--------------------------------------------------------------------------------
+Src\UHiliteAttrs.pas
+--------------------------------------------------------------------------------
+v1.0 of 28 May 2005  - Original version.
+        29 May 2009  - DELETED.
+
+--------------------------------------------------------------------------------
+Src\UHTMLUtils.pas
+--------------------------------------------------------------------------------
+v1.0 of 28 May 2005  - Original version.
+v1.1 of 29 May 2009  - Removed compiler directives.
+        03 Aug 2009  - MOVED TO SUBVERSION
+
+--------------------------------------------------------------------------------
+Src\UMain.pas
+--------------------------------------------------------------------------------
+v1.0 of 10 Mar 2007  - Original version. Code based on that formerly in main
+                       project file. Error handling improved. Help text slightly
+                       updated.
+v1.1 of 30 May 2009  - Added support -hidecss switch.
+                     - Changed to use revised ISyntaxHiliter.Hilite method call
+                       and removed instantiation of hilight attributes.
+                     - Updated and corrected help screen.
+                     - Now sets exit code of 0 on success, 1 on error.
+                     - Moved sign on message into a resource string.
+        03 Aug 2009  - MOVED TO SUBVERSION
+
+--------------------------------------------------------------------------------
+Src\UParams.pas
+--------------------------------------------------------------------------------
+v1.0 of 10 Mar 2007  - Original version.
+v1.1 of 29 May 2009  - Moved error messages to resource strings.
+                     - Added support for -hidecss switch.
+        03 Aug 2009  - MOVED TO SUBVERSION
+
+--------------------------------------------------------------------------------
+Src\UStdIO.pas
+--------------------------------------------------------------------------------
+v1.0 of 09 Dec 2005  - Original version.
+v1.1 of 29 May 2009  - Removed all except $WARN compiler directives.
+        03 Aug 2009  - MOVED TO SUBVERSION
+
+--------------------------------------------------------------------------------
+Src\UStdIOStreams.pas
+--------------------------------------------------------------------------------
+v1.0 of 28 May 2005  - Original version.
+v1.1 of 09 Dec 2005  - Revised TStdInStream and TStdOutStream to use TStdIO
+                       static class to do actual reading and writing of standard
+                       input and standard output.
+v1.2 of 29 May 2009  - Removed all except $WARN compiler directives.
+        03 Aug 2009  - MOVED TO SUBVERSION
+
+--------------------------------------------------------------------------------
+Src\UStrStreamWriter.pas
+--------------------------------------------------------------------------------
+v1.0 of 28 May 2005  - Original version.
+v1.1 of 29 May 2009  - Removed all except $WARN compiler directives.
+        03 Aug 2009  - MOVED TO SUBVERSION
+
+--------------------------------------------------------------------------------
+Src\USyntaxHiliters.pas
+--------------------------------------------------------------------------------
+v1.0 of 28 May 2005  - Original version.
+v1.1 of 17 Apr 2006  - Corrected <title> emitted by TXHTMLHiliter from
+                       "DelphiDabbler CodeSnip Database" to "File generated by
+                       DelphiDabbler PasH Pascal Highlighter".
+v1.2 of 31 May 2009  - Removed compiler directives.
+                     - Moved some localisable strings to resource strings.
+                     - Added support for not hiding (in comments) embedded CSS
+                       in complete XHTML documents.
+                     - No longer generates style sheet for complete XHTML
+                       documents. Now embeds a style sheet from resources
+                       instead.
+        03 Aug 2009  - MOVED TO SUBVERSION
+
+--------------------------------------------------------------------------------
+Src\UTextStreamReader.pas
+--------------------------------------------------------------------------------
+v1.0 of 28 May 2005  - Original version.
+v1.1 of 29 May 2009  - Removed compiler directives.
+        03 Aug 2009  - MOVED TO SUBVERSION
+
+--------------------------------------------------------------------------------
+Src\VerInfo.vi
+--------------------------------------------------------------------------------
+        28 May 2005  - Original version - v0.1.0 build 1.
+        04 Jun 2005  - File and product numbers updated to v0.1.1 build 2.
+        02 Nov 2005  - File and product numbers updated to v0.1.2 build 3.
+                     - Added VS_FF_SPECIALBUILD and changed SpecialBuild from
+                       "Alpha" to "Beta".
+        09 Dec 2005  - File and product numbers updated to v0.1.3 build 4.
+        17 Apr 2006  - File and product numbers updated to v0.1.4 build 5.
+                     - Modified copyright date to range from 2005 to present 
+                       year.
+        10 Mar 2007  - Changed comments to refer to new license.
+                     - Deleted Resource output directory.
+                     - File and product numbers updated to v0.1.5 build 6.
+                     - Added Mozilla Public License to file.
+        29 May 2009  - File and product numbers updated to v1.0.0 build 7.
+                     - Corrected Comments - had referred to wrong program.
+                     - Removed all file flags, deleted SpecialBuild string and
+                       removed from ProductVersion.
+        03 Aug 2009  - MOVED TO SUBVERSION
+
+--------------------------------------------------------------------------------
+Src\Assets\Default.css
+--------------------------------------------------------------------------------
+v1.0 of 31 May 2009  - Original version.
+        03 Aug 2009  - MOVED TO SUBVERSION
+
+--------------------------------------------------------------------------------
+Src\Assets\PasH.ico
+--------------------------------------------------------------------------------
+        29 May 2009  - New custom program icon containing three different
+                       resolutions.
+        03 Aug 2009  - MOVED TO SUBVERSION
+
+--------------------------------------------------------------------------------
+Src\Assets\PasH.mainifest
+--------------------------------------------------------------------------------
+v1.0 of 29 May 2009  - Original version that permits application to run without
+                       elevation on Vista.
+        03 Aug 2009  - MOVED TO SUBVERSION
+
+--------------------------------------------------------------------------------
+Src\Ico\DelphiDabbler.ico
+--------------------------------------------------------------------------------
+        10 Sep 2003  - Generic DelphiDabbler icon.
+        29 May 2009  - DELETED.
+
+================================================================================
+RELEASES
+================================================================================
+
+This section lists all releases of PasH from the first version (0.1) to release
+1.0. For each release the following is noted:
+
+  + Version and build number.
+  + Brief notes of changes to program.
+  + List of new and added source files.
+  
+The Development tools, .bpg and .cfg files, test files and documentation are not
+included in this information.
+
+--------------------------------------------------------------------------------
+v0.1.0 build 1 of 28 May 2005
+--------------------------------------------------------------------------------
+Notes:
+  + Original alpha release.
+File changes:
+  + New: PasH.dpr 1.0
+  + New: IntfCommon.pas 1.0
+  + New: IntfHiliter.pas 1.0
+  + New: UCharStack.pas 1.0
+  + New: UClipboardMgr.pas 1.0
+  + New: UClipboardStreams.pas 1.0
+  + New: UHiliteAttrs.pas 1.0
+  + New: UHilitePasLexer.pas 1.0
+  + New: UHilitePasParser.pas 1.0
+  + New: UHTMLUtils.pas 1.0
+  + New: UStdIOStreams.pas 1.0
+  + New: UStrStreamWriter.pas 1.0
+  + New: USyntaxHiliters.pas 1.0
+  + New: UTextStreamReader.pas 1.0
+  + New: VerInfo.vi 28 May 2005
+  + New: Images.rc 1.0
+  + New: Img\DelphiDabbler.ico 10 Sep 2003
+ 
+--------------------------------------------------------------------------------
+v0.1.1 build 2 of 04 Jun 2005
+--------------------------------------------------------------------------------
+Notes:
+  + Made lexer recognise multi-line comments and deals with new lines correctly.
+File changes:
+  + Updated: PasH.dpr 1.1
+  + Updated: UHilitePasLexer.pas 1.1
+  + Updated: VerInfo.vi 04 Jun 2005
+
+--------------------------------------------------------------------------------
+v0.1.2 build 3 of 03 Nov 2005
+--------------------------------------------------------------------------------
+Notes:
+  + Exceptions now handled by program and error messages displayed. Exceptions
+    were previously crashing program.
+  + Documentation now HTML rather than plain text.
+File changes:
+  + Updated: PasH.dpr 1.2
+  + Updated: VerInfo.vi 02 Nov 2005
+
+--------------------------------------------------------------------------------
+v0.1.3 build 4 of 09 Dec 2005
+--------------------------------------------------------------------------------
+Notes:
+  + Fixed bug that was causing program to crash when standard error output was
+    redirected to a pipe when under control of external program.
+File changes:
+  + Updated: PasH.dpr 1.3
+  + New: UConsole.pas 1.0
+  + New: UStdIO.pas 1.0
+  + Updated: UStdIOStreams.pas 1.3
+  + Updated: VerInfo.vi 09 Dec 2005
+
+--------------------------------------------------------------------------------
+v0.1.4 build 5 of 17 Apr 2006
+--------------------------------------------------------------------------------
+Notes:
+  + Fixed error in title of generated XHTML documents - used to refer to
+    CodeSnip Database and now refers to PasH.
+File changes:
+  + Updated: USyntaxHiliters.pas 1.1
+  + Updated: VerInfo.vi 17 Apr 2006
+
+--------------------------------------------------------------------------------
+v0.1.5 build 6 of 10 Mar 2007
+--------------------------------------------------------------------------------
+Notes:
+  + Heavily refactored main program and parameter handling code.
+  + Invalid command line parameters now halt program with error message.
+  + Cosmetic changes to help display.
+  + Added new batch file to build program.
+  + Changed to new end user license agreement for the executable program. The
+    program remains open source.
+File changes:
+  + Updated: PasH.dpr 2.0
+  + New: UConfig.pas 1.0
+  + Updated: UConsole.pas 1.1
+  + New: UMain.pas 1.0
+  + New: UParams.pas 1.0
+  + Updated: VerInfo.vi 10 Mar 2007
+  + New: Build.bat 1.0
+
+--------------------------------------------------------------------------------
+v1.0.0 build 7 of 29 May 2009
+--------------------------------------------------------------------------------
+Notes:
+  + Added new -hidecss switch. Specifying it hides contents of <style> tag in
+    HTML comments. Default is now not to hide contents.
+  + Replaced on-the-fly generation of embedded style sheets for XHTML documents
+    with a default style sheet read from resources.
+  + Updated to use Delphi 2006 keyword and directives list from Delphi 7.
+  + Replaced generic DelphiDabbler icon with custom PasH icon set.
+  + Added Vista manifest.
+  + Removed unnecessary compiler directives in units, i.e. those that replicate
+    directives in project file.
+  + Made localisable string literals into resource strings.
+  + Fixed potential future bug in clipboard handling code.
+File changes:
+  + Removed: Img\DelphiDabbler.ico
+  + Removed: UHiliteAttrs.pas
+  + Updated: Build.bat 1.1
+  + Updated: IntfCommon.pas 1.1
+  + Updated: IntfHiliter.pas 1.1
+  + Updated: PasH.dpr 2.1
+  + Updated: Resources.rc 2.0 (renamed from Images.rc)
+  + Updated: UCharStack.pas 1.1
+  + Updated: UClipboardMgr.pas 1.1
+  + Updated: UClipboardStreams.pas 1.1
+  + Updated: UConfig.pas 1.1
+  + Updated: UHilitePasLexer.pas 1.2
+  + Updated: UHilitePasParser.pas 1.1
+  + Updated: UHTMLUtils.pas 1.1
+  + Updated: UMain.pas 1.1
+  + Updated: UParams.pas 1.1
+  + Updated: UStdIO.pas 1.1
+  + Updated: UStdIOStreams.pas 1.2
+  + Updated: UStrStreamWriter.pas 1.1
+  + Updated: USyntaxHiliters.pas 1.2
+  + Updated: UTextStreamReader.pas 1.1
+  + Updated: VerInfo.vi 29 May 2009
+  + New: Assets\Default.css 1.0
+  + New: Assest\PasH.ico 29 May 2009
+  + New: Assets\PasH.manifest 1.0
+
+--------------------------------------------------------------------------------
