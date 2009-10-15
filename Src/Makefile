@@ -106,7 +106,7 @@ config:
   @echo Configuring PasH
   # Create .cfg and .dof files from templates 
   @copy /Y PasH.cfg.tplt PasH.cfg
-#  @copy /Y PasH.dof.tplt PasH.dof
+  @copy /Y PasH.dof.tplt PasH.dof
   # Create build folders
   @cd ..
   @if exist Bin rmdir /S /Q Bin
