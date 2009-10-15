@@ -1,0 +1,530 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<!--
+ * Build.html
+ *
+ * Instructions for building PasH.
+ *
+ * $Rev$
+ * $Date$
+ *
+ * ***** BEGIN LICENSE BLOCK *****
+ *
+ * Version: MPL 1.1
+ *
+ * The contents of this file are subject to the Mozilla Public License Version
+ * 1.1 (the "License"); you may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at http://www.mozilla.org/MPL/
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for
+ * the specific language governing rights and limitations under the License.
+ *
+ * The Original Code is Build.html
+ *
+ * The Initial Developer of the Original Code is Peter Johnson
+ * (http://www.delphidabbler.com/).
+ *
+ * Portions created by the Initial Developer are Copyright (C) 2009 Peter
+ * Johnson. All Rights Reserved.
+ *
+ * Contributors:
+ *   NONE
+ *
+ * ***** END LICENSE BLOCK *****
+-->
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<html>
+
+<head>
+	<title>
+		Building PasH
+	</title>
+	<style>
+		body {
+			font-family: sans-serif;
+		}
+		dt.spaced {
+			margin-top: 0.5em;
+		}
+		h1 {
+			text-align: center;
+		}
+		h2 {
+			padding-bottom: 0.25em;
+			border-bottom: 1px silver solid;
+		}
+		ul.spaced li,
+		ol.spaced li {
+			margin-top: 0.5em;
+		}
+		.cmd {
+			margin-left: 2em;
+			margin-right: 2em;
+			background-color: #eef;
+			font-weight: bold;
+			padding: 0.25em;
+			border: 1px solid silver;
+		}
+		.prompt {
+			color: blue;
+		}
+	</style>
+</head>
+
+<body>
+
+<h1>
+	PasH Build Instructions
+</h1>
+
+<h2>
+	Introduction
+</h2>
+
+<p>
+	<em>PasH</em> is written in Object Pascal and is targeted at Delphi
+	7. The Delphi IDE can be used to modify the source and to perform test
+	builds. Final builds should be built using the provided Makefile, but you
+	can get away with using the IDE if you don't change any resources.
+</p>
+
+<p>
+	These notes apply only to source code of releases <strong>after and not
+	including</strong> <em>PasH</em> v1.0.0. For any earlier version please see
+	the file named <code>ReadMe-Src.txt</code> that will be in either the root
+	directory or the <code>Docs</code> sub-directory of the source code
+	distribution or repository.
+</p>
+
+<h2>
+	Dependencies
+</h2>
+
+<p>
+	The following library is required to compile <em>PasH</em>:
+</p>
+
+<dl>
+	<dt class="spaced">
+		Stream Extension Classes by DelphiDabbler
+	</dt>
+	<dd>
+		Used to provide code for wrapping streams and providing extra
+		functionality. The code is available from
+		<a
+			href="http://www.delphidabbler.com/software/streams"
+		>http://www.delphidabbler.com/software/streams</a>. v2.0.1 or later is
+		required.
+	</dd>
+</dl>
+
+<p>
+	You should download this DelphiDabbler code library and install it into a
+	package or at least ensure that the compiled <code>.dcu</code> files are all
+	in the same folder. It's easiest to use the Delphi IDE to do this.
+</p>
+
+<p>
+	Set the <code>DELPHIDABLIB</code> environment variable to the folder where
+	you placed the compiled library code.
+</p>
+
+<h3>
+	Delphi VCL
+</h3>
+
+<p>
+	You need the Delphi VCL in order to compile <em>PasH</em>.
+</p>
+
+<h2>
+	Build Tools
+</h2>
+
+<p>
+	The following tools are required to build <em>PasH</em>.
+</p>
+
+<h3>
+	Delphi
+</h3>
+
+<p>
+	A copy of Delphi is required to build the object Pascal code. Delphi 7
+	is preferred. Delphi 2005 to  2008 should be able to compile the source.
+	Delphi 2009 and later may work, but the code hasn't been written with Delphi
+	2009's Unicode support in mind, so there may be problems. Delphis earlier
+	than version 7 are likely to fail to compile <em>PasH</em>, but this hasn't
+	been tested.
+</p>
+
+<p>
+	You can use the Delphi IDE to edit the code and test compile it. The
+	makefile requires the following command line tools:
+</p>
+
+<dl>
+	<dt class="spaced">
+		<code>DCC32</code>
+	</dt>
+	<dd>
+		The Delphi command line compiler.
+	</dd>
+	<dt class="spaced">
+		<code>BRCC32</code>
+	</dt>
+	<dd>
+		The Borland resource compiler. Used to compile various source
+		(<code>.rc</code>) files.
+	</dd>
+</dl>
+
+<p>
+	The following environment variables are associated with these tools:
+</p>
+
+<dl>
+	<dt class="spaced">
+		<code>DELPHIROOT</code> - required unless <code>DELPH7</code> is set.
+	</dt>
+	<dd>
+		Should be set to the install directory of the version of Delphi being
+		used. <code>DCC32</code> and <code>BRCC32</code> are expected to be in
+		the <code>Bin</code> sub-directory of <code>DELPHIROOT</code>.
+	</dd>
+	<dt class="spaced">
+		<code>DELPHI7</code> - optional
+	</dt>
+	<dd>
+		If you are using Delphi 7 this environment variable should be set
+		to the Delphi install directory. When specified <code>DELPHIROOT</code>
+		will ignore its own value and use the value of <code>DELPHI7</code>
+		instead.
+	</dd>
+	<dt class="spaced">
+		<code>DELPHIDABLIB</code> - required unless <code>DELPHIDABLIB7</code>
+		is set.
+	</dt>
+	<dd>
+		Should be set to the directory where the compiler can find the required
+		DelphiDabbler library compiled units. The code in this directory must
+		have been compiled with the same version of Delphi used to compile
+		<em>PasH</em>.
+	</dd>
+	<dt class="spaced">
+		<code>DELPHIDABLIB7</code> - optional
+	</dt>
+	<dd>
+		If you are using Delphi 7 this enviroment variable may be set to
+		the install directory of the library code described above. When set the
+		value of this variable is used by <code>DELPHIDABLIB</code> regardless
+		of its own value.
+	</dd>
+</dl>
+
+<h3>
+	Borland MAKE
+</h3>
+
+<p>
+	This is the make tool that ships with Delphi. You can use any version that
+	works. 
+</p>
+
+<h3>
+	DelphiDabbler Version Information Editor (VIEd)
+</h3>
+
+<p>
+	This tool is used to compile version information (<code>.vi</code>) files
+	into intermediate resource source (<code>.rc</code>) files. Version 2.11.2
+	or later is required. Version Information Editor can be obtained from
+	<a
+		href="http://www.delphidabbler.com/software/vied"
+	>http://www.delphidabbler.com/software/vied</a>.
+</p>
+
+<p>
+	The program is expected to be on the path unless its install directory is
+	specified by the <code>VIEDROOT</code> environment variable.
+</p>
+
+<h3>
+	Zip
+</h3>
+
+<p>
+	This program is used to create <em>PasH</em>' release file. 
+	You can get a Windows command line version at
+	<a
+		href="http://stahlforce.com/dev/index.php?tool=zipunzip"
+	>http://stahlforce.com/dev/index.php?tool=zipunzip</a>.
+</p>
+
+<p>
+	The program is expected to be on the path unless its install directory is
+	specified by the <code>ZIPROOT</code> environment variable.
+</p>
+
+<h2>
+	Preparation
+</h2>
+
+<h3>
+	Configure the environment.
+</h3>
+
+<p>
+	The first step is to configure the required environment variables.
+</p>
+
+<ul>
+	<li>
+		<code>DELPHIROOT</code> or <code>DELPHI7ROOT</code>
+	</li>
+	<li>
+		<code>DELPHIDABLIB</code> or <code>DELPHIDABLIB7</code>
+	</li>
+</ul>
+
+<p>
+	Set any of the optional environment variables that are needed to specify the
+	path to any tools that are not on the system path.
+</p>
+
+<p>
+	You can configure environment variables either by modifying your system
+	environment variables or by creating a batch file that you run before
+	performing the build.
+</p>
+
+<h3>
+	Get the Source Code
+</h3>
+
+<p>
+	If you don't already have it, download the <em>PasH</em> source code. 
+	How to go about that is explained at
+	<a
+		href="http://www.delphidabbler.com/software/pash/download"
+	>http://www.delphidabbler.com/software/pash/download</a>. If necessary,
+	extract the source code into a folder, preserving the directory structure.
+</p>
+
+<h3>
+	Configure the Source Tree
+</h3>
+
+<p>
+	After checking out or downloading and extracting the source code you should
+	have the following directory structure:
+</p>
+
+<pre>./
+  |
+  +-- Docs                  - documentation
+  |
+  +-- Src                   - source code
+      |
+      +-- Assets            - various assets required to build resources</pre>
+          
+<p>
+	If, by chance you also have a <code>Bin</code>, <code>Exe</code> and
+	<code>Release</code> directory don't worry - all will become clear. 
+	Subversion users will also see the usual <code>.svn</code> hidden
+	directories. If you have done some editing you may also see occasional
+	hidden <code>__history</code> folders, depending on which version of Delphi
+	you are using.
+</p>
+
+<p>
+	Before you can get hacking, you need to prepare the code tree. Open a
+	command console and navigate into the <code>Src</code> sub-folder. Run any
+	script you have created to set the required environment variables then do:
+</p>
+
+<pre class="cmd"><span class="prompt">&gt;</span> Make config</pre>
+
+<p>
+	You may need to replace <code>Make</code> with the full path to
+	<code>Make</code> if it isn't on the path, or if the <code>Make</code> that
+	runs isn't the Borland / CodeGear version. If this is the case try:
+</p>
+
+<pre class="cmd"><span class="prompt">&gt;</span> %DELPHIROOT%\Bin\Make config</pre>
+
+<p>
+	or
+</p>
+  
+<pre class="cmd"><span class="prompt">&gt;</span> %DELPHI7%\Bin\Make config</pre>
+
+<p>
+	depending on which environment variable you have set.
+</p>
+
+<p>
+	Once <code>Make config</code> has completed your folder structure should
+	have acquired the following new folders:
+</p>
+
+<pre>./
+  |
+  +-- Bin                   - receives object files and .res files 
+  |
+  ...
+  |
+  +-- Exe                   - receives executable code
+  |
+  +-- Release               - receives release files
+  |
+  ...</pre>
+
+<p>
+	If the <code>Bin</code>, <code>Exe</code> and <code>Release</code> folders 
+	already existed they will have been emptied. In addition, <code>Make</code>
+	will have created <code>.cfg</code> and <code>.dof</code> files from
+	templates in the <code>Src</code> folder. <code>.cfg</code> files are needed
+	for DCC32 to run correctly and <code>.dof</code> files enable the use of the
+	Delphi IDE. These files will be ignored by Subversion.
+</p>
+  
+<p>
+	If you are intending to use the Delphi IDE to compile code, you should also
+	do:
+</p>
+
+<pre class="cmd"><span class="prompt">&gt;</span> Make resources</pre>
+
+<p>
+	This compiles the resource files that the IDE needs to link into compiled
+	executables.
+</p>
+
+<p>
+	You are now ready to build the source.
+</p>
+
+<h2>
+	Building PasH
+</h2>
+
+<p>
+	You have several options:
+</p>
+
+<ul>
+	<li>
+		Build the <em>PasH</em> Executable
+	</li>
+	<li>
+		Build the Release Zip File.
+	</li>
+	<li>
+		Build and Release Everything.
+	</li>
+	<li>
+		Clean Up.
+	</li>
+</ul>
+
+<p>
+	Each of these options is described below. All except the last assume that
+	<code>Make config</code> has been run.
+</p>
+
+<h3>
+	Build the PasH Executable
+</h3>
+
+<p>
+	This is the most common build and is achieved by using the following
+	commands:
+</p>
+
+<pre class="cmd"><span class="prompt">&gt;</span> Make resources
+<span class="prompt">&gt;</span> Make pascal</pre>
+ 
+<p>
+	<code>PasH.exe</code> will be generated and placed in the
+	<code>Exe</code> folder.
+</p>
+
+<h3>
+	Build the Release Zip File
+</h3>
+
+<p>
+	Once the setup file has been created you can create a zip file containing
+	the setup file along with required documentation from the <code>Docs</code>
+	directory. If either file is missing the release fails. Build the release by
+	doing:
+</p>
+
+<pre class="cmd"><span class="prompt">&gt;</span> Make release</pre>
+
+<p>
+	By default the release file is called <code>dd-PasH.zip</code>. You can
+	change this name by defining the <code>RELEASEFILENAME</code> macro or
+	enviroment variable. For example, you can name the file
+	<code>MyRelease.zip</code> by doing:
+</p>
+
+<pre class="cmd"><span class="prompt">&gt;</span> Make -DRELEASEFILENAME=MyRelease release</pre>
+
+<h3>
+	Build and Release Everything
+</h3>
+
+<p>
+	You can do a clean build of everything, and generate the release zip file
+	simply by doing:
+</p>
+
+<pre class="cmd"><span class="prompt">&gt;</span> Make</pre>
+
+<p>
+	without specifying a target. This is the equivalent of:
+</p>
+
+<pre class="cmd"><span class="prompt">&gt;</span> Make config
+<span class="prompt">&gt;</span> Make resources
+<span class="prompt">&gt;</span> Make pascal
+<span class="prompt">&gt;</span> Make release</pre>
+
+<h3>
+	Clean Up
+</h3>
+
+<p>
+	Various temporary files and directories are created by the IDE. These can be
+	deleted by running:
+</p>
+
+<pre class="cmd"><span class="prompt">&gt;</span> Make clean</pre>
+
+<p>
+	Be warned though that this command removes any <code>__history</code>
+	folders that some versions of Delphi use to maintain earlier versions of
+	files. 
+</p>
+
+<h2>
+	Copyright
+</h2>
+
+<p>
+	If you are planning to re-use or modify any of the code, please see the file
+	<code>SourceCodeLicenses.txt</code> in the <code>Docs</code> directory for
+	an overview of the open source licenses that apply to the <em>PasH</em>
+	source code.
+</p>
+
+</body>
+
+</html>
