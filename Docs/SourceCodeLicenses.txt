@@ -1,16 +1,17 @@
+================================================================================
 
-¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
 PASH SOURCE CODE LICENSING
-________________________________________________________________________________
+
+================================================================================
 
 This document discusses and presents the relevant licenses governing the PasH
-source code available from DelphiDabbler.com as part of the PasH source code
-download.
+source code as maintained in the PasH Subversion code repository and provided
+for download in compressed archives.
 
-The download includes:
+The source code includes:
 
 + Original Source Code written by Peter Johnson.
-+ Some binary resource files that may be difficult to recompile from source.
++ Documentation.
 + Image files.
 
 Please refer to the relevant section below fo details of licensing.
@@ -23,10 +24,9 @@ Explicitly it doesn't include:
 + DelphiDabbler library units. These are all available from
   http://www.delphidabbler.com/software?id=pash&tab=download
   
-
-¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+--------------------------------------------------------------------------------
 Original Source Code
-________________________________________________________________________________
+--------------------------------------------------------------------------------
 
 Original source files are stored in the the following directories:
 
@@ -42,21 +42,46 @@ public domain.
 Many source code files are licensed under the Mozilla Public License. A full
 copy of that license can be found in MPL.txt
 
+--------------------------------------------------------------------------------
+Documentation
+--------------------------------------------------------------------------------
 
-¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-Binary Resource Files
-________________________________________________________________________________
+Documentation files are maintained in the Docs directory. In addition the
+Build.html file is maintained in the root directory.
 
-The following binary files are provided in the Bin directory. Governing licenses
-are those that apply to their source files.
+Terms and conditions apply to the following files:
 
-+ Resources.res - compiled from Resources.rc
-+ VersionInfo.res - compiled from VersionInfo.vi
+ChangeLog.txt
+-------------
+May only be updated to describe changes made to the release of any derivative
+work. You are urged to maintain this file, but it may be removed if desired.
 
+License.txt
+-----------
+May not be changed.
 
-¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+MPL.txt
+-------
+This file may not be modified and must be distributed with any derivative work.
+
+ReadMe.html
+-----------
+Restrictions apply. See the comments contained in the HTML source for details.
+
+SourceCodeLicenses.txt
+----------------------
+May be updated to provide license information that applies to any additional
+source files. Information pertaining to unmodified existing files must be
+retained.
+
+Conditions and licenses attached to certain specified files are noted below. If
+a documentation file is not listed below, check the text or source code of the
+document for any restrictions on use. If none are present the file may be
+treated as public domain.
+
+--------------------------------------------------------------------------------
 Image Files
-________________________________________________________________________________
+--------------------------------------------------------------------------------
 
 The only image provided is the program's icon, PasH.ico. This file is copyright
 (C) 2009 Peter Johnson (www.delphidabbler.com).
@@ -68,5 +93,7 @@ permission is given by the author.
 This means that if you modify PasH and publish your changes then you must
 remove the icon or repace it with you own.
 
-
-¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+--------------------------------------------------------------------------------
+$Rev$
+$Date$
+--------------------------------------------------------------------------------
