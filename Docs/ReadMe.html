@@ -2,15 +2,18 @@
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <!--
-	Copyright (C) 2005-2009 Peter Johnson (www.delphidabbler.com)
-	
-	This document may only be re-distributed or re-published only with the
-	DelphiDabbler PasH Pascal Highlighter program available from 
-	http://www.delphidabbler.com/software/pash
-	
-	The document may be modified only if distributed with a modified version
-	DelphiDabbler PasH Pascal Highlighter. Modified version must retain this
-	copyright message and the author and copyright meta tags.
+ * Copyright (C) 2005-2009 Peter Johnson (www.delphidabbler.com)
+ *
+ * This document may be re-distributed or re-published only with the
+ * DelphiDabbler PasH Pascal Highlighter program available from 
+ * http://www.delphidabbler.com/software/pash
+ *
+ * The document may be modified only if distributed with a modified version
+ * DelphiDabbler PasH Pascal Highlighter. Modified version must retain this
+ * copyright message and the author and copyright meta tags.
+ *
+ * $Rev$
+ * $Date$
 -->
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
@@ -43,7 +46,6 @@
 	/>
 
 	<style>
-		<!--
 		body {
 			margin: 1em;
 			padding: 0;
@@ -186,7 +188,6 @@
 		th.left-align {
 			text-align: left;
 		}
-		-->
 	</style>
 
 </head>
@@ -405,10 +406,10 @@
 		Outputs a XHTML code fragment containing just the highlighted code
 		contained in a <code>&lt;pre&gt;</code> ... <code>&lt;/pre&gt;</code>
 		tag pair. This option is designed for pasting code fragment into an
-		exiting XHTML document. This is a common option when adding highlighted
-		code to a web page. The web page will need to provide suitable CSS code
-		to style the fragment &ndash; see below for details of the required
-		CSS classes. <em>You should not combine this switch with
+		exiting XHTML document. This is a common requirement when adding
+		highlighted code to a web page. The web page will need to provide
+		suitable CSS code to style the fragment &ndash; see below for details of
+		the required CSS classes. <em>You should not combine this switch with
 		<code>-hidecss</code>.</em>
 	</dd>
 	<dt>
@@ -462,8 +463,8 @@
 		<pre style="display:inline">PasH -rc -wc -frag</pre>.
 	</li>
 	<li>
-		Switch to editor containing the web page and paste in the highlighted
-		code.
+		Switch to the editor containing the web page and paste in the
+		highlighted code.
 	</li>
 </ol>
 
@@ -501,6 +502,18 @@
     	Style for keywords and reserved words.
     </dd>
     <dt>
+    	.pas-ident
+    </dt>
+    <dd>
+    	Style for non-keyword identifiers.
+    </dd>
+    <dt>
+    	.pas-sym
+    </dt>
+    <dd>
+    	Style for symbols (e.g <code>:=</code> and <code>&gt;</code>).
+    </dd>
+    <dt>
     	.pas-str
     </dt>
     <dd>
@@ -535,6 +548,12 @@
     </dt>
     <dd>
     	Style for assembler.
+    </dd>
+    <dt>
+    	.pas-space
+    </dt>
+    <dd>
+    	Style for whitespace.
     </dd>
     <dt>
     	.pas-err
@@ -605,6 +624,8 @@
     font-weight: normal;
     text-decoration: none;
     color: #FF0000;
+}
+.pas-sym, .pas-space, .pas-ident {
 }</pre>
 
 <p>
