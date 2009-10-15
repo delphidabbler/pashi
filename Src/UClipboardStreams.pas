@@ -4,10 +4,8 @@
  * Defines objects that can read and write the clipboard via a TStream
  * interface.
  *
- * v1.0 of 28 May 2005  - Original version.
- * v1.1 of 29 May 2009  - Corrected error where required clipboard format was
- *                        beging ignored and CF_TEXT always used in its place.
- *                      - Removed all but $WARN compiler directives.
+ * $Rev$
+ * $Date$
  *
  *
  * ***** BEGIN LICENSE BLOCK *****
@@ -29,6 +27,9 @@
  *
  * Portions created by the Initial Developer are Copyright (C) 2005-2009 Peter
  * Johnson. All Rights Reserved.
+ *
+ * Contributor(s):
+ *   NONE
  *
  * ***** END LICENSE BLOCK *****
 }

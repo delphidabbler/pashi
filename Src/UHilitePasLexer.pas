@@ -3,13 +3,8 @@
  *
  * Defines class that analyses and tokenises Pascal code.
  *
- * v1.0 of 28 May 2005  - Original version.
- * v1.1 of 04 Jun 2005  - Made lexer detect line ends in multiline comments and
- *                        return alternate comment and new line tokens until
- *                        comment is closed.
- * v1.2 of 31 May 2009  - Added new keywords and directives as supported in
- *                        Delphi 2006.
- *                      - Deleted all compiler directives.
+ * $Rev$
+ * $Date$
  *
  *
  * ***** BEGIN LICENSE BLOCK *****
@@ -31,6 +26,9 @@
  *
  * Portions created by the Initial Developer are Copyright (C) 2005-2009 Peter
  * Johnson. All Rights Reserved.
+ *
+ * Contributor(s):
+ *   NONE
  *
  * ***** END LICENSE BLOCK *****
 }

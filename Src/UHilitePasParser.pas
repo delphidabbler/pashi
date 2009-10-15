@@ -4,8 +4,8 @@
  * Defines class that parses Pascal files and splits into different highlighting
  * elements.
  *
- * v1.0 of 28 May 2005  - Original version.
- * v1.1 of 29 May 2009  - Removed compiler directives and TODO directives.
+ * $Rev$
+ * $Date$
  *
  *
  * ***** BEGIN LICENSE BLOCK *****
@@ -27,6 +27,9 @@
  *
  * Portions created by the Initial Developer are Copyright (C) 2005-2009 Peter
  * Johnson. All Rights Reserved.
+ *
+ * Contributor(s):
+ *   NONE
  *
  * ***** END LICENSE BLOCK *****
 }

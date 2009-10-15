@@ -3,15 +3,8 @@
  *
  * Implements class that executes program.
  *
- * v1.0 of 10 Mar 2007  - Original version. Code based on that formerly in
- *                        main project file. Error handling improved. Help text
- *                        slightly updated.
- * v1.1 of 30 May 2009  - Added support -hidecss switch.
- *                      - Changed to use revised ISyntaxHiliter.Hilite method
- *                        call and removed instantiation of hilight attributes.
- *                      - Updated and corrected help screen.
- *                      - Now sets exit code of 0 on success, 1 on error.
- *                      - Moved sign on message into a resource string.
+ * $Rev$
+ * $Date$
  *
  *
  * ***** BEGIN LICENSE BLOCK *****
@@ -33,6 +26,9 @@
  *
  * Portions created by the Initial Developer are Copyright (C) 2007-2009 Peter
  * Johnson. All Rights Reserved.
+ *
+ * Contributor(s):
+ *   NONE
  *
  * ***** END LICENSE BLOCK *****
 }

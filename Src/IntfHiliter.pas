@@ -4,12 +4,8 @@
  * Declares types that describe syntax hilighters and defines interfaces to
  * various syntax highlighters and highlighter attributes.
  *
- * v1.0 of 28 May 2005  - Original version.
- * v1.1 of 30 May 2009  - Removed all compiler directives.
- *                      - Added support for new highlighter kind that creates
- *                        complete XHTML document with CSS hidden by comments.
- *                      - Removed IHiliteAttrs and IHiliteElemAttrs interface
- *                        declarations.
+ * $Rev$
+ * $Date$
  *
  *
  * ***** BEGIN LICENSE BLOCK *****
@@ -31,6 +27,9 @@
  *
  * Portions created by the Initial Developer are Copyright (C) 2005-2009 Peter
  * Johnson. All Rights Reserved.
+ *
+ * Contributor(s):
+ *   NONE
  *
  * ***** END LICENSE BLOCK *****
 }

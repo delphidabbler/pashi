@@ -1,11 +1,10 @@
 {
- * UParams.dpr
+ * UParams.pas
  *
  * Implements class that parses command line and records details.
  *
- * v1.0 of 10 Mar 2007  - Original version.
- * v1.1 of 29 May 2009  - Moved error messages to resource strings.
- *                      - Added support for -hidecss switch.
+ * $Rev$
+ * $Date$
  *
  *
  * ***** BEGIN LICENSE BLOCK *****
@@ -27,6 +26,9 @@
  *
  * Portions created by the Initial Developer are Copyright (C) 2007-2009 Peter
  * Johnson. All Rights Reserved.
+ *
+ * Contributor(s):
+ *   NONE
  *
  * ***** END LICENSE BLOCK *****
 }

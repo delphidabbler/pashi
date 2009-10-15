@@ -4,11 +4,8 @@
  * Defines objects that can read from standard input and write to standard
  * output via a TStream interface.
  *
- * v1.0 of 28 May 2005  - Original version.
- * v1.1 of 09 Dec 2005  - Revised TStdInStream and TStdOutStream to use TStdIO
- *                        static class to do actual reading and writing of
- *                        standard input and standard output.
- * v1.2 of 29 May 2009  - Removed all except $WARN compiler directives.
+ * $Rev$
+ * $Date$
  *
  *
  * ***** BEGIN LICENSE BLOCK *****
@@ -30,6 +27,9 @@
  *
  * Portions created by the Initial Developer are Copyright (C) 2005-2009 Peter
  * Johnson. All Rights Reserved.
+ *
+ * Contributor(s):
+ *   NONE
  *
  * ***** END LICENSE BLOCK *****
 }

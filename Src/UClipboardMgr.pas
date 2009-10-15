@@ -4,9 +4,8 @@
  * Defines a lightweight object that accesses and saves clipboard data. Used to
  * avoid overhead of ClipBrd unit.
  *
- * v1.0 of 28 May 2005  - Original version.
- * v1.1 of 29 May 2009  - Removed all compiler directives.
- *                      - Moved error message string literal to resource string.
+ * $Rev$
+ * $Date$
  *
  *
  * ***** BEGIN LICENSE BLOCK *****
@@ -28,6 +27,9 @@
  *
  * Portions created by the Initial Developer are Copyright (C) 2005-2009 Peter
  * Johnson. All Rights Reserved.
+ *
+ * Contributor(s):
+ *   NONE
  *
  * ***** END LICENSE BLOCK *****
 }

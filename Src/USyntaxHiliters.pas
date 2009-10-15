@@ -4,17 +4,8 @@
  * Provides highlighter classes used to format and highlight source code in
  * HTML. Also contains a factory object used to create various highlighters.
  *
- * v1.0 of 28 May 2005  - Original version.
- * v1.1 of 17 Apr 2006  - Corrected <title> emitted by TXHTMLHiliter from
- *                        "DelphiDabbler CodeSnip Database" to "File generated
- *                        by DelphiDabbler PasH Pascal Highlighter".
- * v1.2 of 31 May 2009  - Removed compiler directives.
- *                      - Moved some localisable strings to resource strings.
- *                      - Added support for not hiding (in comments) embedded
- *                        CSS in complete XHTML documents.
- *                      - No longer generates style sheet for complete XHTML
- *                        documents. Now embeds a style sheet from resources
- *                        instead.
+ * $Rev$
+ * $Date$
  *
  *
  * ***** BEGIN LICENSE BLOCK *****
@@ -36,6 +27,9 @@
  *
  * Portions created by the Initial Developer are Copyright (C) 2005-2009 Peter
  * Johnson. All Rights Reserved.
+ *
+ * Contributor(s):
+ *   NONE
  *
  * ***** END LICENSE BLOCK *****
 }

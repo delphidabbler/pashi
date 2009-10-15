@@ -3,25 +3,8 @@
  *
  * Main project file.
  *
- * v1.0 of 28 May 2005 -  Original version.
- * v1.1 of 04 Jun 2005 -  Fixed minor typo in help display.
- * v1.2 of 02 Nov 2005 -  Exceptions now handled by program and error messages
- *                        displayed. Exceptions were previously crashing
- *                        program.
- * v1.3 of 09 Dec 2005 -  Added new UStdIO and UConsole units.
- *                     -  Changed code that writes to console to use new
- *                        TConsole class. This fixes an obscure bug that was
- *                        crashing program when redirecting standard error to a
- *                        pipe.
- * v2.0 of 10 Mar 2007 -  Added new UConfig, UMain, UParams units.
- *                     -  Removed all main program code (it is now in TMain).
- *                        Project code now only creates, executes and frees
- *                        TMain.
- *                     -  Changed to use long version of compiler directives and
- *                        changed value of some of these and added and deleted
- *                        others.
- * v2.1 of 30 May 2009 -  Changed to use Resources.res instead of Images.res.
- *                     -  Removed UHiliteAttrs unit.
+ * $Rev$
+ * $Date$
  *
  *
  * ***** BEGIN LICENSE BLOCK *****
@@ -43,6 +26,9 @@
  *
  * Portions created by the Initial Developer are Copyright (C) 2005-2009 Peter
  * Johnson. All Rights Reserved.
+ *
+ * Contributor(s):
+ *   NONE
  *
  * ***** END LICENSE BLOCK *****
 }

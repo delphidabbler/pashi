@@ -3,11 +3,8 @@
  *
  * Implements class that writes text to console using standard error.
  *
- * v1.0 of 09 Dec 2005 - Original version.
- * v1.1 of 10 Mar 2007 - Removed Silent parameter from TConsole constructor and
- *                       replaced with read/write property.
- *                     - Removed compiler directives. These are now set in
- *                       project file.
+ * $Rev$
+ * $Date$
  *
  *
  * ***** BEGIN LICENSE BLOCK *****
@@ -22,15 +19,16 @@
  * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for
  * the specific language governing rights and limitations under the License.
  *
- * The Original Code is UConsole.pas in PasH.
+ * The Original Code is UConsole.pas.
  *
  * The Initial Developer of the Original Code is Peter Johnson
  * (http://www.delphidabbler.com/).
  *
- * Portions created by the Initial Developer are Copyright (C) 2005-2007 Peter
+ * Portions created by the Initial Developer are Copyright (C) 2005-2009 Peter
  * Johnson. All Rights Reserved.
  *
- * Contributor(s): None
+ * Contributor(s):
+ *   NONE
  *
  * ***** END LICENSE BLOCK *****
 }

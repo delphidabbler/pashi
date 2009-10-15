@@ -3,8 +3,8 @@
  *
  * Implements a stack of characters.
  *
- * v1.0 of 28 May 2005  - Original version.
- * v1.1 of 29 May 2009  - Removed all except $WARN compiler directives.
+ * $Rev$
+ * $Date$
  *
  *
  * ***** BEGIN LICENSE BLOCK *****
@@ -26,6 +26,9 @@
  *
  * Portions created by the Initial Developer are Copyright (C) 2005-2009 Peter
  * Johnson. All Rights Reserved.
+ *
+ * Contributor(s):
+ *   NONE
  *
  * ***** END LICENSE BLOCK *****
 }

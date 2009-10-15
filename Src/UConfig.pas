@@ -3,10 +3,8 @@
  *
  * Implements class that stores program's configuration information.
  *
- * v1.0 of 10 Mar 2007 -  Original version.
- * v1.1 of 29 May 2009 -  Added support for doc type that generates a complete
- *                        XHTML document but which hides embedded CSS from
- *                        browser in HTML comments.
+ * $Rev$
+ * $Date$
  *
  *
  * ***** BEGIN LICENSE BLOCK *****
@@ -28,6 +26,9 @@
  *
  * Portions created by the Initial Developer are Copyright (C) 2007-2009 Peter
  * Johnson. All Rights Reserved.
+ *
+ * Contributor(s):
+ *   NONE
  *
  * ***** END LICENSE BLOCK *****
 }

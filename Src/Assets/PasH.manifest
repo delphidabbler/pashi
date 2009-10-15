@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 
 <!--
-  PasH.manifest
-
-  Manifest file for PasH Pascal Highlighter. Specifies execution level required
-  for Vista.
-
-  v1.0 of 29 May 2009 -	  Original version that permits application to run
-                          without elevation on Vista.
+ * PasH.manifest
+ *
+ * Manifest file for PasH Pascal Highlighter. Specifies execution level required
+ * for Vista.
+ *
+ * $Rev$
+ * $Date$
 -->
 
 
