@@ -1,9 +1,12 @@
 {
- * Change log
+ * Test.pas
  *
- * 04 Jun 2005 - Original version
- * 30 May 2009 - Changed $MESSAGE compiler directive message type from WARN to
- *               FATAL
+ * PasH test file. Used to check PasH output.
+ *
+ * DO NOT COMPILE THIS FILE.
+ *
+ * $Rev$
+ * $Date$
 }
 
 unit Test;
