@@ -4,7 +4,7 @@
 @rem Copyright (C) Peter Johnson (www.delphidabbler.com), 2006-2010
 @rem
 @rem $Rev$
-@rem $Dev$
+@rem $Date$
 @rem
 @rem Requires:
 @rem   Borland Delphi 2006
@@ -12,15 +12,14 @@
 @rem   DelphiDabbler Version Information Editor from www.delphidabbler.com
 @rem
 @rem Also requires the following environment variables:
-@rem   DELPHI2006 to be set to the install directory of Delphi 7
+@rem   DELPHI2006 to be set to the install directory of Delphi 2006
 @rem
 @rem Switches: exactly one of the following must be provided
 @rem   all - build everything
+@rem   config - configure development tree (res and pas require config to have
+@rem     been run)
 @rem   res - build binary resource files only
-@rem   tlb - build type library from IDL and associated .pas file
 @rem   pas - build Delphi Pascal project only
-@rem   help - build help file
-@rem   setup - build setup file
 @rem
 @rem ---------------------------------------------------------------------------
 
@@ -47,12 +46,15 @@ rem reset all config variables
 
 set BuildResources=
 set BuildPascal=
+set BuildConfig=
 
 rem check switch
 
 if "%~1" == "all" goto Config_BuildAll
 if "%~1" == "res" goto Config_BuildResources
 if "%~1" == "pas" goto Config_BuildPascal
+if "%~1" == "config" goto Config_BuildConfig
+
 set ErrorMsg=Unknown switch "%~1"
 if "%~1" == "" set ErrorMsg=No switch specified
 goto Error
@@ -62,7 +64,7 @@ rem set config variables
 :Config_BuildAll
 set BuildResources=1
 set BuildPascal=1
-set BuildSetup=1
+set BuildConfig=1
 goto Config_OK
 
 :Config_BuildResources
@@ -73,6 +75,9 @@ goto Config_OK
 set BuildPascal=1
 goto Config_OK
 
+:Config_BuildConfig
+set BuildConfig=1
+goto Config_OK
 
 rem script configured OK
 
@@ -106,18 +111,12 @@ rem ----------------------------------------------------------------------------
 
 :SetEnvVars
 echo Setting Up Environment
-rem set up environment for MS SDK
-
-rem directories
-
-rem full path to this file
-set BuildDir=%~dp0
 rem source directory
-set SrcDir=.\
+set SrcDir=.
 rem binary files directory
-set BinDir=..\Bin\
+set BinDir=..\..\Bin\GUI
 rem executable files directory
-set ExeDir=..\Exe\
+set ExeDir=..\..\Exe
 
 rem executable programs
 
@@ -140,6 +139,30 @@ rem ----------------------------------------------------------------------------
 echo BUILDING ...
 echo.
 
+goto Build_Config
+
+rem ----------------------------------------------------------------------------
+rem Configure Development Tree
+rem ----------------------------------------------------------------------------
+
+:Build_Config
+if not defined BuildConfig goto Build_Resources
+echo Configuring Development Tree
+echo.
+
+rem Ensure required output directories exist
+if not exist %BinDir% mkdir %BinDir%
+if not exist %ExeDir% mkdir %ExeDir%
+
+rem Create .cfg and .bdsproj files from templates
+if exist %SrcDir%\PasHGUI.cfg del %SrcDir%\PasHGUI.cfg
+copy %SrcDir%\PasHGUI.cfg.tplt %SrcDir%\PasHGUI.cfg
+if exist %SrcDir%\PasHGUI.bdsproj del %SrcDir%\PasHGUI.bdsproj
+copy %SrcDir%\PasHGUI.bdsproj.tplt %SrcDir%\PasHGUI.bdsproj
+
+echo. Configuration done.
+echo.
+
 goto Build_Resources
 
 
@@ -156,13 +179,13 @@ rem set required env vars
 
 rem Ver info resource
 set VerInfoBase=VersionInfo
-set VerInfoSrc=%SrcDir%%VerInfoBase%.vi
-set VerInfoTmp=%SrcDir%%VerInfoBase%.rc
-set VerInfoRes=%BinDir%%VerInfoBase%.res
+set VerInfoSrc=%SrcDir%\%VerInfoBase%.vi
+set VerInfoTmp=%SrcDir%\%VerInfoBase%.rc
+set VerInfoRes=%BinDir%\%VerInfoBase%.res
 rem Resources resource
 set ResourcesBase=Resources
-set ResourcesSrc=%SrcDir%%ResourcesBase%.rc
-set ResourcesRes=%BinDir%%ResourcesBase%.res
+set ResourcesSrc=%SrcDir%\%ResourcesBase%.rc
+set ResourcesRes=%BinDir%\%ResourcesBase%.res
 
 rem Compile version information resource
 
@@ -213,10 +236,10 @@ if not defined BuildPascal goto Build_End
 
 rem Set up required env vars
 set PascalBase=PasHGUI
-set PascalSrc=%SrcDir%%PascalBase%.dpr
-set PascalExe=%ExeDir%%PascalBase%.exe
+set PascalSrc=%SrcDir%\%PascalBase%.dpr
+set PascalExe=%ExeDir%\%PascalBase%.exe
 
-if not defined BuildPascal goto Build_Help
+if not defined BuildPascal goto Build_End
 echo Building Pascal Project
 %DCC32Exe% -B %PascalSrc%
 if errorlevel 1 goto Pascal_Error
