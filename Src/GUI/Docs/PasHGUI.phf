@@ -1,0 +1,101 @@
+@PROJECT_NAME           PashGUI
+@PROJECT_DESC           GUI front end for PasH Pascal Syntax Highlighter.
+@ROOT                   ..\Src
+@OWNER                  DelphiDabbler
+@AUTHOR                 Peter D Johnson (DelphiDabbler), LLANARTH, Ceredigion,
+                        Wales, UK.
+@EMAIL                  peter.johnson@openlink.org
+@COPYRIGHT              © Peter D Johnson, 2006.
+@HISTORY(
+  @REVISION(
+    @VERSION            0.1 (build 1)
+    @DATE               17/06/2006
+    @COMMENTS           Initial beta release.
+    @COMPILERS          + Borland Delphi 2006 for Win32
+                        + Borland BRCC32 resource compiler v5.4
+                        + DelphiDabbler Version Information Editor v2.11
+    @FILES(
+      @NEW(
+        @FILE           PasHGUI.dpr
+        @VERSION        1.0
+      )
+      @NEW(
+        @FILE           FmMain.pas
+        @VERSION        1.0
+      )
+      @NEW(
+        @FILE           IntfDropDataHandler.pas
+        @VERSION        1.0
+      )
+      @NEW(
+        @FILE           IntfUIHandlers.pas
+        @VERSION        1.0
+      )
+      @NEW(
+        @FILE           UClipboardWriteStream.pas
+        @VERSION        1.0
+      )
+      @NEW(
+        @FILE           UClipFmt.pas
+        @VERSION        1.0
+      )
+      @NEW(
+        @FILE           UConsoleApp.pas
+        @VERSION        1.0
+      )
+      @NEW(
+        @FILE           UDataObjectAdapter.pas
+        @VERSION        1.0
+      )
+      @NEW(
+        @FILE           UDocument.pas
+        @VERSION        1.0
+      )
+      @NEW(
+        @FILE           UDropTarget.pas
+        @VERSION        1.0
+      )
+      @NEW(
+        @FILE           UInputData.pas
+        @VERSION        1.0
+      )
+      @NEW(
+        @FILE           UNulWBContainer.pas
+        @VERSION        1.0
+      )
+      @NEW(
+        @FILE           UOutputData.pas
+        @VERSION        1.0
+      )
+      @NEW(
+        @FILE           UPasH.pas
+        @VERSION        1.0
+      )
+      @NEW(
+        @FILE           UPipe.pas
+        @VERSION        1.0
+      )
+      @NEW(
+        @FILE           UUtils.pas
+        @VERSION        1.0
+      )
+      @NEW(
+        @FILE           UWBContainer.pas
+        @VERSION        1.0
+      )
+      @NEW(
+        @FILE           Resources.rc
+        @VERSION        1.0
+      )
+      @NEW(
+        @FILE           VersionInfo.vi
+        @DATE           17/06/2006
+        @COMMENTS       Original version.
+      )
+      @NEW(
+        @FILE           Build.bat
+        @VERSION        1.0
+      )
+    )
+  )
+)
