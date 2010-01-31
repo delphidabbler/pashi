@@ -1,9 +1,10 @@
 @rem ---------------------------------------------------------------------------
 @rem Script used to build the DelphiDabbler PasHGUI project
 @rem
-@rem Copyright (C) Peter Johnson (www.delphidabbler.com), 2006
+@rem Copyright (C) Peter Johnson (www.delphidabbler.com), 2006-2010
 @rem
-@rem v1.0 of 17 Jun 2006 - First version
+@rem $Rev$
+@rem $Dev$
 @rem
 @rem Requires:
 @rem   Borland Delphi 2006

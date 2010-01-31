@@ -3,8 +3,8 @@
  *
  * A class that encapsulates an unamed pipe that can read and write the pipe.
  *
- * v1.0 of 14 Jun 2006 - Original version.
- *
+ * $Rev$
+ * $Date$
  *
  * ***** BEGIN LICENSE BLOCK *****
  *
@@ -18,15 +18,16 @@
  * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for
  * the specific language governing rights and limitations under the License.
  *
- * The Original Code is UPipe.pas from PasHGUI.
+ * The Original Code is UPipe.pas
  *
  * The Initial Developer of the Original Code is Peter Johnson
  * (http://www.delphidabbler.com/).
  *
- * Portions created by the Initial Developer are Copyright (C) 2006 Peter
+ * Portions created by the Initial Developer are Copyright (C) 2006-2010 Peter
  * Johnson. All Rights Reserved.
  *
- * Contributor(s): None
+ * Contributor(s):
+ *   NONE
  *
  * ***** END LICENSE BLOCK *****
 }

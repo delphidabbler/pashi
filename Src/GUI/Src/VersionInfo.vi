@@ -3,10 +3,12 @@
 ;
 ; Version information description file used to create VersionInfo.res resource
 ; file. Build this file with DelphiDabbler Version Information Editor from
-; http://www.delphidabbler.com/
-; Compile the resulting .rc file using Borland BRCC32 resource compiler.
+; http://www.delphidabbler.com/. Compile the resulting .rc file using Borland
+; BRCC32 resource compiler.
 ;
-; WARNING: DO NOT EDIT DIRECTLY
+; $Rev$
+; $Date$
+;
 ; ==============================================================================
 ;
 ; ***** BEGIN LICENSE BLOCK *****
@@ -21,15 +23,16 @@
 ; WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for
 ; the specific language governing rights and limitations under the License.
 ;
-; The Original Code is VersionInfo.vi from PasHGUI.
+; The Original Code is VersionInfo.vi
 ;
 ; The Initial Developer of the Original Code is Peter Johnson
 ; (http://www.delphidabbler.com/).
 ;
-; Portions created by the Initial Developer are Copyright (C) 2006 Peter
+; Portions created by the Initial Developer are Copyright (C) 2006-2010 Peter
 ; Johnson. All Rights Reserved.
 ;
-; Contributor(s): None
+; Contributor(s):
+;   NONE
 ;
 ; ***** END LICENSE BLOCK *****
 ;
