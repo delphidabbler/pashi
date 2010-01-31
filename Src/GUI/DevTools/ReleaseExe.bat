@@ -8,5 +8,15 @@
 @rem ---------------------------------------------------------------------------
 
 @echo off
-del ..\release\dd-pashgui.zip
-zip -j -9 ..\release\dd-pashgui.zip ..\Exe\PasHGUI.exe ..\Docs\ReadMe.txt ..\Docs\License.txt
+
+set RelDir=..\..\..\Release
+set ZipFile=%RelDir%\dd-pashgui.zip
+set ExeDir=..\..\..\Exe
+set DocsDir=..\..\..\Docs\GUI
+
+if not exist %RelDir% mkdir %RelDir%
+if exist %ZipFile% del %ZipFile%
+
+zip -j -9 %ZipFile% %ExeDir%\PasHGUI.exe
+zip -j -9 %ZipFile% %DocsDir%\ReadMe.txt
+zip -j -9 %ZipFile% %DocsDir%\License.txt

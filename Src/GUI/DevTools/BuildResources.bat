@@ -9,7 +9,7 @@
 
 @echo off
 echo BUILDING RESOURCES
-cd ..\Src
+setlocal
+cd ..
 call Build.bat res
-cd ..\DevTools
-
+endlocal

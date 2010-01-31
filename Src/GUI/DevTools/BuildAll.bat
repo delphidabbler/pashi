@@ -9,7 +9,7 @@
 
 @echo off
 echo BUILDING ALL
-cd ..\Src
+setlocal
+cd ..
 call Build.bat all
-cd ..\DevTools
-
+endlocal

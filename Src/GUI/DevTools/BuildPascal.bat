@@ -9,7 +9,7 @@
 
 @echo off
 echo BUILDING PASCAL PROJECT
-cd ..\Src
+setlocal
+cd ..
 call Build.bat pas
-cd ..\DevTools
-
+endlocal

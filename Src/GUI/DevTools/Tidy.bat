@@ -11,36 +11,29 @@
 @rem ---------------------------------------------------------------------------
 
 @echo off
-set SrcDir=..\Src
-set BinDir=..\Bin
-set ExeDir=..\Exe
 
-if "%1" == "history" goto del_history
-if "%1" == "bin" goto del_binary
+echo Tidying
+echo ~~~~~~~
+echo.
 
-echo Deleting *.~*
-del /Q %SrcDir%\*.~*
-del /Q %SrcDir%\Resources\*.~*
-echo Deleting *.ddp
-del /Q %SrcDir%\*.ddp
-del /Q %SrcDir%\Resources\*.ddp
-goto end
+set RootDir=..
 
-:del_history
-echo Deleting History files
-del /Q %SrcDir%\__history\*.*
-rmdir %SrcDir%\__history
-del /Q %SrcDir%\Resources\__history\*.*
-rmdir %SrcDir%\Resources\__history
-goto end
 
-:del_binary
-echo Deleting Binary files
-del /Q ..\Bin\*.*
-del /Q ..\Exe\*.*
-del /Q ..\Release\*.*
-goto end
+echo Deleting temporary files
+del /S %RootDir%\*.~* 
+del /S %RootDir%\*.dcu 
+del /S %RootDir%\*.exe 
+del /S %RootDir%\*.dsk 
+del /S %RootDir%\*.bak
+del /S %RootDir%\*.identcache
+del /S %RootDir%\*.local
+echo.
 
-:end
+echo Deleting temporary directories
+if exist %RootDir%\Release rmdir /S /Q %RootDir%\Release
+for /F "usebackq" %%i in (`dir /S /B /A:D %RootDir%\__history*`) do rmdir /S /Q %%i
+echo.
 
 echo Done.
+
+endlocal
