@@ -658,9 +658,9 @@
 <span class="prompt">&gt;</span> Make pascal
 <span class="prompt">&gt;</span> Make release</pre>
 
-<h3>
+<h2>
 	Clean Up
-</h3>
+</h2>
 
 <p>
 	Various temporary files and directories are created by the IDE. These can be
@@ -676,9 +676,21 @@
 </p>
 
 <p>
-	Be warned though that this command removes any <code>__history</code>
-	folders that some versions of Delphi use to maintain earlier versions of
-	files. 
+	Be warned that this command removes any <code>__history</code> folders that
+	some versions of Delphi use to maintain earlier versions of files. 
+</p>
+
+<p>
+	<code>Make clean</code> leaves behind the files and directories created by
+	<code>Make config</code>. To delete these files and folders in addition to
+	performing a normal clean run:
+</p>
+
+<pre class="cmd"><span class="prompt">Src&gt;</span> Make deepclean</pre>
+
+<p>
+	Once again this command deep cleans both the <code>Src</code> and
+	<code>Src\GUI</code> directories.
 </p>
 
 <h2>
