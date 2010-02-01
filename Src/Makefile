@@ -116,3 +116,14 @@ clean:
   # remove any __history folders
   -@for /F "usebackq" %i in (`dir /S /B /A:D ..\__history`) do @rmdir /S /Q %i
   @cd Src
+
+deepclean: clean
+  @cd ..
+  # remove files created by make config
+  -@del /S *.cfg 2>nul
+  -@del /S *.bdsproj 2>nul
+  # remove folders created by make config
+  -@if exist Bin rmdir /S /Q Bin
+  -@if exist Exe rmdir /S /Q Exe
+  -@if exist Release rmdir /S /Q Release
+  @cd Src
