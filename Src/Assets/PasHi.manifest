@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 
 <!--
- * PasH.manifest
+ * PasHi.manifest
  *
- * Manifest file for PasH Pascal Highlighter. Specifies execution level required
- * for Vista.
+ * Manifest file for PasHi Pascal Highlighter. Specifies execution level
+ * required for Vista.
  *
  * $Rev$
  * $Date$
@@ -14,7 +14,7 @@
 <assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
   <assemblyIdentity
     type="win32"
-    name="PasH"
+    name="PasHi"
     version="1.0.0.0"
     processorArchitecture="*"
   />

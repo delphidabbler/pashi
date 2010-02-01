@@ -1,7 +1,7 @@
 /*
  * Resources.rc
  *
- * Resource file containing icon and manifest.
+ * Resource file for PasHi containing icon and manifest.
  *
  * $Rev$
  * $Date$
@@ -24,7 +24,7 @@
  * The Initial Developer of the Original Code is Peter Johnson
  * (http://www.delphidabbler.com/).
  *
- * Portions created by the Initial Developer are Copyright (C) 2005-2009 Peter
+ * Portions created by the Initial Developer are Copyright (C) 2005-2010 Peter
  * Johnson. All Rights Reserved.
  *
  * Contributor(s):
@@ -35,10 +35,10 @@
 
 
 /* Main icon */
-MAINICON ICON Assets\PasH.ico
+MAINICON ICON Assets\PasHi.ico
 
 /* Vista manifest file */
-1 24 Assets\PasH.manifest
+1 24 Assets\PasHi.manifest
 
 /* Default CSS */
 CSS_DEFAULT RCDATA Assets\Default.css
