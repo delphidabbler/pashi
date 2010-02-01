@@ -69,7 +69,7 @@ uses
   UInputData in 'UInputData.pas',
   UNulWBContainer in 'UNulWBContainer.pas',
   UOutputData in 'UOutputData.pas',
-  UPasH in 'UPasH.pas',
+  UPasHi in 'UPasHi.pas',
   UPipe in 'UPipe.pas',
   UUtils in 'UUtils.pas',
   UWBContainer in 'UWBContainer.pas';

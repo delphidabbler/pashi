@@ -44,7 +44,7 @@ uses
   // Delphi
   Classes,
   // Project
-  UPash, UInputData, UOutputData;
+  UPasHi, UInputData, UOutputData;
 
 
 type
@@ -56,8 +56,8 @@ type
   }
   TDocument = class(TObject)
   private
-    fPasH: TPasH;
-      {Reference to object that performs highlighting by interacting with PasH}
+    fPasHi: TPasHi;
+      {Reference to object that performs highlighting by interacting with PasHi}
     fFragment: Boolean;
       {Value of Fragment property}
     fHilitedStream: TStringStream;
@@ -148,7 +148,7 @@ constructor TDocument.Create;
   }
 begin
   inherited Create;
-  fPasH := TPasH.Create;
+  fPasHi := TPasHi.Create;
   fHilitedStream := TStringStream.Create('');
   fSourceStream := TStringStream.Create('');
 end;
@@ -159,7 +159,7 @@ destructor TDocument.Destroy;
 begin
   FreeAndNil(fSourceStream);
   FreeAndNil(fHilitedStream);
-  FreeAndNil(fPasH);
+  FreeAndNil(fPasHi);
   inherited;
 end;
 
@@ -170,7 +170,7 @@ procedure TDocument.DoHilite;
 begin
   fHilitedStream.Size := 0;
   fSourceStream.Position := 0;
-  fPasH.Hilite(fSourceStream, fHilitedStream, fFragment);
+  fPasHi.Hilite(fSourceStream, fHilitedStream, fFragment);
   if Assigned(fOnHilite) then
     fOnHilite(Self);
 end;
