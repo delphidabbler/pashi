@@ -96,8 +96,8 @@
 </h2>
 
 <p>
-	These instruction show how to build the <em>PasHi</em> command line program
-	and, optionally, <em>PashGUI</em> - the GUI front end to <em>PasHi</em>.
+	These instructions show how to build the <em>PasHi</em> command line program
+	and, optionally, <em>PasHiGUI</em> - the GUI front end to <em>PasHi</em>.
 </p>
 
 <p>
@@ -110,13 +110,23 @@
 	away with using the IDE if you don't change any resources.
 </p>
 
-<p class="box">
-	<strong>Note:</strong>
-	These notes do not apply to <em>PasH</em> (as it was then known) v1.0.0 or
-	earlier or to  <em>PasHGUI</em> v0.1.0. For these earlier versions please
-	refer to files named file named <code>ReadMe-Src.txt</code> will be included
-	in the Docs or root directories of the relevant source code tree.
-</p>
+<div class="box">
+
+	<p>
+		<strong>Note:</strong>
+		These notes do not apply to <em>PasH</em> * v1.0.0 or earlier or to
+		<em>PasHGUI</em> * v0.1.0. For instructions on how to build these
+		versions please refer to files named <code>ReadMe-Src.txt</code> that
+		are to be found in the <code>Docs</code> or root directories of the
+		relevant source code trees.
+	</p>
+
+	<p style="font-size:smaller;">
+		* <em>PasH</em> and <em>PasHGUI</em> are the old names for
+		<em>PasHi</em> and <em>PasHiGUI</em>.
+	</p>
+
+</div>
 
 <h2>
 	Dependencies
@@ -134,9 +144,9 @@
 	The following library is required to compile <em>PasHi</em>:
 </p>
 
-<dl>
-	<dt class="spaced">
-		Stream Extension Classes by DelphiDabbler
+<dl class="spaced">
+	<dt>
+		<em>Stream Extension Classes by DelphiDabbler</em>
 	</dt>
 	<dd>
 		Used to provide code for wrapping streams and providing extra
@@ -160,11 +170,11 @@
 </p>
 
 <h4>
-	PasHGUI
+	PasHiGUI
 </h4>
 
 <p>
-	No libraries are required to build <em>PasHGUI</em>
+	No libraries are required to build <em>PasHiGUI</em>
 </p>
 
 <h3>
@@ -196,7 +206,7 @@
 	Delphi 2005 to 2007 should be able to compile the source. Delphi 2009 and
 	later may work, but the code hasn't been written with Unicode support in
 	mind, so there may be problems. Delphi 7 may compile <em>PasHi</em> but is
-	unlikely to compile <em>PasHGUI</em> without some significant changes.
+	unlikely to compile <em>PasHiGUI</em> without some significant changes.
 	Earlier Delphis are unlikely to be suitable, but this hasn't been tested.
 </p>
 
@@ -347,7 +357,7 @@
 
 <p>
 	If you don't already have it, download or checkout the <em>PasHi</em> source
-	code, which should include the source for <em>PasHGUI</em>. There are
+	code, which should include the source for <em>PasHiGUI</em>. There are
 	several options:
 </p>
 
@@ -380,9 +390,10 @@
 			</li>
 		</ul>
 		<div class="spaced">
-			These commands get code from the current development tree. To get the
-			code of a suitable stable release replace <code>trunk</code> with
-			<code>tags/XXXX</code> where <code>XXX</code> specifies the version.
+			These commands get code from the current development tree. To get
+			the code of a suitable stable release replace <code>trunk</code>
+			with <code>tags/XXXX</code> where <code>XXX</code> specifies the
+			version.
 		</div>
 	</li>
 	<li>
@@ -410,15 +421,15 @@
   |
   +-- Docs                  - documentation
   |   |
-  |   +-- GUI               - documentation that applies to PasHGUI only
+  |   +-- GUI               - documentation that applies to PasHiGUI only
   |
   +-- Src                   - source code for PasHi
   |   |
   |   +-- Assets            - assets required to build PasHi's resources
   |   |
-  |   +-- GUI               - source code of the GUI application, PashGUI
+  |   +-- GUI               - source code of the GUI application, PasHiGUI
   |       |
-  |       +-- Resources     - assets required to build PasHGUI's resources
+  |       +-- Resources     - assets required to build PasHiGUI's resources
   |     
   +-- Test                  - contains test file</pre>
   
@@ -467,7 +478,7 @@
   <span class="disabled">|
   +-- Docs                  - documentation
   |   |
-  |   +-- GUI               - documentation that applies to PasHGUI only
+  |   +-- GUI               - documentation that applies to PasHiGUI only
   |</span>
   +-- Exe                   - receives executable code
   |
@@ -477,9 +488,9 @@
   |   |
   |   +-- Assets            - assets required to build PasHi's resources
   |   |
-  |   +-- GUI               - source code of the GUI application, PashGUI
+  |   +-- GUI               - source code of the GUI application, PasHiGUI
   |       |
-  |       +-- Resources     - assets required to build PasHGUI's resources
+  |       +-- Resources     - assets required to build PasHiGUI's resources
   |     
   +-- Test                  - contains test file</span></pre>
 
@@ -492,7 +503,7 @@
 </p>
 
 <p>
-	If you also want to compile <em>PasHGUI</em> you must now do:
+	If you also want to compile <em>PasHiGUI</em> you must now do:
 </p>
 
 <pre class="cmd"><span class="prompt">Src&gt;</span> cd GUI
@@ -501,7 +512,7 @@
 
 <p>
 	This runs a separate makefile in the GUI directory and further configures
-	the source tree to enable <em>PasHGUI</em> to be compiled. The source tree
+	the source tree to enable <em>PasHiGUI</em> to be compiled. The source tree
 	should now be changed slightly to look like this:
 </p>
 
@@ -512,7 +523,7 @@
   <span class="disabled">|
   +-- Docs                  - documentation
   |   |
-  |   +-- GUI               - documentation that applies to PasHGUI only
+  |   +-- GUI               - documentation that applies to PasHiGUI only
   |
   +-- Exe                   - receives executable code
   |
@@ -522,9 +533,9 @@
   |   |
   |   +-- Assets            - assets required to build PasHi's resources
   |   |
-  |   +-- GUI               - source code of the GUI application, PashGUI
+  |   +-- GUI               - source code of the GUI application, PasHiGUI
   |       |
-  |       +-- Resources     - assets required to build PasHGUI's resources
+  |       +-- Resources     - assets required to build PasHiGUI's resources
   |     
   +-- Test                  - contains test file</span></pre>
 
@@ -542,7 +553,7 @@
 <pre class="cmd"><span class="prompt">Src&gt;</span> Make resources</pre>
 
 <p>
-	and, for <em>PasHGUI</em>:
+	and, for <em>PasHiGUI</em>:
 </p>
 
 <pre class="cmd"><span class="prompt">Src&gt;</span> cd GUI
@@ -568,7 +579,7 @@
 
 <ul>
 	<li>
-		Build the <em>PasHi</em> and / or <em>PasHGUI</em> Executables
+		Build the <em>PasHi</em> and / or <em>PasHiGUI</em> Executables
 	</li>
 	<li>
 		Build the Release zip files.
@@ -588,7 +599,7 @@
 </p>
 
 <h3>
-	Build the PasHi and / or PasHGUI Executables
+	Build the PasHi and / or PasHiGUI Executables
 </h3>
 
 <p>
@@ -604,8 +615,8 @@
 <span class="prompt">Src\GUI&gt;</span> cd ..</pre>
  
 <p>
-	<code>PasHi.exe</code> and <code>PasHGUI</code> will be generated and placed
-	in the <code>Exe</code> folder.
+	<code>PasHi.exe</code> and <code>PasHiGUI.exe</code> will be generated and
+	placed in the <code>Exe</code> folder.
 </p>
 
 <h3>
@@ -613,10 +624,10 @@
 </h3>
 
 <p>
-	You can create zip files containing <em>PasHi</em> and <em>PasHGUI</em> once
-	the <code>.exe</code> files have been generated. Each zip file will contain
-	the required program along with suitable documentation. Build the release by
-	doing:
+	You can create zip files containing <em>PasHi</em> and <em>PasHiGUI</em>
+	once the <code>.exe</code> files have been generated. Each zip file will
+	contain the required program along with suitable documentation. Build the
+	release by doing:
 </p>
 
 <pre class="cmd"><span class="prompt">Src&gt;</span> Make release
@@ -626,7 +637,7 @@
 
 <p>
 	By default the release files are called <code>dd-pashi.zip</code> and
-	<code>dd-pashgui.zip</code>. You can change these name by defining the
+	<code>dd-pashigui.zip</code>. You can change these name by defining the
 	<code>RELEASEFILENAME</code> and <code>GUIRELEASEFILENAME</code> macros or
 	enviroment variables. For example, you can name the <em>PasHi</em> release
 	<code>MyRelease.zip</code> by doing:
@@ -701,7 +712,7 @@
 	If you are planning to re-use or modify any of the code, please see the
 	<code>SourceCodeLicenses.txt</code> files in the <code>Docs</code> and
 	<code>Docs\GUI</code> directories for an overview of the open source
-	licenses that apply to the <em>PasHi</em> and <em>PasHGUI</em> source code.
+	licenses that apply to the <em>PasHi</em> and <em>PasHiGUI</em> source code.
 </p>
 
 </body>
