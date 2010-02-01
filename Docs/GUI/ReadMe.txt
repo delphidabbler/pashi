@@ -1,24 +1,24 @@
 
 ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-DELPHIDABBLER PASHGUI README
+DELPHIDABBLER PASHIGUI README
 ________________________________________________________________________________
 
 
 ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-What Is PasHGUI?
+What Is PasHiGUI?
 ________________________________________________________________________________
 
-PasHGUI is a graphical front end for the PasH Pascal Syntaxt Highlighter command
-line program. PasHGUI requires that PasH is installed either in the same
-directory as PasHGUI or that PasH is on the system path.
+PasHiGUI is a graphical front end for the PasHi Pascal Syntax Highlighter
+command line program. PasHiGUI requires that PasHi is installed either in the
+same directory as PasHiGUI or that PasHi is on the system path.
 
 
 ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
 Installation
 ________________________________________________________________________________
 
-There is current no install program for PasHGUI. Simply copy the file from the
-provided zip to the directory where you wish to install it. PasHGUI does not
+There is current no install program for PasHiGUI. Simply copy the file from the
+provided zip to the directory where you wish to install it. PasHiGUI does not
 update the registry and creates no data files.
 
 
@@ -26,10 +26,10 @@ update the registry and creates no data files.
 Required Files
 ________________________________________________________________________________
 
-PasHGUI requires PasH.exe v0.1.3 beta or later. Earlier versions of PasH cannot
-communicate with PasHGUI.
+PasHiGUI requires PasHi.exe v1.1.0 or later. PasHi was renamed from PasH at
+v1.1.0 and PasHiGUI expects the name PasHi.exe.
 
-Note that PasH.exe IS NOT INCLUDED in this download and must be downloaded
+Note that PasHi.exe IS NOT INCLUDED in this download and must be downloaded
 separately from http://www.delphidabbler.com/software?id=pash
 
 
@@ -37,13 +37,13 @@ separately from http://www.delphidabbler.com/software?id=pash
 Beta Code
 ________________________________________________________________________________
 
-This is a beta release of PasHGUI. Every effort has been made to remove bugs,
+This is a beta release of PasHiGUI. Every effort has been made to remove bugs,
 but it is likely that bugs remain.
 
-Please help test PasHGUI and report any errors you find via the DelphiDabbler
+Please help test PasHiGUI and report any errors you find via the DelphiDabbler
 website's contact page at http://www.delphidabbler.com/contact
 
-You use PasHGUI entirely at your own risk. There is no warranty whatsoever and
+You use PasHiGUI entirely at your own risk. There is no warranty whatsoever and
 no liability is accepted for any damage the software does to your computer
 systems.
 
@@ -52,7 +52,7 @@ systems.
 End User License Agreement
 ________________________________________________________________________________
 
-PasHGUI is copyright (c) 2006 Peter D Johnson (www.delphidabbler.com). The end
+PasHiGUI is copyright (c) 2006 Peter D Johnson (www.delphidabbler.com). The end
 user license agreement is contained in the file License.txt included in the
 distribution.
 
@@ -61,7 +61,7 @@ distribution.
 Source Code
 ________________________________________________________________________________
 
-Source code for much of PasHGUI is available. Source code is licensed under the
+Source code for much of PasHiGUI is available. Source code is licensed under the
 Mozilla Public License v1.1 and other open source license.
 
 

@@ -1,4 +1,4 @@
-DELPHIDABBLER PASHGUI END-USER SOFTWARE LICENSE AGREEMENT
+DELPHIDABBLER PASHIGUI END-USER SOFTWARE LICENSE AGREEMENT
 ==========================================================
 
 
@@ -7,7 +7,7 @@ DELPHIDABBLER PASHGUI END-USER SOFTWARE LICENSE AGREEMENT
 
 In this document the following definitions apply:
 
-   a. "Product" means DelphiDabbler PASHGUI and related documentation.
+   a. "Product" means DelphiDabbler PasHiGUI and related documentation.
    b. "Author" means the author and copyright holder of of the software, that is
       Peter D Johnson, http://www.delphidabbler.com.
 
@@ -15,7 +15,7 @@ In this document the following definitions apply:
 2. Introduction
 ---------------
 
-A source code version of some of DelphiDabbler PASHGUI's functionality that you
+A source code version of some of DelphiDabbler PasHiGUI's functionality that you
 may use, modify and distribute is available to you free of charge from
 http://www.delphidabbler.com under the Mozilla Public License and other open
 source software licenses. The Mozilla Public License can be found at
@@ -23,11 +23,11 @@ http://www.mozilla.org/MPL/.
 
 The accompanying executable code version of the Product is made available to you
 under the terms of this end user license agreement. By installing or using
-DelphiDabbler PASHGUI you are consenting to be bound by the agreement. If you
+DelphiDabbler PasHiGUI you are consenting to be bound by the agreement. If you
 do not agree to the terms and conditions of this agreement do not install or use
-any part of DelphiDabbler PASHGUI.
+any part of DelphiDabbler PasHiGUI.
 
-DelphiDabbler PASHGUI is copyright (c) 2006 by Peter D Johnson,
+DelphiDabbler PasHiGUI is copyright (c) 2006 by Peter D Johnson,
 http://www.delphidabbler.com.
 
 
@@ -35,7 +35,7 @@ http://www.delphidabbler.com.
 ----------------
 
 The Author grants you a non-exclusive license to use the executable code version
-of DelphiDabbler PASHGUI. You may install as many copies of the program as you
+of DelphiDabbler PasHiGUI. You may install as many copies of the program as you
 wish and may distribute the program providing this license agreement any other
 copyright or legal notices are distributed with the Product.
 

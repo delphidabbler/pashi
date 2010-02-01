@@ -4,10 +4,10 @@ SOURCE CODE LICENSING
 ________________________________________________________________________________
 
 This document discusses and presents the relevant licenses governing the
-PasHGUI source code available from DelphiDabbler.com as part of the PasHGUI
+PasHiGUI source code available from DelphiDabbler.com as part of the PasHiGUI
 source code download.
 
-Th download includes:
+The download includes:
 
 + Original Source Code written by Peter Johnson.
 + Some binary resource files that may be difficult to recompile from source.
@@ -58,7 +58,7 @@ are those that apply to their source files.
 
 
 ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-other Asset Files
+Other Asset Files
 ________________________________________________________________________________
 
 Various assets are used in the program. They are stored in the Src\Resources
