@@ -62,13 +62,22 @@
 		ol.spaced li {
 			margin-top: 0.5em;
 		}
+		p, div.spaced {
+			padding: 0;
+			margin: 0.5em 0;
+		}
+		.box, .cmd {
+			padding: 0.25em;
+			background-color: #eef;
+			border: 1px solid silver;
+		}
 		.cmd {
 			margin-left: 2em;
 			margin-right: 2em;
-			background-color: #eef;
 			font-weight: bold;
-			padding: 0.25em;
-			border: 1px solid silver;
+		}
+		.disabled {
+			color: gray;
 		}
 		.prompt {
 			color: blue;
@@ -87,24 +96,39 @@
 </h2>
 
 <p>
-	<em>PasH</em> is written in Object Pascal and is targeted at Delphi
-	7. The Delphi IDE can be used to modify the source and to perform test
-	builds. Final builds should be built using the provided Makefile, but you
-	can get away with using the IDE if you don't change any resources.
+	These instruction show how to build the <em>PasH</em> command line program
+	and, optionally, <em>PashGUI</em> - the GUI front end to <em>PasH</em>.
 </p>
 
 <p>
-	These notes apply only to source code in the current development tree or
-	releases <strong>after and not including</strong> <em>PasH</em> v1.0.0.
-	For any earlier version please see the file named
-	<code>ReadMe-Src.txt</code> that will be in either the root directory or the
-	<code>Docs</code> sub-directory of the source code distribution or
-	repository.
+	The programs are written in Object Pascal and are targetted at Delphi 2006.
+</p>
+
+<p>
+	The Delphi IDE can be used to modify the source and to perform test builds.
+	Final builds should be built using the provided makefiles, but you can get
+	away with using the IDE if you don't change any resources.
+</p>
+
+<p class="box">
+	<strong>Note:</strong>
+	These notes do not apply to <em>PasH</em> v1.0.0 or earlier or to 
+	<em>PasHGUI</em> v0.1.0. For these earlier versions please refer to files
+	named file named <code>ReadMe-Src.txt</code> will be included in the Docs or
+	root directories of the relevant source code tree.
 </p>
 
 <h2>
 	Dependencies
 </h2>
+
+<h3>
+	Libraries
+</h3>
+
+<h4>
+	PasH
+</h4>
 
 <p>
 	The following library is required to compile <em>PasH</em>:
@@ -135,12 +159,20 @@
 	you placed the compiled library code.
 </p>
 
+<h4>
+	PasHGUI
+</h4>
+
+<p>
+	No libraries are required to build <em>PasHGUI</em>
+</p>
+
 <h3>
 	Delphi VCL
 </h3>
 
 <p>
-	You need the Delphi VCL in order to compile <em>PasH</em>.
+	You need the Delphi VCL in order to compile the programs.
 </p>
 
 <h2>
@@ -148,7 +180,7 @@
 </h2>
 
 <p>
-	The following tools are required to build <em>PasH</em>.
+	The following tools are required to build the programs.
 </p>
 
 <h3>
@@ -156,17 +188,21 @@
 </h3>
 
 <p>
-	A copy of Delphi is required to build the object Pascal code. Delphi 7
-	is preferred. Delphi 2005 to 2007 should be able to compile the source.
-	Delphi 2009 and later may work, but the code hasn't been written with Delphi
-	2009's Unicode support in mind, so there may be problems. Delphis earlier
-	than version 7 are likely to fail to compile <em>PasH</em>, but this hasn't
-	been tested.
+	A copy of Delphi is required to build the object Pascal code. Delphi 2006
+	is the preferred compiler.
+</p>
+
+<p>
+	Delphi 2005 to 2007 should be able to compile the source. Delphi 2009 and
+	later may work, but the code hasn't been written with Unicode support in
+	mind, so there may be problems. Delphi 7 may compile <em>PasH</em> but is
+	unlikely to compile <em>PasHGUI</em> without some significant changes.
+	Earlier Delphis are unlikely to be suitable, but this hasn't been tested.
 </p>
 
 <p>
 	You can use the Delphi IDE to edit the code and test compile it. The
-	makefile requires the following command line tools:
+	makefiles require the following command line tools:
 </p>
 
 <dl>
@@ -180,7 +216,7 @@
 		<code>BRCC32</code>
 	</dt>
 	<dd>
-		The Borland resource compiler. Used to compile various source
+		The Borland resource compiler. Used to compile various resource source
 		(<code>.rc</code>) files.
 	</dd>
 </dl>
@@ -191,7 +227,8 @@
 
 <dl>
 	<dt class="spaced">
-		<code>DELPHIROOT</code> - required unless <code>DELPH7</code> is set.
+		<code>DELPHIROOT</code> - required unless <code>DELPHI2006</code> is
+		set.
 	</dt>
 	<dd>
 		Should be set to the install directory of the version of Delphi being
@@ -199,17 +236,17 @@
 		the <code>Bin</code> sub-directory of <code>DELPHIROOT</code>.
 	</dd>
 	<dt class="spaced">
-		<code>DELPHI7</code> - optional
+		<code>DELPHI2006</code> - optional
 	</dt>
 	<dd>
-		If you are using Delphi 7 this environment variable should be set
+		If you are using Delphi 2006 this environment variable should be set
 		to the Delphi install directory. When specified <code>DELPHIROOT</code>
-		will ignore its own value and use the value of <code>DELPHI7</code>
+		will ignore its own value and use the value of <code>DELPHI2006</code>
 		instead.
 	</dd>
 	<dt class="spaced">
-		<code>DELPHIDABLIB</code> - required unless <code>DELPHIDABLIB7</code>
-		is set.
+		<code>DELPHIDABLIB</code> - required unless
+		<code>DELPHIDABLIB2006</code> is set.
 	</dt>
 	<dd>
 		Should be set to the directory where the compiler can find the required
@@ -218,10 +255,10 @@
 		<em>PasH</em>.
 	</dd>
 	<dt class="spaced">
-		<code>DELPHIDABLIB7</code> - optional
+		<code>DELPHIDABLIB2006</code> - optional
 	</dt>
 	<dd>
-		If you are using Delphi 7 this enviroment variable may be set to
+		If you are using Delphi 2006 this enviroment variable may be set to
 		the install directory of the library code described above. When set the
 		value of this variable is used by <code>DELPHIDABLIB</code> regardless
 		of its own value.
@@ -260,8 +297,8 @@
 </h3>
 
 <p>
-	This program is used to create <em>PasH</em>' release file. 
-	You can get a Windows command line version at
+	This program is used to create release files. You can get a Windows command
+	line version at
 	<a
 		href="http://stahlforce.com/dev/index.php?tool=zipunzip"
 	>http://stahlforce.com/dev/index.php?tool=zipunzip</a>.
@@ -286,16 +323,16 @@
 
 <ul>
 	<li>
-		<code>DELPHIROOT</code> or <code>DELPHI7ROOT</code>
+		<code>DELPHIROOT</code> or <code>DELPHI2006</code>
 	</li>
 	<li>
-		<code>DELPHIDABLIB</code> or <code>DELPHIDABLIB7</code>
+		<code>DELPHIDABLIB</code> or <code>DELPHIDABLIB2006</code>
 	</li>
 </ul>
 
 <p>
-	Set any of the optional environment variables that are needed to specify the
-	path to any tools that are not on the system path.
+	Next, set any of the optional environment variables that are needed to
+	specify the path to any tools that are not on the system path.
 </p>
 
 <p>
@@ -309,13 +346,56 @@
 </h3>
 
 <p>
-	If you don't already have it, download the <em>PasH</em> source code. 
-	How to go about that is explained at
-	<a
-		href="http://www.delphidabbler.com/software/pash/download"
-	>http://www.delphidabbler.com/software/pash/download</a>. If necessary,
-	extract the source code into a folder, preserving the directory structure.
+	If you don't already have it, download or checkout the <em>PasH</em> source
+	code, which should include the source for <em>PasHGUI</em>. There are
+	several options:
 </p>
+
+<ol class="spaced">
+	<li>
+		<div>
+			If you are a Subversion user you can:
+		</div>
+		<ul class="spaced">
+			<li>
+				<div>
+					Check out the source using the following command:
+				</div>
+				<pre class="cmd"><span class="prompt">&gt;</span> svn checkout http://pas-hi.googlecode.com/svn/trunk/ PATH</pre>
+				<div>
+					Where <code>PATH</code> is the directory where you want to
+					place the working copy. You will not be able to commit
+					changes unless you join the project as a contributor.
+				</div>
+			</li>
+			<li>
+				<div>
+					Export the code using this command:
+				</div>
+				<pre class="cmd"><span class="prompt">&gt;</span> svn export http://pas-hi.googlecode.com/svn/trunk/ PATH</pre>
+				<div>
+					where <code>PATH</code> is the directory where you wish to
+					store the code.
+				</div>
+			</li>
+		</ul>
+		<div class="spaced">
+			These commands get code from the current development tree. To get the
+			code of a suitable stable release replace <code>trunk</code> with
+			<code>tags/XXXX</code> where <code>XXX</code> specifies the version.
+		</div>
+	</li>
+	<li>
+		Download a suitable source zip file from <a
+			href="http://code.google.com/p/pas-hi/downloads/list?can=2&q=type=source&sort=filename&colspec=Filename%20Summary%20Type%20Uploaded%20Size%20DownloadCount"
+		>Google Code</a>.
+	</li> 
+	<li>
+		Grab the source code of the latest release from <a
+			href="http://www.delphidabbler.com/software/pash/download"
+		>DelphiDabbler.com</a>.
+	</li>
+</ol>
 
 <h3>
 	Configure the Source Tree
@@ -329,10 +409,16 @@
 <pre>./
   |
   +-- Docs                  - documentation
-  |
-  +-- Src                   - source code
   |   |
-  |   +-- Assets            - various assets required to build resources
+  |   +-- GUI               - documentation that applies to PasHGUI only
+  |
+  +-- Src                   - source code for PasH
+  |   |
+  |   +-- Assets            - assets required to build PasH's resources
+  |   |
+  |   +-- GUI               - source code of the GUI application, PashGUI
+  |       |
+  |       +-- Resources     - assets required to build PasHGUI's resources
   |     
   +-- Test                  - contains test file</pre>
   
@@ -351,7 +437,7 @@
 	script you have created to set the required environment variables then do:
 </p>
 
-<pre class="cmd"><span class="prompt">&gt;</span> Make config</pre>
+<pre class="cmd"><span class="prompt">Src&gt;</span> Make config</pre>
 
 <p>
 	You may need to replace <code>Make</code> with the full path to
@@ -359,13 +445,13 @@
 	runs isn't the Borland / CodeGear version. If this is the case try:
 </p>
 
-<pre class="cmd"><span class="prompt">&gt;</span> %DELPHIROOT%\Bin\Make config</pre>
+<pre class="cmd"><span class="prompt">Src&gt;</span> %DELPHIROOT%\Bin\Make config</pre>
 
 <p>
 	or
 </p>
   
-<pre class="cmd"><span class="prompt">&gt;</span> %DELPHI7%\Bin\Make config</pre>
+<pre class="cmd"><span class="prompt">Src&gt;</span> %DELPHI2006%\Bin\Make config</pre>
 
 <p>
 	depending on which environment variable you have set.
@@ -377,32 +463,91 @@
 </p>
 
 <pre>./
+  +-- Bin                   - receives object files and .res files for PasH
+  <span class="disabled">|
+  +-- Docs                  - documentation
+  |   |
+  |   +-- GUI               - documentation that applies to PasHGUI only
+  |</span>
+  +-- Exe                   - receives executable code
   |
-  +-- Bin                   - receives object files and .res files 
-  |
-  ...
+  +-- Release               - receives release files
+  <span class="disabled">|
+  +-- Src                   - source code for PasH
+  |   |
+  |   +-- Assets            - assets required to build PasH's resources
+  |   |
+  |   +-- GUI               - source code of the GUI application, PashGUI
+  |       |
+  |       +-- Resources     - assets required to build PasHGUI's resources
+  |     
+  +-- Test                  - contains test file</span></pre>
+
+<p>
+	<code>Make</code> will have created <code>.cfg</code> and
+	<code>.bdsproj</code> files from templates in the <code>Src</code> folder.
+	<code>.cfg</code> files are needed for DCC32 to run correctly and
+	<code>.bdsproj</code> files enable the use of the Delphi IDE. These files
+	will be ignored by Subversion.
+</p>
+
+<p>
+	If you also want to compile <em>PasHGUI</em> you must now do:
+</p>
+
+<pre class="cmd"><span class="prompt">Src&gt;</span> cd GUI
+<span class="prompt">Src\GUI&gt;</span> Make config
+<span class="prompt">Src\GUI&gt;</span> cd ..</pre>
+
+<p>
+	This runs a separate makefile in the GUI directory and further configures
+	the source tree to enable <em>PasHGUI</em> to be compiled. The source tree
+	should now be changed slightly to look like this:
+</p>
+
+<pre>./
+  <span class="disabled">+-- Bin                   - receives object files and .res files for PasH</span>
+  |   |
+  |   +-- GUI
+  <span class="disabled">|
+  +-- Docs                  - documentation
+  |   |
+  |   +-- GUI               - documentation that applies to PasHGUI only
   |
   +-- Exe                   - receives executable code
   |
   +-- Release               - receives release files
   |
-  ...</pre>
+  +-- Src                   - source code for PasH
+  |   |
+  |   +-- Assets            - assets required to build PasH's resources
+  |   |
+  |   +-- GUI               - source code of the GUI application, PashGUI
+  |       |
+  |       +-- Resources     - assets required to build PasHGUI's resources
+  |     
+  +-- Test                  - contains test file</span></pre>
+
 
 <p>
-	If the <code>Bin</code>, <code>Exe</code> and <code>Release</code> folders 
-	already existed they will have been emptied. In addition, <code>Make</code>
-	will have created <code>.cfg</code> and <code>.dof</code> files from
-	templates in the <code>Src</code> folder. <code>.cfg</code> files are needed
-	for DCC32 to run correctly and <code>.dof</code> files enable the use of the
-	Delphi IDE. These files will be ignored by Subversion.
+	<code>Make</code> will also have created the required <code>.cfg</code> and
+	<code>.bdsproj</code> files in the <code>Src\GUI</code> directory.
 </p>
-  
+
 <p>
 	If you are intending to use the Delphi IDE to compile code, you should also
 	do:
 </p>
 
-<pre class="cmd"><span class="prompt">&gt;</span> Make resources</pre>
+<pre class="cmd"><span class="prompt">Src&gt;</span> Make resources</pre>
+
+<p>
+	and, for <em>PasHGUI</em>:
+</p>
+
+<pre class="cmd"><span class="prompt">Src&gt;</span> cd GUI
+<span class="prompt">Src\GUI&gt;</span> Make resources
+<span class="prompt">Src\GUI&gt;</span> cd ..</pre>
 
 <p>
 	This compiles the resource files that the IDE needs to link into compiled
@@ -414,7 +559,7 @@
 </p>
 
 <h2>
-	Building PasH
+	Building The Programs
 </h2>
 
 <p>
@@ -423,13 +568,13 @@
 
 <ul>
 	<li>
-		Build the <em>PasH</em> Executable
+		Build the <em>PasH</em> and / or <em>PasHGUI</em> Executables
 	</li>
 	<li>
-		Build the Release Zip File.
+		Build the Release zip files.
 	</li>
 	<li>
-		Build and Release Everything.
+		Build and Release everything.
 	</li>
 	<li>
 		Clean Up.
@@ -438,11 +583,12 @@
 
 <p>
 	Each of these options is described below. All except the last assume that
-	<code>Make config</code> has been run.
+	<code>Make config</code> has been run. Skip the relevant commands if you
+	want to build just one of the programs.
 </p>
 
 <h3>
-	Build the PasH Executable
+	Build the PasH and / or PasHGUI Executables
 </h3>
 
 <p>
@@ -450,49 +596,61 @@
 	commands:
 </p>
 
-<pre class="cmd"><span class="prompt">&gt;</span> Make resources
-<span class="prompt">&gt;</span> Make pascal</pre>
+<pre class="cmd"><span class="prompt">Src&gt;</span> Make resources
+<span class="prompt">Src&gt;</span> Make pascal
+<span class="prompt">Src&gt;</span> cd GUI
+<span class="prompt">Src\GUI&gt;</span> Make resources
+<span class="prompt">Src\GUI&gt;</span> Make pascal
+<span class="prompt">Src\GUI&gt;</span> cd ..</pre>
  
 <p>
-	<code>PasH.exe</code> will be generated and placed in the
-	<code>Exe</code> folder.
+	<code>PasH.exe</code> and <code>PasHGUI</code> will be generated and placed
+	in the <code>Exe</code> folder.
 </p>
 
 <h3>
-	Build the Release Zip File
+	Build the Release zip files
 </h3>
 
 <p>
-	Once the setup file has been created you can create a zip file containing
-	the setup file along with required documentation from the <code>Docs</code>
-	directory. If either file is missing the release fails. Build the release by
+	You can create zip files containing <em>PasH</em> and <em>PasHGUI</em> once
+	the <code>.exe</code> files have been generated. Each zip file will contain
+	the required program along with suitable documentation. Build the release by
 	doing:
 </p>
 
-<pre class="cmd"><span class="prompt">&gt;</span> Make release</pre>
+<pre class="cmd"><span class="prompt">Src&gt;</span> Make release
+<span class="prompt">Src&gt;</span> cd GUI
+<span class="prompt">Src\GUI&gt;</span> Make release
+<span class="prompt">Src\GUI&gt;</span> cd ..</pre>
 
 <p>
-	By default the release file is called <code>dd-PasH.zip</code>. You can
-	change this name by defining the <code>RELEASEFILENAME</code> macro or
-	enviroment variable. For example, you can name the file
+	By default the release files are called <code>dd-pash.zip</code> and
+	<code>dd-pashgui.zip</code>. You can change these name by defining the
+	<code>RELEASEFILENAME</code> and <code>GUIRELEASEFILENAME</code> macros or
+	enviroment variables. For example, you can name the <em>PasH</em> release
 	<code>MyRelease.zip</code> by doing:
 </p>
 
-<pre class="cmd"><span class="prompt">&gt;</span> Make -DRELEASEFILENAME=MyRelease release</pre>
+<pre class="cmd"><span class="prompt">Src&gt;</span> Make -DRELEASEFILENAME=MyRelease release</pre>
 
 <h3>
-	Build and Release Everything
+	Build and Release everything
 </h3>
 
 <p>
-	You can do a clean build of everything, and generate the release zip file
+	You can do a clean build of everything, and generate the release zip files
 	simply by doing:
 </p>
 
-<pre class="cmd"><span class="prompt">&gt;</span> Make</pre>
+<pre class="cmd"><span class="prompt">Src&gt;</span> Make
+<span class="prompt">Src&gt;</span> cd GUI
+<span class="prompt">Src\GUI&gt;</span> Make
+<span class="prompt">Src\GUI&gt;</span> cd ..</pre>
 
 <p>
-	without specifying a target. This is the equivalent of:
+	without specifying a target. Each <code>Make</code> command is the equivalent
+	of:
 </p>
 
 <pre class="cmd"><span class="prompt">&gt;</span> Make config
@@ -509,7 +667,13 @@
 	deleted by running:
 </p>
 
-<pre class="cmd"><span class="prompt">&gt;</span> Make clean</pre>
+<pre class="cmd"><span class="prompt">Src&gt;</span> Make clean</pre>
+
+<p>
+	This command is only available in the makefile in the <code>Src</code>
+	directory and acts on the whole source tree, including the <code>GUI</code>
+	sub-tree.
+</p>
 
 <p>
 	Be warned though that this command removes any <code>__history</code>
@@ -522,10 +686,10 @@
 </h2>
 
 <p>
-	If you are planning to re-use or modify any of the code, please see the file
-	<code>SourceCodeLicenses.txt</code> in the <code>Docs</code> directory for
-	an overview of the open source licenses that apply to the <em>PasH</em>
-	source code.
+	If you are planning to re-use or modify any of the code, please see the
+	<code>SourceCodeLicenses.txt</code> files in the <code>Docs</code> and
+	<code>Docs\GUI</code> directories for an overview of the open source
+	licenses that apply to the <em>PasH</em> and <em>PasHGUI</em> source code.
 </p>
 
 </body>
