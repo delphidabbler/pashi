@@ -1,5 +1,5 @@
 {
- * PasH.dpr
+ * PasHi.dpr
  *
  * Main project file.
  *
@@ -19,12 +19,12 @@
  * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for
  * the specific language governing rights and limitations under the License.
  *
- * The Original Code is PasH.dpr.
+ * The Original Code is PasHi.dpr.
  *
  * The Initial Developer of the Original Code is Peter Johnson
  * (http://www.delphidabbler.com/).
  *
- * Portions created by the Initial Developer are Copyright (C) 2005-2009 Peter
+ * Portions created by the Initial Developer are Copyright (C) 2005-2010 Peter
  * Johnson. All Rights Reserved.
  *
  * Contributor(s):
@@ -34,13 +34,13 @@
 }
 
 
-program PasH;
+program PasHi;
 
 
 {$ALIGN 8}
 {$APPTYPE CONSOLE}
 {$BOOLEVAL OFF}
-{$DESCRIPTION 'PasH Pascal Syntax Highlighter'}
+{$DESCRIPTION 'PasHi Pascal Syntax Highlighter'}
 {$EXTENDEDSYNTAX ON}
 {$HINTS ON}
 {$IMAGEBASE $00400000}

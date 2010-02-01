@@ -1,7 +1,7 @@
 # ------------------------------------------------------------------------------
 # Makefile
 #
-# Makefile for the PasH project.
+# Makefile for the PasHi project.
 #
 # $Rev$
 # $Date$
@@ -61,10 +61,10 @@ everything: config resources pascal release
 
 # Configure source folders
 config:
-  @echo Configuring PasH
+  @echo Configuring PasHi
   # Create .cfg and .dof files from templates 
-  @copy /Y PasH.cfg.tplt PasH.cfg
-  @copy /Y PasH.bdsproj.tplt PasH.bdsproj
+  @copy /Y PasHi.cfg.tplt PasHi.cfg
+  @copy /Y PasHi.bdsproj.tplt PasHi.bdsproj
   # Create build folders if necessary
   @cd ..
   @if not exist Bin @mkdir Bin
@@ -76,12 +76,12 @@ config:
 resources: VerInfo.res Resources.res
   -@del VerInfo.rc
 
-# Builds PasH pascal files and links program
-pascal: PasH.exe
+# Builds PasHi pascal files and links program
+pascal: PasHi.exe
 
 # Build release files (.zip)
 !ifndef RELEASEFILENAME
-RELEASEFILENAME = dd-pash
+RELEASEFILENAME = dd-pashi
 !endif
 OUTFILE = Release\$(RELEASEFILENAME).zip
 release:
@@ -90,7 +90,7 @@ release:
   @echo ---------------------
   @cd ..
   -@if exist $(OUTFILE) del $(OUTFILE)
-  @$(ZIP) -j -9 $(OUTFILE) Exe\PasH.exe Docs\ReadMe.html Docs\License.txt
+  @$(ZIP) -j -9 $(OUTFILE) Exe\PasHi.exe Docs\ReadMe.html Docs\License.txt
   @cd Src
 
 # Clean up unwanted files

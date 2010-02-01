@@ -156,7 +156,7 @@ resourcestring
   // Messages written to console
   sCompleted = 'Completed';
   sError = 'Error: %s';
-  sUsage = 'Usage: PasH ([-rc] [-wc] [-frag | -hidecss] [-q] ) | -h';
+  sUsage = 'Usage: PasHi ([-rc] [-wc] [-frag | -hidecss] [-q] ) | -h';
   sHelp =
       '  -rc      | Takes input from clipboard instead of standard input.'#13#10
     + '  -wc      | Writes HTML output to clipboard (CF_TEXT format) instead '
@@ -324,7 +324,7 @@ procedure TMain.SignOn;
   }
 resourcestring
   // Sign on message format string
-  sSignOn = 'PasH %s by DelphiDabbler (www.delphidabbler.com)';
+  sSignOn = 'PasHi %s by DelphiDabbler (www.delphidabbler.com)';
 var
   Msg: string;  // sign on message text
 begin
