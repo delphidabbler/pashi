@@ -36,16 +36,6 @@
 # Set bin output path
 BIN = ..\..\Bin\GUI
 
-# The preferred compiler is Delphi 2006. If the DELPHI2006 evironment variable
-# is set, it will be used and expected to reference the Delphi 2006 install
-# directory.
-# If DELPHI2006 is not set then the DELPHIROOT environment variable is examined.
-# This can be set to any Delphi compiler. If neither DELPHI2006 nor DELPHIROOT
-# is set then an error is reported
-!ifdef DELPHI2006
-DELPHIROOT = $(DELPHI2006)
-!endif
-
 # Include common macros and rules
 !include ..\Common.mak
 
