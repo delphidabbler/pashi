@@ -58,7 +58,7 @@ File Version=<#F1>.<#F2>.<#F3> build <#F4>
 Internal Name=<SHORTFNAME>
 Legal Copyright=Copyright (c) P.D.Johnson (www.delphidabbler.com) 2006.
 Legal Trademark=
-Original File Name=PasHGUI.exe
+Original File Name=PasHiGUI.exe
 Private Build=
 Product Name=DelphiDabbler Pascal Highlighter GUI Front End
 Product Version=Release <#P1>.<#P2>.<#P3>
@@ -66,4 +66,4 @@ Special Build=
 [Configuration Details]
 Identifier=VERINFO
 NumRCComments=0
-ResOutputDir=E:\Prg\Dev\Apps\PashGUI\Bin\
+ResOutputDir=E:\Prg\Dev\Apps\PasHiGUI\Bin\

@@ -1,5 +1,5 @@
 {
- * PasHGUI.dpr
+ * PasHiGUI.dpr
  *
  * Main project file
  *
@@ -18,7 +18,7 @@
  * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for
  * the specific language governing rights and limitations under the License.
  *
- * The Original Code is PasHGUI.dpr
+ * The Original Code is PasHiGUI.dpr
  *
  * The Initial Developer of the Original Code is Peter Johnson
  * (http://www.delphidabbler.com/).
@@ -33,7 +33,7 @@
 }
 
 
-program PasHGUI;
+program PasHiGUI;
 
 
 {$ALIGN 8}
@@ -53,7 +53,7 @@ program PasHGUI;
 {$WRITEABLECONST OFF}
 
 
-{%ToDo 'PasHGUI.todo'}
+{%ToDo 'PasHiGUI.todo'}
 
 uses
   Forms,

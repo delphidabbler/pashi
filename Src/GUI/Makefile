@@ -1,7 +1,7 @@
 # ------------------------------------------------------------------------------
 # Makefile
 #
-# Makefile for the PasHGUI project.
+# Makefile for the PasHiGUI project.
 #
 # $Rev$
 # $Date$
@@ -44,10 +44,10 @@ everything: config resources pascal release
 
 # Configure source folders
 config:
-  @echo Configuring PasHGUI
+  @echo Configuring PasHiGUI
   # Create .cfg and .bdsproj files from templates 
-  @copy /Y PasHGUI.cfg.tplt PasHGUI.cfg
-  @copy /Y PasHGUI.bdsproj.tplt PasHGUI.bdsproj
+  @copy /Y PasHiGUI.cfg.tplt PasHiGUI.cfg
+  @copy /Y PasHiGUI.bdsproj.tplt PasHiGUI.bdsproj
   # Create build folders
   @cd ..\..
   @if not exist Bin @mkdir Bin
@@ -60,12 +60,12 @@ config:
 resources: VersionInfo.res Resources.res
   -@del VersionInfo.rc
 
-# Builds PasHGUI pascal files and links program
-pascal: PasHGUI.exe
+# Builds PasHiGUI pascal files and links program
+pascal: PasHiGUI.exe
 
 # Build release files (.zip)
 !ifndef GUIRELEASEFILENAME
-GUIRELEASEFILENAME = dd-pashgui
+GUIRELEASEFILENAME = dd-pashigui
 !endif
 OUTFILE = Release\$(GUIRELEASEFILENAME).zip
 release:
@@ -74,7 +74,7 @@ release:
   @echo ---------------------
   @cd ..\..
   -@if exist $(OUTFILE) del $(OUTFILE)
-  @$(ZIP) -j -9 $(OUTFILE) Exe\PasHGUI.exe
+  @$(ZIP) -j -9 $(OUTFILE) Exe\PasHiGUI.exe
   @$(ZIP) -j -9 $(OUTFILE) Docs\GUI\ReadMe.txt
   @$(ZIP) -j -9 $(OUTFILE) Docs\GUI\License.txt
   @cd Src\GUI
