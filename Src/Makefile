@@ -23,7 +23,7 @@
 # The Initial Developer of the Original Code is Peter Johnson
 # (http://www.delphidabbler.com/).
 #
-# Portions created by the Initial Developer are Copyright (C) 2009 Peter
+# Portions created by the Initial Developer are Copyright (C) 2009-2010 Peter
 # Johnson. All Rights Reserved.
 #
 # Contributors:
@@ -55,48 +55,18 @@ DELPHIDABLIB = $(DELPHIDABLIBD7);
 !endif
 
 # Check for required macros
-!ifndef DELPHIROOT
-!error DELPHIROOT or DELPHI7 environment variable required.
-!endif
+#!ifndef DELPHIROOT
+#!error DELPHIROOT or DELPHI7 environment variable required.
+#!endif
 !ifndef DELPHIDABLIB 
 !error DELPHIDABLIB or DELPHIDABLIBD7 environment variable required.
 !endif
-!ifndef BIN
-!error BIN macro must be defined in calling script.
-!endif
+#!ifndef BIN
+#!error BIN macro must be defined in calling script.
+#!endif
 
-# Define common macros that access required build tools
-MAKE = "$(MAKEDIR)\Make.exe" -$(MAKEFLAGS)
-DCC32 = "$(DELPHIROOT)\Bin\DCC32.exe"
-BRCC32 = "$(DELPHIROOT)\Bin\BRCC32.exe"
-!ifdef VIEDROOT
-VIED = "$(VIEDROOT)\VIEd.exe" -makerc
-!else
-VIED = VIEd.exe -makerc
-!endif
-!ifdef ZIPROOT
-ZIP = "$(ZIPROOT)\Zip.exe"
-!else
-ZIP = Zip.exe
-!endif
-
-# Implicit rules
-# Delphi projects are assumed to contain required output and search path
-# locations in the project options .cfg file. This is defined for this project
-# in PasH.cfg.tplt which is copied as PasH.cfg by "Make config"
-.dpr.exe:
-  @echo +++ Compiling Delphi Project $< +++
-  @$(DCC32) $< -B -U"$(DELPHIDABLIB)"
-
-# Resource files are compiled to the directory specified by the BIN macro.
-.rc.res:
-  @echo +++ Compiling Resource file $< +++
-  @$(BRCC32) $< -fo$(BIN)\$(@F)
-
-# Version info files are compiled by VIEd. A temporary .rc file is left behind
-.vi.rc:
-  @echo +++ Compiling Version Info file $< +++
-  @$(VIED) .\$<
+# Include common macros and rules
+!include Common.mak
 
 # Default target is to configure, build everything and release
 everything: config resources pascal release
@@ -107,14 +77,11 @@ config:
   # Create .cfg and .dof files from templates 
   @copy /Y PasH.cfg.tplt PasH.cfg
   @copy /Y PasH.dof.tplt PasH.dof
-  # Create build folders
+  # Create build folders if necessary
   @cd ..
-  @if exist Bin rmdir /S /Q Bin
-  @if exist Exe rmdir /S /Q Exe
-  @if exist Release rmdir /S /Q Release
-  @mkdir Bin
-  @mkdir Exe
-  @mkdir Release
+  @if not exist Bin @mkdir Bin
+  @if not exist Exe @mkdir Exe
+  @if not exist Release @mkdir Release
   @cd Src
 
 # Compiles the resources and deletes intermediate file created by VIED
