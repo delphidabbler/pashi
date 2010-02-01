@@ -38,3 +38,6 @@
 -O"..\Bin"
 -I"..\Bin"
 -R"..\Bin"
+-w-UNSAFE_TYPE
+-w-UNSAFE_CODE
+-w-UNSAFE_CAST
