@@ -5,11 +5,11 @@
  * Copyright (C) 2005-2009 Peter Johnson (www.delphidabbler.com)
  *
  * This document may be re-distributed or re-published only with the
- * DelphiDabbler PasH Pascal Highlighter program available from 
+ * DelphiDabbler PasHi Pascal Highlighter program available from 
  * http://www.delphidabbler.com/software/pash
  *
  * The document may be modified only if distributed with a modified version
- * DelphiDabbler PasH Pascal Highlighter. Modified version must retain this
+ * DelphiDabbler PasHi Pascal Highlighter. Modified version must retain this
  * copyright message and the author and copyright meta tags.
  *
  * $Rev$
@@ -21,7 +21,7 @@
 <head>
 
 	<title>
-		DelphiDabbler || PasH Pascal Highlighter
+		DelphiDabbler || PasHi Pascal Highlighter
 	</title>
 
 	<meta
@@ -42,7 +42,7 @@
 	/>
 	<meta
 		name="description" 
-		content="Readme for DelphiDabbler PasH Pascal Highlighter" 
+		content="Readme for DelphiDabbler PasHi Pascal Highlighter" 
 	/>
 
 	<style>
@@ -195,7 +195,7 @@
 <body>
 
 <h1>
-	<div><em>PasH</em> Pascal Highlighter</div>
+	<div><em>PasHi</em> Pascal Highlighter</div>
 	<div class="subtitle">Read Me Document</div>
 </h1>
 
@@ -211,13 +211,13 @@
 		<a href="#why">Why another Pascal highlighter?</a>
 	</li>
 	<li>
-		<a href="#install">Installing <em>PasH</em></a>
+		<a href="#install">Installing <em>PasHi</em></a>
 	</li>
 	<li>
-		<a href="#usage">Using <em>PasH</em></a>
+		<a href="#usage">Using <em>PasHi</em></a>
 	</li>
 	<li>
-		<a href="#css">CSS styles used by <em>PasH</em></a>
+		<a href="#css">CSS styles used by <em>PasHi</em></a>
 	</li>
 	<li>
 		<a href="#source">Source code</a>
@@ -233,20 +233,24 @@
 </h2>
 
 <p>
-	<em>PasH</em> is a simple command line program that highlights Pascal source
-	code. It reads the original source code from standard input or the clipboard
-	and writes the highlighted code to standard output or the clipboard. XHTML
-	is used for the highlighted code and cascading style sheets are used to do
-	the styling.
+	<em>PasHi</em> is a simple command line program that highlights Pascal
+	source code. It reads the original source code from standard input or the
+	clipboard and writes the highlighted code to standard output or the
+	clipboard. XHTML is used for the highlighted code and cascading style sheets
+	are used to do the styling.
 </p>
 
 <p>
-	<em>PasH</em> can either generate complete XHTML documents or just fragments
-	of XHTML code containing the highlighted source. Complete XHTML documents
-	contain an embedded CSS style sheet while code fragments require the user to
-	provide the required CSS classes. This last feature makes it easy to embed
-	code highlighted by <em>PasH</em> into exiting web pages with highlight
-	colours defined by the web page author.
+	<em>PasHi</em> can either generate complete XHTML documents or just
+	fragments of XHTML code containing the highlighted source. Complete XHTML
+	documents contain an embedded CSS style sheet while code fragments require
+	the user to provide the required CSS classes. This last feature makes it
+	easy to embed code highlighted by <em>PasHi</em> into exiting web pages with
+	highlight colours defined by the web page author.
+</p>
+
+<p>
+	Up until and including v1.0.0, <em>PasHi</em> was known as <em>PasH</em>.
 </p>
 
 <p class="gototop">
@@ -292,13 +296,13 @@
 </p>
 
 <p>
-	Check these two sites for examples of <em>PasH</em> in use:
+	Check these two sites for examples of <em>PasHi</em> in use:
 	<a
 		href="http://rvelthuis.de/"
 	>Rudy's Delphi Corner</a> and
 	<a
 		href="http://hallvards.blogspot.com/"
-	>Hallvard's Blog</a>. PasH has also been used to highlight example source
+	>Hallvard's Blog</a>. PasHi has also been used to highlight example source
 	code on the DelphiDabbler
 	<a
 		href="http://www.delphidabbler.com/tips"
@@ -317,28 +321,28 @@
 </h2>
 
 <p>
-	<em>PasH</em>'s simplicity means it that has no dependencies and creates no
+	<em>PasHi</em>'s simplicity means it that has no dependencies and creates no
 	config files or registry entries. So, I haven't provided an installer, just
 	a zip file containing a few files. They are:
 </p>
 
 <ul class="spaced">
 	<li>
-		<code>PasH.exe</code><br />
+		<code>PasHi.exe</code><br />
 		This is the program's executable file. Just copy it to a directory of
-		your choice. Then open a command console and run <em>PasH</em>. See 
+		your choice. Then open a command console and run <em>PasHi</em>. See 
 		<a
-			href="#usage">Using <em>PasH</em></a> below for details of
-		<em>PasH</em>'s command line switches. You'll find <em>PasH</em>
+			href="#usage">Using <em>PasHi</em></a> below for details of
+		<em>PasHi</em>'s command line switches. You'll find <em>PasHi</em>
 		more usable if you place it somewhere on your path or if you add
-		<em>PasH</em>'s directory to the path.
+		<em>PasHi</em>'s directory to the path.
 	</li>
 	<li>
 		<code>License.txt</code><br />
 		Contains the program's license. Please read this and only use
-		<em>PasH</em> if you agree with it. OK, given that you probably won't
+		<em>PasHi</em> if you agree with it. OK, given that you probably won't
 		read I'll tell you now it's a pretty permissive open source
-		license. You can use and distribute <em>PasH</em> freely and get the
+		license. You can use and distribute <em>PasHi</em> freely and get the
 		source code and modify it. If you release your changes there are two
 		conditions: (1) you must make the source available under the
 		<a
@@ -353,8 +357,8 @@
 </ul>
 
 <p>
-	To uninstall, just delete <code>Pash.exe</code>. It makes no changes to your
-	system.
+	To uninstall, just delete <code>Pashi.exe</code>. It makes no changes to
+	your system.
 </p>
 
 <p class="gototop">
@@ -362,27 +366,27 @@
 </p>
 
 <h2 id="usage">
-	Using <em>PasH</em>
+	Using <em>PasHi</em>
 </h2>
 
 <p>
-	<em>PasH</em>'s usage is:
+	<em>PasHi</em>'s usage is:
 </p>
 
-<pre class="indent">PasH ([-rc] [-wc] [-frag | -hidecss] [-q] | -h</pre>
+<pre class="indent">PasHi ([-rc] [-wc] [-frag | -hidecss] [-q] | -h</pre>
 
 <p>
-	By default <em>PasH</em> reads the unformatted source text from standard
+	By default <em>PasHi</em> reads the unformatted source text from standard
 	input and writes a complete XHTML document containing the highlighted code
 	to standard output. To read source from a file and output to another file
 	use shell redirection. E.g. to highlight <code>source.pas</code> and output
 	to <code>source.html</code> use:
 </p>
 
-<pre class="indent">PasH &lt;source.pas &gt;source.html</pre>
+<pre class="indent">PasHi &lt;source.pas &gt;source.html</pre>
 
 <p>
-	You can modify <em>PasH</em>'s behaviour by using the following command line
+	You can modify <em>PasHi</em>'s behaviour by using the following command line
 	switches.
 </p>
 
@@ -416,7 +420,7 @@
 		<code>-hidecss</code>
 	</dt>
 	<dd>
-		Complete XHTML documents output by <em>PasH</em> have the necessary CSS
+		Complete XHTML documents output by <em>PasHi</em> have the necessary CSS
 		classes contained in a <code>&lt;style&gt;</code> section in the
 		document header. The CSS is <em>not</em> protected by HTML comment tags
 		(<code>&lt;!--</code> ... <code>--&gt;</code> by default. This may cause
@@ -429,11 +433,11 @@
 		<code>-q</code>
 	</dt>
 	<dd>
-		Specifies &quot;quite mode&quot;. <em>PasH</em> does not write output to
-		the console. Note that <em>PasH</em> writes console output to standard
-		error since standard output can be used to output the highlighted source
-		code. The switch is ignored when the <code>-h</code> switch is used or
-		if <em>PasH</em> detects command line errors.
+		Specifies &quot;quite mode&quot;. <em>PasHi</em> does not write output
+		to the console. Note that <em>PasHi</em> writes console output to
+		standard error since standard output can be used to output the
+		highlighted source code. The switch is ignored when the <code>-h</code>
+		switch is used or if <em>PasHi</em> detects command line errors.
 	</dd>
 	<dt>
 		<code>-h</code>
@@ -444,12 +448,12 @@
 </dl>
 
 <p>
-	If <em>PasH</em> exits normally then 0 is returned to the OS as an exit
+	If <em>PasHi</em> exits normally then 0 is returned to the OS as an exit
 	code. In case of error the exit code is 1.
 </p>
 
 <p>
-	Perhaps the most common usage of <em>PasH</em> is to read source code from
+	Perhaps the most common usage of <em>PasHi</em> is to read source code from
 	the clipboard and replace it with a highlighted fragment. Here's what I do
 	when pasting highlighted source into a web page:
 </p>
@@ -460,7 +464,7 @@
 	</li>
 	<li>
 		Switch to a command window and do
-		<pre style="display:inline">PasH -rc -wc -frag</pre>.
+		<pre style="display:inline">PasHi -rc -wc -frag</pre>.
 	</li>
 	<li>
 		Switch to the editor containing the web page and paste in the
@@ -473,11 +477,11 @@
 </p>
 
 <h2 id="css">
-	CSS styles used by <em>PasH</em>
+	CSS styles used by <em>PasHi</em>
 </h2>
 
 <p>
-	The HTML produced by <em>PasH</em> uses the following CSS classes:
+	The HTML produced by <em>PasHi</em> uses the following CSS classes:
 </p>
 
 <dl>
@@ -569,7 +573,7 @@
 </p>
 
 <p>
-	When you use <em>PasH</em> to create complete HTML documents the style
+	When you use <em>PasHi</em> to create complete HTML documents the style
 	definitions of the above styles are included in the document header (and
 	can't be changed). However, when you produce HTML fragments using the
 	<code>-frag</code> switch no style definitions are included in the output
@@ -578,7 +582,7 @@
 
 <p>
 	To help with this, here are the default definitions for the classes that are
-	used by <em>PasH</em>:
+	used by <em>PasHi</em>:
 </p>
 
 <pre class="block">.pas-source {
@@ -635,7 +639,7 @@
 </p>
 
 <p>
-	Future versions of <em>PasH</em> may include the facility to use external
+	Future versions of <em>PasHi</em> may include the facility to use external
 	style sheets or read custom style information from style sheets. If you want
 	this feature please ask me &ndash; contact details below.
 </p>
@@ -652,7 +656,7 @@
 	The source code for this program is available from
 	<a
 		href="http://www.delphidabbler.com/software/pash"
-	>the <em>PasH</em> home page</a>.
+	>the <em>PasHi</em> home page</a>.
 </p>
 
 <div class="endnotes">
@@ -666,7 +670,7 @@
 	</div>
 
 	<div class="copyright">
-		<em>PasH</em>'s license is available
+		<em>PasHi</em>'s license is available
 		<a
 			href="http://www.delphidabbler.com/software/pash/license"
 		>here</a>.<br />

@@ -20,8 +20,8 @@ There are two sections:
   1 Files: Lists all source code and development tools and provides details of
     changes to these files that preceded version control.
 
-  2 Releases: Lists all the releases of PasH and notes which file revisions were
-    included in each release.
+  2 Releases: Lists all the releases of PasHi and notes which file revisions
+    were included in each release.
 
 ================================================================================
 FILES

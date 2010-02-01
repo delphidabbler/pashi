@@ -1,11 +1,11 @@
 ================================================================================
 
-PASH SOURCE CODE LICENSING
+PASHI SOURCE CODE LICENSING
 
 ================================================================================
 
-This document discusses and presents the relevant licenses governing the PasH
-source code as maintained in the PasH Subversion code repository and provided
+This document discusses and presents the relevant licenses governing the PasHi
+source code as maintained in the PasHi Subversion code repository and provided
 for download in compressed archives.
 
 The source code includes:
@@ -16,7 +16,7 @@ The source code includes:
 
 Please refer to the relevant section below fo details of licensing.
 
-The download does not include all the source code required to rebuild PasH.
+The download does not include all the source code required to rebuild PasHi.
 Explicitly it doesn't include:
 
 + Source files from the Delphi 7 VCL. You must have Delphi in order to access
@@ -83,14 +83,14 @@ treated as public domain.
 Image Files
 --------------------------------------------------------------------------------
 
-The only image provided is the program's icon, PasH.ico. This file is copyright
+The only image provided is the program's icon, PasHi.ico. This file is copyright
 (C) 2009 Peter Johnson (www.delphidabbler.com).
 
 The file may not be altered in any way and may not be used in any other
-programs, included programs derived from the PasH source code, unless explicit
+programs, included programs derived from the PasHi source code, unless explicit
 permission is given by the author.
 
-This means that if you modify PasH and publish your changes then you must
+This means that if you modify PasHi and publish your changes then you must
 remove the icon or repace it with you own.
 
 --------------------------------------------------------------------------------
