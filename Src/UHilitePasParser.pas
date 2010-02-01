@@ -43,7 +43,7 @@ interface
 
 uses
   // Delphi
-  Classes,
+  Classes, Windows, {for inlining}
   // Project
   IntfHiliter;
 
