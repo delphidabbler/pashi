@@ -36,34 +36,32 @@
 # Set bin output path
 BIN = ..\Bin
 
-# The preferred compiler is Delphi 7. If the DELPHI7 evironment variable
-# is set, it will be used and expected to reference the Delphi 7 install
+# The preferred compiler is Delphi 2006. If the DELPHI2006 evironment variable
+# is set, it will be used and expected to reference the Delphi 2006 install
 # directory.
-# If DELPHI7 is not set then the DELPHIROOT environment variable is examined.
-# This can be set to any Delphi compiler. If neither DELPHI7 nor DELPHIROOT is
-# set then an error is reported
-!ifdef DELPHI7
-DELPHIROOT = $(DELPHI7)
+# If DELPHI2006 is not set then the DELPHIROOT environment variable is examined.
+# This can be set to any Delphi compiler. If neither DELPHI2006 nor DELPHIROOT
+# is set then an error is reported
+!ifdef DELPHI2006
+DELPHIROOT = $(DELPHI2006)
 !endif
 
-# If DELPHI7 is defined then DELPHIDABLIBD7 should also be defined and must
-# reference the DelphiDabbler library code for Delphi 7. If DELPHIDABLIBD7 is
-# not defined then the library referenced by DELPHIDABLIB is used. If neither
-# DELPHIDABLIBD7 nor DELPHIDABLIB are defined then an error is reported.
-!ifdef DELPHIDABLIBD7
-DELPHIDABLIB = $(DELPHIDABLIBD7);
+# If DELPHI2006 is defined then DELPHIDABLIBD2006 should also be defined and
+# must reference the DelphiDabbler library code for Delphi 2006. If
+# DELPHIDABLIBD2006 is not defined then the library referenced by DELPHIDABLIB
+# is used. If neither DELPHIDABLIBD2006 nor DELPHIDABLIB are defined then an
+# error is reported.
+!ifdef DELPHIDABLIBD2006
+DELPHIDABLIB = $(DELPHIDABLIBD2006);
 !endif
 
 # Check for required macros
 #!ifndef DELPHIROOT
-#!error DELPHIROOT or DELPHI7 environment variable required.
+#!error DELPHIROOT or DELPHI2006 environment variable required.
 #!endif
 !ifndef DELPHIDABLIB 
-!error DELPHIDABLIB or DELPHIDABLIBD7 environment variable required.
+!error DELPHIDABLIB or DELPHIDABLIBD2006 environment variable required.
 !endif
-#!ifndef BIN
-#!error BIN macro must be defined in calling script.
-#!endif
 
 # Include common macros and rules
 !include Common.mak
@@ -76,7 +74,7 @@ config:
   @echo Configuring PasH
   # Create .cfg and .dof files from templates 
   @copy /Y PasH.cfg.tplt PasH.cfg
-  @copy /Y PasH.dof.tplt PasH.dof
+  @copy /Y PasH.bdsproj.tplt PasH.bdsproj
   # Create build folders if necessary
   @cd ..
   @if not exist Bin @mkdir Bin
