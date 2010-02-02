@@ -1,3 +1,9 @@
+; ------------------------------------------------------------------------------
+; Change Log for PasHi
+; $Rev$
+; $Date$
+; ------------------------------------------------------------------------------
+
 Version 1.0 - released 31 May 2009
 PasH v1.0 of 31 May 2009
 + Added new -hidecss switch. Specifying it hides contents of <style> tag in HTML comments. Default is now not to hide contents.
