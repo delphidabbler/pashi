@@ -141,32 +141,10 @@
 </h4>
 
 <p>
-	The following library is required to compile <em>PasHi</em>:
-</p>
-
-<dl class="spaced">
-	<dt>
-		<em>Stream Extension Classes by DelphiDabbler</em>
-	</dt>
-	<dd>
-		Used to provide code for wrapping streams and providing extra
-		functionality. The code is available from
-		<a
-			href="http://www.delphidabbler.com/software/streams"
-		>http://www.delphidabbler.com/software/streams</a>. v2.0.1 or later is
-		required.
-	</dd>
-</dl>
-
-<p>
-	You should download this DelphiDabbler code library and install it into a
-	package or at least ensure that the compiled <code>.dcu</code> files are all
-	in the same folder. It's easiest to use the Delphi IDE to do this.
-</p>
-
-<p>
-	Set the <code>DELPHIDABLIB</code> environment variable to the folder where
-	you placed the compiled library code.
+	Code from the Stream Extension Classes by DelphiDabbler is required to
+	compile <em>PasHi</em>. The code is included in the <em>PasHi</em> source
+	code in the <code>3rdParty</code> directory, so there is no need to download
+	or install it.
 </p>
 
 <h4>
@@ -254,25 +232,6 @@
 		will ignore its own value and use the value of <code>DELPHI2006</code>
 		instead.
 	</dd>
-	<dt class="spaced">
-		<code>DELPHIDABLIB</code> - required unless
-		<code>DELPHIDABLIB2006</code> is set.
-	</dt>
-	<dd>
-		Should be set to the directory where the compiler can find the required
-		DelphiDabbler library compiled units. The code in this directory must
-		have been compiled with the same version of Delphi used to compile
-		<em>PasHi</em>.
-	</dd>
-	<dt class="spaced">
-		<code>DELPHIDABLIB2006</code> - optional
-	</dt>
-	<dd>
-		If you are using Delphi 2006 this enviroment variable may be set to
-		the install directory of the library code described above. When set the
-		value of this variable is used by <code>DELPHIDABLIB</code> regardless
-		of its own value.
-	</dd>
 </dl>
 
 <h3>
@@ -328,21 +287,14 @@
 </h3>
 
 <p>
-	The first step is to configure the required environment variables.
+	The first step is to configure the required <code>DELPHIROOT</code> or
+	<code>DELPHI2006</code> environment variables.
 </p>
 
-<ul>
-	<li>
-		<code>DELPHIROOT</code> or <code>DELPHI2006</code>
-	</li>
-	<li>
-		<code>DELPHIDABLIB</code> or <code>DELPHIDABLIB2006</code>
-	</li>
-</ul>
-
 <p>
-	Next, set any of the optional environment variables that are needed to
-	specify the path to any tools that are not on the system path.
+	Next, set any of the optional <code>VIEDROOT</code> and <code>ZIPROOT</code>
+	environment variables that are needed to specify the path to any tools that
+	are not on the system path.
 </p>
 
 <p>
@@ -408,6 +360,14 @@
 	</li>
 </ol>
 
+<p class="box">
+	If you modify the code and want to submit it for inclusion in the repository
+	please raise a new issue in the <a
+		href="http://code.google.com/p/pas-hi/issues/list"
+	>issue tracker</a>, select a type (defect, enhancement etc.) and attach a
+	zip file or tarball containing your enhancment, preferably as a patch file.
+</p>
+
 <h3>
 	Configure the Source Tree
 </h3>
@@ -424,6 +384,8 @@
   |   +-- GUI               - documentation that applies to PasHiGUI only
   |
   +-- Src                   - source code for PasHi
+  |   |
+  |   +-- 3rdParty          - third party source code required by PasHi
   |   |
   |   +-- Assets            - assets required to build PasHi's resources
   |   |
@@ -486,6 +448,8 @@
   <span class="disabled">|
   +-- Src                   - source code for PasHi
   |   |
+  |   +-- 3rdParty          - third party source code required by PasHi
+  |   |
   |   +-- Assets            - assets required to build PasHi's resources
   |   |
   |   +-- GUI               - source code of the GUI application, PasHiGUI
@@ -513,7 +477,7 @@
 <p>
 	This runs a separate makefile in the GUI directory and further configures
 	the source tree to enable <em>PasHiGUI</em> to be compiled. The source tree
-	should now be changed slightly to look like this:
+	should have been changed slightly to look like this:
 </p>
 
 <pre>./
@@ -530,6 +494,8 @@
   +-- Release               - receives release files
   |
   +-- Src                   - source code for PasHi
+  |   |
+  |   +-- 3rdParty          - third party source code required by PasHi
   |   |
   |   +-- Assets            - assets required to build PasHi's resources
   |   |
