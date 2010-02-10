@@ -36,23 +36,6 @@
 # Set bin output path
 BIN = ..\Bin
 
-# If DELPHI2006 is defined then DELPHIDABLIBD2006 should also be defined and
-# must reference the DelphiDabbler library code for Delphi 2006. If
-# DELPHIDABLIBD2006 is not defined then the library referenced by DELPHIDABLIB
-# is used. If neither DELPHIDABLIBD2006 nor DELPHIDABLIB are defined then an
-# error is reported.
-!ifdef DELPHIDABLIBD2006
-DELPHIDABLIB = $(DELPHIDABLIBD2006);
-!endif
-
-# Check for required macros
-#!ifndef DELPHIROOT
-#!error DELPHIROOT or DELPHI2006 environment variable required.
-#!endif
-!ifndef DELPHIDABLIB 
-!error DELPHIDABLIB or DELPHIDABLIBD2006 environment variable required.
-!endif
-
 # Include common macros and rules
 !include Common.mak
 

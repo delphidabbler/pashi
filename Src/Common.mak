@@ -78,7 +78,7 @@ ZIP = Zip.exe
 # locations in the project options .cfg file.
 .dpr.exe:
   @echo +++ Compiling Delphi Project $< +++
-  @$(DCC32) $< -B -U"$(DELPHIDABLIB)"
+  @$(DCC32) $< -B
 
 # Resource files are compiled to the directory specified by BIN macro, which
 # must have been set by the caller.
