@@ -78,7 +78,8 @@ uses
   UStdIOStreams in 'UStdIOStreams.pas',
   UStrStreamWriter in 'UStrStreamWriter.pas',
   USyntaxHiliters in 'USyntaxHiliters.pas',
-  UTextStreamReader in 'UTextStreamReader.pas';
+  UTextStreamReader in 'UTextStreamReader.pas',
+  PJStreamWrapper in '3rdParty\PJStreamWrapper.pas';
 
 { Main program code }
 
