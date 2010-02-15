@@ -248,9 +248,9 @@ procedure TMainForm.actAboutExecute(Sender: TObject);
 begin
   MessageBox(
     Handle,
-      'PasGUI v0.1 beta'#13#10#13#10
-      + 'A GUI front end for the PasH Syntax Highlighter'#13#10#13#10
-      + 'Copyright (c) 2006 by Peter D Johnson (www.delphidabbler.com).',
+      'PasHiGUI v0.1.1 beta.'#13#10#13#10
+      + 'A GUI front end for the PasHi Syntax Highlighter.'#13#10#13#10
+      + 'Copyright (c) 2006-2010 by Peter D Johnson (www.delphidabbler.com).',
     'About',
     MB_OK
   );
