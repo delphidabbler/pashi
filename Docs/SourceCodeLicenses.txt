@@ -6,7 +6,8 @@ PASHI SOURCE CODE LICENSING
 
 This document discusses and presents the relevant licenses governing the PasHi
 source code as maintained in the PasHi Subversion code repository and provided
-for download in compressed archives.
+for download in compressed archives. The PasHi source code also includes the
+PasHiGUI source.
 
 The source code includes:
 
@@ -16,13 +17,13 @@ The source code includes:
 
 Please refer to the relevant section below fo details of licensing.
 
-The download does not include all the source code required to rebuild PasHi.
-Explicitly it doesn't include:
+The download does not include all the source code required to rebuild the PasHi
+project. Explicitly it doesn't include:
 
-+ Source files from the Delphi 7 VCL. You must have Delphi in order to access
++ Source files from the Delphi 2006 VCL. You must have Delphi in order to access
   these files.
 + DelphiDabbler library units. These are all available from
-  http://www.delphidabbler.com/software?id=pash&tab=download
+  http://www.delphidabbler.com/software/pash/download
   
 --------------------------------------------------------------------------------
 Original Source Code
@@ -30,17 +31,27 @@ Original Source Code
 
 Original source files are stored in the the following directories:
 
-  Src
-  Src\Assets
++ Src
++ Src\Assets
++ Src\GUI
++ Src\GUI\Resources
 
 Any original source code file that is governed by a license has a comment to
 that effect in the source file.
 
-Any other source code files that contain no copyright or license information are
-public domain.
+Any other source code files that contain no copyright or license information can
+be used without restriction.
 
-Many source code files are licensed under the Mozilla Public License. A full
-copy of that license can be found in MPL.txt
+Many source code files are licensed under the Mozilla Public License v1.1. A
+full copy of that license can be found in MPL.txt in the Docs directory.
+
+--------------------------------------------------------------------------------
+3rd Party Source Code
+--------------------------------------------------------------------------------
+
+3rd Party source code is stored in the Src\3rdParty directory. At the time of
+writing, the only "3rd Party" code is taken from the DelpiDabbler code library
+and is released under the Mozilla Public License v1.1
 
 --------------------------------------------------------------------------------
 Documentation
@@ -83,14 +94,15 @@ treated as public domain.
 Image Files
 --------------------------------------------------------------------------------
 
-The only image provided is the program's icon, PasHi.ico. This file is copyright
-(C) 2009 Peter Johnson (www.delphidabbler.com).
+The only images provided are the icons for PasHi and PasHiGUI: PasHi.ico and
+MainIcon.ico respectively. These files are copyright 2006-2010 Peter Johnson
+(www.delphidabbler.com).
 
-The file may not be altered in any way and may not be used in any other
-programs, included programs derived from the PasHi source code, unless explicit
-permission is given by the author.
+The files may not be altered in any way and may not be used in any other
+programs, included programs derived from the PasHi or PasHiGUI source code,
+unless explicit permission is given by the author.
 
-This means that if you modify PasHi and publish your changes then you must
+This means that if you modify the source and publish your changes then you must
 remove the icon or repace it with you own.
 
 --------------------------------------------------------------------------------
