@@ -62,9 +62,13 @@
 		ol.spaced li {
 			margin-top: 0.5em;
 		}
-		p, div.spaced {
+		p, pre, div.spaced {
 			padding: 0;
 			margin: 0.5em 0;
+		}
+		div.close-spaced, pre.close-spaced {
+			padding: 0;
+			margin: 0.25em; 0;
 		}
 		.box, .cmd {
 			padding: 0.25em;
@@ -396,7 +400,7 @@
   +-- Test                  - contains test file</pre>
   
 <p>
-	If, by chance you also have a <code>Bin</code>, <code>Exe</code> and
+	If, by chance, you also have a <code>Bin</code>, <code>Exe</code> and
 	<code>Release</code> directory don't worry - all will become clear. 
 	Subversion users will also see the usual <code>.svn</code> hidden
 	directories. If you have done some editing you may also see occasional
@@ -540,84 +544,53 @@
 </h2>
 
 <p>
-	You have several options:
+	Once the source tree has been configured, and before you can build the
+	Pascal code, you must create the program's resources. For <em>PasHi</em> do:
 </p>
 
-<ul>
-	<li>
-		Build the <em>PasHi</em> and / or <em>PasHiGUI</em> Executables
-	</li>
-	<li>
-		Build the Release zip files.
-	</li>
-	<li>
-		Build and Release everything.
-	</li>
-	<li>
-		Clean Up.
-	</li>
-</ul>
+<pre class="cmd"><span class="prompt">Src&gt;</span> Make resources</pre>
 
 <p>
-	Each of these options is described below. All except the last assume that
-	<code>Make config</code> has been run. Skip the relevant commands if you
-	want to build just one of the programs.
+	and for <em>PasHiGUI</em> do:
 </p>
 
-<h3>
-	Build the PasHi and / or PasHiGUI Executables
-</h3>
-
-<p>
-	This is the most common build and is achieved by using the following
-	commands:
-</p>
-
-<pre class="cmd"><span class="prompt">Src&gt;</span> Make resources
-<span class="prompt">Src&gt;</span> Make pascal
-<span class="prompt">Src&gt;</span> cd GUI
+<pre class="cmd"><span class="prompt">Src&gt;</span> cd GUI
 <span class="prompt">Src\GUI&gt;</span> Make resources
+<span class="prompt">Src\GUI&gt;</span> cd ..</pre>
+
+<p>
+	And now you can build the Pascal code:
+</p>
+
+<pre class="cmd"><span class="prompt">Src&gt;</span> Make pascal</pre>
+
+<p>
+	or
+</p>
+
+<pre class="cmd"><span class="prompt">Src&gt;</span> cd GUI
 <span class="prompt">Src\GUI&gt;</span> Make pascal
 <span class="prompt">Src\GUI&gt;</span> cd ..</pre>
- 
+
 <p>
-	<code>PasHi.exe</code> and <code>PasHiGUI.exe</code> will be generated and
-	placed in the <code>Exe</code> folder.
+	Should you want to build an executable from a clean source tree there is a
+	shortcut. Simply running:
 </p>
 
-<h3>
-	Build the Release zip files
-</h3>
+<pre class="cmd"><span class="prompt">&gt;</span> Make</pre>
 
 <p>
-	You can create zip files containing <em>PasHi</em> and <em>PasHiGUI</em>
-	once the <code>.exe</code> files have been generated. Each zip file will
-	contain the required program along with suitable documentation. Build the
-	release by doing:
+	on its own is the same as doing:
 </p>
 
-<pre class="cmd"><span class="prompt">Src&gt;</span> Make release
-<span class="prompt">Src&gt;</span> cd GUI
-<span class="prompt">Src\GUI&gt;</span> Make release
-<span class="prompt">Src\GUI&gt;</span> cd ..</pre>
+<pre class="cmd"><span class="prompt">&gt;</span> Make config
+<span class="prompt">&gt;</span> Make resources
+<span class="prompt">&gt;</span> Make pascal</pre>
 
 <p>
-	By default the release files are called <code>dd-pashi.zip</code> and
-	<code>dd-pashigui.zip</code>. You can change these name by defining the
-	<code>RELEASEFILENAME</code> and <code>GUIRELEASEFILENAME</code> macros or
-	enviroment variables. For example, you can name the <em>PasHi</em> release
-	<code>MyRelease.zip</code> by doing:
-</p>
-
-<pre class="cmd"><span class="prompt">Src&gt;</span> Make -DRELEASEFILENAME=MyRelease release</pre>
-
-<h3>
-	Build and Release everything
-</h3>
-
-<p>
-	You can do a clean build of everything, and generate the release zip files
-	simply by doing:
+	So, to build <em>PasHi</em> and <em>PasHiGUI</em> and place
+	<code>PasHi.exe</code> and <code>PasHiGUI.exe</code> in the <code>Exe</code>
+	folder do this:
 </p>
 
 <pre class="cmd"><span class="prompt">Src&gt;</span> Make
@@ -625,15 +598,38 @@
 <span class="prompt">Src\GUI&gt;</span> Make
 <span class="prompt">Src\GUI&gt;</span> cd ..</pre>
 
+<h2>
+	Creating the Release zip file
+</h2>
+
 <p>
-	without specifying a target. Each <code>Make</code> command is the equivalent
-	of:
+	You can create a zip file containing <em>PasHi</em>, <em>PasHiGUI</em> and
+	required documentation once the <code>.exe</code> files have been generated
+	(see above). You create the zip by doing:
 </p>
 
-<pre class="cmd"><span class="prompt">&gt;</span> Make config
-<span class="prompt">&gt;</span> Make resources
-<span class="prompt">&gt;</span> Make pascal
-<span class="prompt">&gt;</span> Make release</pre>
+<pre class="cmd"><span class="prompt">Src&gt;</span> Make release</pre>
+
+<p>
+	Note, this only works with the makefile in the <code>Src</code> directory:
+	the <code>release</code> target is not supported by
+	<code>Src\GUI\Makefile</code>.
+</p>
+
+
+<p>
+	By default the release file is called <code>dd-pashi.zip</code>. You can
+	change this name by defining the <code>RELEASEFILENAME</code> enviroment
+	variable or macro. For example, you can name the release
+	<code>MyRelease.zip</code> by doing:
+</p>
+
+<pre class="cmd"><span class="prompt">Src&gt;</span> Make -DRELEASEFILENAME=MyRelease release</pre>
+
+<p>
+	Release zip files are always placed in the <code>Release</code>
+	directory. The directory is created if it doesn't exist.
+</p>
 
 <h2>
 	Clean Up
@@ -678,7 +674,7 @@
 	If you are planning to re-use or modify any of the code, please see the
 	<code>SourceCodeLicenses.txt</code> files in the <code>Docs</code> and
 	<code>Docs\GUI</code> directories for an overview of the open source
-	licenses that apply to the <em>PasHi</em> and <em>PasHiGUI</em> source code.
+	licenses that apply to the source code.
 </p>
 
 </body>
