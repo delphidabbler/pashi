@@ -39,8 +39,8 @@ BIN = ..\..\Bin\GUI
 # Include common macros and rules
 !include ..\Common.mak
 
-# Default target is to configure, build everything and release
-everything: config resources pascal release
+# Default target is to configure and build the executable program
+everything: config resources pascal
 
 # Configure source folders
 config:
@@ -53,7 +53,6 @@ config:
   @if not exist Bin @mkdir Bin
   @if not exist Bin\GUI @mkdir Bin\GUI
   @if not exist Exe @mkdir Exe
-  @if not exist Release @mkdir Release
   @cd Src\GUI
 
 # Compiles the resources and deletes intermediate file created by VIED
@@ -62,19 +61,3 @@ resources: VersionInfo.res Resources.res
 
 # Builds PasHiGUI pascal files and links program
 pascal: PasHiGUI.exe
-
-# Build release files (.zip)
-!ifndef GUIRELEASEFILENAME
-GUIRELEASEFILENAME = dd-pashigui
-!endif
-OUTFILE = Release\$(GUIRELEASEFILENAME).zip
-release:
-  @echo.
-  @echo Creating Release File
-  @echo ---------------------
-  @cd ..\..
-  -@if exist $(OUTFILE) del $(OUTFILE)
-  @$(ZIP) -j -9 $(OUTFILE) Exe\PasHiGUI.exe
-  @$(ZIP) -j -9 $(OUTFILE) Docs\GUI\ReadMe.txt
-  @$(ZIP) -j -9 $(OUTFILE) Docs\GUI\License.txt
-  @cd Src\GUI

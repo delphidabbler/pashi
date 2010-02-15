@@ -39,8 +39,8 @@ BIN = ..\Bin
 # Include common macros and rules
 !include Common.mak
 
-# Default target is to configure, build everything and release
-everything: config resources pascal release
+# Default target is to configure and build the executable program
+everything: config resources pascal
 
 # Configure source folders
 config:
@@ -73,7 +73,8 @@ release:
   @echo ---------------------
   @cd ..
   -@if exist $(OUTFILE) del $(OUTFILE)
-  @$(ZIP) -j -9 $(OUTFILE) Exe\PasHi.exe Docs\ReadMe.html Docs\License.txt
+  @$(ZIP) -j -9 $(OUTFILE) Exe\PasHi.exe Exe\PasHiGUI.exe
+  @$(ZIP) -j -9 $(OUTFILE) Docs\ReadMe.html Docs\License.txt
   @cd Src
 
 # Clean up unwanted files
