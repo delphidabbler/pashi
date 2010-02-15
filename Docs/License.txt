@@ -7,8 +7,11 @@ DELPHIDABBLER PASHI END-USER SOFTWARE LICENSE AGREEMENT
 
 In this document the following definitions apply:
 
-   a. "Product" means DelphiDabbler PasHi and related documentation.
-   b. "Author" means the author and copyright holder of of the software, that is
+   a. "Product" means DelphiDabbler PasHi, and related documentation and program
+      files supplied in the same package.
+   b. "PasHi" should be taken to encompass the PasHi executable and any other
+      programs included in the same package.
+   c. "Author" means the author and copyright holder of of the software, that is
       Peter D Johnson, http://www.delphidabbler.com.
 
 
@@ -19,7 +22,7 @@ A source code version of some of DelphiDabbler PasHi's functionality that you
 may use, modify and distribute is available to you free of charge from
 http://www.delphidabbler.com under the Mozilla Public License and other open
 source software licenses. The Mozilla Public License can be found at
-http://www.mozilla.org/MPL/.
+http://www.mozilla.org/MPL/MPL-1.1.
 
 The accompanying executable code version of the Product is made available to you
 under the terms of this end user license agreement. By installing or using
@@ -27,7 +30,7 @@ DelphiDabbler PasHi you are consenting to be bound by the agreement. If you do
 not agree to the terms and conditions of this agreement do not install or use
 any part of DelphiDabbler PasHi.
 
-DelphiDabbler PasHi is copyright (c) 2005-2009 by Peter D Johnson,
+DelphiDabbler PasHi is copyright (c) 2005-2010 by Peter D Johnson,
 http://www.delphidabbler.com.
 
 
@@ -102,3 +105,8 @@ amendment signed by the Author.
 
 Except to the extent applicable law, if any, provides otherwise, this Agreement
 will be governed by the laws of the United Kingdom.
+
+--------------------------------------------------------------------------------
+$Rev$
+$Date$
+--------------------------------------------------------------------------------
