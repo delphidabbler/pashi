@@ -37,33 +37,35 @@
 ; ***** END LICENSE BLOCK *****
 ;
 ; ==============================================================================
-;
-;
+
+
 [Fixed File Info]
-File Version #=0, 1, 0, 1
-Product Version #=0, 1, 0, 0
+File Version #=0, 1, 1, 2
+Product Version #=1, 1, 0, 0
 File OS=4
 File Type=1
 File Sub-Type=0
 File Flags Mask=63
 File Flags=0
+
 [Variable File Info]
 Language=2057
 Character Set=1252
+
 [String File Info]
-Comments=
+Comments=For licensing information see License.txt or go to http://www.delphidabbler.com/software/pash/license.
 Company Name=DelphiDabbler
 File Description=Pascal Highlighter GUI
 File Version=<#F1>.<#F2>.<#F3> build <#F4>
 Internal Name=<SHORTFNAME>
-Legal Copyright=Copyright (c) P.D.Johnson (www.delphidabbler.com) 2006.
+Legal Copyright=Copyright (c) P.D.Johnson (www.delphidabbler.com) 2006-<YEAR>.
 Legal Trademark=
 Original File Name=PasHiGUI.exe
 Private Build=
 Product Name=DelphiDabbler Pascal Highlighter GUI Front End
 Product Version=Release <#P1>.<#P2>.<#P3>
 Special Build=
+
 [Configuration Details]
-Identifier=VERINFO
+Identifier=
 NumRCComments=0
-ResOutputDir=
