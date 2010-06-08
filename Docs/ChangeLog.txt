@@ -9,13 +9,13 @@ PasHi v1.0.1 build 8
 PasHiGUI v0.1.1 Beta build 2
 + Renamed PasH to PasHi to avoid class with another open source project name PasH.
 + Added PasHiGUI (renamed from PasHGUI) to release. No longer to be released separately.
-+ PasHi was rebuilt with Delphi 2006 instead of Delphi 7. Brings into line with PasHGUI.
++ PasHi was rebuilt with Delphi 2006 instead of Delphi 7. Brings into line with PasHiGUI.
 + Updated documentation.
 
 ; ------------------------------------------------------------------------------
-; From this point PasH and PasHGUI were released as separate products. Therefore
-; Each release is labelled with the relevant program.
-; From this point up the Release is not named, but the versions of the included
+; For versions listed below, PasH and PasHGUI were released as separate
+; products. Therefore each release is labelled with the relevant program.
+; From this point up the release is not named, but the versions of the included
 ; programs are noted.
 ; ------------------------------------------------------------------------------
 
