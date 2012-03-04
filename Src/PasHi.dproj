@@ -65,6 +65,7 @@
 			<DCCReference Include="UStringReader.pas"/>
 			<DCCReference Include="3rdParty\PJStreamWrapper.pas"/>
 			<DCCReference Include="UConsts.pas"/>
+			<DCCReference Include="UComparers.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

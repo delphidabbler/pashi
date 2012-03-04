@@ -80,7 +80,8 @@ uses
   Hiliter.UHiliters in 'Hiliter.UHiliters.pas',
   UStringReader in 'UStringReader.pas',
   PJStreamWrapper in '3rdParty\PJStreamWrapper.pas',
-  UConsts in 'UConsts.pas';
+  UConsts in 'UConsts.pas',
+  UComparers in 'UComparers.pas';
 
 { Main program code }
 
