@@ -122,7 +122,7 @@ type
     use TSyntaxHiliterClass for object creation.
   }
   TSyntaxHiliter = class(TInterfacedObject)
-  protected
+  public
     procedure Hilite(const Src, Dest: TStream);
       overload; virtual; abstract;
       {Highlights source code on an input stream and writes to output stream.
@@ -150,7 +150,7 @@ type
     output of formatted code.
   }
   TParsedHiliter = class(TSyntaxHiliter)
-  private
+  strict private
     fWriter: TStrStreamWriter;  // Helper object used to emit formatted source
     procedure ElementHandler(Parser: THilitePasParser; Elem: THiliteElement;
       const ElemText: string);
@@ -171,20 +171,7 @@ type
       descendants override to output data needed to end a new line.
         @param Parser [in] Reference to parser that triggered event (unused).
       }
-  protected
-    procedure Hilite(const Src, Dest: TStream);
-      overload; override;
-      {Highlights source code on an input stream and writes to output stream.
-        @param Src [in] Stream containing source code to be highlighted.
-        @param Dest [in] Stream that receives highlighted document.
-      }
-    function Hilite(const RawCode: string): string;
-      overload; override;
-      {Highlights source code and writes to a string.
-        @param RawCode [in] Contains source code to be highlighted.
-        @return Highlighted source code.
-      }
-  protected
+  strict protected
     procedure BeginDoc; virtual;
       {Called just before document is parsed: used to initialise document.
       }
@@ -215,6 +202,19 @@ type
       }
     property Writer: TStrStreamWriter read fWriter;
       {Helper object used to write formatted code to output}
+  public
+    procedure Hilite(const Src, Dest: TStream);
+      overload; override;
+      {Highlights source code on an input stream and writes to output stream.
+        @param Src [in] Stream containing source code to be highlighted.
+        @param Dest [in] Stream that receives highlighted document.
+      }
+    function Hilite(const RawCode: string): string;
+      overload; override;
+      {Highlights source code and writes to a string.
+        @param RawCode [in] Contains source code to be highlighted.
+        @return Highlighted source code.
+      }
   end;
 
   {
@@ -223,9 +223,9 @@ type
     functionality.
   }
   TBaseHTMLHiliter = class(TParsedHiliter)
-  private
+  strict private
     fIsFirstLine: Boolean; // Record whether we are about to write first line
-  protected
+  strict protected
     procedure BeginDoc; override;
       {Called just before document is parsed: used to initialise document.
       }
@@ -248,7 +248,7 @@ type
     CSS classes. Also gets names of classes for difference document sections.
   }
   THTMLCSSHiliter = class(TBaseHTMLHiliter)
-  protected
+  strict protected
     procedure BeforeElem(Elem: THiliteElement); override;
       {Called before a highlight element is output. Used to write <span> tag for
       required class if element is formatted.
@@ -288,7 +288,7 @@ type
   THTMLFragmentHiliter = class(THTMLCSSHiliter,
     ISyntaxHiliter
   )
-  protected
+  strict protected
     procedure BeginDoc; override;
       {Called just before document is parsed: writes opening <pre> tag.
       }
@@ -304,7 +304,7 @@ type
     CSS style sheet stored in resources.
   }
   TXHTMLHiliterBase = class(THTMLCSSHiliter)
-  protected
+  strict protected
     procedure BeginDoc; override;
       {Called just before document is parsed: used to write XHTML code for
       document head section and first part of body.
@@ -333,7 +333,7 @@ type
   TXHTMLHiliter = class(TXHTMLHiliterBase,
     ISyntaxHiliter
   )
-  protected
+  strict protected
     function IsCSSHidden: Boolean; override;
       {Determines if embedded CSS is to be hidden in HTML comments.
         @return False - CSS is not hidden.
@@ -349,13 +349,12 @@ type
   TXHTMLHiliterHideCSS = class(TXHTMLHiliterBase,
     ISyntaxHiliter
   )
-  protected
+  strict protected
     function IsCSSHidden: Boolean; override;
       {Determines if embedded CSS is to be hidden in HTML comments.
         @return True - CSS is hidden.
       }
   end;
-
 
 { TSyntaxHiliterFactory }
 
@@ -379,7 +378,6 @@ begin
   Result := Obj as ISyntaxHiliter;  // return ISyntaxHiliter interface to object
 end;
 
-
 { TSyntaxHiliter }
 
 constructor TSyntaxHiliter.Create;
@@ -390,7 +388,6 @@ begin
   inherited;
   // Do nothing ** Do not remove this constructor **
 end;
-
 
 { TParsedHiliter }
 
@@ -562,7 +559,6 @@ begin
   Writer.WriteStr(MakeSafeHTMLText(ElemText));
 end;
 
-
 { THTMLCSSHiliter }
 
 procedure THTMLCSSHiliter.AfterElem(Elem: THiliteElement);
@@ -635,7 +631,6 @@ begin
   Writer.WriteStr('<pre class="%s">', [GetMainCSSClass])
 end;
 
-
 { THTMLFragmentHiliter }
 
 procedure THTMLFragmentHiliter.BeginDoc;
@@ -657,7 +652,6 @@ begin
   inherited;
   CloseSourceCode;
 end;
-
 
 { TXHTMLHiliterBase }
 
