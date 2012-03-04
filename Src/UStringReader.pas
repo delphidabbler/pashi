@@ -1,5 +1,5 @@
 {
- * UTextStreamReader.pas
+ * UStringReader.pas
  *
  * Defines class that performs character based access to a stream.
  *
@@ -19,7 +19,7 @@
  * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for
  * the specific language governing rights and limitations under the License.
  *
- * The Original Code is UTextStreamReader.pas.
+ * The Original Code is UStringReader.pas.
  *
  * The Initial Developer of the Original Code is Peter Johnson
  * (http://www.delphidabbler.com/).
@@ -34,7 +34,7 @@
 }
 
 
-unit UTextStreamReader;
+unit UStringReader;
 
 
 interface
