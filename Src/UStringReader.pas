@@ -1,7 +1,7 @@
 {
  * UStringReader.pas
  *
- * Defines class that performs character based access to a stream.
+ * Defines class that performs character based access to a string.
  *
  * $Rev$
  * $Date$
@@ -41,147 +41,111 @@ interface
 
 
 uses
-  // Delphi
-  Classes,
   // Project
-  UCharStack;
-
-
-const
-  // Special character codes
-  cEOL = #10;   // end of line
-  cEOF = #0;    // end of file
+  UConsts;
 
 
 type
-
-  {
-  TTextStreamReader:
-    Class that performs character based access to a stream. Characters can be
-    put back on the stream. CRLF pairs are converted on the fly to single EOL
-    character. The class is written to work correctly with serial streams, i.e.
-    those that do not support Seek or Size.
-  }
-  TTextStreamReader = class(TObject)
-  private
-    fPutBackStack: TCharStack;  // Stack for pushed back and retrieved chars
-    fCh: AnsiChar;              // Character last read from stream
-    fStm: TStream;              // Reference to stream being read
-    function GetNextChar: AnsiChar;
-      {Gets next character from stream or push back stack if it contains
-      characters.
-        @return Required character or cEOF if end of file.
-      }
-    procedure UngetChar(ACh: AnsiChar);
-      {Logically puts back a character onto the stream.
-        @param ACh [in] Character to be put back.
-      }
+  ///  <summary>
+  ///  Class that performs character based access to a string. Reads data from
+  ///  the string one character at a time, treating CRLF pairs as a single EOL
+  ///  character. Characters can be put back onto the string.
+  ///  </summary>
+  TStringReader = class(TObject)
+  strict private
+    ///  String being read.
+    var fBuffer: string;
+    ///  Cursor that indexes next character to be read.
+    var fIdx: Integer;
+    /// Read accessor for Ch property. Returns last character read or EOF.
+    function GetCh: Char;
   public
-    constructor Create(const Stm: TStream);
-      {Class constructor: create reader for a stream and read first character.
-        @param Stm [in] Stream to be read.
-      }
-    destructor Destroy; override;
-      {Class destructor: tears down object.
-      }
-    function NextChar: AnsiChar;
-      {Fetches next character from buffer, translating CRLF into single EOL
-      character.
-        @return Character read (cEOF at end of buffer).
-      }
+    ///  Character indicating end of file.
+    const EOF = #0;
+    ///  Character indicating end of line.
+    const EOL = LF;
+    ///  Object constructor. Records string to be read. Initialises Ch property
+    ///  by reading first character.
+    constructor Create(const Str: string);
+    ///  Fetches next character from string and returns it. Returns EOL at end
+    ///  of line and EOF at end of file.
+    function NextChar: Char;
+    ///  Puts last character read back on end of string.
     procedure PutBackChar;
-      {Puts the last read character back on the stream.
-      }
-    property Ch: AnsiChar read fCh;
-      {Last character read from stream or cEOF if at end of stream}
+    ///  Last character read from stream (EOL at end of line and EOF at end of
+    ///  file).
+    property Ch: Char read GetCh;
   end;
 
 
 implementation
 
 
-const
-  // Private character constants for detecting end of line
-  cCR = #13;    // CR
-  cLF = cEOL;   // LF = #10
+uses
+  // Delphi
+  SysUtils;
 
 
-{ TTextStreamReader }
+{ TStringReader }
 
-constructor TTextStreamReader.Create(const Stm: TStream);
-  {Class constructor: create reader for a stream and read first character.
-    @param Stm [in] Stream to be read.
-  }
+constructor TStringReader.Create(const Str: string);
 begin
   inherited Create;
-  // Create put back stack and record stream we're reading
-  fPutBackStack := TCharStack.Create;
-  fStm := Stm;
-  // Fetch first character from stream
+  fBuffer := Str;
+  // set cursor to just before start of buffer then read first char
+  fIdx := 0;
   NextChar;
 end;
 
-destructor TTextStreamReader.Destroy;
-  {Class destructor: tears down object.
-  }
+function TStringReader.GetCh: Char;
 begin
-  fPutBackStack.Free;
-  inherited;
-end;
-
-function TTextStreamReader.GetNextChar: AnsiChar;
-  {Gets next character from stream or push back stack if it contains characters.
-    @return Required character or cEOF if end of file.
-  }
-begin
-  if fPutBackStack.Count = 0 then
+  if fIdx <= Length(fBuffer) then
   begin
-    // Get next character from stream, checking for EOF
-    if fStm.Read(Result, SizeOf(Result)) = 0 then
-      Result := cEOF;
+    // within buffer: get char at current position
+    Result := fBuffer[fIdx];
+    if CharInSet(Result, [CR, LF]) then
+      // char is one of EOL chars => return EOL
+      Result := EOL;
   end
   else
-    // Get next character from put back stack
-    Result := fPutBackStack.Pop;
-  // Record character in Ch property
-  fCh := Result;
+    Result := EOF;
 end;
 
-function TTextStreamReader.NextChar: AnsiChar;
-  {Fetches next character from buffer, translating CRLF into single EOL
-  character.
-    @return Character read (cEOF at end of buffer).
-  }
-var
-  TempCh: AnsiChar; // stores look ahead character
+function TStringReader.NextChar: Char;
 begin
-  // Get character from stream or put back stack
-  Result := GetNextChar;
-  if Result = cCR then
+  if fIdx < Length(fBuffer) then
   begin
-    // We have CR - check if followed by LF and swallow if so
-    TempCh := GetNextChar;
-    if TempCh <> cLF then
-      UngetChar(TempCh);
+    // there are more chars: increment cursor to next char position
+    Inc(fIdx);
+    if fBuffer[fIdx] = CR then
+    begin
+      // new char is CR: skip it if followed by LF
+      if (fIdx < Length(fBuffer)) and (fBuffer[fIdx + 1] = LF) then
+        Inc(fIdx);
+    end;
+  end
+  else
+    // no remaining chars: place cursor beyond end of buffer => EOF
+    fIdx := Length(fBuffer) + 1;
+  // return character just read or EOF
+  Result := GetCh;
+end;
+
+procedure TStringReader.PutBackChar;
+begin
+  if fIdx > 1 then
+  begin
+    // fIdx in [2..Length(fBuffer) + 1] => we can move back in buffer
+    // this permits putting back char at EOF
+    Dec(fIdx);
+    if fBuffer[fIdx] = LF then
+    begin
+      // new current char is LF: if preceeded by CR we will have skipped over CR
+      // when read so we go back two chars in buffer
+      if (fIdx > 1) and (fBuffer[fIdx - 1] = CR) then
+        Dec(fIdx);
+    end;
   end;
-  if Result in [cCR, cLF] then
-    // We have CR or LF - return special EOL char
-    Result := cEOL;
-end;
-
-procedure TTextStreamReader.PutBackChar;
-  {Puts the last read character back on the stream.
-  }
-begin
-  UngetChar(fCh);
-end;
-
-procedure TTextStreamReader.UngetChar(ACh: AnsiChar);
-  {Logically puts back a character onto the stream.
-    @param ACh [in] Character to be put back.
-  }
-begin
-  fPutBackStack.Push(ACh);
 end;
 
 end.
