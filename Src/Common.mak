@@ -34,14 +34,14 @@
 # ------------------------------------------------------------------------------
 
 
-# The preferred compiler is Delphi 2006. If the DELPHI2006 evironment variable
-# is set, it will be used and expected to reference the Delphi 2006 install
+# The preferred compiler is Delphi 2010. If the DELPHI2010 evironment variable
+# is set, it will be used and expected to reference the Delphi 2010 install
 # directory.
-# If DELPHI2006 is not set then the DELPHIROOT environment variable is examined.
-# This can be set to any Delphi compiler. If neither DELPHI2006 nor DELPHIROOT
+# If DELPHI2010 is not set then the DELPHIROOT environment variable is examined.
+# This can be set to any Delphi compiler. If neither DELPHI2010 nor DELPHIROOT
 # is set then an error is reported
-!ifdef DELPHI2006
-DELPHIROOT = $(DELPHI2006)
+!ifdef DELPHI2010
+DELPHIROOT = $(DELPHI2010)
 !endif
 
 # Requires the following macros:
