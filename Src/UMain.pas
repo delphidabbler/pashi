@@ -301,11 +301,9 @@ function TMain.GetInputSourceCode: string;
 var
   Reader: IInputReader;
 begin
+  Reader := TInputReaderFactory.Instance(fConfig.InputSource);
   // TODO: permit user to specify encoding for stdin
-  Reader := TInputReaderFactory.Instance(
-    fConfig.InputSource, TEncoding.Default
-  );
-  Result := Reader.Read;
+  Result := Reader.Read(TEncoding.Default);
 end;
 
 procedure TMain.ShowHelp;

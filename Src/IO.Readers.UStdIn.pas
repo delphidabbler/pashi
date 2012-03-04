@@ -8,13 +8,8 @@ uses
 
 type
   TStdInReader = class(TInterfacedObject, IInputReader)
-  strict private
-    var
-      fEncoding: TEncoding;
   public
-    constructor Create(const Encoding: TEncoding);
-    destructor Destroy; override;
-    function Read: string;
+    function Read(const Encoding: TEncoding): string;
   end;
 
 implementation
@@ -24,20 +19,7 @@ uses
 
 { TStdInReader }
 
-constructor TStdInReader.Create(const Encoding: TEncoding);
-begin
-  inherited Create;
-  fEncoding := Encoding;
-end;
-
-destructor TStdInReader.Destroy;
-begin
-  if not TEncoding.IsStandardEncoding(fEncoding) then
-    fEncoding.Free;
-  inherited;
-end;
-
-function TStdInReader.Read: string;
+function TStdInReader.Read(const Encoding: TEncoding): string;
 const
   ChunkSize = 1024 * 16;
 var
@@ -60,7 +42,7 @@ begin
     Move(Buffer[0], Data[Offset], BytesRead);
   until False;
   // Data now contains all data from stdin
-  Result := fEncoding.GetString(Data);
+  Result := Encoding.GetString(Data);
 end;
 
 end.

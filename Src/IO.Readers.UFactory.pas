@@ -9,8 +9,7 @@ uses
 type
   TInputReaderFactory = record
   public
-    class function Instance(const InputSource: TInputSource;
-      const Encoding: TEncoding = nil): IInputReader;
+    class function Instance(const InputSource: TInputSource): IInputReader;
       static;
   end;
 
@@ -21,11 +20,11 @@ uses
 
 { TInputReaderFactory }
 
-class function TInputReaderFactory.Instance(const InputSource: TInputSource;
-  const Encoding: TEncoding): IInputReader;
+class function TInputReaderFactory.Instance(const InputSource: TInputSource):
+  IInputReader;
 begin
   case InputSource of
-    isStdIn: Result := TStdInReader.Create(Encoding);
+    isStdIn: Result := TStdInReader.Create;
     isClipboard: Result := TClipboardReader.Create;
   else
     Result := nil;
