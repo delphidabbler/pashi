@@ -44,7 +44,7 @@ uses
   // Delphi
   Classes,
   // Project
-  IntfHiliter, UConfig, UConsole;
+  Hiliter.UGlobals, UConfig, UConsole;
 
 
 type
@@ -99,7 +99,7 @@ uses
   // Delphi
   SysUtils, Windows,
   // Project
-  UClipboardStreams, UParams, UStdIOStreams, USyntaxHiliters;
+  UClipboardStreams, UParams, UStdIOStreams, Hiliter.UHiliters;
 
 
 {$WARN UNSAFE_TYPE OFF}

@@ -1,5 +1,5 @@
 {
- * IntfHiliter.pas
+ * Hiliter.UGlobals.pas
  *
  * Declares types that describe syntax hilighters and defines interfaces to
  * various syntax highlighters and highlighter attributes.
@@ -20,7 +20,7 @@
  * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for
  * the specific language governing rights and limitations under the License.
  *
- * The Original Code is IntfHiliter.pas.
+ * The Original Code is Hiliter.UGlobals.pas.
  *
  * The Initial Developer of the Original Code is Peter Johnson
  * (http://www.delphidabbler.com/).
@@ -35,7 +35,7 @@
 }
 
 
-unit IntfHiliter;
+unit Hiliter.UGlobals;
 
 
 interface

@@ -1,5 +1,5 @@
 {
- * USyntaxHiliters.pas
+ * Hiliter.UHiliters.pas
  *
  * Provides highlighter classes used to format and highlight source code in
  * HTML. Also contains a factory object used to create various highlighters.
@@ -20,7 +20,7 @@
  * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for
  * the specific language governing rights and limitations under the License.
  *
- * The Original Code is USyntaxHiliters.pas.
+ * The Original Code is Hiliter.UHiliters.pas.
  *
  * The Initial Developer of the Original Code is Peter Johnson
  * (http://www.delphidabbler.com/).
@@ -35,7 +35,7 @@
 }
 
 
-unit USyntaxHiliters;
+unit Hiliter.UHiliters;
 
 {$WARN UNSAFE_TYPE OFF}
 
@@ -44,7 +44,7 @@ interface
 
 uses
   // Project
-  IntfHiliter;
+  Hiliter.UGlobals;
 
 
 type
@@ -102,7 +102,7 @@ uses
   // Delphi
   SysUtils, StrUtils, Classes, Windows, Graphics,
   // Project
-  IntfCommon, UHilitePasParser, UHTMLUtils, UStrStreamWriter;
+  IntfCommon, Hiliter.UPasParser, UHTMLUtils, UStrStreamWriter;
 
 
 type

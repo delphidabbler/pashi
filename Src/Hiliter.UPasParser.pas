@@ -1,5 +1,5 @@
 {
- * UHilitePasParser.pas
+ * Hiliter.UPasParser.pas
  *
  * Defines class that parses Pascal files and splits into different highlighting
  * elements.
@@ -20,7 +20,7 @@
  * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for
  * the specific language governing rights and limitations under the License.
  *
- * The Original Code is UHilitePasParser.pas.
+ * The Original Code is Hiliter.UPasParser.pas.
  *
  * The Initial Developer of the Original Code is Peter Johnson
  * (http://www.delphidabbler.com/).
@@ -35,7 +35,7 @@
 }
 
 
-unit UHilitePasParser;
+unit Hiliter.UPasParser;
 
 
 interface
@@ -45,7 +45,7 @@ uses
   // Delphi
   Classes, Windows, {for inlining}
   // Project
-  IntfHiliter;
+  Hiliter.UGlobals;
 
 
 type
@@ -122,7 +122,7 @@ uses
   // Delphi
   SysUtils,
   // Project
-  UHilitePasLexer;
+  Hiliter.UPasLexer;
 
 
 { THilitePasParser }

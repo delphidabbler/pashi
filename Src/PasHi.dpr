@@ -63,21 +63,21 @@ program PasHi;
 
 uses
   IntfCommon in 'IntfCommon.pas',
-  IntfHiliter in 'IntfHiliter.pas',
+  Hiliter.UGlobals in 'Hiliter.UGlobals.pas',
   UCharStack in 'UCharStack.pas',
   UClipboardMgr in 'UClipboardMgr.pas',
   UClipboardStreams in 'UClipboardStreams.pas',
   UConfig in 'UConfig.pas',
   UConsole in 'UConsole.pas',
-  UHilitePasLexer in 'UHilitePasLexer.pas',
-  UHilitePasParser in 'UHilitePasParser.pas',
+  Hiliter.UPasLexer in 'Hiliter.UPasLexer.pas',
+  Hiliter.UPasParser in 'Hiliter.UPasParser.pas',
   UHTMLUtils in 'UHTMLUtils.pas',
   UMain in 'UMain.pas',
   UParams in 'UParams.pas',
   UStdIO in 'UStdIO.pas',
   UStdIOStreams in 'UStdIOStreams.pas',
   UStrStreamWriter in 'UStrStreamWriter.pas',
-  USyntaxHiliters in 'USyntaxHiliters.pas',
+  Hiliter.UHiliters in 'Hiliter.UHiliters.pas',
   UTextStreamReader in 'UTextStreamReader.pas',
   PJStreamWrapper in '3rdParty\PJStreamWrapper.pas';
 
