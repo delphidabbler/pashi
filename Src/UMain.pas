@@ -67,9 +67,9 @@ type
     procedure ShowHelp;
       {Writes help text to console.
       }
-    function CreateInputStream: TStream;
-      {Creates stream that reads program input.
-        @return Required input stream.
+    function GetInputSourceCode: string;
+      {Reads program input as a string.
+        @return Required input string.
       }
     function CreateOutputStream: TStream;
       {Creates stream that receives program output.
@@ -99,6 +99,7 @@ uses
   // Delphi
   SysUtils, Windows,
   // Project
+  IO.UTypes, IO.Readers.UFactory,
   UClipboardStreams, UParams, UStdIOStreams, Hiliter.UHiliters;
 
 
@@ -180,8 +181,6 @@ resourcestring
     + 'If -frag and -hidecss are used together, last one used takes '
     + 'precedence.';
 
-
-
 { TMain }
 
 procedure TMain.Configure;
@@ -224,19 +223,6 @@ begin
   Assert(Assigned(Result), 'TMain.CreateHiliter: Invalid document format');
 end;
 
-function TMain.CreateInputStream: TStream;
-  {Creates stream that reads program input.
-    @return Required input stream.
-  }
-begin
-  Result := nil;
-  case fConfig.InputSource of
-    isStdIn: Result := TStdInStream.Create;
-    isClipboard: Result := TClipboardReadStream.Create(CF_TEXT);
-  end;
-  Assert(Assigned(Result), 'TMain.CreateInputStream: Unknown input format');
-end;
-
 function TMain.CreateOutputStream: TStream;
   {Creates stream that receives program output.
     @return Required output stream.
@@ -263,9 +249,11 @@ procedure TMain.Execute;
   {Executes program.
   }
 var
-  InStm: TStream;           // stream onto input Pascal source
+  InSrc: string;            // string containing input Pascal source
   OutStm: TStream;          // stream onto output highlighted source
+  OutCode: string;          // highlighted output as string
   Hiliter: ISyntaxHiliter;  // highlighter object
+  Bytes: TBytes;
 begin
   ExitCode := 0;
   try
@@ -280,18 +268,19 @@ begin
     begin
       // Sign on and initialise program
       SignOn;
-      InStm := nil;
       OutStm := nil;
       try
-        InStm := CreateInputStream;
+        InSrc := GetInputSourceCode;
         OutStm := CreateOutputStream;
         Hiliter := CreateHiliter;
         // Analyse Pascal code on input stream, highlight it, then write output
-        Hiliter.Hilite(InStm, OutStm);
+        OutCode := Hiliter.Hilite(InSrc);
+        Bytes := TEncoding.Default.GetBytes(OutCode);
+        OutStm.WriteBuffer(Pointer(Bytes)^, Length(Bytes));
+
       finally
         // Close input and output streams
         FreeAndNil(OutStm);
-        FreeAndNil(InStm);
       end;
       // Sign off
       fConsole.WriteLn(sCompleted);
@@ -306,6 +295,17 @@ begin
       ExitCode := 1;
     end;
   end;
+end;
+
+function TMain.GetInputSourceCode: string;
+var
+  Reader: IInputReader;
+begin
+  // TODO: permit user to specify encoding for stdin
+  Reader := TInputReaderFactory.Instance(
+    fConfig.InputSource, TEncoding.Default
+  );
+  Result := Reader.Read;
 end;
 
 procedure TMain.ShowHelp;
