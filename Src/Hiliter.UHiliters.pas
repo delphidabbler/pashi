@@ -463,6 +463,7 @@ procedure TParsedHiliter.Hilite(const Src, Dest: TStream);
   }
 var
   Parser: THilitePasParser;   // object used to parse source
+  SS: TStringStream;          // gets string from input stream
 begin
   fWriter := TStrStreamWriter.Create(Dest);
   try
@@ -475,7 +476,13 @@ begin
       Parser.OnLineEnd := LineEndHandler;
       // Parse the document:
       BeginDoc;   // overridden in descendants to initialise document
-      Parser.Parse(Src);
+      SS := TStringStream.Create('', TEncoding.Default);
+      try
+        SS.CopyFrom(Src, 0);
+        Parser.Parse(SS.DataString);
+      finally
+        SS.Free
+      end;
       EndDoc;     // overridden in descendants to finalise document
     finally
       Parser.Free;
