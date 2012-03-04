@@ -83,7 +83,7 @@ type
     fCommentState: record       // Records state of comment being processed
       InComment: Boolean;           // whether currently processing comment
       CommentType: THilitePasToken; // indicates comment or compiler directive
-      CommentCloser: string;        // closing comment symbol ( *), } or EOL )
+      CommentCloser: AnsiString;// closing comment symbol ( *), } or EOL )
     end;
     fReader: TTextStreamReader; // Object that reads characters from input
     procedure UpdateTokenStr; overload;

@@ -50,19 +50,19 @@ type
 
   {
   TCharStack:
-    A stack of characters.
+    A stack of ANSI characters.
   }
   TCharStack = class(TStack)
   public
-    function Peek: Char;
+    function Peek: AnsiChar;
       {Gets character at top of stack.
         @return character at top of stack.
       }
-    function Pop: Char;
+    function Pop: AnsiChar;
       {Pops character from stack.
         @return character popped from stack.
       }
-    procedure Push(AChar: Char);
+    procedure Push(AChar: AnsiChar);
       {Pushes character onto stack.
         @param AChar [in] Character to push on stack.
       }
@@ -74,23 +74,23 @@ implementation
 
 { TCharStack }
 
-function TCharStack.Peek: Char;
+function TCharStack.Peek: AnsiChar;
   {Gets character at top of stack.
     @return character at top of stack.
   }
 begin
-  Result := Char(inherited Peek);
+  Result := AnsiChar(inherited Peek);
 end;
 
-function TCharStack.Pop: Char;
+function TCharStack.Pop: AnsiChar;
   {Pops character from stack.
     @return character popped from stack.
   }
 begin
-  Result := Char(inherited Pop);
+  Result := AnsiChar(inherited Pop);
 end;
 
-procedure TCharStack.Push(AChar: Char);
+procedure TCharStack.Push(AChar: AnsiChar);
   {Pushes character onto stack.
     @param AChar [in] Character to push on stack.
   }

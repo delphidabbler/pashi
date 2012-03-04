@@ -65,14 +65,14 @@ type
   TTextStreamReader = class(TObject)
   private
     fPutBackStack: TCharStack;  // Stack for pushed back and retrieved chars
-    fCh: Char;                  // Character last read from stream
+    fCh: AnsiChar;              // Character last read from stream
     fStm: TStream;              // Reference to stream being read
-    function GetNextChar: Char;
+    function GetNextChar: AnsiChar;
       {Gets next character from stream or push back stack if it contains
       characters.
         @return Required character or cEOF if end of file.
       }
-    procedure UngetChar(ACh: Char);
+    procedure UngetChar(ACh: AnsiChar);
       {Logically puts back a character onto the stream.
         @param ACh [in] Character to be put back.
       }
@@ -129,7 +129,7 @@ begin
   inherited;
 end;
 
-function TTextStreamReader.GetNextChar: Char;
+function TTextStreamReader.GetNextChar: AnsiChar;
   {Gets next character from stream or push back stack if it contains characters.
     @return Required character or cEOF if end of file.
   }
@@ -153,7 +153,7 @@ function TTextStreamReader.NextChar: AnsiChar;
     @return Character read (cEOF at end of buffer).
   }
 var
-  TempCh: Char; // stores look ahead character
+  TempCh: AnsiChar; // stores look ahead character
 begin
   // Get character from stream or put back stack
   Result := GetNextChar;
@@ -176,7 +176,7 @@ begin
   UngetChar(fCh);
 end;
 
-procedure TTextStreamReader.UngetChar(ACh: Char);
+procedure TTextStreamReader.UngetChar(ACh: AnsiChar);
   {Logically puts back a character onto the stream.
     @param ACh [in] Character to be put back.
   }
