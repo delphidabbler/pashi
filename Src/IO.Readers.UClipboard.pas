@@ -29,16 +29,33 @@ type
 implementation
 
 uses
-  Windows, ClipBrd;
+  Windows,
+  UClipboardMgr;
 
 { TClipboardReader }
 
 function TClipboardReader.Read(const Encoding: TEncoding): string;
+var
+  ClipMgr: TClipboardMgr;
+  DataHandle: THandle;
+  Data: PChar;
 begin
-  // encoding is ignored: always Unicode
-  if not Clipboard.HasFormat(CF_UNICODETEXT) then
+  ClipMgr := TClipboardMgr.Create;
+  try
+    DataHandle := ClipMgr.GetDataHandle(CF_UNICODETEXT);
+  finally
+    ClipMgr.Free;
+  end;
+  if DataHandle = 0 then
     Exit('');
-  Result := Clipboard.AsText;
+  // Get a pointer to clipboard memory block and record its size
+  Data := GlobalLock(DataHandle);
+  try
+    Result := Data;
+  finally
+    GlobalUnlock(DataHandle);
+  end;
 end;
 
 end.
+
