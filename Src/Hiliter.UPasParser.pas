@@ -43,7 +43,7 @@ interface
 
 uses
   // Delphi
-  Generics.Collections,
+  SysUtils, Generics.Collections,
   // Project
   Hiliter.UGlobals, Hiliter.UPasLexer;
 
@@ -181,7 +181,7 @@ implementation
 
 uses
   // Project
-  UComparers, UStrUtils;
+  UComparers;
 
 
 { THilitePasParser }
@@ -261,7 +261,7 @@ end;
 
 function THilitePasParser.IsTokenStr(const TokenStr: string): Boolean;
 begin
-  Result := StrSameText(fLexer.TokenStr, TokenStr);
+  Result := AnsiSameText(fLexer.TokenStr, TokenStr);
 end;
 
 procedure THilitePasParser.Parse(const Source: string);

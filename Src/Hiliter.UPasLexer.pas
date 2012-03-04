@@ -191,7 +191,7 @@ uses
   // Delphi
   Character,
   // Project
-  UComparers, UConsts, UStrUtils, UUtils;
+  UComparers, UConsts;
 
 
 const
@@ -307,6 +307,14 @@ var
 
 { Helper routines }
 
+///  <summary>Checks whether a character is a valid hex digit.</summary>
+///  <param name="C">Char [in] Character to be tested.</param>
+///  <returns>Boolean. True if character is a hex digit, False if not.</returns>
+function IsHexDigit(C: Char): Boolean;
+begin
+  Result := CharInSet(C, ['A'..'F', 'a'..'f', '0'..'9']);
+end;
+
 ///  <summary>Checks if given character is valid for inclusion in the body of a
 ///  Delphi identifier, after the first character.</summary>
 function IsValidIdentBodyChar(const C: Char): Boolean; inline;
@@ -368,7 +376,7 @@ begin
   // Note: calling code assumes Table is zero based
   Result := -1;
   for I := Low(Table) to High(Table) do
-    if StrSameText(Table[I], Str) then
+    if AnsiSameText(Table[I], Str) then
     begin
       Result := I;
       Break;
