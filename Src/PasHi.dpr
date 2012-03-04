@@ -76,7 +76,6 @@ uses
   UParams in 'UParams.pas',
   UStdIO in 'UStdIO.pas',
   UStdIOStreams in 'UStdIOStreams.pas',
-  UStrStreamWriter in 'UStrStreamWriter.pas',
   Hiliter.UHiliters in 'Hiliter.UHiliters.pas',
   UStringReader in 'UStringReader.pas',
   PJStreamWrapper in '3rdParty\PJStreamWrapper.pas',

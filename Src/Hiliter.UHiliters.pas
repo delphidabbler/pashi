@@ -102,7 +102,7 @@ uses
   // Delphi
   SysUtils, StrUtils, Classes, Windows, Graphics,
   // Project
-  IntfCommon, Hiliter.UPasParser, UHTMLUtils, UStrStreamWriter;
+  IntfCommon, Hiliter.UPasParser, UHTMLUtils;
 
 
 type
