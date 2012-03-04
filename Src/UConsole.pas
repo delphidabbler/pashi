@@ -75,6 +75,8 @@ implementation
 
 
 uses
+  // Delphi
+  SysUtils,
   // Project
   UStdIO;
 
@@ -93,9 +95,14 @@ procedure TConsole.Write(const Text: string);
   {Write text to standard error unless slient.
     @param Text [in] Text to be written.
   }
+var
+  ANSIBytes: TBytes;  // text converted to ANSI byte stream
 begin
   if not fSilent then
-    TStdIO.Write(stdErr, Text);
+  begin
+    ANSIBytes := TEncoding.Default.GetBytes(Text);
+    TStdIO.Write(stdErr, Pointer(ANSIBytes)^, Length(ANSIBytes));
+  end;
 end;
 
 procedure TConsole.WriteLn(const Text: string);
