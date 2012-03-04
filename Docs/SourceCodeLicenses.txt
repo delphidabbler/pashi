@@ -20,10 +20,8 @@ Please refer to the relevant section below fo details of licensing.
 The download does not include all the source code required to rebuild the PasHi
 project. Explicitly it doesn't include:
 
-+ Source files from the Delphi 2006 VCL. You must have Delphi in order to access
++ Source files from the Delphi 2010 VCL. You must have Delphi in order to access
   these files.
-+ DelphiDabbler library units. These are all available from
-  http://www.delphidabbler.com/software/pash/download
   
 --------------------------------------------------------------------------------
 Original Source Code
@@ -42,8 +40,9 @@ that effect in the source file.
 Any other source code files that contain no copyright or license information can
 be used without restriction.
 
-Many source code files are licensed under the Mozilla Public License v1.1. A
-full copy of that license can be found in MPL.txt in the Docs directory.
+Many source code files are licensed under the Mozilla Public License v1.1 or v2.
+A full copy of those licenses can be found in MPL-1.1.txt and MPL-2.txt in the
+Docs directory.
 
 --------------------------------------------------------------------------------
 3rd Party Source Code
@@ -71,9 +70,10 @@ License.txt
 -----------
 May not be changed.
 
-MPL.txt
--------
-This file may not be modified and must be distributed with any derivative work.
+MPL-1.1.txt and MPL-2.txt
+-------------------------
+These files may not be modified and must be distributed with any derivative
+work.
 
 ReadMe.html
 -----------
@@ -85,25 +85,22 @@ May be updated to provide license information that applies to any additional
 source files. Information pertaining to unmodified existing files must be
 retained.
 
-Conditions and licenses attached to certain specified files are noted below. If
-a documentation file is not listed below, check the text or source code of the
-document for any restrictions on use. If none are present the file may be
-treated as public domain.
+Any other files are placed in the Public Domain.
 
 --------------------------------------------------------------------------------
 Image Files
 --------------------------------------------------------------------------------
 
 The only images provided are the icons for PasHi and PasHiGUI: PasHi.ico and
-MainIcon.ico respectively. These files are copyright 2006-2010 Peter Johnson
+MainIcon.ico respectively. These files are copyright 2006 Peter Johnson
 (www.delphidabbler.com).
 
 The files may not be altered in any way and may not be used in any other
-programs, included programs derived from the PasHi or PasHiGUI source code,
+programs, including programs derived from the PasHi or PasHiGUI source code,
 unless explicit permission is given by the author.
 
 This means that if you modify the source and publish your changes then you must
-remove the icon or repace it with you own.
+remove the icon or replace it with you own.
 
 --------------------------------------------------------------------------------
 $Rev$
