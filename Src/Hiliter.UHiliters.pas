@@ -123,14 +123,7 @@ type
   }
   TSyntaxHiliter = class(TInterfacedObject)
   public
-    procedure Hilite(const Src, Dest: TStream);
-      overload; virtual; abstract;
-      {Highlights source code on an input stream and writes to output stream.
-        @param Src [in] Stream containing source code to be highlighted.
-        @param Dest [in] Stream that receives highlighted document.
-      }
-    function Hilite(const RawCode: string): string;
-      overload; virtual; abstract;
+    function Hilite(const RawCode: string): string; virtual; abstract;
       {Highlights source code and writes to a string.
         @param RawCode [in] Contains source code to be highlighted.
         @return Highlighted source code.
@@ -203,14 +196,7 @@ type
     property Writer: TStringBuilder read fWriter;
       {Helper object used to write formatted code to output}
   public
-    procedure Hilite(const Src, Dest: TStream);
-      overload; override;
-      {Highlights source code on an input stream and writes to output stream.
-        @param Src [in] Stream containing source code to be highlighted.
-        @param Dest [in] Stream that receives highlighted document.
-      }
-    function Hilite(const RawCode: string): string;
-      overload; override;
+    function Hilite(const RawCode: string): string; override;
       {Highlights source code and writes to a string.
         @param RawCode [in] Contains source code to be highlighted.
         @return Highlighted source code.
@@ -453,15 +439,16 @@ begin
   // Do nothing: descendants override
 end;
 
-procedure TParsedHiliter.Hilite(const Src, Dest: TStream);
-  {Highlights source code on an input stream and writes to output stream.
-    @param Src [in] Stream containing source code to be highlighted.
-    @param Dest [in] Stream that receives highlighted document.
+function TParsedHiliter.Hilite(const RawCode: string): string;
+  {Highlights source code and writes to a string.
+    @param RawCode [in] Contains source code to be highlighted.
+    @return Highlighted source code.
   }
 var
+  SrcStm: TStringStream;  // stream used to store raw source code
+  DestStm: TStringStream; // stream used to receive output
+var
   Parser: THilitePasParser;   // object used to parse source
-  SS: TStringStream;          // gets string from input stream
-  OutBytes: TBytes;
 begin
   fWriter := TStringBuilder.Create;
   try
@@ -474,42 +461,14 @@ begin
       Parser.OnLineEnd := LineEndHandler;
       // Parse the document:
       BeginDoc;   // overridden in descendants to initialise document
-      SS := TStringStream.Create('', TEncoding.Default);
-      try
-        SS.CopyFrom(Src, 0);
-        Parser.Parse(SS.DataString);
-      finally
-        SS.Free
-      end;
+      Parser.Parse(RawCode);
       EndDoc;     // overridden in descendants to finalise document
     finally
       Parser.Free;
     end;
-    OutBytes := TEncoding.Default.GetBytes(fWriter.ToString);
-    Dest.Write(Pointer(OutBytes)^, Length(OutBytes));
+    Result := fWriter.ToString;
   finally
     fWriter.Free;
-  end;
-end;
-
-function TParsedHiliter.Hilite(const RawCode: string): string;
-  {Highlights source code and writes to a string.
-    @param RawCode [in] Contains source code to be highlighted.
-    @return Highlighted source code.
-  }
-var
-  SrcStm: TStringStream;  // stream used to store raw source code
-  DestStm: TStringStream; // stream used to receive output
-begin
-  DestStm := nil;
-  SrcStm := TStringStream.Create(RawCode);
-  try
-    DestStm := TStringStream.Create('');
-    Hilite(SrcStm, DestStm);
-    Result := DestStm.DataString;
-  finally
-    DestStm.Free;
-    SrcStm.Free;
   end;
 end;
 
