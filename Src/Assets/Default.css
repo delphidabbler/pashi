@@ -71,7 +71,6 @@
 }
 
 .pas-num, .pas-float, .pas-hex {
-    /* all number styled the same */
     font-style: normal;
     font-weight: normal;
     text-decoration: none;
