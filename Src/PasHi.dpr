@@ -83,7 +83,8 @@ uses
   UComparers in 'UComparers.pas',
   IO.UTypes in 'IO.UTypes.pas',
   IO.Readers.UStdIn in 'IO.Readers.UStdIn.pas',
-  IO.Readers.UClipboard in 'IO.Readers.UClipboard.pas';
+  IO.Readers.UClipboard in 'IO.Readers.UClipboard.pas',
+  IO.Readers.UFactory in 'IO.Readers.UFactory.pas';
 
 { Main program code }
 
