@@ -80,7 +80,10 @@ uses
   UStringReader in 'UStringReader.pas',
   PJStreamWrapper in '3rdParty\PJStreamWrapper.pas',
   UConsts in 'UConsts.pas',
-  UComparers in 'UComparers.pas';
+  UComparers in 'UComparers.pas',
+  IO.UTypes in 'IO.UTypes.pas',
+  IO.Readers.UStdIn in 'IO.Readers.UStdIn.pas',
+  IO.Readers.UClipboard in 'IO.Readers.UClipboard.pas';
 
 { Main program code }
 
