@@ -79,7 +79,8 @@ uses
   UStrStreamWriter in 'UStrStreamWriter.pas',
   Hiliter.UHiliters in 'Hiliter.UHiliters.pas',
   UStringReader in 'UStringReader.pas',
-  PJStreamWrapper in '3rdParty\PJStreamWrapper.pas';
+  PJStreamWrapper in '3rdParty\PJStreamWrapper.pas',
+  UConsts in 'UConsts.pas';
 
 { Main program code }
 
