@@ -30,7 +30,7 @@ implementation
 
 uses
   Windows,
-  UClipboardMgr, UClipboardStreams;
+  UClipboardMgr;
 
 { TClipboardWriter }
 
