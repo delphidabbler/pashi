@@ -445,9 +445,6 @@ function TParsedHiliter.Hilite(const RawCode: string): string;
     @return Highlighted source code.
   }
 var
-  SrcStm: TStringStream;  // stream used to store raw source code
-  DestStm: TStringStream; // stream used to receive output
-var
   Parser: THilitePasParser;   // object used to parse source
 begin
   fWriter := TStringBuilder.Create;
