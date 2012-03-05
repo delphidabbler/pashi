@@ -71,6 +71,10 @@ type
       {Reads program input as a string.
         @return Required input string.
       }
+    procedure WriteOutput(const S: string);
+      {Writes program output.
+        @param S [in] String containing output.
+      }
     function CreateOutputStream: TStream;
       {Creates stream that receives program output.
         @return Required output stream.
@@ -99,7 +103,7 @@ uses
   // Delphi
   SysUtils, Windows,
   // Project
-  IO.UTypes, IO.Readers.UFactory,
+  IO.UTypes, IO.Readers.UFactory, IO.Writers.UFactory,
   UClipboardStreams, UParams, UStdIOStreams, Hiliter.UHiliters;
 
 
@@ -250,10 +254,9 @@ procedure TMain.Execute;
   }
 var
   InSrc: string;            // string containing input Pascal source
-  OutStm: TStream;          // stream onto output highlighted source
+//  OutStm: TStream;          // stream onto output highlighted source
   OutCode: string;          // highlighted output as string
   Hiliter: ISyntaxHiliter;  // highlighter object
-  Bytes: TBytes;
 begin
   ExitCode := 0;
   try
@@ -268,19 +271,20 @@ begin
     begin
       // Sign on and initialise program
       SignOn;
-      OutStm := nil;
+//      OutStm := nil;
       try
         InSrc := GetInputSourceCode;
-        OutStm := CreateOutputStream;
+//        OutStm := CreateOutputStream;
         Hiliter := CreateHiliter;
         // Analyse Pascal code on input stream, highlight it, then write output
         OutCode := Hiliter.Hilite(InSrc);
-        Bytes := TEncoding.Default.GetBytes(OutCode);
-        OutStm.WriteBuffer(Pointer(Bytes)^, Length(Bytes));
+        WriteOutput(OutCode);
+//        Bytes := TEncoding.Default.GetBytes(OutCode);
+//        OutStm.WriteBuffer(Pointer(Bytes)^, Length(Bytes));
 
       finally
         // Close input and output streams
-        FreeAndNil(OutStm);
+//        FreeAndNil(OutStm);
       end;
       // Sign off
       fConsole.WriteLn(sCompleted);
@@ -333,6 +337,16 @@ begin
   fConsole.WriteLn(StringOfChar('-', Length(Msg)));
   // record that we've signed on
   fSignedOn := True;
+end;
+
+procedure TMain.WriteOutput(const S: string);
+var
+  Writer: IOutputWriter;
+begin
+  Writer := TOutputWriterFactory.Instance(fConfig.OutputSink);
+  // TODO: permit user to specify encoding for output
+  // TODO: change default encoding to UTF-8
+  Writer.Write(S, TEncoding.Default);
 end;
 
 end.
