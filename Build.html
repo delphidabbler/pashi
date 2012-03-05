@@ -105,7 +105,7 @@
 </p>
 
 <p>
-	The programs are written in Object Pascal and are targetted at Delphi 2006.
+	The programs are written in Object Pascal and are targetted at Delphi 2010.
 </p>
 
 <p>
@@ -118,12 +118,22 @@
 
 	<p>
 		<strong>Note:</strong>
-		These notes do not apply to <em>PasH</em> * v1.0.0 or earlier or to
-		<em>PasHGUI</em> * v0.1.0. For instructions on how to build these
-		versions please refer to files named <code>ReadMe-Src.txt</code> that
-		are to be found in the <code>Docs</code> or root directories of the
-		relevant source code trees.
-	</p>
+		These notes do not apply to the following versions of the program:
+  </p>
+
+  <ul>
+    <li>
+      Release 1.1.0. See the version of <code>Build.html</code> in the
+      <code>version-1.1.0</code> directory of the <code>tags</code> branch of
+      the repository.
+    </li>
+    <li>
+      <em>PasH</em> * release 1.0.0 or earlier or<em>PasHGUI</em> * release
+      0.1.0. For instructions on how to build these versions please refer to
+      files named <code>ReadMe-Src.txt</code> that are to be found in the
+      <code>Docs</code> or root directories of the relevant source code trees.
+    </li>
+	</ul>
 
 	<p style="font-size:smaller;">
 		* <em>PasH</em> and <em>PasHGUI</em> are the old names for
@@ -177,17 +187,16 @@
 </h3>
 
 <p>
-	A copy of Delphi is required to build the object Pascal code. Delphi 2006
+	A copy of Delphi is required to build the object Pascal code. Delphi 2010
 	is the preferred compiler.
 </p>
 
-<p>
-	Delphi 2005 to 2007 should be able to compile the source. Delphi 2009 and
-	later may work, but the code hasn't been written with Unicode support in
-	mind, so there may be problems. Delphi 7 may compile <em>PasHi</em> but is
-	unlikely to compile <em>PasHiGUI</em> without some significant changes.
-	Earlier Delphis are unlikely to be suitable, but this hasn't been tested.
-</p>
+<div class="box">
+	The code should be able to compile with Delphi XE and later. It is possible
+  that Delphi 2009 may compile the code, but it hasn't been tested. Versions
+  earlier than Delphi 2009 are not suitable due to their lack of Unicode
+  support.
+</div>
 
 <p>
 	You can use the Delphi IDE to edit the code and test compile it. The
@@ -216,7 +225,7 @@
 
 <dl>
 	<dt class="spaced">
-		<code>DELPHIROOT</code> - required unless <code>DELPHI2006</code> is
+		<code>DELPHIROOT</code> - required unless <code>DELPHI2010</code> is
 		set.
 	</dt>
 	<dd>
@@ -225,12 +234,12 @@
 		the <code>Bin</code> sub-directory of <code>DELPHIROOT</code>.
 	</dd>
 	<dt class="spaced">
-		<code>DELPHI2006</code> - optional
+		<code>DELPHI2010</code> - optional
 	</dt>
 	<dd>
-		If you are using Delphi 2006 this environment variable should be set
+		If you are using Delphi 2010 this environment variable should be set
 		to the Delphi install directory. When specified <code>DELPHIROOT</code>
-		will ignore its own value and use the value of <code>DELPHI2006</code>
+		will ignore its own value and use the value of <code>DELPHI2010</code>
 		instead.
 	</dd>
 </dl>
@@ -289,7 +298,7 @@
 
 <p>
 	The first step is to configure the required <code>DELPHIROOT</code> or
-	<code>DELPHI2006</code> environment variables.
+	<code>DELPHI2010</code> environment variables.
 </p>
 
 <p>
@@ -313,6 +322,12 @@
 	code, which should include the source for <em>PasHiGUI</em>. There are
 	several options:
 </p>
+
+<div class="box" style="color:red;">
+  NOTE: All references to <code>trunk</code> below need to be replaced by
+  <code>branches/v2-dev</code> until the v2 code is re-integrated into
+  <code>trunk.</code>
+</div>
 
 <ol class="spaced">
 	<li>
@@ -425,7 +440,7 @@
 	or
 </p>
   
-<pre class="cmd"><span class="prompt">Src&gt;</span> %DELPHI2006%\Bin\Make config</pre>
+<pre class="cmd"><span class="prompt">Src&gt;</span> %DELPHI2010%\Bin\Make config</pre>
 
 <p>
 	depending on which environment variable you have set.
