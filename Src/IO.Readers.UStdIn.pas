@@ -23,17 +23,17 @@ uses
 type
   TStdInReader = class(TInterfacedObject, IInputReader)
   public
-    function Read(const Encoding: TEncoding): string;
+    function Read(var Encoding: TEncoding): string;
   end;
 
 implementation
 
-uses
+uses             WINDOWS,
   UConsts, UStdIO;
 
 { TStdInReader }
 
-function TStdInReader.Read(const Encoding: TEncoding): string;
+function TStdInReader.Read(var Encoding: TEncoding): string;
 const
   ChunkSize = 1024 * 16;
 var
@@ -42,6 +42,7 @@ var
   BytesRead: Cardinal;
   TotalBytes: Cardinal;
   Offset: Cardinal;
+  PreambleSize: Integer;
 begin
   // read data from stdin to Data in chunks
   SetLength(Buffer, ChunkSize);
@@ -55,8 +56,12 @@ begin
     SetLength(Data, TotalBytes);
     Move(Buffer[0], Data[Offset], BytesRead);
   until False;
+  // Detects encoding if Encoding = nil. Also detects whether preamble present
+  // if Encoding is not nil and returns required number of bytes (0 or preamble
+  // length if present).
+  PreambleSize := TEncoding.GetBufferEncoding(Data, Encoding);
   // Data now contains all data from stdin
-  Result := Encoding.GetString(Data);
+  Result := Encoding.GetString(Data, PreambleSize, Length(Data) - PreambleSize);
 end;
 
 end.

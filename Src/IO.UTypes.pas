@@ -22,7 +22,8 @@ uses
 type
   IInputReader = interface
     ['{0E702A31-2D93-48D7-98F7-76823C209FF9}']
-    function Read(const Encoding: TEncoding): string;
+    // Pass nil as Encoding to auto-detect encoding: actual encoding returned
+    function Read(var Encoding: TEncoding): string;
   end;
 
 type

@@ -23,7 +23,7 @@ uses
 type
   TClipboardReader = class(TInterfacedObject, IInputReader)
   public
-    function Read(const Encoding: TEncoding): string;
+    function Read(var Encoding: TEncoding): string;
   end;
 
 implementation
@@ -34,7 +34,7 @@ uses
 
 { TClipboardReader }
 
-function TClipboardReader.Read(const Encoding: TEncoding): string;
+function TClipboardReader.Read(var Encoding: TEncoding): string;
 var
   ClipMgr: TClipboardMgr;
   DataHandle: THandle;

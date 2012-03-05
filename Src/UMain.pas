@@ -276,10 +276,17 @@ end;
 function TMain.GetInputSourceCode: string;
 var
   Reader: IInputReader;
+  Encoding: TEncoding;
 begin
   Reader := TInputReaderFactory.Instance(fConfig.InputSource);
   // TODO: permit user to specify encoding for stdin
-  Result := Reader.Read(TEncoding.Default);
+  Encoding := nil;
+  try
+    Result := Reader.Read(Encoding);
+  finally
+    if Assigned(Encoding) and not TEncoding.IsStandardEncoding(Encoding) then
+      Encoding.Free;
+  end;
 end;
 
 procedure TMain.ShowHelp;
