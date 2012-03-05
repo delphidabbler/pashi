@@ -84,7 +84,10 @@ uses
   IO.UTypes in 'IO.UTypes.pas',
   IO.Readers.UStdIn in 'IO.Readers.UStdIn.pas',
   IO.Readers.UClipboard in 'IO.Readers.UClipboard.pas',
-  IO.Readers.UFactory in 'IO.Readers.UFactory.pas';
+  IO.Readers.UFactory in 'IO.Readers.UFactory.pas',
+  IO.Writers.UStdOut in 'IO.Writers.UStdOut.pas',
+  IO.Writers.UClipboard in 'IO.Writers.UClipboard.pas',
+  IO.Writers.UFactory in 'IO.Writers.UFactory.pas';
 
 { Main program code }
 
