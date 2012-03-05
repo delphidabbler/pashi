@@ -18,13 +18,13 @@ interface
 
 uses
   SysUtils,
-  IO.UTypes, UConfig;
+  IO.UTypes;
 
 type
   TInputReaderFactory = record
   public
-    class function Instance(const InputSource: TInputSource): IInputReader;
-      static;
+    class function ClipboardReaderInstance: IInputReader; static;
+    class function StdInReaderInstance: IInputReader; static;
   end;
 
 implementation
@@ -34,16 +34,14 @@ uses
 
 { TInputReaderFactory }
 
-class function TInputReaderFactory.Instance(const InputSource: TInputSource):
-  IInputReader;
+class function TInputReaderFactory.ClipboardReaderInstance: IInputReader;
 begin
-  case InputSource of
-    isStdIn: Result := TStdInReader.Create;
-    isClipboard: Result := TClipboardReader.Create;
-  else
-    Result := nil;
-  end;
-  Assert(Assigned(Result), 'TInputReaderFactory.Instance: Result is nil');
+  Result := TClipboardReader.Create;
+end;
+
+class function TInputReaderFactory.StdInReaderInstance: IInputReader;
+begin
+  Result := TStdInReader.Create;
 end;
 
 end.

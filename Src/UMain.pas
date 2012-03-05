@@ -277,7 +277,13 @@ function TMain.GetInputSourceCode: string;
 var
   Reader: IInputReader;
 begin
-  Reader := TInputReaderFactory.Instance(fConfig.InputSource);
+  case fConfig.InputSource of
+    isStdIn: Reader := TInputReaderFactory.StdInReaderInstance;
+    isClipboard: Reader := TInputReaderFactory.ClipboardReaderInstance;
+  else
+    Reader := nil;
+  end;
+  Assert(Assigned(Reader), 'TMain.GetInputSourceCode: Reader is nil');
   Result := Reader.Read;
 end;
 
