@@ -50,7 +50,6 @@
 			<DCCReference Include="Hiliter.UGlobals.pas"/>
 			<DCCReference Include="UCharStack.pas"/>
 			<DCCReference Include="UClipboardMgr.pas"/>
-			<DCCReference Include="UClipboardStreams.pas"/>
 			<DCCReference Include="UConfig.pas"/>
 			<DCCReference Include="UConsole.pas"/>
 			<DCCReference Include="Hiliter.UPasLexer.pas"/>
@@ -59,7 +58,6 @@
 			<DCCReference Include="UMain.pas"/>
 			<DCCReference Include="UParams.pas"/>
 			<DCCReference Include="UStdIO.pas"/>
-			<DCCReference Include="UStdIOStreams.pas"/>
 			<DCCReference Include="Hiliter.UHiliters.pas"/>
 			<DCCReference Include="UStringReader.pas"/>
 			<DCCReference Include="3rdParty\PJStreamWrapper.pas"/>
