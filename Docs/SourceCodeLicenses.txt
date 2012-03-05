@@ -49,8 +49,7 @@ Docs directory.
 --------------------------------------------------------------------------------
 
 3rd Party source code is stored in the Src\3rdParty directory. At the time of
-writing, the only "3rd Party" code is taken from the DelpiDabbler code library
-and is released under the Mozilla Public License v1.1
+writing there is no 3rd party code.
 
 --------------------------------------------------------------------------------
 Documentation
