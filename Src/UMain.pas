@@ -75,10 +75,6 @@ type
       {Writes program output.
         @param S [in] String containing output.
       }
-    function CreateOutputStream: TStream;
-      {Creates stream that receives program output.
-        @return Required output stream.
-      }
     function CreateHiliter: ISyntaxHiliter;
       {Creates required syntax highlighter, depending on document type.
         @return Required highlighter object.
@@ -103,8 +99,8 @@ uses
   // Delphi
   SysUtils, Windows,
   // Project
-  IO.UTypes, IO.Readers.UFactory, IO.Writers.UFactory,
-  UClipboardStreams, UParams, UStdIOStreams, Hiliter.UHiliters;
+  IO.UTypes, IO.Readers.UFactory, IO.Writers.UFactory, UParams,
+  Hiliter.UHiliters;
 
 
 {$WARN UNSAFE_TYPE OFF}
@@ -227,19 +223,6 @@ begin
   Assert(Assigned(Result), 'TMain.CreateHiliter: Invalid document format');
 end;
 
-function TMain.CreateOutputStream: TStream;
-  {Creates stream that receives program output.
-    @return Required output stream.
-  }
-begin
-  Result := nil;
-  case fConfig.OutputSink of
-    osStdOut: Result := TStdOutStream.Create;
-    osClipboard: Result := TClipboardWriteStream.Create(CF_TEXT);
-  end;
-  Assert(Assigned(Result), 'TMain.CreateOutputStream: Unknown output format');
-end;
-
 destructor TMain.Destroy;
   {Class destructor. Tears down object.
   }
@@ -254,7 +237,6 @@ procedure TMain.Execute;
   }
 var
   InSrc: string;            // string containing input Pascal source
-//  OutStm: TStream;          // stream onto output highlighted source
   OutCode: string;          // highlighted output as string
   Hiliter: ISyntaxHiliter;  // highlighter object
 begin
@@ -271,21 +253,11 @@ begin
     begin
       // Sign on and initialise program
       SignOn;
-//      OutStm := nil;
-      try
-        InSrc := GetInputSourceCode;
-//        OutStm := CreateOutputStream;
-        Hiliter := CreateHiliter;
-        // Analyse Pascal code on input stream, highlight it, then write output
-        OutCode := Hiliter.Hilite(InSrc);
-        WriteOutput(OutCode);
-//        Bytes := TEncoding.Default.GetBytes(OutCode);
-//        OutStm.WriteBuffer(Pointer(Bytes)^, Length(Bytes));
-
-      finally
-        // Close input and output streams
-//        FreeAndNil(OutStm);
-      end;
+      InSrc := GetInputSourceCode;
+      Hiliter := CreateHiliter;
+      // Analyse Pascal code on input stream, highlight it, then write output
+      OutCode := Hiliter.Hilite(InSrc);
+      WriteOutput(OutCode);
       // Sign off
       fConsole.WriteLn(sCompleted);
     end;
