@@ -23,17 +23,17 @@ uses
 type
   TStdInReader = class(TInterfacedObject, IInputReader)
   public
-    function Read(var Encoding: TEncoding): string;
+    function Read: string;
   end;
 
 implementation
 
-uses             WINDOWS,
+uses
   UConsts, UStdIO;
 
 { TStdInReader }
 
-function TStdInReader.Read(var Encoding: TEncoding): string;
+function TStdInReader.Read: string;
 const
   ChunkSize = 1024 * 16;
 var
@@ -42,6 +42,7 @@ var
   BytesRead: Cardinal;
   TotalBytes: Cardinal;
   Offset: Cardinal;
+  Encoding: TEncoding;
   PreambleSize: Integer;
 begin
   // read data from stdin to Data in chunks
@@ -56,12 +57,18 @@ begin
     SetLength(Data, TotalBytes);
     Move(Buffer[0], Data[Offset], BytesRead);
   until False;
-  // Detects encoding if Encoding = nil. Also detects whether preamble present
-  // if Encoding is not nil and returns required number of bytes (0 or preamble
-  // length if present).
-  PreambleSize := TEncoding.GetBufferEncoding(Data, Encoding);
   // Data now contains all data from stdin
-  Result := Encoding.GetString(Data, PreambleSize, Length(Data) - PreambleSize);
+  // detect encoding used for data using any preamble bytes (BOM).
+  Encoding := nil;
+  PreambleSize := TEncoding.GetBufferEncoding(Data, Encoding);
+  try
+    // get text using required encoding
+    Result := Encoding.GetString(
+      Data, PreambleSize, Length(Data) - PreambleSize)
+  finally
+    if Assigned(Encoding) and not TEncoding.IsStandardEncoding(Encoding) then
+      Encoding.Free;
+  end;
 end;
 
 end.
