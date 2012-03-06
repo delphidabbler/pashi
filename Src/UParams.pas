@@ -62,7 +62,7 @@ interface
 
 uses
   // Delphi
-  Classes,
+  Generics.Collections,
   // Project
   UConfig;
 
@@ -89,8 +89,9 @@ type
   }
   TParams = class(TObject)
   private
-    fParams: TStringList;   // List of command line parameters
-    fConfig: TConfig;       // Reference to program's configuration object
+    fCmdQueue: TQueue<string>;  // Queue of commands to be processed
+    fConfig: TConfig;           // Reference to program's configuration object
+    procedure PopulateCommandQueue;
     function SwitchToId(const Switch: string; out Id: TSwitchId): Boolean;
       {Finds id of a switch.
         @param Switch [in] Text defining switch.
@@ -164,23 +165,18 @@ constructor TParams.Create(const Config: TConfig);
   {Class constructor. Initialises object.
     @param Config [in] Configuration object to be updated from command line.
   }
-var
-  Idx: Integer; // loops through all parameters
 begin
   Assert(Assigned(Config), 'TParams.Create: Config is nil');
   inherited Create;
   fConfig := Config;
-  // Stores program parameters
-  fParams := TStringList.Create;
-  for Idx := 1 to ParamCount do
-    fParams.Add(Trim(ParamStr(Idx)));
+  fCmdQueue := TQueue<string>.Create;
 end;
 
 destructor TParams.Destroy;
   {Class destructor. Tears down object.
   }
 begin
-  FreeAndNil(fParams);
+  fCmdQueue.Free;
   inherited;
 end;
 
@@ -219,28 +215,38 @@ resourcestring
   sNoSwitch = 'Invalid parameter "%s" - switch expected';
   sBadSwitch = 'Invalid switch "%s"';
 begin
+  PopulateCommandQueue;
   // Loop through all commands on command line
   Idx := 0;
-  while Idx < fParams.Count do
+  while fCmdQueue.Count > 0 do
   begin
     // Check command line item
-    if AnsiStartsStr('-', fParams[Idx]) then
+    if AnsiStartsStr('-', fCmdQueue.Peek) then
     begin
       // switch: get id, checking it is valid
-      if not SwitchToId(fParams[Idx], SwitchId) then
-        raise Exception.CreateFmt(sBadSwitch, [fParams[Idx]]);
+      if not SwitchToId(fCmdQueue.Peek, SwitchId) then
+        raise Exception.CreateFmt(sBadSwitch, [fCmdQueue.Peek]);
       // parse the switch, updating configuration object
       HandleSwitch(SwitchId, Idx);
     end
     else
     begin
       // File name
-      fConfig.AddInputFile(fParams[Idx]);
+      fConfig.AddInputFile(fCmdQueue.Peek);
       fConfig.InputSource := isFiles;
     end;
     // Next parameter
-    Inc(Idx);
+    fCmdQueue.Dequeue;
   end;
+end;
+
+procedure TParams.PopulateCommandQueue;
+var
+  Idx: Integer;
+begin
+  fCmdQueue.Clear;
+  for Idx := 1 to ParamCount do
+    fCmdQueue.Enqueue(ParamStr(Idx));
 end;
 
 function TParams.SwitchToId(const Switch: string; out Id: TSwitchId): Boolean;
