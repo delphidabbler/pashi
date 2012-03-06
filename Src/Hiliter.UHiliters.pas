@@ -123,7 +123,8 @@ type
   }
   TSyntaxHiliter = class(TInterfacedObject)
   public
-    function Hilite(const RawCode: string): string; virtual; abstract;
+    function Hilite(const RawCode: string; const EncodingName: string): string;
+      virtual; abstract;
       {Highlights source code and writes to a string.
         @param RawCode [in] Contains source code to be highlighted.
         @return Highlighted source code.
@@ -145,6 +146,7 @@ type
   TParsedHiliter = class(TSyntaxHiliter)
   strict private
     fWriter: TStringBuilder;  // Helper object used to emit formatted source
+    fEncodingName: string;    // Name of output encoding
     procedure ElementHandler(Parser: THilitePasParser; Elem: THiliteElement;
       const ElemText: string);
       {Handles parser's OnElement event: calls virtual do nothing and abstract
@@ -195,8 +197,11 @@ type
       }
     property Writer: TStringBuilder read fWriter;
       {Helper object used to write formatted code to output}
+    property EncodingName: string read fEncodingName;
+      {Name of encoding to be added to document head}
   public
-    function Hilite(const RawCode: string): string; override;
+    function Hilite(const RawCode: string; const EncodingName: string): string;
+      override;
       {Highlights source code and writes to a string.
         @param RawCode [in] Contains source code to be highlighted.
         @return Highlighted source code.
@@ -439,7 +444,8 @@ begin
   // Do nothing: descendants override
 end;
 
-function TParsedHiliter.Hilite(const RawCode: string): string;
+function TParsedHiliter.Hilite(const RawCode: string;
+  const EncodingName: string): string;
   {Highlights source code and writes to a string.
     @param RawCode [in] Contains source code to be highlighted.
     @return Highlighted source code.
@@ -447,6 +453,7 @@ function TParsedHiliter.Hilite(const RawCode: string): string;
 var
   Parser: THilitePasParser;   // object used to parse source
 begin
+  fEncodingName := EncodingName;
   fWriter := TStringBuilder.Create;
   try
     // Create parser
@@ -636,6 +643,16 @@ begin
   );
   // Write head section
   Writer.AppendLine('<head>');
+  if EncodingName <> '' then
+  begin
+    Writer.AppendFormat(
+      '<meta http-equiv="Content-Type" content="text/html;charset=%s">',
+      [EncodingName]
+    );
+    Writer.AppendLine;
+  end
+  else
+    Writer.AppendLine('<meta http-equiv="Content-Type" content="text/html;">');
   Writer.AppendFormat('<title>%s</title>', [sTitle]);
   Writer.AppendLine;
   Writer.AppendLine(

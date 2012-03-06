@@ -47,10 +47,14 @@ procedure TFileWriter.Write(const S: string; const Encoding: TEncoding);
 var
   Bytes: TBytes;
   FS: TFileStream;
+  Preamble: TBytes;
 begin
+  Preamble := Encoding.GetPreamble;
   Bytes := Encoding.GetBytes(S);
   FS := TFileStream.Create(fFileName, fmCreate);
   try
+    if Length(Preamble) > 0 then
+      FS.WriteBuffer(Pointer(Preamble)^, Length(Preamble));
     FS.WriteBuffer(Pointer(Bytes)^, Length(Bytes));
   finally
     FS.Free;
@@ -58,3 +62,4 @@ begin
 end;
 
 end.
+

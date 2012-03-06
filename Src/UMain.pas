@@ -71,6 +71,11 @@ type
       {Reads program input as a string.
         @return Required input string.
       }
+    function HiliteSource(const SourceCode: string): string;
+      {Highlights source code.
+        @param SourceCode [in] Source code to be highlighted.
+        @return Highlighted source code.
+      }
     procedure WriteOutput(const S: string);
       {Writes program output.
         @param S [in] String containing output.
@@ -236,9 +241,8 @@ procedure TMain.Execute;
   {Executes program.
   }
 var
-  InSrc: string;            // string containing input Pascal source
-  OutCode: string;          // highlighted output as string
-  Hiliter: ISyntaxHiliter;  // highlighter object
+  SourceCode: string; // input Pascal source code
+  XHTML: string;      // highlighted XHTML output
 begin
   ExitCode := 0;
   try
@@ -253,11 +257,9 @@ begin
     begin
       // Sign on and initialise program
       SignOn;
-      InSrc := GetInputSourceCode;
-      Hiliter := CreateHiliter;
-      // Analyse Pascal code on input stream, highlight it, then write output
-      OutCode := Hiliter.Hilite(InSrc);
-      WriteOutput(OutCode);
+      SourceCode := GetInputSourceCode;
+      XHTML := HiliteSource(SourceCode);
+      WriteOutput(XHTML);
       // Sign off
       fConsole.WriteLn(sCompleted);
     end;
@@ -288,6 +290,23 @@ begin
   end;
   Assert(Assigned(Reader), 'TMain.GetInputSourceCode: Reader is nil');
   Result := Reader.Read;
+end;
+
+function TMain.HiliteSource(const SourceCode: string): string;
+var
+  Hiliter: ISyntaxHiliter;
+begin
+  Hiliter := CreateHiliter;
+  // Analyse Pascal code on input stream, highlight it, then write output
+  case fConfig.OutputSink of
+    osStdOut, osFile:
+      Result := Hiliter.Hilite(SourceCode, 'UTF-8');
+    osClipboard:
+      Result := Hiliter.Hilite(SourceCode, '');
+  else
+    Result := '';
+  end;
+  Assert(Result <> '', 'TMain.HiliteSource: No output code created');
 end;
 
 procedure TMain.ShowHelp;
@@ -334,9 +353,7 @@ begin
     Writer := nil;
   end;
   Assert(Assigned(Writer), 'TMain.WriteOutput: Writer is nil');
-  // TODO: permit user to specify encoding for output
-  // TODO: change default encoding to UTF-8
-  Writer.Write(S, TEncoding.Default);
+  Writer.Write(S, TEncoding.UTF8);
 end;
 
 end.

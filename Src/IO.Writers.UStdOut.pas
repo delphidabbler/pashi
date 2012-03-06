@@ -36,9 +36,14 @@ uses
 procedure TStdOutWriter.Write(const S: string; const Encoding: TEncoding);
 var
   Bytes: TBytes;
+  Preamble: TBytes;
 begin
+  Preamble := Encoding.GetPreamble;
   Bytes := Encoding.GetBytes(S);
+  if Length(Preamble) > 0 then
+    TStdIO.Write(stdOut, Pointer(Preamble)^, Length(Preamble));
   TStdIO.Write(stdOut, Pointer(Bytes)^, Length(Bytes));
 end;
 
 end.
+
