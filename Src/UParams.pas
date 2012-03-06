@@ -88,9 +88,10 @@ type
     provided.
   }
   TParams = class(TObject)
-  private
-    fCmdQueue: TQueue<string>;  // Queue of commands to be processed
-    fConfig: TConfig;           // Reference to program's configuration object
+  strict private
+    var
+      fCmdQueue: TQueue<string>;  // Queue of commands to be processed
+      fConfig: TConfig;           // Reference to program's configuration object
     procedure PopulateCommandQueue;
     function SwitchToId(const Switch: string; out Id: TSwitchId): Boolean;
       {Finds id of a switch.
@@ -98,12 +99,8 @@ type
         @param Id [out] Id of switch. Undefined if switch is invalid.
         @return True if switch is valid, False otherwise.
       }
-    procedure HandleSwitch(const Id: TSwitchId; var ParamIdx: Integer);
-      {Processes switch, updating config file.
-        @param Id [in] Id of switch to handle.
-        @param ParamIdx [in/out]. Index of current switch in fParams[]. ParamIdx
-          should be incremented if an addition parameter is read.
-      }
+    procedure ParseSwitch;
+    procedure ParseFileName;
   public
     constructor Create(const Config: TConfig);
       {Class constructor. Initialises object.
@@ -180,14 +177,43 @@ begin
   inherited;
 end;
 
-procedure TParams.HandleSwitch(const Id: TSwitchId; var ParamIdx: Integer);
-  {Processes switch, updating config file.
-    @param Id [in] Id of switch to handle.
-    @param ParamIdx [in/out]. Index of current switch in fParams[]. ParamIdx
-      should be incremented if an addition parameter is read.
+procedure TParams.Parse;
+  {Parses the command line.
+    @except Exception raised if error in command line.
   }
 begin
-  case Id of
+  PopulateCommandQueue;
+  // Loop through all commands on command line
+  while fCmdQueue.Count > 0 do
+  begin
+    // Check command line item
+    if AnsiStartsStr('-', fCmdQueue.Peek) then
+      ParseSwitch
+    else
+      ParseFileName;
+  end;
+end;
+
+procedure TParams.ParseFileName;
+begin
+  // Parse file name at head of queue
+  fConfig.AddInputFile(fCmdQueue.Peek);
+  fConfig.InputSource := isFiles;
+  // Next parameter
+  fCmdQueue.Dequeue;
+end;
+
+procedure TParams.ParseSwitch;
+resourcestring
+  // Error messages
+  sBadSwitch = 'Invalid switch "%s"';
+var
+  SwitchId: TSwitchId;
+begin
+  // Parse switch at head of queue
+  if not SwitchToId(fCmdQueue.Peek, SwitchId) then
+    raise Exception.CreateFmt(sBadSwitch, [fCmdQueue.Peek]);
+  case SwitchId of
     siInputClipboard:
       fConfig.InputSource := isClipboard;
     siOutputClipboard:
@@ -201,43 +227,7 @@ begin
     siQuiet:
       fConfig.Quiet := True;
   end;
-end;
-
-procedure TParams.Parse;
-  {Parses the command line.
-    @except Exception raised if error in command line.
-  }
-var
-  Idx: Integer;         // loops through all parameters on command line
-  SwitchId: TSwitchId;  // id of each switch
-resourcestring
-  // Error messages
-  sNoSwitch = 'Invalid parameter "%s" - switch expected';
-  sBadSwitch = 'Invalid switch "%s"';
-begin
-  PopulateCommandQueue;
-  // Loop through all commands on command line
-  Idx := 0;
-  while fCmdQueue.Count > 0 do
-  begin
-    // Check command line item
-    if AnsiStartsStr('-', fCmdQueue.Peek) then
-    begin
-      // switch: get id, checking it is valid
-      if not SwitchToId(fCmdQueue.Peek, SwitchId) then
-        raise Exception.CreateFmt(sBadSwitch, [fCmdQueue.Peek]);
-      // parse the switch, updating configuration object
-      HandleSwitch(SwitchId, Idx);
-    end
-    else
-    begin
-      // File name
-      fConfig.AddInputFile(fCmdQueue.Peek);
-      fConfig.InputSource := isFiles;
-    end;
-    // Next parameter
-    fCmdQueue.Dequeue;
-  end;
+  fCmdQueue.Dequeue;
 end;
 
 procedure TParams.PopulateCommandQueue;
