@@ -404,15 +404,15 @@
 
 <p>
   <em>PashHi</em>'s behaviour can be controlled using a parameter list. Options
-  include providing alternative sources for input and output and controlling
-  output format.
+  are included to change input and output locations and for controlling output
+  format.
 </p>
 
 <p>
 	<em>PasHi</em>'s usage is:
 </p>
 
-<pre class="indent">PasHi [-rc | &lt;filenames&gt;] [-wc] [-frag | -hidecss] [-q]</pre>
+<pre class="indent">PasHi [&lt;filenames&gt; | -rc] [-o &lt;filename&gt; | -wc] [-frag | -hidecss] [-q]</pre>
 
 <p>
   <em>or</em>
@@ -426,7 +426,7 @@
 
 <dl>
   <dt>
-    &lt;filenames&gt;
+    <code>&lt;filenames&gt;</code>
   </dt>
   <dd>
     Specify one or more input (source) file names. Source code is read from each
@@ -443,11 +443,22 @@
     specify any file names on the command line when using this switch: behavour
     may be unpredictable.</em>
 	</dd>
+  <dt>
+    <code>-o &lt;filename&gt;</code>
+  </dt>
+  <dd>
+    Write highlighted code to the file specified by the following file name
+    parameter instead of to standard output. <em>Do not use this switch in
+    combination with the <code>-wc</code> switch: behaviour may not be as
+    expected.</em>
+  </dd>
 	<dt>
 		<code>-wc</code>
 	</dt>
 	<dd>
-		Writes highlighted code to the clipboard instead of standard output.
+		Writes highlighted code to the clipboard instead of standard output. <em>Do
+    not use this switch in combination with the <code>-o</code> switch:
+    behaviour may not be as expected.</em>
 	</dd>
 	<dt>
 		<code>-frag</code>
