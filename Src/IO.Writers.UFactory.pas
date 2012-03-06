@@ -17,12 +17,13 @@ unit IO.Writers.UFactory;
 interface
 
 uses
-  IO.UTypes, UConfig;
+  IO.UTypes;
 
 type
   TOutputWriterFactory = record
   public
-    class function Instance(const OutputSink: TOutputSink): IOutputWriter;
+    class function ClipboardWriterInstance: IOutputWriter; static;
+    class function StdOutWriterInstance: IOutputWriter; static;
       static;
   end;
 
@@ -34,16 +35,14 @@ uses
 
 { TOutputWriterFactory }
 
-class function TOutputWriterFactory.Instance(const OutputSink: TOutputSink):
-  IOutputWriter;
+class function TOutputWriterFactory.ClipboardWriterInstance: IOutputWriter;
 begin
-  case OutputSink of
-    osStdOut: Result := TStdOutWriter.Create;
-    osClipboard: Result := TClipboardWriter.Create;
-  else
-    Result := nil;
-  end;
-  Assert(Assigned(Result), 'TOutputWriterFactory.Instance: Result is nil');
+  Result := TClipboardWriter.Create;
+end;
+
+class function TOutputWriterFactory.StdOutWriterInstance: IOutputWriter;
+begin
+  Result := TStdOutWriter.Create;
 end;
 
 end.

@@ -323,7 +323,15 @@ procedure TMain.WriteOutput(const S: string);
 var
   Writer: IOutputWriter;
 begin
-  Writer := TOutputWriterFactory.Instance(fConfig.OutputSink);
+  case fCOnfig.OutputSink of
+    osStdOut:
+      Writer := TOutputWriterFactory.StdOutWriterInstance;
+    osClipboard:
+      Writer := TOutputWriterFactory.ClipboardWriterInstance;
+  else
+    Writer := nil;
+  end;
+  Assert(Assigned(Writer), 'TMain.WriteOutput: Writer is nil');
   // TODO: permit user to specify encoding for output
   // TODO: change default encoding to UTF-8
   Writer.Write(S, TEncoding.Default);
