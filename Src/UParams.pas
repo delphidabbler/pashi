@@ -91,15 +91,10 @@ type
   TParams = class(TObject)
   strict private
     var
-      fCmdQueue: TQueue<string>;  // Queue of commands to be processed
+      fParamQueue: TQueue<string>;  // Queue of parameters to be processed
+      fSwitchLookup: TDictionary<string,TSwitchId>;
       fConfig: TConfig;           // Reference to program's configuration object
     procedure PopulateCommandQueue;
-    function SwitchToId(const Switch: string; out Id: TSwitchId): Boolean;
-      {Finds id of a switch.
-        @param Switch [in] Text defining switch.
-        @param Id [out] Id of switch. Undefined if switch is invalid.
-        @return True if switch is valid, False otherwise.
-      }
     procedure ParseSwitch;
     procedure ParseFileName;
   public
@@ -122,42 +117,9 @@ implementation
 
 uses
   // Delphi
-  StrUtils, SysUtils;
-
-
-const
-  // Map of switches onto switch id.
-  cSwitches: array[1..7] of record
-    Switch: string;   // switch
-    Id: TSwitchId;    // switch id
-  end = (
-    // Input switches ----------------------------------------------------------
-    // -rc causes input to be taken from clipboard
-    (Switch: '-rc';       Id: siInputClipboard;),
-
-    // Output switches ---------------------------------------------------------
-    // -wc writes output to clipboard
-    (Switch: '-wc';       Id: siOutputClipboard;),
-    // -o writes output to following file: does nothing if no file
-    (Switch: '-o';        Id: siOutputFile;),
-
-    // Document type switches --------------------------------------------------
-    // -frag causes XHTML code fragment to be generated
-    (Switch: '-frag';     Id: siDocTypeXHTMLFrag;),
-    // -hidecss causes styles embedded in XHTML head section to be protected by
-    //    comments
-    (Switch: '-hidecss';  Id: siDocTypeHideCSS;),
-
-    // Help switch -------------------------------------------------------------
-    // -h causes help text to be displayed on standard error
-    (Switch: '-h';        Id: siHelp;),
-
-    // Screen output control switch --------------------------------------------
-    // -q inhibits output - ignored if help displayed or if errors parsing
-    //    program parameters.
-    (Switch: '-q';        Id: siQuiet;)
-  );
-
+  StrUtils, SysUtils,
+  // Project
+  UComparers;
 
 { TParams }
 
@@ -169,14 +131,26 @@ begin
   Assert(Assigned(Config), 'TParams.Create: Config is nil');
   inherited Create;
   fConfig := Config;
-  fCmdQueue := TQueue<string>.Create;
+  fParamQueue := TQueue<string>.Create;
+  // create lookup table for switches (switches are case sensitive)
+  fSwitchLookup := TDictionary<string,TSwitchId>.Create(
+    TStringEqualityComparer.Create
+  );
+  fSwitchLookup.Add('-rc', siInputClipboard);
+  fSwitchLookup.Add('-wc', siOutputClipboard);
+  fSwitchLookup.Add('-o', siOutputFile);
+  fSwitchLookup.Add('-frag', siDocTypeXHTMLFrag);
+  fSwitchLookup.Add('-hidecss', siDocTypeHideCSS);
+  fSwitchLookup.Add('-h', siHelp);
+  fSwitchLookup.Add('-q', siQuiet);
 end;
 
 destructor TParams.Destroy;
   {Class destructor. Tears down object.
   }
 begin
-  fCmdQueue.Free;
+  fSwitchLookup.Free;
+  fParamQueue.Free;
   inherited;
 end;
 
@@ -187,10 +161,10 @@ procedure TParams.Parse;
 begin
   PopulateCommandQueue;
   // Loop through all commands on command line
-  while fCmdQueue.Count > 0 do
+  while fParamQueue.Count > 0 do
   begin
     // Check command line item
-    if AnsiStartsStr('-', fCmdQueue.Peek) then
+    if AnsiStartsStr('-', fParamQueue.Peek) then
       ParseSwitch
     else
       ParseFileName;
@@ -200,10 +174,10 @@ end;
 procedure TParams.ParseFileName;
 begin
   // Parse file name at head of queue
-  fConfig.AddInputFile(fCmdQueue.Peek);
+  fConfig.AddInputFile(fParamQueue.Peek);
   fConfig.InputSource := isFiles;
   // Next parameter
-  fCmdQueue.Dequeue;
+  fParamQueue.Dequeue;
 end;
 
 procedure TParams.ParseSwitch;
@@ -212,53 +186,56 @@ resourcestring
   sBadSwitch = 'Invalid switch "%s"';
   sBadOutputFileSwitch = 'A file name must immediately follow -o switch';
 var
+  Switch: string;
   SwitchId: TSwitchId;
 begin
-  // NOTE: don't try to re-factor fCmdQueue.Dequeue out of case statement to
+  // NOTE: don't try to re-factor fParamQueue.Dequeue out of case statement to
   // place after statement because that will break processing of siOutputFile
 
   // Parse switch at head of queue
-  if not SwitchToId(fCmdQueue.Peek, SwitchId) then
-    raise Exception.CreateFmt(sBadSwitch, [fCmdQueue.Peek]);
+  Switch := fParamQueue.Peek;
+  if not fSwitchLookup.ContainsKey(Switch) then
+    raise Exception.CreateFmt(sBadSwitch, [Switch]);
+  SwitchId := fSwitchLookup[Switch];
   case SwitchId of
     siInputClipboard:
     begin
       fConfig.InputSource := isClipboard;
-      fCmdQueue.Dequeue;
+      fParamQueue.Dequeue;
     end;
     siOutputClipboard:
     begin
       fConfig.OutputSink := osClipboard;
-      fCmdQueue.Dequeue;
+      fParamQueue.Dequeue;
     end;
     siOutputFile:
     begin
       // switch is ignored if following param is not a file name
-      fCmdQueue.Dequeue;
-      if (fCmdQueue.Count = 0) or AnsiStartsStr('-', fCmdQueue.Peek) then
+      fParamQueue.Dequeue;
+      if (fParamQueue.Count = 0) or AnsiStartsStr('-', fParamQueue.Peek) then
         raise Exception.Create(sBadOutputFileSwitch);
       fConfig.OutputSink := osFile;
-      fConfig.OutputFile := fCmdQueue.Dequeue;
+      fConfig.OutputFile := fParamQueue.Dequeue;
     end;
     siDocTypeXHTMLFrag:
     begin
       fConfig.DocType := dtXHTMLFragment;
-      fCmdQueue.Dequeue;
+      fParamQueue.Dequeue;
     end;
     siDocTypeHideCSS:
     begin
       fConfig.DocType := dtXHTMLHideCSS;
-      fCmdQueue.Dequeue;
+      fParamQueue.Dequeue;
     end;
     siHelp:
     begin
       fConfig.ShowHelp := True;
-      fCmdQueue.Dequeue;
+      fParamQueue.Dequeue;
     end;
     siQuiet:
     begin
       fConfig.Quiet := True;
-      fCmdQueue.Dequeue;
+      fParamQueue.Dequeue;
     end;
   end;
 end;
@@ -267,30 +244,9 @@ procedure TParams.PopulateCommandQueue;
 var
   Idx: Integer;
 begin
-  fCmdQueue.Clear;
+  fParamQueue.Clear;
   for Idx := 1 to ParamCount do
-    fCmdQueue.Enqueue(ParamStr(Idx));
-end;
-
-function TParams.SwitchToId(const Switch: string; out Id: TSwitchId): Boolean;
-  {Finds id of a switch.
-    @param Switch [in] Text defining switch.
-    @param Id [out] Id of switch. Undefined if switch is invalid.
-    @return True if switch is valid, False otherwise.
-  }
-var
-  Idx: Integer; // loops through list of valid switches
-begin
-  Result := False;
-  for Idx := Low(cSwitches) to High(cSwitches) do
-  begin
-    if Switch = cSwitches[Idx].Switch then
-    begin
-      Id := cSwitches[Idx].Id;
-      Result := True;
-      Break;
-    end;
-  end;
+    fParamQueue.Enqueue(ParamStr(Idx));
 end;
 
 end.
