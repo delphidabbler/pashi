@@ -40,7 +40,7 @@ unit UConfig;
 interface
 
 uses
-  Classes;
+  SysUtils, Classes;
 
 type
 
@@ -62,6 +62,14 @@ type
     osStdOut,       // standard output
     osFile,         // file from output file switch
     osClipboard     // clipboard
+  );
+
+  // Enumerates ids of supported output encodings
+  TOutputEncodingId = (
+    oeUTF8,
+    oeUTF16,
+    oeWindows1252,
+    oeISO88591
   );
 
   {
@@ -87,6 +95,7 @@ type
     fOutputSink: TOutputSink;     // Value of OutputSink property
     fShowHelp: Boolean;           // Values of ShowHelp property
     fOutputFile: string;
+    fOutputEncodingId: TOutputEncodingId;
     fInFiles: TStringList;
     function GetInputFiles: TArray<string>;
   public
@@ -110,9 +119,14 @@ type
     property ShowHelp: Boolean
       read fShowHelp write fShowHelp default False;
       {Whether program is to display help}
-    property OutputFile: string read fOutputFile write fOutputFile;
+    property OutputFile: string
+      read fOutputFile write fOutputFile;
+    property OutputEncodingId: TOutputEncodingId
+      read fOutputEncodingId write fOutputEncodingId default oeUTF8;
     property InputFiles: TArray<string> read GetInputFiles;
     procedure AddInputFile(const FN: string);
+    function OutputEncoding: TEncoding;
+    function OutputEncodingName: string;
   end;
 
 
@@ -137,6 +151,7 @@ begin
   fDocType := dtXHTML;
   fQuiet := False;
   fShowHelp := False;
+  fOutputEncodingId := oeUTF8;
 end;
 
 destructor TConfig.Destroy;
@@ -152,6 +167,31 @@ begin
   SetLength(Result, fInFiles.Count);
   for Idx := 0 to Pred(fInFiles.Count) do
     Result[Idx] := fInFiles[Idx];
+end;
+
+function TConfig.OutputEncoding: TEncoding;
+begin
+  Result := nil;
+  if not (fOutputSink in [osStdOut, osFile]) then
+    Exit;
+  case fOutputEncodingId of
+    oeUTF8: Result := TEncoding.UTF8;
+    oeUTF16: Result := TEncoding.Unicode;
+    oeWindows1252: Result := TMBCSEncoding.Create(1252);
+    oeISO88591: Result := TMBCSEncoding.Create(28591);
+  end;
+  Assert(Assigned(Result), 'TConfig.OutputEncoding: Encoding not created');
+end;
+
+function TConfig.OutputEncodingName: string;
+const
+  Map: array[TOutputEncodingId] of string = (
+    'UTF-8', 'UTF-16', 'Windows-1252', 'ISO-8859-1'
+  );
+begin
+  if not (fOutputSink in [osStdOut, osFile]) then
+    Exit('');
+  Result := Map[fOutputEncodingId];
 end;
 
 end.

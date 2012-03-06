@@ -54,6 +54,10 @@ interface
   -o <filename>
     Writes output to file named in following parameter instead of standard
     output.
+  -e <encoding>
+    Sets encoding to be used for output XHTML. For valid values for <encoding>
+    see the creation of the encoding dictionary object below. Values are case
+    insensitive.
   -frag
     Writes XHTML fragment rather than complete XHTML document. Code contains
     only <pre> tag enclosing highlighted containing source code. User must
@@ -65,6 +69,8 @@ interface
     screen is displayed or if error occurs while parsing command line.
   -h
     Displays help screen.
+
+  NOTE: switches are case sensitive.
 }
 
 
@@ -85,6 +91,7 @@ type
     siInputClipboard,     // read input from clipboard
     siOutputClipboard,    // write output to clipboard
     siOutputFile,         // write output to a file
+    siOuputEncoding,      // use specified encoding for output
     siDocTypeXHTMLFrag,   // write output as XHTML document fragment
     siDocTypeHideCSS,     // hide embedded CSS in comments
     siHelp,               // display help
@@ -101,6 +108,7 @@ type
     var
       fParamQueue: TQueue<string>;  // Queue of parameters to be processed
       fSwitchLookup: TDictionary<string,TSwitchId>;
+      fEncodingLookup: TDictionary<string,TOutputEncodingId>;
       fConfig: TConfig;           // Reference to program's configuration object
     procedure PopulateCommandQueue;
     procedure ParseSwitch;
@@ -140,23 +148,39 @@ begin
   inherited Create;
   fConfig := Config;
   fParamQueue := TQueue<string>.Create;
-  // create lookup table for switches (switches are case sensitive)
+  // lookup table for switches (switches are case sensitive)
   fSwitchLookup := TDictionary<string,TSwitchId>.Create(
     TStringEqualityComparer.Create
   );
   fSwitchLookup.Add('-rc', siInputClipboard);
   fSwitchLookup.Add('-wc', siOutputClipboard);
   fSwitchLookup.Add('-o', siOutputFile);
+  fSwitchLookup.Add('-e', siOuputEncoding);
   fSwitchLookup.Add('-frag', siDocTypeXHTMLFrag);
   fSwitchLookup.Add('-hidecss', siDocTypeHideCSS);
   fSwitchLookup.Add('-h', siHelp);
   fSwitchLookup.Add('-q', siQuiet);
+  // lookup table for encoding values (values are case insensitive
+  fEncodingLookup := TDictionary<string,TOutputEncodingId>.Create(
+    TTextEqualityComparer.Create
+  );
+  fEncodingLookup.Add('utf-8', oeUTF8);
+  fEncodingLookup.Add('utf8', oeUTF8);
+  fEncodingLookup.Add('utf-16', oeUTF16);
+  fEncodingLookup.Add('utf16', oeUTF16);
+  fEncodingLookup.Add('unicode', oeUTF16);
+  fEncodingLookup.Add('windows-1252', oeWindows1252);
+  fEncodingLookup.Add('windows1252', oeWindows1252);
+  fEncodingLookup.Add('latin-1', oeWindows1252);
+  fEncodingLookup.Add('latin1', oeWindows1252);
+  fEncodingLookup.Add('iso-8859-1', oeISO88591);
 end;
 
 destructor TParams.Destroy;
   {Class destructor. Tears down object.
   }
 begin
+  fEncodingLookup.Free;
   fSwitchLookup.Free;
   fParamQueue.Free;
   inherited;
@@ -192,7 +216,9 @@ procedure TParams.ParseSwitch;
 resourcestring
   // Error messages
   sBadSwitch = 'Invalid switch "%s"';
-  sBadOutputFileSwitch = 'A file name must immediately follow -o switch';
+  sMissingOutputFile = 'A file name must immediately follow %s switch';
+  sMissingOutputEncodingParam = 'An encoding must immediatley follow %s switch';
+  sBadOutputEncodingParam = 'Unrecognised encoding "%s"';
 var
   Switch: string;
   SwitchId: TSwitchId;
@@ -221,9 +247,18 @@ begin
       // switch is ignored if following param is not a file name
       fParamQueue.Dequeue;
       if (fParamQueue.Count = 0) or AnsiStartsStr('-', fParamQueue.Peek) then
-        raise Exception.Create(sBadOutputFileSwitch);
+        raise Exception.CreateFmt(sMissingOutputFile, [Switch]);
       fConfig.OutputSink := osFile;
       fConfig.OutputFile := fParamQueue.Dequeue;
+    end;
+    siOuputEncoding:
+    begin
+      fParamQueue.Dequeue;
+      if (fParamQueue.Count = 0) or AnsiStartsStr('-', fParamQueue.Peek) then
+        raise Exception.CreateFmt(sMissingOutputEncodingParam, [Switch]);
+      if not fEncodingLookup.ContainsKey(fParamQueue.Peek) then
+        raise Exception.CreateFmt(sBadOutputEncodingParam, [fParamQueue.Peek]);
+      fConfig.OutputEncodingId := fEncodingLookup[fParamQueue.Dequeue];
     end;
     siDocTypeXHTMLFrag:
     begin

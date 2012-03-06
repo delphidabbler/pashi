@@ -297,15 +297,7 @@ var
   Hiliter: ISyntaxHiliter;
 begin
   Hiliter := CreateHiliter;
-  // Analyse Pascal code on input stream, highlight it, then write output
-  case fConfig.OutputSink of
-    osStdOut, osFile:
-      Result := Hiliter.Hilite(SourceCode, 'UTF-8');
-    osClipboard:
-      Result := Hiliter.Hilite(SourceCode, '');
-  else
-    Result := '';
-  end;
+  Result := Hiliter.Hilite(SourceCode, fConfig.OutputEncodingName);
   Assert(Result <> '', 'TMain.HiliteSource: No output code created');
 end;
 
@@ -341,6 +333,7 @@ end;
 procedure TMain.WriteOutput(const S: string);
 var
   Writer: IOutputWriter;
+  Encoding: TEncoding;
 begin
   case fCOnfig.OutputSink of
     osStdOut:
@@ -353,7 +346,13 @@ begin
     Writer := nil;
   end;
   Assert(Assigned(Writer), 'TMain.WriteOutput: Writer is nil');
-  Writer.Write(S, TEncoding.UTF8);
+  Encoding := fConfig.OutputEncoding;
+  try
+    Writer.Write(S, Encoding);
+  finally
+    if Assigned(Encoding) and not TEncoding.IsStandardEncoding(Encoding) then
+      Encoding.Free;
+  end;
 end;
 
 end.
