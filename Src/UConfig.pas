@@ -39,6 +39,8 @@ unit UConfig;
 
 interface
 
+uses
+  Classes;
 
 type
 
@@ -48,6 +50,7 @@ type
   }
   TInputSource = (
     isStdIn,        // standard input
+    isFiles,        // files from ccmmand line
     isClipboard     // clipboard
   );
 
@@ -82,10 +85,13 @@ type
     fInputSource: TInputSource;   // Value of InputSource property
     fOutputSink: TOutputSink;     // Value of OutputSink property
     fShowHelp: Boolean;           // Values of ShowHelp property
+    fInFiles: TStringList;
+    function GetInputFiles: TArray<string>;
   public
     constructor Create;
       {Class constructor. Initialises object's default property values.
       }
+    destructor Destroy; override;
     property InputSource: TInputSource
       read fInputSource write fInputSource default isStdIn;
       {Describes source to be used for program's input}
@@ -102,6 +108,8 @@ type
     property ShowHelp: Boolean
       read fShowHelp write fShowHelp default False;
       {Whether program is to display help}
+    property InputFiles: TArray<string> read GetInputFiles;
+    procedure AddInputFile(const FN: string);
   end;
 
 
@@ -110,16 +118,37 @@ implementation
 
 { TConfig }
 
+procedure TConfig.AddInputFile(const FN: string);
+begin
+  fInFiles.Add(FN);
+end;
+
 constructor TConfig.Create;
   {Class constructor. Initialises object's default property values.
   }
 begin
   inherited;
+  fInFiles := TStringList.Create;
   fInputSource := isStdIn;
   fOutputSink := osStdOut;
   fDocType := dtXHTML;
   fQuiet := False;
   fShowHelp := False;
+end;
+
+destructor TConfig.Destroy;
+begin
+  fInFiles.Free;
+  inherited;
+end;
+
+function TConfig.GetInputFiles: TArray<string>;
+var
+  Idx: Integer;
+begin
+  SetLength(Result, fInFiles.Count);
+  for Idx := 0 to Pred(fInFiles.Count) do
+    Result[Idx] := fInFiles[Idx];
 end;
 
 end.

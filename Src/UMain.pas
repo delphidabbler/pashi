@@ -279,6 +279,9 @@ var
 begin
   case fConfig.InputSource of
     isStdIn: Reader := TInputReaderFactory.StdInReaderInstance;
+    isFiles: Reader := TInputReaderFactory.FilesReaderInstance(
+      fConfig.InputFiles
+    );
     isClipboard: Reader := TInputReaderFactory.ClipboardReaderInstance;
   else
     Reader := nil;

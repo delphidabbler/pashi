@@ -219,19 +219,26 @@ resourcestring
   sNoSwitch = 'Invalid parameter "%s" - switch expected';
   sBadSwitch = 'Invalid switch "%s"';
 begin
-  // Loop through all switches on command line
+  // Loop through all commands on command line
   Idx := 0;
   while Idx < fParams.Count do
   begin
-    // Check we have a switch
-    if not AnsiStartsStr('-', fParams[Idx]) then
-      raise Exception.CreateFmt(sNoSwitch, [fParams[Idx]]);
-    // Get id of switch, checking it is valid
-    if not SwitchToId(fParams[Idx], SwitchId) then
-      raise Exception.CreateFmt(sBadSwitch, [fParams[Idx]]);
-    // Parse the switch, updating configuration object
-    HandleSwitch(SwitchId, Idx);
-    // Next switch parameter
+    // Check command line item
+    if AnsiStartsStr('-', fParams[Idx]) then
+    begin
+      // switch: get id, checking it is valid
+      if not SwitchToId(fParams[Idx], SwitchId) then
+        raise Exception.CreateFmt(sBadSwitch, [fParams[Idx]]);
+      // parse the switch, updating configuration object
+      HandleSwitch(SwitchId, Idx);
+    end
+    else
+    begin
+      // File name
+      fConfig.AddInputFile(fParams[Idx]);
+      fConfig.InputSource := isFiles;
+    end;
+    // Next parameter
     Inc(Idx);
   end;
 end;
