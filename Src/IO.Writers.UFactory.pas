@@ -24,6 +24,7 @@ type
   public
     class function ClipboardWriterInstance: IOutputWriter; static;
     class function StdOutWriterInstance: IOutputWriter; static;
+    class function FileWriterInstance(const FileName: string): IOutputWriter;
       static;
   end;
 
@@ -31,13 +32,19 @@ type
 implementation
 
 uses
-  IO.Writers.UClipboard, IO.Writers.UStdOut;
+  IO.Writers.UClipboard, IO.Writers.UStdOut, IO.Writers.UFile;
 
 { TOutputWriterFactory }
 
 class function TOutputWriterFactory.ClipboardWriterInstance: IOutputWriter;
 begin
   Result := TClipboardWriter.Create;
+end;
+
+class function TOutputWriterFactory.FileWriterInstance(
+  const FileName: string): IOutputWriter;
+begin
+  Result := TFileWriter.Create(FileName);
 end;
 
 class function TOutputWriterFactory.StdOutWriterInstance: IOutputWriter;
