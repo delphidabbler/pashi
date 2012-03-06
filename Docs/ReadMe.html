@@ -412,7 +412,7 @@
 	<em>PasHi</em>'s usage is:
 </p>
 
-<pre class="indent">PasHi [&lt;filenames&gt; | -rc] [-o &lt;filename&gt; | -wc] [-frag | -hidecss] [-q]</pre>
+<pre class="indent">PasHi [&lt;filenames&gt; | -rc] [-o &lt;filename&gt; | -wc] [-frag | -hidecss] [-e &lt;encoding&gt;] [-q]</pre>
 
 <p>
   <em>or</em>
@@ -457,9 +457,10 @@
 		<code>-wc</code>
 	</dt>
 	<dd>
-		Writes highlighted code to the clipboard instead of standard output. <em>Do
-    not use this switch in combination with the <code>-o</code> switch:
-    behaviour may not be as expected.</em>
+		Writes highlighted code to the clipboard instead of standard output. All
+    output is stored as Unicode and complete XHTML documents have no charset
+    information recorded in the file. <em>Do not use this switch in combination
+    with the <code>-o</code> switch: behaviour may not be as expected.</em> 
 	</dd>
 	<dt>
 		<code>-frag</code>
@@ -488,7 +489,36 @@
 		combined with <code>-frag</code>. Results of combining the two switches may
     not be as expected.</em>
 	</dd>
-	<dt>
+  <dt>
+    <code>-e &lt;encoding&gt;</code>
+	</dt>
+  <dd>
+    Sets the character encoding used for output. The switch must be immediatley
+    followed by an encoding parameter. XHTML documents are marked with the
+    chosen format and the resulting file may include byte order marks. <em>This
+    switch is ignored if <code>-wc</code> is specified, because data is always
+    written to the clipboard in Unicode.</em> Valid encoding parameters are:
+    <ul>
+      <li>
+        <code>utf-8</code> or <code>utf8</code>: encodes in Unicode using UTF-8
+        format with byte order mark.
+      </li>
+      <li>
+        <code>utf-16</code>, <code>utf16</code> or <code>unicode</code>: encodes
+        in Unicode using UTF-16, little endian format with byte order mark.
+      </li>
+      <li>
+        <code>windows-1252</code>, <code>windows1252</code>,
+        <code>latin-1</code> or <code>latin1</code>: encodes in Windows-1252
+        format.
+      </li>
+      <li>
+        <code>iso-8859-1</code>: encodes in ISO-8859-1 format.
+      </li>
+    </ul>
+    
+  </dd>
+  <dt>
 		<code>-q</code>
 	</dt>
 	<dd>
