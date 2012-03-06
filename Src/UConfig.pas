@@ -50,7 +50,7 @@ type
   }
   TInputSource = (
     isStdIn,        // standard input
-    isFiles,        // files from ccmmand line
+    isFiles,        // files from command line
     isClipboard     // clipboard
   );
 
@@ -60,6 +60,7 @@ type
   }
   TOutputSink = (
     osStdOut,       // standard output
+    osFile,         // file from output file switch
     osClipboard     // clipboard
   );
 
@@ -85,6 +86,7 @@ type
     fInputSource: TInputSource;   // Value of InputSource property
     fOutputSink: TOutputSink;     // Value of OutputSink property
     fShowHelp: Boolean;           // Values of ShowHelp property
+    fOutputFile: string;
     fInFiles: TStringList;
     function GetInputFiles: TArray<string>;
   public
@@ -108,6 +110,7 @@ type
     property ShowHelp: Boolean
       read fShowHelp write fShowHelp default False;
       {Whether program is to display help}
+    property OutputFile: string read fOutputFile write fOutputFile;
     property InputFiles: TArray<string> read GetInputFiles;
     procedure AddInputFile(const FN: string);
   end;

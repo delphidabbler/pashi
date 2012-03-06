@@ -76,6 +76,7 @@ type
   TSwitchId = (
     siInputClipboard,     // read input from clipboard
     siOutputClipboard,    // write output to clipboard
+    siOutputFile,         // write output to a file
     siDocTypeXHTMLFrag,   // write output as XHTML document fragment
     siDocTypeHideCSS,     // hide embedded CSS in comments
     siHelp,               // display help
@@ -126,7 +127,7 @@ uses
 
 const
   // Map of switches onto switch id.
-  cSwitches: array[1..6] of record
+  cSwitches: array[1..7] of record
     Switch: string;   // switch
     Id: TSwitchId;    // switch id
   end = (
@@ -137,6 +138,8 @@ const
     // Output switches ---------------------------------------------------------
     // -wc writes output to clipboard
     (Switch: '-wc';       Id: siOutputClipboard;),
+    // -o writes output to following file: does nothing if no file
+    (Switch: '-o';        Id: siOutputFile;),
 
     // Document type switches --------------------------------------------------
     // -frag causes XHTML code fragment to be generated
@@ -207,27 +210,57 @@ procedure TParams.ParseSwitch;
 resourcestring
   // Error messages
   sBadSwitch = 'Invalid switch "%s"';
+  sBadOutputFileSwitch = 'A file name must immediately follow -o switch';
 var
   SwitchId: TSwitchId;
 begin
+  // NOTE: don't try to re-factor fCmdQueue.Dequeue out of case statement to
+  // place after statement because that will break processing of siOutputFile
+
   // Parse switch at head of queue
   if not SwitchToId(fCmdQueue.Peek, SwitchId) then
     raise Exception.CreateFmt(sBadSwitch, [fCmdQueue.Peek]);
   case SwitchId of
     siInputClipboard:
+    begin
       fConfig.InputSource := isClipboard;
+      fCmdQueue.Dequeue;
+    end;
     siOutputClipboard:
+    begin
       fConfig.OutputSink := osClipboard;
+      fCmdQueue.Dequeue;
+    end;
+    siOutputFile:
+    begin
+      // switch is ignored if following param is not a file name
+      fCmdQueue.Dequeue;
+      if (fCmdQueue.Count = 0) or AnsiStartsStr('-', fCmdQueue.Peek) then
+        raise Exception.Create(sBadOutputFileSwitch);
+      fConfig.OutputSink := osFile;
+      fConfig.OutputFile := fCmdQueue.Dequeue;
+    end;
     siDocTypeXHTMLFrag:
+    begin
       fConfig.DocType := dtXHTMLFragment;
+      fCmdQueue.Dequeue;
+    end;
     siDocTypeHideCSS:
+    begin
       fConfig.DocType := dtXHTMLHideCSS;
+      fCmdQueue.Dequeue;
+    end;
     siHelp:
+    begin
       fConfig.ShowHelp := True;
+      fCmdQueue.Dequeue;
+    end;
     siQuiet:
+    begin
       fConfig.Quiet := True;
+      fCmdQueue.Dequeue;
+    end;
   end;
-  fCmdQueue.Dequeue;
 end;
 
 procedure TParams.PopulateCommandQueue;

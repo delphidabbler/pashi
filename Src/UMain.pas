@@ -326,6 +326,8 @@ begin
   case fCOnfig.OutputSink of
     osStdOut:
       Writer := TOutputWriterFactory.StdOutWriterInstance;
+    osFile:
+      Writer := TOutputWriterFactory.FileWriterInstance(fConfig.OutputFile);
     osClipboard:
       Writer := TOutputWriterFactory.ClipboardWriterInstance;
   else
