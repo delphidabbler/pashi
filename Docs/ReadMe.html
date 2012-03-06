@@ -387,32 +387,61 @@
 </h2>
 
 <p>
+  By default <em>PashHi</em> reads input from standard input and writes
+  highlighted output to standard output. You can process a single file and write
+  output to another file using shell redirection. For example, to highlight
+  <code>source.pas</code> and output to <code>source.html</code> use:
+</p>
+
+<pre class="indent">PasHi &lt;source.pas &gt;source.html</pre> 
+
+<p class="pullout">
+  Note that if you do not redirect output the resulting HTML is displayed on the
+  console. If you don't redirect input then you must enter the source code
+  manually on the command line a line at a time and press Ctrl+Z and Return when
+  you have finished to signify end of file.
+</p>
+
+<p>
+  <em>PashHi</em>'s behaviour can be controlled using a parameter list. Options
+  include providing alternative sources for input and output and controlling
+  output format.
+</p>
+
+<p>
 	<em>PasHi</em>'s usage is:
 </p>
 
-<pre class="indent">PasHi ([-rc] [-wc] [-frag | -hidecss] [-q] | -h</pre>
+<pre class="indent">PasHi [-rc | &lt;filenames&gt;] [-wc] [-frag | -hidecss] [-q]</pre>
 
 <p>
-	By default <em>PasHi</em> reads the unformatted source text from standard
-	input and writes a complete XHTML document containing the highlighted code
-	to standard output. To read source from a file and output to another file
-	use shell redirection. E.g. to highlight <code>source.pas</code> and output
-	to <code>source.html</code> use:
+  <em>or</em>
 </p>
 
-<pre class="indent">PasHi &lt;source.pas &gt;source.html</pre>
+<pre class="indent">PashHi -h</pre>
 
 <p>
-	You can modify <em>PasHi</em>'s behaviour by using the following command line
-	switches.
+  The command line options are:
 </p>
 
 <dl>
+  <dt>
+    &lt;filenames&gt;
+  </dt>
+  <dd>
+    Specify one or more input (source) file names. Source code is read from each
+    file name in turn and concatenated before being highlighted. Standard input
+    is ignored. Specifying one file name has the same effect as redirecting
+    standard input from a file. <em>Do not provide file names in combination
+    with the <code>-rc</code> switch: behaviour may be unpredictable.</em>
+  </dd>
 	<dt>
 		<code>-rc</code>
 	</dt>
 	<dd>
-		Reads source code from the clipboard instead of standard input.
+		Reads source code from the clipboard instead of standard input. <em>Do not
+    specify any file names on the command line when using this switch: behavour
+    may be unpredictable.</em>
 	</dd>
 	<dt>
 		<code>-wc</code>
@@ -431,7 +460,7 @@
 		highlighted code to a web page. The web page will need to provide
 		suitable CSS code to style the fragment &ndash; see below for details of
 		the required CSS classes. <em>You should not combine this switch with
-		<code>-hidecss</code>.</em>
+		<code>-hidecss</code>: behaviour may not be as expected.</em>
 	</dd>
 	<dt>
 		<code>-hidecss</code>
@@ -444,7 +473,8 @@
 		problems for older browsers which may render the CSS as text. If you
 		have this problem use this switch to enclose the CSS in HTML comments.
 		<em>The switch is not valid for HTML fragments, so it shouldn't be
-		combined with <code>-frag</code>.</em>
+		combined with <code>-frag</code>. Results of combining the two switches may
+    not be as expected.</em>
 	</dd>
 	<dt>
 		<code>-q</code>
@@ -453,14 +483,15 @@
 		Specifies &quot;quiet mode&quot;. <em>PasHi</em> does not write output
 		to the console. Note that <em>PasHi</em> writes console output to
 		standard error since standard output can be used to output the
-		highlighted source code. The switch is ignored when the <code>-h</code>
-		switch is used or if <em>PasHi</em> detects command line errors.
+		highlighted source code. <em>This switch is ignored when the <code>-h</code>
+		switch is used or if <em>PasHi</em> detects command line errors.</em>
 	</dd>
 	<dt>
 		<code>-h</code>
 	</dt>
 	<dd>
-		Displays the help screen. All other switches are ignored.
+		Displays the help screen. <em>The remainder of the command line is
+    ignored.</em>
 	</dd>
 </dl>
 
