@@ -84,7 +84,8 @@ uses
   IO.Readers.UFactory in 'IO.Readers.UFactory.pas',
   IO.Writers.UStdOut in 'IO.Writers.UStdOut.pas',
   IO.Writers.UClipboard in 'IO.Writers.UClipboard.pas',
-  IO.Writers.UFactory in 'IO.Writers.UFactory.pas';
+  IO.Writers.UFactory in 'IO.Writers.UFactory.pas',
+  IO.Readers.UFiles in 'IO.Readers.UFiles.pas';
 
 { Main program code }
 

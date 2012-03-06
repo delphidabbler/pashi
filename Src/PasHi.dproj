@@ -50,6 +50,7 @@
 			<DCCReference Include="IO.Writers.UStdOut.pas"/>
 			<DCCReference Include="IO.Writers.UClipboard.pas"/>
 			<DCCReference Include="IO.Writers.UFactory.pas"/>
+			<DCCReference Include="IO.Readers.UFiles.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

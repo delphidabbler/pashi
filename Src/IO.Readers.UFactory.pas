@@ -25,18 +25,26 @@ type
   public
     class function ClipboardReaderInstance: IInputReader; static;
     class function StdInReaderInstance: IInputReader; static;
+    class function FilesReaderInstance(const FileNames: TArray<string>):
+      IInputReader; static;
   end;
 
 implementation
 
 uses
-  IO.Readers.UStdIn, IO.Readers.UClipboard;
+  IO.Readers.UStdIn, IO.Readers.UClipboard, IO.Readers.UFiles;
 
 { TInputReaderFactory }
 
 class function TInputReaderFactory.ClipboardReaderInstance: IInputReader;
 begin
   Result := TClipboardReader.Create;
+end;
+
+class function TInputReaderFactory.FilesReaderInstance(
+  const FileNames: TArray<string>): IInputReader;
+begin
+  Result := TFilesReader.Create(FileNames);
 end;
 
 class function TInputReaderFactory.StdInReaderInstance: IInputReader;
