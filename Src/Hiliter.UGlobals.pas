@@ -85,7 +85,7 @@ type
   }
   ISyntaxHiliter = interface(IInterface)
     ['{1E26A663-705C-4A20-A3CE-771176B35F65}']
-    function Hilite(const RawCode: string; const EncodingName: string): string;
+    function Hilite(const RawCode: string): string;
       {Highlights source code and writes to a string.
         @param RawCode [in] Contains source code to be highlighted.
         @return Highlighted source code.

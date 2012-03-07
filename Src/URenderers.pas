@@ -149,7 +149,6 @@ type
     constructor Create(const CSSFile: string);
   end;
 
-// TODO: maybe make this a resource reader in IO namespace
 type
   TCSSResourceRenderer = class sealed(TCSSRenderer, IRenderer)
   strict protected
@@ -166,8 +165,6 @@ type
   end;
 
 type
-  // uses a modified syntax highlighter
-  // may not be needed if highlighter is not parameterised any more
   TSourceCodeRenderer = class(TInterfacedObject, IRenderer)
   strict private
     fSourceCode: string;
@@ -210,11 +207,15 @@ begin
       DocParams.StyleSheet := TEmbeddedStyleSheetRenderer.Create(
         TCSSResourceRenderer.Create, Config.DocType = dtXHTMLHideCSS
       );
+      // todo: use following code for embedded style sheets
 //      DocParams.StyleSheet := TEmbeddedStyleSheetRenderer.Create(
-//        TCSSFileRenderer.Create('D:\Prg\Rel\Apps\PasH\WC\Src\Assets\Default.css'),
+//        TCSSFileRenderer.Create({## PATH TO CSS FILE TO BE EMBEDDED ##}),
 //        Config.DocType = dtXHTMLHideCSS
 //      );
-//      DocParams.StyleSheet := TLinkedStyleSheetRenderer.Create('http://localhost/css/main.css');
+      // todo: use following code for externally linked style sheets
+//      DocParams.StyleSheet := TLinkedStyleSheetRenderer.Create(
+//        {## URL OF STYLE SHEET ##}
+//      );
       DocParams.SourceCode := TSourceCodeRenderer.Create(SourceCode);
       Result := TXHTMLDocumentRenderer.Create(DocParams);
     end;
@@ -517,9 +518,8 @@ function TSourceCodeRenderer.Render: string;
 var
   Hiliter: ISyntaxHiliter;
 begin
-  // todo: change hiliter to generate only XHTML code inside <pre> tags
-  Hiliter := TSyntaxHiliterFactory.CreateHiliter(hkHTMLFragment);
-  Result := Trim(Hiliter.Hilite(fSourceCode, 'TEST'));
+  Hiliter := TXHTMLHiliter.Create;
+  Result := Trim(Hiliter.Hilite(fSourceCode));
 end;
 
 end.

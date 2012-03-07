@@ -49,30 +49,6 @@ uses
 
 
 type
-
-  {
-  TSyntaxHiliterFactory:
-    Factory class used to create syntax highlighter objects.
-  }
-  TSyntaxHiliterFactory = class(TObject)
-  public
-    class function CreateHiliter(
-      const Kind: TSyntaxHiliterKind): ISyntaxHiliter;
-      {Create syntax highlighter of required kind.
-        @param Kind [in] Kind of highlighter required.
-        @return Created highlighter object.
-      }
-  end;
-
-type
-
-  {
-  TSyntaxHiliterClass:
-    Class type for syntax highlighters. Used by factory class to create syntax
-    highlighter objects of different types.
-  }
-  TSyntaxHiliterClass = class of TParsedSyntaxHiliter;
-
   {
   TParsedSyntaxHiliter:
     Abstract base class for all highlighter classes that parse source code using
@@ -83,7 +59,6 @@ type
   TParsedSyntaxHiliter = class abstract(TInterfacedObject)
   strict private
     fWriter: TStringBuilder;  // Helper object used to emit formatted source
-    fEncodingName: string;    // Name of output encoding
     procedure ElementHandler(Parser: THilitePasParser; Elem: THiliteElement;
       const ElemText: string);
       {Handles parser's OnElement event: calls virtual do nothing and abstract
@@ -134,18 +109,17 @@ type
       }
     property Writer: TStringBuilder read fWriter;
       {Helper object used to write formatted code to output}
-    property EncodingName: string read fEncodingName;
-      {Name of encoding to be added to document head}
   public
     constructor Create; virtual;
-    function Hilite(const RawCode: string; const EncodingName: string): string;
+    function Hilite(const RawCode: string): string;
       {Highlights source code and writes to a string.
         @param RawCode [in] Contains source code to be highlighted.
         @return Highlighted source code.
       }
   end;
 
-  THTMLHiliter = class sealed(TParsedSyntaxHiliter, ISyntaxHiliter)
+type
+  TXHTMLHiliter = class sealed(TParsedSyntaxHiliter, ISyntaxHiliter)
   strict private
     fIsFirstLine: Boolean; // Record whether we are about to write first line
   strict protected
@@ -191,28 +165,6 @@ uses
   // Project
   UHTMLUtils;
 
-
-{ TSyntaxHiliterFactory }
-
-class function TSyntaxHiliterFactory.CreateHiliter(
-  const Kind: TSyntaxHiliterKind): ISyntaxHiliter;
-  {Create syntax highlighter of required kind.
-    @param Kind [in] Kind of highlighter required.
-    @return Created highlighter object.
-  }
-const
-  // Array that maps highlighter kinds to highlighter classes
-  cHiliterMap: array[TSyntaxHiliterKind] of TSyntaxHiliterClass = (
-    THTMLHiliter,
-    nil, // TXHTMLHiliter,
-    nil  // TXHTMLHiliterHideCSS
-  );
-var
-  Obj: TParsedSyntaxHiliter;  // created object
-begin
-  Obj := cHiliterMap[Kind].Create;  // create object
-  Result := Obj as ISyntaxHiliter;  // return ISyntaxHiliter interface to object
-end;
 
 { TParsedSyntaxHiliter }
 
@@ -284,8 +236,7 @@ begin
   // Do nothing: descendants override
 end;
 
-function TParsedSyntaxHiliter.Hilite(const RawCode: string;
-  const EncodingName: string): string;
+function TParsedSyntaxHiliter.Hilite(const RawCode: string): string;
   {Highlights source code and writes to a string.
     @param RawCode [in] Contains source code to be highlighted.
     @return Highlighted source code.
@@ -293,7 +244,6 @@ function TParsedSyntaxHiliter.Hilite(const RawCode: string;
 var
   Parser: THilitePasParser;   // object used to parse source
 begin
-  fEncodingName := EncodingName;
   fWriter := TStringBuilder.Create;
   try
     // Create parser
@@ -334,9 +284,9 @@ begin
   EndLine;
 end;
 
-{ THTMLHiliter }
+{ TXHTMLHiliter }
 
-procedure THTMLHiliter.AfterElem(Elem: THiliteElement);
+procedure TXHTMLHiliter.AfterElem(Elem: THiliteElement);
   {Called after a highlight element is output. Writes closing span tag where
   required.
     @param Elem [in] Kind of highlight element.
@@ -346,7 +296,7 @@ begin
   Writer.Append('</span>');
 end;
 
-procedure THTMLHiliter.BeforeElem(Elem: THiliteElement);
+procedure TXHTMLHiliter.BeforeElem(Elem: THiliteElement);
   {Called before a highlight element is output. Used to write <span> tag for
   required class if element is formatted.
     @param Elem [in] Kind of highlight element.
@@ -357,13 +307,13 @@ begin
   Writer.AppendFormat('<span class="%s">', [GetElemCSSClass(Elem)]);
 end;
 
-procedure THTMLHiliter.BeginDoc;
+procedure TXHTMLHiliter.BeginDoc;
 begin
   fIsFirstLine := True;
   Writer.AppendFormat('<pre class="%s">', [GetMainCSSClass])
 end;
 
-procedure THTMLHiliter.BeginLine;
+procedure TXHTMLHiliter.BeginLine;
 begin
   // Note we don't emit CRLF before first line since it must be on same line as
   // any opening <pre> tag
@@ -373,12 +323,12 @@ begin
     Writer.AppendLine;
 end;
 
-procedure THTMLHiliter.EndDoc;
+procedure TXHTMLHiliter.EndDoc;
 begin
   Writer.AppendLine('</pre>');
 end;
 
-function THTMLHiliter.GetElemCSSClass(
+function TXHTMLHiliter.GetElemCSSClass(
   const Elem: THiliteElement): string;
   {Gets name of CSS class associated with a highlight element.
     @param Elem [in] Element for which we need CSS class name.
@@ -404,7 +354,7 @@ begin
   Result := cClassMap[Elem];
 end;
 
-function THTMLHiliter.GetMainCSSClass: string;
+function TXHTMLHiliter.GetMainCSSClass: string;
   {Gets name of CSS class used to format the whole of the source code.
     @return Name of CSS class.
   }
@@ -412,7 +362,7 @@ begin
   Result := 'pas-source';
 end;
 
-procedure THTMLHiliter.WriteElem(const ElemText: string);
+procedure TXHTMLHiliter.WriteElem(const ElemText: string);
 begin
   // Write element text with illegal characters converted to entities
   Writer.Append(MakeSafeHTMLText(ElemText));
