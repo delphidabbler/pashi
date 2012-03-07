@@ -37,14 +37,15 @@
 
 unit Hiliter.UHiliters;
 
-{$WARN UNSAFE_TYPE OFF}
 
 interface
 
 
 uses
+  // Delphi
+  SysUtils,
   // Project
-  Hiliter.UGlobals;
+  Hiliter.UGlobals, Hiliter.UPasParser;
 
 
 type
@@ -63,48 +64,6 @@ type
       }
   end;
 
-
-implementation
-
-
-{
-  NOTES:
-
-  The class heirachy for syntax highlighter classes in this unit is:
-
-  TSyntaxHiliter - abstract base class
-  |
-  +-- TParsedHiliter - abstract base class for classes that parse source code
-      |
-      +-- TBaseHTMLHiliter - base class for highlighters that generate HTML
-          |
-          +-- THTMLCSSHiliter - base class for HTML highlighters that use CSS
-              |                 to format source code
-              |
-              +-- * THTMLFragmentHiliter - creates HTML fragment using CSS and
-              |                            enclosed in <pre>..</pre> tags
-              |
-              +-- TXHTMLHiliterBase - base class complete XHTML document
-                  |                   highlighters that use CSS
-                  |
-                  +-- * TXHTMLHiliter - creates XHTML document that doesn't hide
-                  |                     CSS in comments
-                  |
-                  +-- * TXHTMLHiliterHideCSS - create XHTML document that hides
-                                               CSS in comments
-
-  * indicates a class constructed by factory class
-
-}
-
-
-uses
-  // Delphi
-  SysUtils, StrUtils, Classes, Windows, Graphics,
-  // Project
-  IntfCommon, Hiliter.UPasParser, UHTMLUtils;
-
-
 type
 
   {
@@ -112,38 +71,16 @@ type
     Class type for syntax highlighters. Used by factory class to create syntax
     highlighter objects of different types.
   }
-  TSyntaxHiliterClass = class of TSyntaxHiliter;
+  TSyntaxHiliterClass = class of TParsedSyntaxHiliter;
 
   {
-  TSyntaxHiliter:
-    Abstract base class for all syntax highlighter classes. Provides virtual
-    abstract methods and a virtual constructor that descendants override. This
-    class is provided to give common base class that allows factory class to
-    use TSyntaxHiliterClass for object creation.
-  }
-  TSyntaxHiliter = class(TInterfacedObject)
-  public
-    function Hilite(const RawCode: string; const EncodingName: string): string;
-      virtual; abstract;
-      {Highlights source code and writes to a string.
-        @param RawCode [in] Contains source code to be highlighted.
-        @return Highlighted source code.
-      }
-    constructor Create; virtual;
-      {Class constructor: instantiates object. This do-nothing virtual
-      constructor is required to enable polymorphism to work for descendant
-      classes.
-      }
-  end;
-
-  {
-  TParsedHiliter:
+  TParsedSyntaxHiliter:
     Abstract base class for all highlighter classes that parse source code using
     Pascal parser object. Handles parser events and calls virtual methods to
     write the various document parts. Also provides a helper object to simplify
     output of formatted code.
   }
-  TParsedHiliter = class(TSyntaxHiliter)
+  TParsedSyntaxHiliter = class abstract(TInterfacedObject)
   strict private
     fWriter: TStringBuilder;  // Helper object used to emit formatted source
     fEncodingName: string;    // Name of output encoding
@@ -200,62 +137,41 @@ type
     property EncodingName: string read fEncodingName;
       {Name of encoding to be added to document head}
   public
+    constructor Create; virtual;
     function Hilite(const RawCode: string; const EncodingName: string): string;
-      override;
       {Highlights source code and writes to a string.
         @param RawCode [in] Contains source code to be highlighted.
         @return Highlighted source code.
       }
   end;
 
-  {
-  TBaseHTMLHiliter:
-    Base class for all highlighters that emit HTML. Provides some common
-    functionality.
-  }
-  TBaseHTMLHiliter = class(TParsedHiliter)
+  THTMLHiliter = class sealed(TParsedSyntaxHiliter, ISyntaxHiliter)
   strict private
     fIsFirstLine: Boolean; // Record whether we are about to write first line
   strict protected
     procedure BeginDoc; override;
-      {Called just before document is parsed: used to initialise document.
+      {Called just before document is parsed: writes opening <pre> tag.
+      }
+    procedure EndDoc; override;
+      {Called after parsing complete: writes closing </pre> tag.
       }
     procedure BeginLine; override;
       {Called when a new line in output is started: writes new line where
       required.
       }
-    procedure WriteElem(const ElemText: string); override;
-      {Outputs element's text.
-        @param ElemText [in] Text of the element.
-      }
-    property IsFirstLine: Boolean read fIsFirstLine;
-      {Flag true when line to be written is first line and false after that}
-  end;
-
-  {
-  THTMLCSSHiliter:
-    Base class for all HTML highlighters that use CSS for formatting. Encloses
-    each highlight elemement in <span> tags and source code in <pre> that use
-    CSS classes. Also gets names of classes for difference document sections.
-  }
-  THTMLCSSHiliter = class(TBaseHTMLHiliter)
-  strict protected
     procedure BeforeElem(Elem: THiliteElement); override;
       {Called before a highlight element is output. Used to write <span> tag for
       required class if element is formatted.
         @param Elem [in] Kind of highlight element.
       }
+    procedure WriteElem(const ElemText: string); override;
+      {Outputs element's text.
+        @param ElemText [in] Text of the element.
+      }
     procedure AfterElem(Elem: THiliteElement); override;
       {Called after a highlight element is output. Writes closing span tag where
       required.
         @param Elem [in] Kind of highlight element.
-      }
-    procedure OpenSourceCode;
-      {Called to write <pre> tag that starts the source code. Adds a class name
-      to tag if font information specified by highlight attributes.
-      }
-    procedure CloseSourceCode;
-      {Writes closing </pre> tag that ends source code.
       }
     function GetMainCSSClass: string;
       {Gets name of CSS class used to format the whole of the source code.
@@ -268,84 +184,13 @@ type
       }
   end;
 
-  {
-  THTMLFragmentHiliter:
-    Highlighter that is used to create a fragment of HTML describing highlighted
-    source code between <pre>..</pre> tags that uses CSS classes for formatting.
-    We require that the required CSS classes are defined in the host document.
-    Classes need to be provided for any elements that do not have nul
-    highlighter attributes.
-  }
-  THTMLFragmentHiliter = class(THTMLCSSHiliter,
-    ISyntaxHiliter
-  )
-  strict protected
-    procedure BeginDoc; override;
-      {Called just before document is parsed: writes opening <pre> tag.
-      }
-    procedure EndDoc; override;
-      {Called after parsing complete: writes closing </pre> tag.
-      }
-  end;
+implementation
 
-  {
-  TXHTMLHiliterBase:
-    Abstract base class for highlighters that emits a complete XHTML document
-    containing the source code. Creates an emebedded style sheet from default
-    CSS style sheet stored in resources.
-  }
-  TXHTMLHiliterBase = class(THTMLCSSHiliter)
-  strict protected
-    procedure BeginDoc; override;
-      {Called just before document is parsed: used to write XHTML code for
-      document head section and first part of body.
-      }
-    procedure EndDoc; override;
-      {Called after parsing complete: writes XHTML that closes document.
-      }
-    function IsCSSHidden: Boolean; virtual; abstract;
-      {Determines if embedded CSS is to be hidden in HTML comments.
-        @return True if CSS hidden, False if not.
-      }
-    function GetStyleSheet: string; virtual;
-      {Gets the text of the default style sheet from resources. This style sheet
-      is embedded in the document. Any comments or multiple newlines in style
-      sheet are removed.
-        @return Required style sheet.
-      }
-  end;
 
-  {
-  TXHTMLHiliter:
-    Highlighter that emits a complete XHTML document containing the source
-    code and embedded CSS. Designed for modern browsers, the CSS code is not
-    hidden in HTML comments.
-  }
-  TXHTMLHiliter = class(TXHTMLHiliterBase,
-    ISyntaxHiliter
-  )
-  strict protected
-    function IsCSSHidden: Boolean; override;
-      {Determines if embedded CSS is to be hidden in HTML comments.
-        @return False - CSS is not hidden.
-      }
-  end;
+uses
+  // Project
+  UHTMLUtils;
 
-  {
-  TXHTMLHiliterHideCSS:
-    Highlighter that emits a complete XHTML document containing the source
-    code and embedded CSS. Designed for older browsers, the CSS code is hidden
-    from the browser in HTML comments.
-  }
-  TXHTMLHiliterHideCSS = class(TXHTMLHiliterBase,
-    ISyntaxHiliter
-  )
-  strict protected
-    function IsCSSHidden: Boolean; override;
-      {Determines if embedded CSS is to be hidden in HTML comments.
-        @return True - CSS is hidden.
-      }
-  end;
 
 { TSyntaxHiliterFactory }
 
@@ -358,31 +203,20 @@ class function TSyntaxHiliterFactory.CreateHiliter(
 const
   // Array that maps highlighter kinds to highlighter classes
   cHiliterMap: array[TSyntaxHiliterKind] of TSyntaxHiliterClass = (
-    THTMLFragmentHiliter,
-    TXHTMLHiliter,
-    TXHTMLHiliterHideCSS
+    THTMLHiliter,
+    nil, // TXHTMLHiliter,
+    nil  // TXHTMLHiliterHideCSS
   );
 var
-  Obj: TSyntaxHiliter;  // created object
+  Obj: TParsedSyntaxHiliter;  // created object
 begin
   Obj := cHiliterMap[Kind].Create;  // create object
   Result := Obj as ISyntaxHiliter;  // return ISyntaxHiliter interface to object
 end;
 
-{ TSyntaxHiliter }
+{ TParsedSyntaxHiliter }
 
-constructor TSyntaxHiliter.Create;
-  {Class constructor: instantiates object. This do-nothing virtual constructor
-  is required to enable polymorphism to work for descendant classes.
-  }
-begin
-  inherited;
-  // Do nothing ** Do not remove this constructor **
-end;
-
-{ TParsedHiliter }
-
-procedure TParsedHiliter.AfterElem(Elem: THiliteElement);
+procedure TParsedSyntaxHiliter.AfterElem(Elem: THiliteElement);
   {Called after a highlight element is output. Used to write code used to
   finalise element formatting.
     @param Elem [in] Kind of highlight element.
@@ -391,7 +225,7 @@ begin
   // Do nothing: descendants override
 end;
 
-procedure TParsedHiliter.BeforeElem(Elem: THiliteElement);
+procedure TParsedSyntaxHiliter.BeforeElem(Elem: THiliteElement);
   {Called before a highlight element is output. Used to write code used to
   display element in required format.
     @param Elem [in] Kind of highlight element.
@@ -400,14 +234,14 @@ begin
   // Do nothing: descendants override
 end;
 
-procedure TParsedHiliter.BeginDoc;
+procedure TParsedSyntaxHiliter.BeginDoc;
   {Called just before document is parsed: used to initialise document.
   }
 begin
   // Do nothing: descendants override
 end;
 
-procedure TParsedHiliter.BeginLine;
+procedure TParsedSyntaxHiliter.BeginLine;
   {Called when a new line in output is started: used to initialise a line in
   output.
   }
@@ -415,7 +249,13 @@ begin
   // Do nothing: descendants override
 end;
 
-procedure TParsedHiliter.ElementHandler(Parser: THilitePasParser;
+constructor TParsedSyntaxHiliter.Create;
+begin
+  inherited;
+  // Do nothing ** Do not remove this constructor **
+end;
+
+procedure TParsedSyntaxHiliter.ElementHandler(Parser: THilitePasParser;
   Elem: THiliteElement; const ElemText: string);
   {Handles parser's OnElement event: calls virtual do nothing and abstract
   methods that descendants override to write a document element in required
@@ -430,21 +270,21 @@ begin
   AfterElem(Elem);
 end;
 
-procedure TParsedHiliter.EndDoc;
+procedure TParsedSyntaxHiliter.EndDoc;
   {Called after parsing complete: used to finalise document.
   }
 begin
   // Do nothing: descendants override
 end;
 
-procedure TParsedHiliter.EndLine;
+procedure TParsedSyntaxHiliter.EndLine;
   {Called when a line is ending: used to terminate a line in output.
   }
 begin
   // Do nothing: descendants override
 end;
 
-function TParsedHiliter.Hilite(const RawCode: string;
+function TParsedSyntaxHiliter.Hilite(const RawCode: string;
   const EncodingName: string): string;
   {Highlights source code and writes to a string.
     @param RawCode [in] Contains source code to be highlighted.
@@ -476,7 +316,7 @@ begin
   end;
 end;
 
-procedure TParsedHiliter.LineBeginHandler(Parser: THilitePasParser);
+procedure TParsedSyntaxHiliter.LineBeginHandler(Parser: THilitePasParser);
   {Handles parser's OnLineBegin event: calls virtual do nothing method that
   descendants override to output data needed to start a new line.
     @param Parser [in] Reference to parser that triggered event (unused).
@@ -485,7 +325,7 @@ begin
   BeginLine;
 end;
 
-procedure TParsedHiliter.LineEndHandler(Parser: THilitePasParser);
+procedure TParsedSyntaxHiliter.LineEndHandler(Parser: THilitePasParser);
   {Handles parser's OnLineEnd event: calls virtual do nothing method that
   descendants override to output data needed to end a new line.
     @param Parser [in] Reference to parser that triggered event (unused).
@@ -494,51 +334,19 @@ begin
   EndLine;
 end;
 
-{ TBaseHTMLHiliter }
+{ THTMLHiliter }
 
-procedure TBaseHTMLHiliter.BeginDoc;
-  {Called just before document is parsed: used to initialise document.
-  }
-begin
-  // Note that we are about to write first line
-  fIsFirstLine := True;
-end;
-
-procedure TBaseHTMLHiliter.BeginLine;
-  {Called when a new line in output is started: writes new line where required.
-  }
-begin
-  // Note we don't emit CRLF before first line since it must be on same line as
-  // any opening <pre> tag
-  if fIsFirstLine then
-    fIsFirstLine := False
-  else
-    Writer.AppendLine;
-end;
-
-procedure TBaseHTMLHiliter.WriteElem(const ElemText: string);
-  {Outputs element's text.
-    @param ElemText [in] Text of the element.
-  }
-begin
-  // Write element text with illegal characters converted to entities
-  Writer.Append(MakeSafeHTMLText(ElemText));
-end;
-
-{ THTMLCSSHiliter }
-
-procedure THTMLCSSHiliter.AfterElem(Elem: THiliteElement);
+procedure THTMLHiliter.AfterElem(Elem: THiliteElement);
   {Called after a highlight element is output. Writes closing span tag where
   required.
     @param Elem [in] Kind of highlight element.
   }
 begin
-  inherited;
   // Close the element's span
   Writer.Append('</span>');
 end;
 
-procedure THTMLCSSHiliter.BeforeElem(Elem: THiliteElement);
+procedure THTMLHiliter.BeforeElem(Elem: THiliteElement);
   {Called before a highlight element is output. Used to write <span> tag for
   required class if element is formatted.
     @param Elem [in] Kind of highlight element.
@@ -549,14 +357,28 @@ begin
   Writer.AppendFormat('<span class="%s">', [GetElemCSSClass(Elem)]);
 end;
 
-procedure THTMLCSSHiliter.CloseSourceCode;
-  {Writes closing </pre> tag that ends source code.
-  }
+procedure THTMLHiliter.BeginDoc;
+begin
+  fIsFirstLine := True;
+  Writer.AppendFormat('<pre class="%s">', [GetMainCSSClass])
+end;
+
+procedure THTMLHiliter.BeginLine;
+begin
+  // Note we don't emit CRLF before first line since it must be on same line as
+  // any opening <pre> tag
+  if fIsFirstLine then
+    fIsFirstLine := False
+  else
+    Writer.AppendLine;
+end;
+
+procedure THTMLHiliter.EndDoc;
 begin
   Writer.AppendLine('</pre>');
 end;
 
-function THTMLCSSHiliter.GetElemCSSClass(
+function THTMLHiliter.GetElemCSSClass(
   const Elem: THiliteElement): string;
   {Gets name of CSS class associated with a highlight element.
     @param Elem [in] Element for which we need CSS class name.
@@ -582,7 +404,7 @@ begin
   Result := cClassMap[Elem];
 end;
 
-function THTMLCSSHiliter.GetMainCSSClass: string;
+function THTMLHiliter.GetMainCSSClass: string;
   {Gets name of CSS class used to format the whole of the source code.
     @return Name of CSS class.
   }
@@ -590,186 +412,10 @@ begin
   Result := 'pas-source';
 end;
 
-procedure THTMLCSSHiliter.OpenSourceCode;
-  {Called to write <pre> tag that starts the source code.
-  }
+procedure THTMLHiliter.WriteElem(const ElemText: string);
 begin
-  Writer.AppendFormat('<pre class="%s">', [GetMainCSSClass])
-end;
-
-{ THTMLFragmentHiliter }
-
-procedure THTMLFragmentHiliter.BeginDoc;
-  {Called just before document is parsed: writes opening <pre> tag.
-  }
-resourcestring
-  // Output text
-  sCommentText = 'Highlighted Pascal code generated by DelphiDabbler PasHi';
-begin
-  inherited;
-  Writer.AppendLine(Format('<!-- %s -->', [sCommentText]));
-  OpenSourceCode;
-end;
-
-procedure THTMLFragmentHiliter.EndDoc;
-  {Called after parsing complete: writes closing </pre> tag.
-  }
-begin
-  inherited;
-  CloseSourceCode;
-end;
-
-{ TXHTMLHiliterBase }
-
-procedure TXHTMLHiliterBase.BeginDoc;
-  {Called just before document is parsed: used to write XHTML code for
-  document head section and first part of body.
-  }
-resourcestring
-  // Output text
-  sTitle = 'File generated by DelphiDabbler PasHi Pascal Highlighter';
-begin
-  inherited;
-  // Write XHTML document definition
-  if EncodingName <> '' then
-    Writer.AppendLine(
-      Format('<?xml version="1.0" encoding="%s"?>', [EncodingName])
-    )
-  else
-    Writer.AppendLine('<?xml version="1.0"?>');
-  Writer.AppendLine(
-    '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" '
-    + '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'
-  );
-  // Open document
-  Writer.AppendLine(
-    '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">'
-  );
-  // Write head section
-  Writer.AppendLine('<head>');
-  if EncodingName <> '' then
-    Writer.AppendLine(
-      Format(
-        '<meta http-equiv="Content-Type" content="text/html;charset=%s">',
-        [EncodingName]
-      )
-    )
-  else
-    Writer.AppendLine('<meta http-equiv="Content-Type" content="text/html;">');
-  Writer.AppendLine(Format('<title>%s</title>', [sTitle]));
-  Writer.AppendLine(
-    '<meta name="generator" content="DelphiDabbler PasHi Pascal Highlighter" />'
-  );
-  // create style sheet
-  Writer.AppendLine('<style type="text/css">');
-  if IsCSSHidden then
-    Writer.AppendLine('<!--');
-  Writer.AppendLine(GetStyleSheet);
-  if IsCSSHidden then
-    Writer.AppendLine('-->');
-  Writer.AppendLine('</style>');
-  Writer.AppendLine('</head>');
-  // Begin body
-  Writer.AppendLine('<body>');
-  // write opening <pre> tag that for source using any required class
-  OpenSourceCode;
-end;
-
-procedure TXHTMLHiliterBase.EndDoc;
-  {Called after parsing complete: writes XHTML that closes document.
-  }
-begin
-  inherited;
-  // Close source code section
-  CloseSourceCode;
-  // Close body section
-  Writer.AppendLine('</body>');
-  // Close document
-  Writer.AppendLine('</html>');
-end;
-
-function TXHTMLHiliterBase.GetStyleSheet: string;
-  {Gets the text of the default style sheet from resources. This style sheet is
-  embedded in the document. Any comments or multiple newlines in style sheet are
-  removed.
-    @return Required style sheet.
-  }
-
-  // ---------------------------------------------------------------------------
-  function FindComment(const Text: string;
-    var BeginIdx: Integer; out Size: Integer): Boolean;
-    {Finds a comment in CSS text.
-      @param Text [in] Text in which to find comment.
-      @param BeginIdx [in/out] Caller sets index at which to start looking for
-        comemnt in text. Updated to index of start of next comment. Unchanged if
-        no comment found.
-      @param Size [out] Receives size of comment found. Undefined if no comment
-        found.
-      @return True if a comment was found, false if not.
-    }
-  var
-    EndComment: Integer;    // index of end of first comment block of CSS
-  begin
-    Result := False;
-    BeginIdx := PosEx('/*', Text, BeginIdx);          // finds start of comment
-    if BeginIdx > 0 then
-    begin
-      EndComment := PosEx('*/', Text, BeginIdx + 1); // finds end of comment
-      if EndComment > BeginIdx then
-      begin
-        Size := EndComment - BeginIdx + 2;
-        Result := True;
-      end;
-    end;
-  end;
-  // ---------------------------------------------------------------------------
-
-var
-  SS: TStringStream;      // stream that receives CSS read from resources
-  RS: TResourceStream;    // stream onto CSS style sheet in resources
-  StartComment: Integer;  // index of start of each comment
-  CommentSize: Integer;   // size of each comemnt
-begin
-  SS := nil;
-  try
-    // Read CSS code from resources into string stream
-    RS := TResourceStream.Create(HInstance, 'CSS_DEFAULT', RT_RCDATA);
-    SS := TStringStream.Create('');
-    SS.CopyFrom(RS, 0);
-    Result := SS.DataString;
-    // Remove all comments
-    StartComment := 1;
-    while FindComment(Result, StartComment, CommentSize) do
-      Delete(Result, StartComment, CommentSize);
-    // Replace multiple line breaks with single ones
-    while AnsiPos(#13#10#13#10, Result) > 0 do
-      Result := StringReplace(Result, #13#10#13#10, #13#10, [rfReplaceAll]);
-    // Remove leading and trailing spaces and line breaks
-    Result := Trim(Result);
-  finally
-    FreeAndNil(RS);
-    FreeAndNil(SS);
-  end;
-end;
-
-{ TXHTMLHiliter }
-
-function TXHTMLHiliter.IsCSSHidden: Boolean;
-  {Determines if embedded CSS is to be hidden in HTML comments.
-    @return False - CSS is not hidden.
-  }
-begin
-  Result := False;
-end;
-
-{ TXHTMLHiliterHideCSS }
-
-function TXHTMLHiliterHideCSS.IsCSSHidden: Boolean;
-  {Determines if embedded CSS is to be hidden in HTML comments.
-    @return True - CSS is hidden.
-  }
-begin
-  Result := True;
+  // Write element text with illegal characters converted to entities
+  Writer.Append(MakeSafeHTMLText(ElemText));
 end;
 
 end.
