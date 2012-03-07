@@ -69,16 +69,6 @@ type
   );
 
   {
-  TSyntaxHiliterKind:
-    Enumeration of various kinds of highlighter.
-  }
-  TSyntaxHiliterKind = (
-    hkHTMLFragment, // used to highlight code as HTML code fragment
-    hkXHTML,        // used to highlight code as complete XHTML document
-    hkXHTMLHideCSS  // as hkXHTML but embedded CSS hidden in HTML comments
-  );
-
-  {
   ISyntaxHiliter:
     Interface implemented by all highlighter classes. Provides overloaded
     methods used to highlight a document.
