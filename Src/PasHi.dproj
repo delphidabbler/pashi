@@ -53,6 +53,7 @@
 			<DCCReference Include="IO.Readers.UFiles.pas"/>
 			<DCCReference Include="IO.Writers.UFile.pas"/>
 			<DCCReference Include="IO.UHelper.pas"/>
+			<DCCReference Include="URenderers.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>
