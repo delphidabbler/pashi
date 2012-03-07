@@ -78,7 +78,6 @@ type
   }
   TDocType = (
     dtXHTML,        // complete XHTML document
-    dtXHTMLHideCSS, // complete XHTML document with CSS hidden in comments
     dtXHTMLFragment // a fragment of HTML code, with no embedded style sheet
   );
 
@@ -94,6 +93,7 @@ type
     fInputSource: TInputSource;   // Value of InputSource property
     fOutputSink: TOutputSink;     // Value of OutputSink property
     fShowHelp: Boolean;           // Values of ShowHelp property
+    fHideCSS: Boolean;
     fOutputFile: string;
     fOutputEncodingId: TOutputEncodingId;
     fInFiles: TStringList;
@@ -119,6 +119,7 @@ type
     property ShowHelp: Boolean
       read fShowHelp write fShowHelp default False;
       {Whether program is to display help}
+    property HideCSS: Boolean read fHideCSS write fHideCSS;
     property OutputFile: string
       read fOutputFile write fOutputFile;
     property OutputEncodingId: TOutputEncodingId
@@ -151,6 +152,7 @@ begin
   fDocType := dtXHTML;
   fQuiet := False;
   fShowHelp := False;
+  fHideCSS := False;
   fOutputEncodingId := oeUTF8;
 end;
 

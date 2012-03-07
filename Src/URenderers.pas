@@ -189,8 +189,7 @@ var
   FragParams: TXHTMLFragmentParams;
 begin
   case Config.DocType of
-    // todo: remove dtXHTMLHideCSS and replace with Fragment boolen property
-    dtXHTML, dtXHTMLHideCSS:
+    dtXHTML:
     begin
       DocParams.XMLDeclaration :=
         TXMLDeclarationRenderer.Create(Config.OutputEncodingName);
@@ -205,12 +204,12 @@ begin
       // todo: require TConfig property for style sheet rules here
       // todo: change to use TConfig.Fragment when implemented
       DocParams.StyleSheet := TEmbeddedStyleSheetRenderer.Create(
-        TCSSResourceRenderer.Create, Config.DocType = dtXHTMLHideCSS
+        TCSSResourceRenderer.Create, Config.HideCSS
       );
       // todo: use following code for embedded style sheets
 //      DocParams.StyleSheet := TEmbeddedStyleSheetRenderer.Create(
 //        TCSSFileRenderer.Create({## PATH TO CSS FILE TO BE EMBEDDED ##}),
-//        Config.DocType = dtXHTMLHideCSS
+//        Config.HideCSS
 //      );
       // todo: use following code for externally linked style sheets
 //      DocParams.StyleSheet := TLinkedStyleSheetRenderer.Create(

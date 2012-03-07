@@ -267,7 +267,7 @@ begin
     end;
     siDocTypeHideCSS:
     begin
-      fConfig.DocType := dtXHTMLHideCSS;
+      fConfig.HideCSS := True;
       fParamQueue.Dequeue;
     end;
     siHelp:
