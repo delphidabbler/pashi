@@ -86,7 +86,8 @@ uses
   IO.Writers.UClipboard in 'IO.Writers.UClipboard.pas',
   IO.Writers.UFactory in 'IO.Writers.UFactory.pas',
   IO.Readers.UFiles in 'IO.Readers.UFiles.pas',
-  IO.Writers.UFile in 'IO.Writers.UFile.pas';
+  IO.Writers.UFile in 'IO.Writers.UFile.pas',
+  IO.UHelper in 'IO.UHelper.pas';
 
 { Main program code }
 
