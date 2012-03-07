@@ -71,18 +71,9 @@ type
       {Reads program input as a string.
         @return Required input string.
       }
-    function HiliteSource(const SourceCode: string): string;
-      {Highlights source code.
-        @param SourceCode [in] Source code to be highlighted.
-        @return Highlighted source code.
-      }
     procedure WriteOutput(const S: string);
       {Writes program output.
         @param S [in] String containing output.
-      }
-    function CreateHiliter: ISyntaxHiliter;
-      {Creates required syntax highlighter, depending on document type.
-        @return Required highlighter object.
       }
   public
     constructor Create;
@@ -104,8 +95,7 @@ uses
   // Delphi
   SysUtils, Windows,
   // Project
-  IO.UTypes, IO.Readers.UFactory, IO.Writers.UFactory, UParams,
-  Hiliter.UHiliters;
+  IO.UTypes, IO.Readers.UFactory, IO.Writers.UFactory, UParams, URenderers;
 
 
 {$WARN UNSAFE_TYPE OFF}
@@ -211,23 +201,6 @@ begin
   inherited;
 end;
 
-function TMain.CreateHiliter: ISyntaxHiliter;
-  {Creates required syntax highlighter, depending on document type.
-    @return Required highlighter object.
-  }
-begin
-  Result := nil;
-  case fConfig.DocType of
-    dtXHTML:
-      Result := TSyntaxHiliterFactory.CreateHiliter(hkXHTML);
-    dtXHTMLHideCSS:
-      Result := TSyntaxHiliterFactory.CreateHiliter(hkXHTMLHideCSS);
-    dtXHTMLFragment:
-      Result := TSyntaxHiliterFactory.CreateHiliter(hkHTMLFragment)
-  end;
-  Assert(Assigned(Result), 'TMain.CreateHiliter: Invalid document format');
-end;
-
 destructor TMain.Destroy;
   {Class destructor. Tears down object.
   }
@@ -241,8 +214,9 @@ procedure TMain.Execute;
   {Executes program.
   }
 var
-  SourceCode: string; // input Pascal source code
-  XHTML: string;      // highlighted XHTML output
+  SourceCode: string;   // input Pascal source code
+  XHTML: string;        // highlighted XHTML output
+  Renderer: IRenderer;  // render customised output document
 begin
   ExitCode := 0;
   try
@@ -258,7 +232,8 @@ begin
       // Sign on and initialise program
       SignOn;
       SourceCode := GetInputSourceCode;
-      XHTML := HiliteSource(SourceCode);
+      Renderer := TRendererFactory.CreateRenderer(SourceCode, fConfig);
+      XHTML := Renderer.Render;
       WriteOutput(XHTML);
       // Sign off
       fConsole.WriteLn(sCompleted);
@@ -290,15 +265,6 @@ begin
   end;
   Assert(Assigned(Reader), 'TMain.GetInputSourceCode: Reader is nil');
   Result := Reader.Read;
-end;
-
-function TMain.HiliteSource(const SourceCode: string): string;
-var
-  Hiliter: ISyntaxHiliter;
-begin
-  Hiliter := CreateHiliter;
-  Result := Hiliter.Hilite(SourceCode, fConfig.OutputEncodingName);
-  Assert(Result <> '', 'TMain.HiliteSource: No output code created');
 end;
 
 procedure TMain.ShowHelp;
