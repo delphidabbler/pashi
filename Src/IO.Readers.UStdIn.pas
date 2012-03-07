@@ -29,7 +29,7 @@ type
 implementation
 
 uses
-  UConsts, UStdIO;
+  UConsts, UStdIO, IO.UHelper;
 
 { TStdInReader }
 
@@ -42,8 +42,6 @@ var
   BytesRead: Cardinal;
   TotalBytes: Cardinal;
   Offset: Cardinal;
-  Encoding: TEncoding;
-  PreambleSize: Integer;
 begin
   // read data from stdin to Data in chunks
   SetLength(Buffer, ChunkSize);
@@ -57,18 +55,8 @@ begin
     SetLength(Data, TotalBytes);
     Move(Buffer[0], Data[Offset], BytesRead);
   until False;
-  // Data now contains all data from stdin
-  // detect encoding used for data using any preamble bytes (BOM).
-  Encoding := nil;
-  PreambleSize := TEncoding.GetBufferEncoding(Data, Encoding);
-  try
-    // get text using required encoding
-    Result := Encoding.GetString(
-      Data, PreambleSize, Length(Data) - PreambleSize)
-  finally
-    if Assigned(Encoding) and not TEncoding.IsStandardEncoding(Encoding) then
-      Encoding.Free;
-  end;
+  // convert to string, detecting encoding
+  Result := TIOHelper.BytesToString(Data);
 end;
 
 end.

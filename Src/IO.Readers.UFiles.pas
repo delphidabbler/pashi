@@ -34,7 +34,8 @@ type
 implementation
 
 uses
-  SysUtils, Classes;
+  SysUtils, Classes,
+  IO.UHelper;
 
 { TFilesReader }
 
@@ -68,36 +69,10 @@ begin
 end;
 
 function TFilesReader.ReadFile(const FileName: string): string;
-var
-  FS: TFileStream;
-  Bytes: TBytes;
-  Encoding: TEncoding;
-  PreambleSize: Integer;
-  SourceCode: string;
 begin
-  // read file
-  FS := TFileStream.Create(FileName, fmOpenRead or fmShareDenyWrite);
-  try
-    SetLength(Bytes, FS.Size);
-    FS.ReadBuffer(Pointer(Bytes)^, FS.Size);
-  finally
-    FS.Free;
-  end;
-  // decode data as string
-  // TODO: extract following code to helper routine: common with stdin reader
-  Encoding := nil;
-  PreambleSize := TEncoding.GetBufferEncoding(Bytes, Encoding);
-  try
-    // get text using required encoding
-    SourceCode := Encoding.GetString(
-      Bytes, PreambleSize, Length(Bytes) - PreambleSize)
-  finally
-    if Assigned(Encoding) and not TEncoding.IsStandardEncoding(Encoding) then
-      Encoding.Free;
-  end;
-  // Remove leading and trailing blank lines from source code
-  // TODO: extract this code to helper routine and use also in stdin reader
-  Result := StripBoundingBlankLines(SourceCode);
+  Result := StripBoundingBlankLines(
+    TIOHelper.FileToString(FileName)
+  );
 end;
 
 function TFilesReader.StripBoundingBlankLines(const S: string): string;
@@ -118,3 +93,4 @@ begin
 end;
 
 end.
+
