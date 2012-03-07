@@ -18,20 +18,18 @@ unit IO.UHelper;
 interface
 
 uses
-  SysUtils;
+  SysUtils, Classes;
 
 type
   TIOHelper = record
   public
     class function FileToBytes(const FileName: string): TBytes; static;
+    class function StreamToBytes(const Stm: TStream): TBytes; static;
     class function BytesToString(const Bytes: TBytes): string; static;
     class function FileToString(const FileName: string): string; static;
   end;
 
 implementation
-
-uses
-  Classes;
 
 { TIOHelper }
 
@@ -59,8 +57,7 @@ var
 begin
   FS := TFileStream.Create(FileName, fmOpenRead or fmShareDenyWrite);
   try
-    SetLength(Result, FS.Size);
-    FS.ReadBuffer(Pointer(Result)^, FS.Size);
+    Result := StreamToBytes(FS);
   finally
     FS.Free;
   end;
@@ -69,6 +66,13 @@ end;
 class function TIOHelper.FileToString(const FileName: string): string;
 begin
   Result := BytesToString(FileToBytes(FileName));
+end;
+
+class function TIOHelper.StreamToBytes(const Stm: TStream): TBytes;
+begin
+  SetLength(Result, Stm.Size);
+  if Stm.Size > 0 then
+    Stm.ReadBuffer(Pointer(Result)^, Stm.Size);
 end;
 
 end.
