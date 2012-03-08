@@ -75,7 +75,8 @@ type
   // Enumerates possible sources of style sheets
   TCSSSource = (
     csDefault,      // use default style sheet
-    csFile          // get CSS from file
+    csFile,         // get CSS from file
+    csLink          // link to external style sheet
   );
 
   {

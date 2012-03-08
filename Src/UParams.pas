@@ -89,7 +89,8 @@ type
     siOuputEncoding, // use specified encoding for output
     siDocTypeXHTMLFrag, // write output as XHTML document fragment
     siDocTypeHideCSS, // hide embedded CSS in comments
-    siEmbedCSS, // embed css from a file into XHTML documents
+    siEmbedCSS, // embed css from a file
+    siLinkCSS, // link to external CSS file
     siLanguage, // specify output language
     siHelp, // display help
     siQuiet // don't display any output to console
@@ -153,6 +154,7 @@ begin
   fSwitchLookup.Add('-frag', siDocTypeXHTMLFrag);
   fSwitchLookup.Add('-hidecss', siDocTypeHideCSS);
   fSwitchLookup.Add('-style', siEmbedCSS);
+  fSwitchLookup.Add('-linkcss', siLinkCSS);
   fSwitchLookup.Add('-lang', siLanguage);
   fSwitchLookup.Add('-h', siHelp);
   fSwitchLookup.Add('-q', siQuiet);
@@ -211,11 +213,10 @@ procedure TParams.ParseSwitch;
 resourcestring
   // Error messages
   sBadSwitch = 'Invalid switch "%s"';
-  sMissingOutputFile = 'A file name must immediately follow %s switch';
+  sMissingFileParam = 'A file name must immediately follow %s switch';
   sMissingOutputEncodingParam = 'An encoding must immediatley follow %s switch';
   sBadOutputEncodingParam = 'Unrecognised encoding "%s"';
   sMissingLanguageParam = 'A language code must immediately follow %s switch';
-  sMissingCSSFileParam = 'A CSS file name must immediately follow %s switch';
 var
   Switch: string;
   SwitchId: TSwitchId;
@@ -244,7 +245,7 @@ begin
         // switch is ignored if following param is not a file name
         fParamQueue.Dequeue;
         if (fParamQueue.Count = 0) or AnsiStartsStr('-', fParamQueue.Peek) then
-          raise Exception.CreateFmt(sMissingOutputFile, [Switch]);
+          raise Exception.CreateFmt(sMissingFileParam, [Switch]);
         fConfig.OutputSink := osFile;
         fConfig.OutputFile := fParamQueue.Dequeue;
       end;
@@ -272,8 +273,16 @@ begin
       begin
         fParamQueue.Dequeue;
         if (fParamQueue.Count = 0) or AnsiStartsStr('-', fParamQueue.Peek) then
-          raise Exception.CreateFmt(sMissingCSSFileParam, [Switch]);
+          raise Exception.CreateFmt(sMissingFileParam, [Switch]);
         fConfig.CSSSource := csFile;
+        fConfig.CSSLocation := fParamQueue.Dequeue;
+      end;
+    siLinkCSS:
+      begin
+        fParamQueue.Dequeue;
+        if (fParamQueue.Count = 0) or AnsiStartsStr('-', fParamQueue.Peek) then
+          raise Exception.CreateFmt(sMissingFileParam, [Switch]);
+        fConfig.CSSSource := csLink;
         fConfig.CSSLocation := fParamQueue.Dequeue;
       end;
     siLanguage:

@@ -209,10 +209,10 @@ begin
           DocParams.StyleSheet := TEmbeddedStyleSheetRenderer.Create(
             TCSSFileRenderer.Create(Config.CSSLocation), Config.HideCSS
           );
-        // todo: use following code for externally linked style sheets
-        //      DocParams.StyleSheet := TLinkedStyleSheetRenderer.Create(
-        //        Config.CSSLocation
-        //      );
+        csLink:
+          DocParams.StyleSheet := TLinkedStyleSheetRenderer.Create(
+            Config.CSSLocation
+          );
       end;
       DocParams.SourceCode := TSourceCodeRenderer.Create(SourceCode);
       Result := TXHTMLDocumentRenderer.Create(DocParams);
