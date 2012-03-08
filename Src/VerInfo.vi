@@ -40,8 +40,8 @@
 
 
 [Fixed File Info]
-File Version #=1, 0, 1, 8
-Product Version #=1, 1, 0, 0
+File Version #=1, 98, 1, 9
+Product Version #=1, 98, 1, 0
 File OS=4
 File Type=1
 File Sub-Type=0
@@ -63,7 +63,8 @@ Legal Trademark=
 Original File Name=PasHi.exe
 Private Build=
 Product Name=DelphiDabbler PasHi Pascal Highlighter
-Product Version=Release <#P1>.<#P2>.<#P3>
+;Product Version=Release <#P1>.<#P2>.<#P3>
+Product Version=Release 2.0 alpha <#P3>
 Special Build=
 
 [Configuration Details]
