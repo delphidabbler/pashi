@@ -214,6 +214,7 @@ resourcestring
   // Error messages
   sBadSwitch = 'Invalid switch "%s"';
   sMissingFileParam = 'A file name must immediately follow %s switch';
+  sMissingURLParam = 'A URL must immediately follow %s switch';
   sMissingOutputEncodingParam = 'An encoding must immediatley follow %s switch';
   sBadOutputEncodingParam = 'Unrecognised encoding "%s"';
   sMissingLanguageParam = 'A language code must immediately follow %s switch';
@@ -281,7 +282,7 @@ begin
       begin
         fParamQueue.Dequeue;
         if (fParamQueue.Count = 0) or AnsiStartsStr('-', fParamQueue.Peek) then
-          raise Exception.CreateFmt(sMissingFileParam, [Switch]);
+          raise Exception.CreateFmt(sMissingURLParam, [Switch]);
         fConfig.CSSSource := csLink;
         fConfig.CSSLocation := fParamQueue.Dequeue;
       end;
