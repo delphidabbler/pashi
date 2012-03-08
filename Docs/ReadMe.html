@@ -415,9 +415,11 @@
 <pre class="indent">PasHi
    [&lt;filenames&gt; | -rc]
    [-o &lt;filename&gt; | -wc]
-   [-frag | -hidecss]
-   [-e &lt;encoding&gt;]
+   [-frag]
+   [-style &lt;filename&gt;]
+   [-hidecss]
    [-lang &lt;language-code&gt;]
+   [-e &lt;encoding&gt;]
    [-q]</pre>
 
 <p>
@@ -438,7 +440,7 @@
     Specify one or more input (source) file names. Source code is read from each
     file name in turn and concatenated before being highlighted. Standard input
     is ignored. Specifying one file name has the same effect as redirecting
-    standard input from a file. <em>Do not provide file names in combination
+    standard input from that file. <em>Do not provide file names in combination
     with the <code>-rc</code> switch: behaviour may be unpredictable.</em>
   </dd>
 	<dt>
@@ -478,8 +480,9 @@
 		exiting XHTML document. This is a common requirement when adding
 		highlighted code to a web page. The web page will need to provide
 		suitable CSS code to style the fragment &ndash; see below for details of
-		the required CSS classes. <em>You should not combine this switch with
-		<code>-hidecss</code>: behaviour may not be as expected.</em>
+		the required CSS classes. <em>The <code>-lang</code>, <code>-style</code>
+    and <code>-hidecss</code> switches are ignored when <code>-frag</code> is
+    used.</em>
 	</dd>
   <dt>
     <code>-lang &lt;language-code&gt;</code>
@@ -489,7 +492,16 @@
     HTML must be provided in the parameter that immediately follows the switch.
     The code is not checked. If this switch is not supplied no language
     information is included in the output file. <em>This switch should not be
-    combined with the <code>-frag</code> switch.
+    combined with the <code>-frag</code> switch.</em>
+  </dd>
+  <dt>
+    <code>-style &lt;filename&gt;</code>
+  </dt>
+  <dd>
+    Specifies the name of a file that contains a CSS style sheet that is to be
+    embedded in the output document. The file name must be given in the
+    parameter immediately following the switch. <em>This switch is ignored if
+    the <code>-frag</code> switch is also specified.</em>
   </dd>
 	<dt>
 		<code>-hidecss</code>
