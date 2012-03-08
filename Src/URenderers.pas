@@ -191,36 +191,35 @@ begin
   case Config.DocType of
     dtXHTML:
     begin
-      DocParams.XMLDeclaration :=
-        TXMLDeclarationRenderer.Create(Config.OutputEncodingName);
-      DocParams.ContentTypeMetaTag :=
-        TContentTypeMetaTagRenderer.Create(Config.OutputEncodingName);
-      // todo: add TConfig property for language and pass as param to Create
-      DocParams.HTMLTag :=
-        THTMLTagRenderer.Create(Config.Language);
-      // todo: add TConfig property for title and pass as param to Create
-      DocParams.TitleTag :=
-        TTitleTagRenderer.Create('');
-      // todo: require TConfig property for style sheet rules here
-      // todo: change to use TConfig.Fragment when implemented
-      DocParams.StyleSheet := TEmbeddedStyleSheetRenderer.Create(
-        TCSSResourceRenderer.Create, Config.HideCSS
+      DocParams.XMLDeclaration := TXMLDeclarationRenderer.Create(
+        Config.OutputEncodingName)
+      ;
+      DocParams.ContentTypeMetaTag := TContentTypeMetaTagRenderer.Create(
+        Config.OutputEncodingName
       );
-      // todo: use following code for embedded style sheets
-//      DocParams.StyleSheet := TEmbeddedStyleSheetRenderer.Create(
-//        TCSSFileRenderer.Create({## PATH TO CSS FILE TO BE EMBEDDED ##}),
-//        Config.HideCSS
-//      );
-      // todo: use following code for externally linked style sheets
-//      DocParams.StyleSheet := TLinkedStyleSheetRenderer.Create(
-//        {## URL OF STYLE SHEET ##}
-//      );
+      DocParams.HTMLTag := THTMLTagRenderer.Create(Config.Language);
+      // todo: add TConfig property for title and pass as param to Create
+      DocParams.TitleTag := TTitleTagRenderer.Create('');
+      case Config.CSSSource of
+        csDefault:
+          DocParams.StyleSheet := TEmbeddedStyleSheetRenderer.Create(
+            TCSSResourceRenderer.Create, Config.HideCSS
+          );
+        csFile:
+          DocParams.StyleSheet := TEmbeddedStyleSheetRenderer.Create(
+            TCSSFileRenderer.Create(Config.CSSLocation), Config.HideCSS
+          );
+        // todo: use following code for externally linked style sheets
+        //      DocParams.StyleSheet := TLinkedStyleSheetRenderer.Create(
+        //        Config.CSSLocation
+        //      );
+      end;
       DocParams.SourceCode := TSourceCodeRenderer.Create(SourceCode);
       Result := TXHTMLDocumentRenderer.Create(DocParams);
     end;
     dtXHTMLFragment:
     begin
-      // use new config property to set this value
+      // todo: use new config property to set this value
       FragParams.GeneratorComment := TGeneratorCommentRenderer.Create(True);
       FragParams.SourceCode := TSourceCodeRenderer.Create(SourceCode);
       Result := TXHTMLFragmentRenderer.Create(FragParams);

@@ -66,10 +66,16 @@ type
 
   // Enumerates ids of supported output encodings
   TOutputEncodingId = (
-    oeUTF8,
-    oeUTF16,
-    oeWindows1252,
-    oeISO88591
+    oeUTF8,         // UTF-8 encoding with BOM
+    oeUTF16,        // Unicode little endian encoding with BOM
+    oeWindows1252,  // Windows-1252 aka Latin 1 encoding
+    oeISO88591      // ISO-8859-1 encoding
+  );
+
+  // Enumerates possible sources of style sheets
+  TCSSSource = (
+    csDefault,      // use default style sheet
+    csFile          // get CSS from file
   );
 
   {
@@ -96,6 +102,8 @@ type
     fHideCSS: Boolean;
     fOutputFile: string;
     fLanguage: string;
+    fCSSSource: TCSSSource;
+    fCSSLocation: string;
     fOutputEncodingId: TOutputEncodingId;
     fInFiles: TStringList;
     function GetInputFiles: TArray<string>;
@@ -121,6 +129,9 @@ type
       read fShowHelp write fShowHelp default False;
       {Whether program is to display help}
     property HideCSS: Boolean read fHideCSS write fHideCSS;
+    property CSSSource: TCSSSource read fCSSSource write fCSSSource;
+    property CSSLocation: string read fCSSLocation write fCSSLocation;
+      {Location of CSS file to embed or URL to link}
     property OutputFile: string
       read fOutputFile write fOutputFile;
     property OutputEncodingId: TOutputEncodingId
