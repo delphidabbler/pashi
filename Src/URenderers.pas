@@ -197,7 +197,7 @@ begin
         TContentTypeMetaTagRenderer.Create(Config.OutputEncodingName);
       // todo: add TConfig property for language and pass as param to Create
       DocParams.HTMLTag :=
-        THTMLTagRenderer.Create('en');
+        THTMLTagRenderer.Create(Config.Language);
       // todo: add TConfig property for title and pass as param to Create
       DocParams.TitleTag :=
         TTitleTagRenderer.Create('');

@@ -95,6 +95,7 @@ type
     fShowHelp: Boolean;           // Values of ShowHelp property
     fHideCSS: Boolean;
     fOutputFile: string;
+    fLanguage: string;
     fOutputEncodingId: TOutputEncodingId;
     fInFiles: TStringList;
     function GetInputFiles: TArray<string>;
@@ -124,6 +125,7 @@ type
       read fOutputFile write fOutputFile;
     property OutputEncodingId: TOutputEncodingId
       read fOutputEncodingId write fOutputEncodingId default oeUTF8;
+    property Language: string read fLanguage write fLanguage;
     property InputFiles: TArray<string> read GetInputFiles;
     procedure AddInputFile(const FN: string);
     function OutputEncoding: TEncoding;
@@ -132,6 +134,9 @@ type
 
 
 implementation
+
+uses
+  Windows;
 
 
 { TConfig }
@@ -154,6 +159,7 @@ begin
   fShowHelp := False;
   fHideCSS := False;
   fOutputEncodingId := oeUTF8;
+  fLanguage := '';
 end;
 
 destructor TConfig.Destroy;

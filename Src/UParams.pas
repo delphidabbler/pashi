@@ -94,6 +94,7 @@ type
     siOuputEncoding,      // use specified encoding for output
     siDocTypeXHTMLFrag,   // write output as XHTML document fragment
     siDocTypeHideCSS,     // hide embedded CSS in comments
+    siLanguage,           // specify output language
     siHelp,               // display help
     siQuiet               // don't display any output to console
   );
@@ -158,6 +159,7 @@ begin
   fSwitchLookup.Add('-e', siOuputEncoding);
   fSwitchLookup.Add('-frag', siDocTypeXHTMLFrag);
   fSwitchLookup.Add('-hidecss', siDocTypeHideCSS);
+  fSwitchLookup.Add('-lang', siLanguage);
   fSwitchLookup.Add('-h', siHelp);
   fSwitchLookup.Add('-q', siQuiet);
   // lookup table for encoding values (values are case insensitive
@@ -219,6 +221,7 @@ resourcestring
   sMissingOutputFile = 'A file name must immediately follow %s switch';
   sMissingOutputEncodingParam = 'An encoding must immediatley follow %s switch';
   sBadOutputEncodingParam = 'Unrecognised encoding "%s"';
+  sMissingLanguageParam = 'A language code must immediately follow %s switch';
 var
   Switch: string;
   SwitchId: TSwitchId;
@@ -269,6 +272,13 @@ begin
     begin
       fConfig.HideCSS := True;
       fParamQueue.Dequeue;
+    end;
+    siLanguage:
+    begin
+      fParamQueue.Dequeue;
+      if (fParamQueue.Count = 0) or AnsiStartsStr('-', fParamQueue.Peek) then
+        raise Exception.CreateFmt(sMissingLanguageParam, [Switch]);
+      fConfig.Language := fParamQueue.Dequeue;
     end;
     siHelp:
     begin
