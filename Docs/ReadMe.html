@@ -409,10 +409,16 @@
 </p>
 
 <p>
-	<em>PasHi</em>'s usage is:
+	<em>PasHi</em>'s usage is (all on one line):
 </p>
 
-<pre class="indent">PasHi [&lt;filenames&gt; | -rc] [-o &lt;filename&gt; | -wc] [-frag | -hidecss] [-e &lt;encoding&gt;] [-q]</pre>
+<pre class="indent">PasHi
+   [&lt;filenames&gt; | -rc]
+   [-o &lt;filename&gt; | -wc]
+   [-frag | -hidecss]
+   [-e &lt;encoding&gt;]
+   [-lang &lt;language-code&gt;]
+   [-q]</pre>
 
 <p>
   <em>or</em>
@@ -475,6 +481,16 @@
 		the required CSS classes. <em>You should not combine this switch with
 		<code>-hidecss</code>: behaviour may not be as expected.</em>
 	</dd>
+  <dt>
+    <code>-lang &lt;language-code&gt;</code>
+  </dt>
+  <dd>
+    Specifies language used in output document. A language code recognised by
+    HTML must be provided in the parameter that immediately follows the switch.
+    The code is not checked. If this switch is not supplied no language
+    information is included in the output file. <em>This switch should not be
+    combined with the <code>-frag</code> switch.
+  </dd>
 	<dt>
 		<code>-hidecss</code>
 	</dt>
@@ -493,7 +509,7 @@
     <code>-e &lt;encoding&gt;</code>
 	</dt>
   <dd>
-    Sets the character encoding used for output. The switch must be immediatley
+    Sets the character encoding used for output. The switch must be immediately
     followed by an encoding parameter. XHTML documents are marked with the
     chosen format and the resulting file may include byte order marks. <em>This
     switch is ignored if <code>-wc</code> is specified, because data is always
