@@ -87,8 +87,8 @@ type
     siOutputClipboard, // write output to clipboard
     siOutputFile, // write output to a file
     siOuputEncoding, // use specified encoding for output
-    siDocTypeXHTMLFrag, // write output as XHTML document fragment
-    siDocTypeHideCSS, // hide embedded CSS in comments
+    siFragment, // write output as XHTML document fragment
+    siHideCSS, // hide embedded CSS in comments
     siEmbedCSS, // embed css from a file
     siLinkCSS, // link to external CSS file
     siLanguage, // specify output language
@@ -146,35 +146,61 @@ begin
   inherited Create;
   fConfig := Config;
   fParamQueue := TQueue<string>.Create;
-  // lookup table for switches (switches are case sensitive)
+  // create lookup table for switches (switches are case sensitive)
   fSwitchLookup := TDictionary<string,
     TSwitchId>.Create(TStringEqualityComparer.Create);
-  fSwitchLookup.Add('-rc', siInputClipboard);
-  fSwitchLookup.Add('-wc', siOutputClipboard);
-  fSwitchLookup.Add('-o', siOutputFile);
-  fSwitchLookup.Add('-e', siOuputEncoding);
-  fSwitchLookup.Add('-frag', siDocTypeXHTMLFrag);
-  fSwitchLookup.Add('-hidecss', siDocTypeHideCSS);
-  fSwitchLookup.Add('-style', siEmbedCSS);
-  fSwitchLookup.Add('-linkcss', siLinkCSS);
-  fSwitchLookup.Add('-lang', siLanguage);
-  fSwitchLookup.Add('-title', siTitle);
-  fSwitchLookup.Add('-nobrand', siNoBranding);
-  fSwitchLookup.Add('-h', siHelp);
-  fSwitchLookup.Add('-q', siQuiet);
-  // lookup table for encoding values (values are case insensitive
+  with fSwitchLookup do
+  begin
+    // short forms
+    Add('-d', siHideCSS);
+    Add('-e', siOuputEncoding);
+    Add('-f', siFragment);
+    Add('-h', siHelp);
+    Add('-k', siLinkCSS);
+    Add('-l', siLanguage);
+    Add('-n', siNoBranding);
+    Add('-o', siOutputFile);
+    Add('-q', siQuiet);
+    Add('-r', siInputClipboard);
+    Add('-s', siEmbedCSS);
+    Add('-t', siTitle);
+    Add('-w', siOutputClipboard);
+    // long forms
+    Add('--embed-css', siEmbedCSS);
+    Add('--encoding', siOuputEncoding);
+    Add('--fragment', siFragment);
+    Add('--help', siHelp);
+    Add('--hide-css', siHideCSS);
+    Add('--input-clipboard', siInputClipboard);
+    Add('--language', siLanguage);
+    Add('--link-css', siLinkCSS);
+    Add('--no-branding', siNoBranding);
+    Add('--output-clipboard', siOutputClipboard);
+    Add('--output-file', siOutputFile);
+    Add('--quiet', siQuiet);
+    Add('--title', siTitle);
+    // aliases for backwards compatibility with v1.x
+    Add('-frag', siFragment);
+    Add('-hidecss', siHideCSS);
+    Add('-rc', siInputClipboard);
+    Add('-wc', siOutputClipboard);
+  end;
+  // lookup table for --encoding command values: case insensitive
   fEncodingLookup := TDictionary<string,
     TOutputEncodingId>.Create(TTextEqualityComparer.Create);
-  fEncodingLookup.Add('utf-8', oeUTF8);
-  fEncodingLookup.Add('utf8', oeUTF8);
-  fEncodingLookup.Add('utf-16', oeUTF16);
-  fEncodingLookup.Add('utf16', oeUTF16);
-  fEncodingLookup.Add('unicode', oeUTF16);
-  fEncodingLookup.Add('windows-1252', oeWindows1252);
-  fEncodingLookup.Add('windows1252', oeWindows1252);
-  fEncodingLookup.Add('latin-1', oeWindows1252);
-  fEncodingLookup.Add('latin1', oeWindows1252);
-  fEncodingLookup.Add('iso-8859-1', oeISO88591);
+  with fEncodingLookup do
+  begin
+    Add('utf-8', oeUTF8);
+    Add('utf8', oeUTF8);
+    Add('utf-16', oeUTF16);
+    Add('utf16', oeUTF16);
+    Add('unicode', oeUTF16);
+    Add('windows-1252', oeWindows1252);
+    Add('windows1252', oeWindows1252);
+    Add('latin-1', oeWindows1252);
+    Add('latin1', oeWindows1252);
+    Add('iso-8859-1', oeISO88591);
+  end;
 end;
 
 destructor TParams.Destroy;
@@ -265,12 +291,12 @@ begin
             [fParamQueue.Peek]);
         fConfig.OutputEncodingId := fEncodingLookup[fParamQueue.Dequeue];
       end;
-    siDocTypeXHTMLFrag:
+    siFragment:
       begin
         fConfig.DocType := dtXHTMLFragment;
         fParamQueue.Dequeue;
       end;
-    siDocTypeHideCSS:
+    siHideCSS:
       begin
         fConfig.HideCSS := True;
         fParamQueue.Dequeue;
