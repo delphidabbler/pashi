@@ -44,8 +44,7 @@ resourcestring
   sCantAlloc = 'Can''t allocate memory block for clipboard';
   sCantGetPtr = 'Can''t get pointer to memory block for clipboard';
 begin
-  // TODO: make a general "Add" method in TClipboardMgr with this code
-  DataSize := (Length(S) + 1) * SizeOf(Char);
+    DataSize := (Length(S) + 1) * SizeOf(Char);
   // Allocate buffer to store data to on clipboard
   GH := GlobalAlloc(GMEM_MOVEABLE or GMEM_DDESHARE, DataSize);
   if GH = 0 then
