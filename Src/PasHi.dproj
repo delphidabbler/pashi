@@ -29,7 +29,6 @@
 			</DelphiCompile>
 			<DCCReference Include="IntfCommon.pas"/>
 			<DCCReference Include="Hiliter.UGlobals.pas"/>
-			<DCCReference Include="UCharStack.pas"/>
 			<DCCReference Include="UClipboardMgr.pas"/>
 			<DCCReference Include="UConfig.pas"/>
 			<DCCReference Include="UConsole.pas"/>

@@ -64,7 +64,6 @@ program PasHi;
 uses
   IntfCommon in 'IntfCommon.pas',
   Hiliter.UGlobals in 'Hiliter.UGlobals.pas',
-  UCharStack in 'UCharStack.pas',
   UClipboardMgr in 'UClipboardMgr.pas',
   UConfig in 'UConfig.pas',
   UConsole in 'UConsole.pas',
