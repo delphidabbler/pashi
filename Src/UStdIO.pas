@@ -37,7 +37,6 @@
 
 unit UStdIO;
 
-{$WARN UNSAFE_TYPE OFF}
 
 interface
 

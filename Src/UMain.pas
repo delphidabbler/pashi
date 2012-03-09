@@ -98,8 +98,6 @@ uses
   IO.UTypes, IO.Readers.UFactory, IO.Writers.UFactory, UParams, URenderers;
 
 
-{$WARN UNSAFE_TYPE OFF}
-{$WARN UNSAFE_CODE OFF}
 function GetProductVersionStr: string;
   {Gets the program's product version number from version information.
     @return Version number as a dot delimited string.
@@ -144,8 +142,6 @@ begin
     end;
   end;
 end;
-{$WARN UNSAFE_CODE ON}
-{$WARN UNSAFE_TYPE OFF}
 
 
 resourcestring
