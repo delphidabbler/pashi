@@ -420,6 +420,7 @@
    [-linkcss &lt;url&gt;]
    [-hidecss]
    [-lang &lt;language-code&gt;]
+   [-title &lt;text&gt;]
    [-e &lt;encoding&gt;]
    [-q]</pre>
 
@@ -494,6 +495,15 @@
     The code is not checked. If this switch is not supplied no language
     information is included in the output file. <em>This switch should not be
     combined with the <code>-frag</code> switch.</em>
+  </dd>
+  <dt>
+    <code>-title &lt;text&gt;</code>
+  </dt>
+  <dd>
+    Specifies title of output document. The required title must immediately
+    follow the switch on the command line. Titles containing spaces must be
+    enclosed in double quotes. <em>This switch has no effect if the
+    <code>-frag</code> switch is also used.</em>
   </dd>
   <dt>
     <code>-style &lt;filename&gt;</code>
