@@ -198,8 +198,7 @@ begin
         Config.OutputEncodingName
       );
       DocParams.HTMLTag := THTMLTagRenderer.Create(Config.Language);
-      // todo: add TConfig property for title and pass as param to Create
-      DocParams.TitleTag := TTitleTagRenderer.Create('');
+      DocParams.TitleTag := TTitleTagRenderer.Create(Config.Title);
       case Config.CSSSource of
         csDefault:
           DocParams.StyleSheet := TEmbeddedStyleSheetRenderer.Create(

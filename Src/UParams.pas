@@ -92,6 +92,7 @@ type
     siEmbedCSS, // embed css from a file
     siLinkCSS, // link to external CSS file
     siLanguage, // specify output language
+    siTitle, // document title
     siHelp, // display help
     siQuiet // don't display any output to console
     );
@@ -156,6 +157,7 @@ begin
   fSwitchLookup.Add('-style', siEmbedCSS);
   fSwitchLookup.Add('-linkcss', siLinkCSS);
   fSwitchLookup.Add('-lang', siLanguage);
+  fSwitchLookup.Add('-title', siTitle);
   fSwitchLookup.Add('-h', siHelp);
   fSwitchLookup.Add('-q', siQuiet);
   // lookup table for encoding values (values are case insensitive
@@ -218,6 +220,7 @@ resourcestring
   sMissingOutputEncodingParam = 'An encoding must immediatley follow %s switch';
   sBadOutputEncodingParam = 'Unrecognised encoding "%s"';
   sMissingLanguageParam = 'A language code must immediately follow %s switch';
+  sMissingTitleParam = 'Title text must immediately follow %s switch';
 var
   Switch: string;
   SwitchId: TSwitchId;
@@ -292,6 +295,13 @@ begin
         if (fParamQueue.Count = 0) or AnsiStartsStr('-', fParamQueue.Peek) then
           raise Exception.CreateFmt(sMissingLanguageParam, [Switch]);
         fConfig.Language := fParamQueue.Dequeue;
+      end;
+    siTitle:
+      begin
+        fParamQueue.Dequeue;
+        if (fParamQueue.Count = 0) or AnsiStartsStr('-', fParamQueue.Peek) then
+          raise Exception.CreateFmt(sMissingTitleParam, [Switch]);
+        fConfig.Title := fParamQueue.Dequeue;
       end;
     siHelp:
       begin

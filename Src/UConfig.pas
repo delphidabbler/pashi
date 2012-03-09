@@ -103,6 +103,7 @@ type
     fHideCSS: Boolean;
     fOutputFile: string;
     fLanguage: string;
+    fTitle: string;
     fCSSSource: TCSSSource;
     fCSSLocation: string;
     fOutputEncodingId: TOutputEncodingId;
@@ -138,6 +139,7 @@ type
     property OutputEncodingId: TOutputEncodingId
       read fOutputEncodingId write fOutputEncodingId default oeUTF8;
     property Language: string read fLanguage write fLanguage;
+    property Title: string read fTitle write fTitle;
     property InputFiles: TArray<string> read GetInputFiles;
     procedure AddInputFile(const FN: string);
     function OutputEncoding: TEncoding;
