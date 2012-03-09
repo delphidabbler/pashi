@@ -93,6 +93,7 @@ type
     siLinkCSS, // link to external CSS file
     siLanguage, // specify output language
     siTitle, // document title
+    siNoBranding, // inhibits branding in code fragments
     siHelp, // display help
     siQuiet // don't display any output to console
     );
@@ -158,6 +159,7 @@ begin
   fSwitchLookup.Add('-linkcss', siLinkCSS);
   fSwitchLookup.Add('-lang', siLanguage);
   fSwitchLookup.Add('-title', siTitle);
+  fSwitchLookup.Add('-nobrand', siNoBranding);
   fSwitchLookup.Add('-h', siHelp);
   fSwitchLookup.Add('-q', siQuiet);
   // lookup table for encoding values (values are case insensitive
@@ -302,6 +304,11 @@ begin
         if (fParamQueue.Count = 0) or AnsiStartsStr('-', fParamQueue.Peek) then
           raise Exception.CreateFmt(sMissingTitleParam, [Switch]);
         fConfig.Title := fParamQueue.Dequeue;
+      end;
+    siNoBranding:
+      begin
+        fConfig.BrandingPermitted := False;
+        fParamQueue.Dequeue;
       end;
     siHelp:
       begin

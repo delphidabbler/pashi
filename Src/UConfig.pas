@@ -104,6 +104,7 @@ type
     fOutputFile: string;
     fLanguage: string;
     fTitle: string;
+    fBrandingPermitted: Boolean;
     fCSSSource: TCSSSource;
     fCSSLocation: string;
     fOutputEncodingId: TOutputEncodingId;
@@ -141,6 +142,8 @@ type
     property Language: string read fLanguage write fLanguage;
     property Title: string read fTitle write fTitle;
     property InputFiles: TArray<string> read GetInputFiles;
+    property BrandingPermitted: Boolean
+      read fBrandingPermitted write fBrandingPermitted default True;
     procedure AddInputFile(const FN: string);
     function OutputEncoding: TEncoding;
     function OutputEncodingName: string;
@@ -173,6 +176,7 @@ begin
   fShowHelp := False;
   fHideCSS := False;
   fOutputEncodingId := oeUTF8;
+  fBrandingPermitted := True;
   fLanguage := '';
 end;
 

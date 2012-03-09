@@ -218,8 +218,9 @@ begin
     end;
     dtXHTMLFragment:
     begin
-      // todo: use new config property to set this value
-      FragParams.GeneratorComment := TGeneratorCommentRenderer.Create(True);
+      FragParams.GeneratorComment := TGeneratorCommentRenderer.Create(
+        Config.BrandingPermitted
+      );
       FragParams.SourceCode := TSourceCodeRenderer.Create(SourceCode);
       Result := TXHTMLFragmentRenderer.Create(FragParams);
     end;
