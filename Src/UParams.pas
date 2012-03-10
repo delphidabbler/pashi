@@ -96,7 +96,7 @@ type
     siLinkCSS, // link to external CSS file
     siLanguage, // specify output language
     siTitle, // document title
-    siNoBranding, // inhibits branding in code fragments
+    siBranding, // determines whether branding written to code fragments
     siHelp, // display help
     siQuiet // don't display any output to console
     );
@@ -158,7 +158,7 @@ begin
   with fCmdLookup do
   begin
     // short forms
-    Add('-b', siNoBranding);
+    Add('-b', siBranding);
     Add('-c', siHideCSS);
     Add('-d', siOutputDocType);
     Add('-e', siOuputEncoding);
@@ -180,7 +180,7 @@ begin
     Add('--input-clipboard', siInputClipboard);
     Add('--language', siLanguage);
     Add('--link-css', siLinkCSS);
-    Add('--no-branding', siNoBranding);
+    Add('--branding', siBranding);
     Add('--output-clipboard', siOutputClipboard);
     Add('--output-file', siOutputFile);
     Add('--quiet', siQuiet);
@@ -377,10 +377,14 @@ begin
           raise Exception.CreateFmt(sMissingTitleParam, [Command]);
         fConfig.Title := fParamQueue.Dequeue;
       end;
-    siNoBranding:
+    siBranding:
       begin
-        fConfig.BrandingPermitted := False;
         fParamQueue.Dequeue;
+        if (fParamQueue.Count = 0) or AnsiStartsStr('-', fParamQueue.Peek) then
+          raise Exception.CreateFmt(sMissingBooleanParam, [Command]);
+        if not fBooleanLookup.ContainsKey(fParamQueue.Peek) then
+          raise Exception.CreateFmt(sBadBooleanParam, [fParamQueue.Peek]);
+        fConfig.BrandingPermitted := fBooleanLookup[fParamQueue.Dequeue];
       end;
     siHelp:
       begin
