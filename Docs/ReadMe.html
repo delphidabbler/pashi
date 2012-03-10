@@ -439,9 +439,7 @@
 </p>
 
 <table>
-  <cols>
-    <col style="width:14em;" />
-  </cols>
+  <colgroup style="width:14em;"></colgroup>
   <tr>
     <th colspan="2">Command</th>
     <th rowspan="2">Description</th>
@@ -488,7 +486,7 @@
       Determines type of document to be output. The required document type is
       specified in the following parameter which must be one of the following
       values:
-      <ul>
+      <ul style="margin-top:0;">
         <li>
           <code>xhtml</code>: Complete XHTML document containing highlighted
           source code (the default).
@@ -564,10 +562,22 @@
     <td class="switch">--hide-css</td>
     <td class="switch">-d</td>
     <td>
-      Encloses CSS code embedded in any <code>&lt;style&gt;</code> tag in the
-      document head in HTML comment tags (<code>&lt;!--</code> ...
+      Determines if the CSS code embedded in a <code>&lt;style&gt;</code> tag is
+      wrapped in HTML comment tags (<code>&lt;!--</code> ...
       <code>--&gt;</code>). This command is provided because some older browsers
-      will render the CSS as text unless it is enclosed in comment tags.
+      will render the CSS as text unless it is enclosed in comment tags. The
+      parameter following the command determines whether the CSS is hidden in
+      comments or not. This parameter must be one of the following:
+      <ul style="margin-top:0;">
+        <li>
+          <code>True</code>, <code>1</code>, <code>Y</code> or <code>yes</code>:
+          Hide the CSS in comments.
+        </li>
+        <li>
+          <code>False</code>, <code>0</code>, <code>N</code> or <code>no</code>:
+          Do not use comments.
+        </li>
+      </ul>
       <code>--hide-css</code> is ignored when etiher the
       <code>--doc-type&nbsp;xhtml-fragment</code> or <code>--link-css</code>
       commands are used.
@@ -582,7 +592,7 @@
       resulting file may include byte order marks. This command is ignored if
       the <code>--output-clipboard</code> command is specified, because data is
       always written to the clipboard in Unicode. Valid encoding parameters are:
-      <ul>
+      <ul style="margin-top:0;">
         <li>
           <code>utf-8</code> or <code>utf8</code>: Encodes in Unicode using
           UTF-8 format with byte order mark (the default).
@@ -650,7 +660,7 @@
   <tr>
     <td class="switch">-wc</td>
     <td>
-      Alias for <code>--output-clipboard</code> commmand.
+      Alias for <code>--output-clipboard</code> command.
     </td>
   </tr>
   <tr>
@@ -663,7 +673,7 @@
   <tr>
     <td class="switch">-hidecss</td>
     <td>
-      Alias for <code>--hide-css</code> command.
+      Alias for <code>--hide-css</code> command with <code>yes</code> parameter.
     </td>
   </tr>
 </table>
