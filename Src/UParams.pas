@@ -68,7 +68,7 @@ interface
   -h
   Displays help screen.
 
-  NOTE: switches are case sensitive.
+  NOTE: commands are case sensitive.
 }
 
 uses
@@ -80,13 +80,15 @@ uses
 type
 
   {
-    TSwitchId:
-    Ids representing each valid command line switch.
-    }
-  TSwitchId = (siInputClipboard, // read input from clipboard
+    TCommandId:
+    Ids representing each valid command line comamnd.
+  }
+  TCommandId = (
+    siInputClipboard, // read input from clipboard
     siOutputClipboard, // write output to clipboard
     siOutputFile, // write output to a file
     siOuputEncoding, // use specified encoding for output
+    siOutputDocType,  // type of document to be output
     siFragment, // write output as XHTML document fragment
     siHideCSS, // hide embedded CSS in comments
     siEmbedCSS, // embed css from a file
@@ -100,18 +102,19 @@ type
 
   {
     TParams:
-    Class that parses command line and stores settings according to switches
+    Class that parses command line and stores settings according to commands
     provided.
-    }
+  }
   TParams = class(TObject)
   strict private
   var
     fParamQueue: TQueue<string>; // Queue of parameters to be processed
-    fSwitchLookup: TDictionary<string, TSwitchId>;
+    fCmdLookup: TDictionary<string, TCommandId>;
     fEncodingLookup: TDictionary<string, TOutputEncodingId>;
+    fDocTypeLookup: TDictionary<string, TDocType>;
     fConfig: TConfig; // Reference to program's configuration object
     procedure PopulateCommandQueue;
-    procedure ParseSwitch;
+    procedure ParseCommand;
     procedure ParseFileName;
   public
     constructor Create(const Config: TConfig);
@@ -146,19 +149,20 @@ begin
   inherited Create;
   fConfig := Config;
   fParamQueue := TQueue<string>.Create;
-  // create lookup table for switches (switches are case sensitive)
-  fSwitchLookup := TDictionary<string,
-    TSwitchId>.Create(TStringEqualityComparer.Create);
-  with fSwitchLookup do
+  // create lookup table for commands: case sensitive
+  fCmdLookup := TDictionary<string,TCommandId>.Create(
+    TStringEqualityComparer.Create
+  );
+  with fCmdLookup do
   begin
     // short forms
-    Add('-d', siHideCSS);
+    Add('-b', siNoBranding);
+    Add('-c', siHideCSS);
+    Add('-d', siOutputDocType);
     Add('-e', siOuputEncoding);
-    Add('-f', siFragment);
     Add('-h', siHelp);
     Add('-k', siLinkCSS);
     Add('-l', siLanguage);
-    Add('-n', siNoBranding);
     Add('-o', siOutputFile);
     Add('-q', siQuiet);
     Add('-r', siInputClipboard);
@@ -166,9 +170,9 @@ begin
     Add('-t', siTitle);
     Add('-w', siOutputClipboard);
     // long forms
+    Add('--doctype', siOutputDocType);
     Add('--embed-css', siEmbedCSS);
     Add('--encoding', siOuputEncoding);
-    Add('--fragment', siFragment);
     Add('--help', siHelp);
     Add('--hide-css', siHideCSS);
     Add('--input-clipboard', siInputClipboard);
@@ -186,8 +190,9 @@ begin
     Add('-wc', siOutputClipboard);
   end;
   // lookup table for --encoding command values: case insensitive
-  fEncodingLookup := TDictionary<string,
-    TOutputEncodingId>.Create(TTextEqualityComparer.Create);
+  fEncodingLookup := TDictionary<string,TOutputEncodingId>.Create(
+    TTextEqualityComparer.Create
+  );
   with fEncodingLookup do
   begin
     Add('utf-8', oeUTF8);
@@ -201,6 +206,14 @@ begin
     Add('latin1', oeWindows1252);
     Add('iso-8859-1', oeISO88591);
   end;
+  fDocTypeLookup := TDictionary<string, TDocType>.Create(
+    TTextEqualityComparer.Create
+  );
+  with fDocTypeLookup do
+  begin
+    Add('xhtml', dtXHTML);
+    Add('xhtml-fragment', dtXHTMLFragment);
+  end;
 end;
 
 destructor TParams.Destroy;
@@ -208,7 +221,7 @@ destructor TParams.Destroy;
   }
 begin
   fEncodingLookup.Free;
-  fSwitchLookup.Free;
+  fCmdLookup.Free;
   fParamQueue.Free;
   inherited;
 end;
@@ -224,44 +237,38 @@ begin
   begin
     // Check command line item
     if AnsiStartsStr('-', fParamQueue.Peek) then
-      ParseSwitch
+      ParseCommand
     else
       ParseFileName;
   end;
 end;
 
-procedure TParams.ParseFileName;
-begin
-  // Parse file name at head of queue
-  fConfig.AddInputFile(fParamQueue.Peek);
-  fConfig.InputSource := isFiles;
-  // Next parameter
-  fParamQueue.Dequeue;
-end;
-
-procedure TParams.ParseSwitch;
+procedure TParams.ParseCommand;
 resourcestring
   // Error messages
-  sBadSwitch = 'Invalid switch "%s"';
-  sMissingFileParam = 'A file name must immediately follow %s switch';
-  sMissingURLParam = 'A URL must immediately follow %s switch';
-  sMissingOutputEncodingParam = 'An encoding must immediatley follow %s switch';
+  sBadCommand = 'Invalid command "%s"';
+  sMissingFileParam = 'A file name must immediately follow %s command';
+  sMissingURLParam = 'A URL must immediately follow %s command';
+  sMissingOutputEncodingParam =
+    'An encoding must immediatley follow %s command';
   sBadOutputEncodingParam = 'Unrecognised encoding "%s"';
-  sMissingLanguageParam = 'A language code must immediately follow %s switch';
-  sMissingTitleParam = 'Title text must immediately follow %s switch';
+  sMissingLanguageParam = 'A language code must immediately follow %s command';
+  sMissingTitleParam = 'Title text must immediately follow %s command';
+  sMissingDocTypeParam = 'A document type must immediately follow %s command';
+  sBadDocTypeParam = 'Unrecognised document type "%s"';
 var
-  Switch: string;
-  SwitchId: TSwitchId;
+  Command: string;
+  CommandId: TCommandId;
 begin
   // NOTE: don't try to re-factor fParamQueue.Dequeue out of case statement to
   // place after statement because that will break processing of siOutputFile
 
-  // Parse switch at head of queue
-  Switch := fParamQueue.Peek;
-  if not fSwitchLookup.ContainsKey(Switch) then
-    raise Exception.CreateFmt(sBadSwitch, [Switch]);
-  SwitchId := fSwitchLookup[Switch];
-  case SwitchId of
+  // Parse Command at head of queue
+  Command := fParamQueue.Peek;
+  if not fCmdLookup.ContainsKey(Command) then
+    raise Exception.CreateFmt(sBadCommand, [Command]);
+  CommandId := fCmdLookup[Command];
+  case CommandId of
     siInputClipboard:
       begin
         fConfig.InputSource := isClipboard;
@@ -274,10 +281,10 @@ begin
       end;
     siOutputFile:
       begin
-        // switch is ignored if following param is not a file name
+        // Command is ignored if following param is not a file name
         fParamQueue.Dequeue;
         if (fParamQueue.Count = 0) or AnsiStartsStr('-', fParamQueue.Peek) then
-          raise Exception.CreateFmt(sMissingFileParam, [Switch]);
+          raise Exception.CreateFmt(sMissingFileParam, [Command]);
         fConfig.OutputSink := osFile;
         fConfig.OutputFile := fParamQueue.Dequeue;
       end;
@@ -285,11 +292,21 @@ begin
       begin
         fParamQueue.Dequeue;
         if (fParamQueue.Count = 0) or AnsiStartsStr('-', fParamQueue.Peek) then
-          raise Exception.CreateFmt(sMissingOutputEncodingParam, [Switch]);
+          raise Exception.CreateFmt(sMissingOutputEncodingParam, [Command]);
         if not fEncodingLookup.ContainsKey(fParamQueue.Peek) then
-          raise Exception.CreateFmt(sBadOutputEncodingParam,
-            [fParamQueue.Peek]);
+          raise Exception.CreateFmt(
+            sBadOutputEncodingParam, [fParamQueue.Peek]
+          );
         fConfig.OutputEncodingId := fEncodingLookup[fParamQueue.Dequeue];
+      end;
+    siOutputDocType:
+      begin
+        fParamQueue.Dequeue;
+        if (fParamQueue.Count = 0) or AnsiStartsStr('-', fParamQueue.Peek) then
+          raise Exception.CreateFmt(sMissingDocTypeParam, [Command]);
+        if not fDocTypeLookup.ContainsKey(fParamQueue.Peek) then
+          raise Exception.CreateFmt(sBadDocTypeParam, [fParamQueue.Peek]);
+        fConfig.DocType := fDocTypeLookup[fParamQueue.Dequeue];
       end;
     siFragment:
       begin
@@ -305,7 +322,7 @@ begin
       begin
         fParamQueue.Dequeue;
         if (fParamQueue.Count = 0) or AnsiStartsStr('-', fParamQueue.Peek) then
-          raise Exception.CreateFmt(sMissingFileParam, [Switch]);
+          raise Exception.CreateFmt(sMissingFileParam, [Command]);
         fConfig.CSSSource := csFile;
         fConfig.CSSLocation := fParamQueue.Dequeue;
       end;
@@ -313,7 +330,7 @@ begin
       begin
         fParamQueue.Dequeue;
         if (fParamQueue.Count = 0) or AnsiStartsStr('-', fParamQueue.Peek) then
-          raise Exception.CreateFmt(sMissingURLParam, [Switch]);
+          raise Exception.CreateFmt(sMissingURLParam, [Command]);
         fConfig.CSSSource := csLink;
         fConfig.CSSLocation := fParamQueue.Dequeue;
       end;
@@ -321,14 +338,14 @@ begin
       begin
         fParamQueue.Dequeue;
         if (fParamQueue.Count = 0) or AnsiStartsStr('-', fParamQueue.Peek) then
-          raise Exception.CreateFmt(sMissingLanguageParam, [Switch]);
+          raise Exception.CreateFmt(sMissingLanguageParam, [Command]);
         fConfig.Language := fParamQueue.Dequeue;
       end;
     siTitle:
       begin
         fParamQueue.Dequeue;
         if (fParamQueue.Count = 0) or AnsiStartsStr('-', fParamQueue.Peek) then
-          raise Exception.CreateFmt(sMissingTitleParam, [Switch]);
+          raise Exception.CreateFmt(sMissingTitleParam, [Command]);
         fConfig.Title := fParamQueue.Dequeue;
       end;
     siNoBranding:
@@ -347,6 +364,15 @@ begin
         fParamQueue.Dequeue;
       end;
   end;
+end;
+
+procedure TParams.ParseFileName;
+begin
+  // Parse file name at head of queue
+  fConfig.AddInputFile(fParamQueue.Peek);
+  fConfig.InputSource := isFiles;
+  // Next parameter
+  fParamQueue.Dequeue;
 end;
 
 procedure TParams.PopulateCommandQueue;
