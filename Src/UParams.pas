@@ -111,16 +111,20 @@ type
   }
   TParams = class(TObject)
   strict private
-  var
-    fParamQueue: TQueue<string>; // Queue of parameters to be processed
-    fCmdLookup: TDictionary<string, TCommandId>;
-    fEncodingLookup: TDictionary<string, TOutputEncodingId>;
-    fDocTypeLookup: TDictionary<string, TDocType>;
-    fBooleanLookup: TDictionary<string, Boolean>;
-    fConfig: TConfig; // Reference to program's configuration object
+    var
+      fParamQueue: TQueue<string>; // Queue of parameters to be processed
+      fCmdLookup: TDictionary<string, TCommandId>;
+      fEncodingLookup: TDictionary<string, TOutputEncodingId>;
+      fDocTypeLookup: TDictionary<string, TDocType>;
+      fBooleanLookup: TDictionary<string, Boolean>;
+      fConfig: TConfig; // Reference to program's configuration object
     procedure PopulateCommandQueue;
     procedure ParseCommand;
     procedure ParseFileName;
+    function GetStringParameter(const Cmd: string): string;
+    function GetBooleanParameter(const Cmd: string): Boolean;
+    function GetEncodingParameter(const Cmd: string): TOutputEncodingId;
+    function GetDocTypeParameter(const Cmd: string): TDocType;
   public
     constructor Create(const Config: TConfig);
     { Class constructor. Initialises object.
@@ -251,6 +255,54 @@ begin
   inherited;
 end;
 
+function TParams.GetBooleanParameter(const Cmd: string): Boolean;
+var
+  Param: string;
+resourcestring
+  sBadValue = 'Unrecognised Boolean value "%s"';
+begin
+  Param := GetStringParameter(Cmd);
+  if not fBooleanLookup.ContainsKey(Param) then
+    raise Exception.CreateFmt(sBadValue, [Param]);
+  Result := fBooleanLookup[Param];
+end;
+
+function TParams.GetDocTypeParameter(const Cmd: string): TDocType;
+var
+  Param: string;
+resourcestring
+  sBadValue = 'Unrecognised document type "%s"';
+begin
+  Param := GetStringParameter(Cmd);
+  if not fDocTypeLookup.ContainsKey(Param) then
+    raise Exception.CreateFmt(sBadValue, [Param]);
+  Result := fDocTypeLookup[Param];
+end;
+
+function TParams.GetEncodingParameter(const Cmd: string): TOutputEncodingId;
+var
+  Param: string;
+resourcestring
+  sBadValue = 'Unrecognised encoding "%s"';
+begin
+  Param := GetStringParameter(Cmd);
+  if not fEncodingLookup.ContainsKey(Param) then
+    raise Exception.CreateFmt(sBadValue, [Param]);
+  Result := fEncodingLookup[Param];
+end;
+
+function TParams.GetStringParameter(const Cmd: string): string;
+resourcestring
+  sNoParam = 'Parameter for %s missing.';
+begin
+  if fParamQueue.Count = 0 then
+    Result := ''
+  else
+    Result := fParamQueue.Peek;
+  if (Result = '') or AnsiStartsStr('-', Result) then
+    raise Exception.CreateFmt(sNoParam, [Cmd]);
+end;
+
 procedure TParams.Parse;
 { Parses the command line.
   @except Exception raised if error in command line.
@@ -272,151 +324,83 @@ procedure TParams.ParseCommand;
 resourcestring
   // Error messages
   sBadCommand = 'Invalid command "%s"';
-  sMissingFileParam = 'A file name must immediately follow %s';
-  sMissingURLParam = 'A URL must immediately follow %s';
-  sMissingOutputEncodingParam = 'An encoding must immediatley follow %s';
-  sBadOutputEncodingParam = 'Unrecognised encoding "%s"';
-  sMissingLanguageParam = 'A language code must immediately follow %s';
-  sMissingTitleParam = 'Title text must immediately follow %s';
-  sMissingDocTypeParam = 'A document type must immediately follow %s';
-  sBadDocTypeParam = 'Unrecognised document type "%s"';
-  sMissingBooleanParam = 'A Boolean value must immediately follow %s';
-  sBadBooleanParam = 'Unrecognised Boolean value "%s"';
 var
   Command: string;
   CommandId: TCommandId;
 begin
-  // NOTE: don't try to re-factor fParamQueue.Dequeue out of case statement to
-  // place after statement because that will break processing of siOutputFile
-
-  // Parse Command at head of queue
-  Command := fParamQueue.Peek;
+  Command := fParamQueue.Dequeue;
   if not fCmdLookup.ContainsKey(Command) then
     raise Exception.CreateFmt(sBadCommand, [Command]);
   CommandId := fCmdLookup[Command];
+
   case CommandId of
     siInputClipboard:
-      begin
-        fConfig.InputSource := isClipboard;
-        fParamQueue.Dequeue;
-      end;
+      fConfig.InputSource := isClipboard;
     siOutputClipboard:
-      begin
-        fConfig.OutputSink := osClipboard;
-        fParamQueue.Dequeue;
-      end;
+      fConfig.OutputSink := osClipboard;
     siOutputFile:
-      begin
-        // Command is ignored if following param is not a file name
-        fParamQueue.Dequeue;
-        if (fParamQueue.Count = 0) or AnsiStartsStr('-', fParamQueue.Peek) then
-          raise Exception.CreateFmt(sMissingFileParam, [Command]);
-        fConfig.OutputSink := osFile;
-        fConfig.OutputFile := fParamQueue.Dequeue;
-      end;
+    begin
+      // Command is ignored if following param is not a file name
+      fConfig.OutputFile := GetStringParameter(Command);
+      fConfig.OutputSink := osFile;
+      fParamQueue.Dequeue;
+    end;
     siOuputEncoding:
-      begin
-        fParamQueue.Dequeue;
-        if (fParamQueue.Count = 0) or AnsiStartsStr('-', fParamQueue.Peek) then
-          raise Exception.CreateFmt(sMissingOutputEncodingParam, [Command]);
-        if not fEncodingLookup.ContainsKey(fParamQueue.Peek) then
-          raise Exception.CreateFmt(
-            sBadOutputEncodingParam, [fParamQueue.Peek]
-          );
-        fConfig.OutputEncodingId := fEncodingLookup[fParamQueue.Dequeue];
-      end;
+    begin
+      fConfig.OutputEncodingId := GetEncodingParameter(Command);
+      fParamQueue.Dequeue;
+    end;
     siOutputDocType:
-      begin
-        fParamQueue.Dequeue;
-        if (fParamQueue.Count = 0) or AnsiStartsStr('-', fParamQueue.Peek) then
-          raise Exception.CreateFmt(sMissingDocTypeParam, [Command]);
-        if not fDocTypeLookup.ContainsKey(fParamQueue.Peek) then
-          raise Exception.CreateFmt(sBadDocTypeParam, [fParamQueue.Peek]);
-        fConfig.DocType := fDocTypeLookup[fParamQueue.Dequeue];
-      end;
+    begin
+      fConfig.DocType := GetDocTypeParameter(Command);
+      fParamQueue.Dequeue;
+    end;
     siFragment:
-      begin
-        fConfig.DocType := dtXHTMLFragment;
-        fParamQueue.Dequeue;
-      end;
+      fConfig.DocType := dtXHTMLFragment;
     siHideCSSYes:
-      begin
-        fConfig.HideCSS := True;
-        fParamQueue.Dequeue;
-      end;
+      fConfig.HideCSS := True;
     siHideCSSNo:
-      begin
-        fConfig.HideCSS := False;
-        fParamQueue.Dequeue;
-      end;
+      fConfig.HideCSS := False;
     siHideCSS:
-      begin
-        fParamQueue.Dequeue;
-        if (fParamQueue.Count = 0) or AnsiStartsStr('-', fParamQueue.Peek) then
-          raise Exception.CreateFmt(sMissingBooleanParam, [Command]);
-        if not fBooleanLookup.ContainsKey(fParamQueue.Peek) then
-          raise Exception.CreateFmt(sBadBooleanParam, [fParamQueue.Peek]);
-        fConfig.HideCSS := fBooleanLookup[fParamQueue.Dequeue];
-      end;
+    begin
+      fConfig.HideCSS := GetBooleanParameter(Command);
+      fParamQueue.Dequeue;
+    end;
     siEmbedCSS:
-      begin
-        fParamQueue.Dequeue;
-        if (fParamQueue.Count = 0) or AnsiStartsStr('-', fParamQueue.Peek) then
-          raise Exception.CreateFmt(sMissingFileParam, [Command]);
-        fConfig.CSSSource := csFile;
-        fConfig.CSSLocation := fParamQueue.Dequeue;
-      end;
+    begin
+      fConfig.CSSLocation := GetStringParameter(Command);
+      fConfig.CSSSource := csFile;
+      fParamQueue.Dequeue;
+    end;
     siLinkCSS:
-      begin
-        fParamQueue.Dequeue;
-        if (fParamQueue.Count = 0) or AnsiStartsStr('-', fParamQueue.Peek) then
-          raise Exception.CreateFmt(sMissingURLParam, [Command]);
-        fConfig.CSSSource := csLink;
-        fConfig.CSSLocation := fParamQueue.Dequeue;
-      end;
+    begin
+      fConfig.CSSLocation := GetStringParameter(Command);
+      fConfig.CSSSource := csLink;
+      fParamQueue.Dequeue;
+    end;
     siLanguage:
-      begin
-        fParamQueue.Dequeue;
-        if (fParamQueue.Count = 0) or AnsiStartsStr('-', fParamQueue.Peek) then
-          raise Exception.CreateFmt(sMissingLanguageParam, [Command]);
-        fConfig.Language := fParamQueue.Dequeue;
-      end;
+    begin
+      fConfig.Language := GetStringParameter(Command);
+      fParamQueue.Dequeue;
+    end;
     siTitle:
-      begin
-        fParamQueue.Dequeue;
-        if (fParamQueue.Count = 0) or AnsiStartsStr('-', fParamQueue.Peek) then
-          raise Exception.CreateFmt(sMissingTitleParam, [Command]);
-        fConfig.Title := fParamQueue.Dequeue;
-      end;
+    begin
+      fConfig.Title := GetStringParameter(Command);
+      fParamQueue.Dequeue;
+    end;
     siBranding:
-      begin
-        fParamQueue.Dequeue;
-        if (fParamQueue.Count = 0) or AnsiStartsStr('-', fParamQueue.Peek) then
-          raise Exception.CreateFmt(sMissingBooleanParam, [Command]);
-        if not fBooleanLookup.ContainsKey(fParamQueue.Peek) then
-          raise Exception.CreateFmt(sBadBooleanParam, [fParamQueue.Peek]);
-        fConfig.BrandingPermitted := fBooleanLookup[fParamQueue.Dequeue];
-      end;
+    begin
+      fConfig.BrandingPermitted := GetBooleanParameter(Command);
+      fParamQueue.Dequeue;
+    end;
     siBrandingYes:
-      begin
-        fConfig.BrandingPermitted := True;
-        fParamQueue.Dequeue;
-      end;
+      fConfig.BrandingPermitted := True;
     siBrandingNo:
-      begin
-        fConfig.BrandingPermitted := False;
-        fParamQueue.Dequeue;
-      end;
+      fConfig.BrandingPermitted := False;
     siHelp:
-      begin
-        fConfig.ShowHelp := True;
-        fParamQueue.Dequeue;
-      end;
+      fConfig.ShowHelp := True;
     siQuiet:
-      begin
-        fConfig.Quiet := True;
-        fParamQueue.Dequeue;
-      end;
+      fConfig.Quiet := True;
   end;
 end;
 
