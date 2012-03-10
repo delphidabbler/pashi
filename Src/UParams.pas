@@ -170,7 +170,7 @@ begin
     Add('-t', siTitle);
     Add('-w', siOutputClipboard);
     // long forms
-    Add('--doctype', siOutputDocType);
+    Add('--doc-type', siOutputDocType);
     Add('--embed-css', siEmbedCSS);
     Add('--encoding', siOuputEncoding);
     Add('--help', siHelp);
