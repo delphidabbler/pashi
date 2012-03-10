@@ -90,7 +90,8 @@ type
     siOuputEncoding, // use specified encoding for output
     siOutputDocType,  // type of document to be output
     siFragment, // write output as XHTML document fragment
-    siHideCSS, // hide embedded CSS in comments
+    siHideCSS, // hide or shows embedded CSS in comments
+    siHideCSSForce, // hides embedded CSS in comments
     siEmbedCSS, // embed css from a file
     siLinkCSS, // link to external CSS file
     siLanguage, // specify output language
@@ -112,6 +113,7 @@ type
     fCmdLookup: TDictionary<string, TCommandId>;
     fEncodingLookup: TDictionary<string, TOutputEncodingId>;
     fDocTypeLookup: TDictionary<string, TDocType>;
+    fBooleanLookup: TDictionary<string, Boolean>;
     fConfig: TConfig; // Reference to program's configuration object
     procedure PopulateCommandQueue;
     procedure ParseCommand;
@@ -183,9 +185,9 @@ begin
     Add('--output-file', siOutputFile);
     Add('--quiet', siQuiet);
     Add('--title', siTitle);
-    // aliases for backwards compatibility with v1.x
+    // commands kept for backwards compatibility with v1.x
     Add('-frag', siFragment);
-    Add('-hidecss', siHideCSS);
+    Add('-hidecss', siHideCSSForce);
     Add('-rc', siInputClipboard);
     Add('-wc', siOutputClipboard);
   end;
@@ -206,6 +208,7 @@ begin
     Add('latin1', oeWindows1252);
     Add('iso-8859-1', oeISO88591);
   end;
+  // lookup table for --doc-type command values: case insensitive
   fDocTypeLookup := TDictionary<string, TDocType>.Create(
     TTextEqualityComparer.Create
   );
@@ -214,12 +217,28 @@ begin
     Add('xhtml', dtXHTML);
     Add('xhtml-fragment', dtXHTMLFragment);
   end;
+  // lookup table for any command with boolean parameters
+  fBooleanLookup := TDictionary<string, Boolean>.Create(
+    TTextEqualityComparer.Create
+  );
+  with fBooleanLookup do
+  begin
+    Add('1', True);
+    Add('0', False);
+    Add('true', True);
+    Add('false', False);
+    Add('yes', True);
+    Add('no', False);
+    Add('Y', True);
+    Add('N', False);
+  end;
 end;
 
 destructor TParams.Destroy;
 { Class destructor. Tears down object.
   }
 begin
+  fDocTypeLookup.Free;
   fEncodingLookup.Free;
   fCmdLookup.Free;
   fParamQueue.Free;
@@ -247,15 +266,16 @@ procedure TParams.ParseCommand;
 resourcestring
   // Error messages
   sBadCommand = 'Invalid command "%s"';
-  sMissingFileParam = 'A file name must immediately follow %s command';
-  sMissingURLParam = 'A URL must immediately follow %s command';
-  sMissingOutputEncodingParam =
-    'An encoding must immediatley follow %s command';
+  sMissingFileParam = 'A file name must immediately follow %s';
+  sMissingURLParam = 'A URL must immediately follow %s';
+  sMissingOutputEncodingParam = 'An encoding must immediatley follow %s';
   sBadOutputEncodingParam = 'Unrecognised encoding "%s"';
-  sMissingLanguageParam = 'A language code must immediately follow %s command';
-  sMissingTitleParam = 'Title text must immediately follow %s command';
-  sMissingDocTypeParam = 'A document type must immediately follow %s command';
+  sMissingLanguageParam = 'A language code must immediately follow %s';
+  sMissingTitleParam = 'Title text must immediately follow %s';
+  sMissingDocTypeParam = 'A document type must immediately follow %s';
   sBadDocTypeParam = 'Unrecognised document type "%s"';
+  sMissingBooleanParam = 'A Boolean value must immediately follow %s';
+  sBadBooleanParam = 'Unrecognised Boolean value "%s"';
 var
   Command: string;
   CommandId: TCommandId;
@@ -313,10 +333,19 @@ begin
         fConfig.DocType := dtXHTMLFragment;
         fParamQueue.Dequeue;
       end;
-    siHideCSS:
+    siHideCSSForce:
       begin
         fConfig.HideCSS := True;
         fParamQueue.Dequeue;
+      end;
+    siHideCSS:
+      begin
+        fParamQueue.Dequeue;
+        if (fParamQueue.Count = 0) or AnsiStartsStr('-', fParamQueue.Peek) then
+          raise Exception.CreateFmt(sMissingBooleanParam, [Command]);
+        if not fBooleanLookup.ContainsKey(fParamQueue.Peek) then
+          raise Exception.CreateFmt(sBadBooleanParam, [fParamQueue.Peek]);
+        fConfig.HideCSS := fBooleanLookup[fParamQueue.Dequeue];
       end;
     siEmbedCSS:
       begin
