@@ -91,12 +91,15 @@ type
     siOutputDocType,  // type of document to be output
     siFragment, // write output as XHTML document fragment
     siHideCSS, // hide or shows embedded CSS in comments
-    siHideCSSForce, // hides embedded CSS in comments
+    siHideCSSYes, // hides embedded CSS in comments
+    siHideCSSNo,  // does not hide CSS in comments
     siEmbedCSS, // embed css from a file
     siLinkCSS, // link to external CSS file
     siLanguage, // specify output language
     siTitle, // document title
     siBranding, // determines whether branding written to code fragments
+    siBrandingYes,  // forces branding on
+    siBrandingNo, // forces branding off
     siHelp, // display help
     siQuiet // don't display any output to console
     );
@@ -158,8 +161,6 @@ begin
   with fCmdLookup do
   begin
     // short forms
-    Add('-b', siBranding);
-    Add('-c', siHideCSS);
     Add('-d', siOutputDocType);
     Add('-e', siOuputEncoding);
     Add('-h', siHelp);
@@ -171,6 +172,11 @@ begin
     Add('-s', siEmbedCSS);
     Add('-t', siTitle);
     Add('-w', siOutputClipboard);
+    // boolean short forms
+    Add('-b0', siBrandingNo);
+    Add('-b1', siBrandingYes);
+    Add('-c0', siHideCSSNo);
+    Add('-c1', siHideCSSYes);
     // long forms
     Add('--doc-type', siOutputDocType);
     Add('--embed-css', siEmbedCSS);
@@ -187,7 +193,7 @@ begin
     Add('--title', siTitle);
     // commands kept for backwards compatibility with v1.x
     Add('-frag', siFragment);
-    Add('-hidecss', siHideCSSForce);
+    Add('-hidecss', siHideCSSYes);
     Add('-rc', siInputClipboard);
     Add('-wc', siOutputClipboard);
   end;
@@ -333,9 +339,14 @@ begin
         fConfig.DocType := dtXHTMLFragment;
         fParamQueue.Dequeue;
       end;
-    siHideCSSForce:
+    siHideCSSYes:
       begin
         fConfig.HideCSS := True;
+        fParamQueue.Dequeue;
+      end;
+    siHideCSSNo:
+      begin
+        fConfig.HideCSS := False;
         fParamQueue.Dequeue;
       end;
     siHideCSS:
@@ -385,6 +396,16 @@ begin
         if not fBooleanLookup.ContainsKey(fParamQueue.Peek) then
           raise Exception.CreateFmt(sBadBooleanParam, [fParamQueue.Peek]);
         fConfig.BrandingPermitted := fBooleanLookup[fParamQueue.Dequeue];
+      end;
+    siBrandingYes:
+      begin
+        fConfig.BrandingPermitted := True;
+        fParamQueue.Dequeue;
+      end;
+    siBrandingNo:
+      begin
+        fConfig.BrandingPermitted := False;
+        fParamQueue.Dequeue;
       end;
     siHelp:
       begin
