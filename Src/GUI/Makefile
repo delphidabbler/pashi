@@ -45,9 +45,8 @@ everything: config resources pascal
 # Configure source folders
 config:
   @echo Configuring PasHiGUI
-  # Create .cfg and .bdsproj files from templates 
+  # Create .cfg file from templates 
   @copy /Y PasHiGUI.cfg.tplt PasHiGUI.cfg
-  @copy /Y PasHiGUI.bdsproj.tplt PasHiGUI.bdsproj
   # Create build folders
   @cd ..\..
   @if not exist Bin @mkdir Bin
