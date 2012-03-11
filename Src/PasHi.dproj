@@ -27,7 +27,6 @@
 			<DelphiCompile Include="PasHi.dpr">
 				<MainSource>MainSource</MainSource>
 			</DelphiCompile>
-			<DCCReference Include="IntfCommon.pas"/>
 			<DCCReference Include="Hiliter.UGlobals.pas"/>
 			<DCCReference Include="UClipboardMgr.pas"/>
 			<DCCReference Include="UConfig.pas"/>

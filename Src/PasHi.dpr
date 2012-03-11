@@ -62,7 +62,6 @@ program PasHi;
 {$RESOURCE VerInfo.res}     // contains version info
 
 uses
-  IntfCommon in 'IntfCommon.pas',
   Hiliter.UGlobals in 'Hiliter.UGlobals.pas',
   UClipboardMgr in 'UClipboardMgr.pas',
   UConfig in 'UConfig.pas',
