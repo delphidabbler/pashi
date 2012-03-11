@@ -14,41 +14,9 @@
 
 unit UParams;
 
+
 interface
 
-{
-  Command Line Parameters Supported by TParams
-  --------------------------------------------
-
-  <filename1> <filename2> ...
-  When one or more file names are listed input is taken from a concatenation
-  of the files instead from standard input.
-  -rc
-  Takes input from clipboard rather than standard input.
-  -wc
-  Writesoutput to clipboard (CF_UNICODETEXT format) instead of standard
-  output.
-  -o <filename>
-  Writes output to file named in following parameter instead of standard
-  output.
-  -e <encoding>
-  Sets encoding to be used for output XHTML. For valid values for <encoding>
-  see the creation of the encoding dictionary object below. Values are case
-  insensitive.
-  -frag
-  Writes XHTML fragment rather than complete XHTML document. Code contains
-  only <pre> tag enclosing highlighted containing source code. User must
-  provide style sheet with required style names.
-  -hidecss
-  Wraps embedded CSS in HTML comments.
-  -q
-  Quiet mode. Inhibits writing to console. This setting is ignored when help
-  screen is displayed or if error occurs while parsing command line.
-  -h
-  Displays help screen.
-
-  NOTE: commands are case sensitive.
-}
 
 uses
   // Delphi
@@ -57,7 +25,6 @@ uses
   UConfig;
 
 type
-
   {
     TCommandId:
     Ids representing each valid command line comamnd.
@@ -151,13 +118,16 @@ type
       }
   end;
 
+
 implementation
+
 
 uses
   // Delphi
   StrUtils, SysUtils, Character,
   // Project
   UComparers;
+
 
 { TParams }
 
