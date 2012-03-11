@@ -53,8 +53,6 @@ program PasHiGUI;
 {$WRITEABLECONST OFF}
 
 
-{%ToDo 'PasHiGUI.todo'}
-
 uses
   Forms,
   FmMain in 'FmMain.pas' {MainForm},
