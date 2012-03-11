@@ -118,26 +118,29 @@
 
 	<p>
 		<strong>Note:</strong>
-		These notes do not apply to the following versions of the program:
+		These instructions do not apply to the following versions of the program:
   </p>
 
   <ul>
     <li>
       Release 1.1.0. See the version of <code>Build.html</code> in the
-      <code>version-1.1.0</code> directory of the <code>tags</code> branch of
-      the repository.
+      <code>tags/version-1.1.0</code> branch of the repository.
     </li>
     <li>
-      <em>PasH</em> * release 1.0.0 or earlier or<em>PasHGUI</em> * release
-      0.1.0. For instructions on how to build these versions please refer to
-      files named <code>ReadMe-Src.txt</code> that are to be found in the
+      <em>PasH</em> <sup><span style="font-size:smaller;">&dagger;</span></sup>
+      release 1.0.0 or earlier or
+      <em>PasHGUI</em>
+      <sup><span style="font-size:smaller;">&dagger;</span></sup> release 0.1.0.
+      For instructions on how to build these versions please refer to the
+      <code>ReadMe-Src.txt</code> files that are to be found in the
       <code>Docs</code> or root directories of the relevant source code trees.
     </li>
 	</ul>
 
 	<p style="font-size:smaller;">
-		* <em>PasH</em> and <em>PasHGUI</em> are the old names for
-		<em>PasHi</em> and <em>PasHiGUI</em>.
+		<sup><span style="font-size:smaller;">&dagger;</span></sup> <em>PasH</em>
+    and <em>PasHGUI</em> are the old names for <em>PasHi</em> and
+    <em>PasHiGUI</em>.
 	</p>
 
 </div>
@@ -171,7 +174,7 @@
 </h3>
 
 <p>
-	You need the Delphi VCL in order to compile the programs.
+	You need the relevant Delphi VCL in order to compile the programs.
 </p>
 
 <h2>
@@ -179,7 +182,7 @@
 </h2>
 
 <p>
-	The following tools are required to build the programs.
+	The following tools are needed to build the programs.
 </p>
 
 <h3>
@@ -238,9 +241,9 @@
 	</dt>
 	<dd>
 		If you are using Delphi 2010 this environment variable should be set
-		to the Delphi install directory. When specified <code>DELPHIROOT</code>
-		will ignore its own value and use the value of <code>DELPHI2010</code>
-		instead.
+		to the Delphi install directory. When <code>DELPHI2010</code> is specified
+    <code>DELPHIROOT</code> will ignore its own value and use the value of
+    <code>DELPHI2010</code> instead.
 	</dd>
 </dl>
 
@@ -381,7 +384,8 @@
 	please raise a new issue in the <a
 		href="http://code.google.com/p/pas-hi/issues/list"
 	>issue tracker</a>, select a type (defect, enhancement etc.) and attach a
-	zip file or tarball containing your enhancment, preferably as a patch file.
+	zip file or tarball containing your enhancment, preferably including a patch
+  file.
 </p>
 
 <h3>
@@ -396,8 +400,6 @@
 <pre>./
   |
   +-- Docs                  - documentation
-  |   |
-  |   +-- GUI               - documentation that applies to PasHiGUI only
   |
   +-- Src                   - source code for PasHi
   |   |
@@ -414,14 +416,13 @@
 <p>
 	If, by chance, you also have a <code>Bin</code>, <code>Exe</code> and
 	<code>Release</code> directory don't worry - all will become clear. 
-	Subversion users will also see the usual <code>.svn</code> hidden
-	directories. If you have done some editing you may also see occasional
-	hidden <code>__history</code> folders, depending on which version of Delphi
-	you are using.
+	Subversion users may also see the usual <code>.svn</code> &quot;hidden&quot;
+	directories or directory. If you have done some editing you may also see
+  occasional &quot;hidden&quot; <code>__history</code> folders.
 </p>
 
 <p>
-	Before you can get hacking, you need to prepare the code tree. Open a
+	Before you can get hacking, you need to prepare the source code tree. Open a
 	command console and navigate into the <code>Src</code> sub-folder. Run any
 	script you have created to set the required environment variables then do:
 </p>
@@ -455,8 +456,6 @@
   +-- Bin                   - receives object files and .res files for PasHi
   <span class="disabled">|
   +-- Docs                  - documentation
-  |   |
-  |   +-- GUI               - documentation that applies to PasHiGUI only
   |</span>
   +-- Exe                   - receives executable code
   |
@@ -475,11 +474,9 @@
   +-- Test                  - contains test file</span></pre>
 
 <p>
-	<code>Make</code> will have created <code>.cfg</code> and
-	<code>.bdsproj</code> files from templates in the <code>Src</code> folder.
-	<code>.cfg</code> files are needed for DCC32 to run correctly and
-	<code>.bdsproj</code> files enable the use of the Delphi IDE. These files
-	will be ignored by Subversion.
+	<code>Make</code> will have created a <code>.cfg</code> file from the template
+  in the <code>Src</code> folder. <code>.cfg</code> files are needed for DCC32
+  to run correctly This new file will be ignored by Subversion.
 </p>
 
 <p>
@@ -502,8 +499,6 @@
   |   +-- GUI
   <span class="disabled">|
   +-- Docs                  - documentation
-  |   |
-  |   +-- GUI               - documentation that applies to PasHiGUI only
   |
   +-- Exe                   - receives executable code
   |
@@ -523,8 +518,8 @@
 
 
 <p>
-	<code>Make</code> will also have created the required <code>.cfg</code> and
-	<code>.bdsproj</code> files in the <code>Src\GUI</code> directory.
+	<code>Make</code> will also have created the required <code>.cfg</code> file
+	in the <code>Src\GUI</code> directory.
 </p>
 
 <p>
@@ -615,15 +610,15 @@
 </h2>
 
 <p>
-	You can create a zip file containing <em>PasHi</em>, <em>PasHiGUI</em> and
-	required documentation once the <code>.exe</code> files have been generated
-	(see above). You create the zip by doing:
+  Once the <code>.exe</code> files have been generated you can create a zip file
+  containing <em>PasHi</em>, <em>PasHiGUI</em> and the required documentation
+  files. You create the zip by doing:
 </p>
 
 <pre class="cmd"><span class="prompt">Src&gt;</span> Make release</pre>
 
 <p>
-	Note, this only works with the makefile in the <code>Src</code> directory:
+	Note that this only works with the makefile in the <code>Src</code> directory:
 	the <code>release</code> target is not supported by
 	<code>Src\GUI\Makefile</code>.
 </p>
@@ -662,7 +657,7 @@
 
 <p>
 	Be warned that this command removes any <code>__history</code> folders that
-	some versions of Delphi use to maintain earlier versions of files. 
+	some Delphi uses to record earlier versions of files. 
 </p>
 
 <p>
