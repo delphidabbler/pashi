@@ -48,21 +48,6 @@ type
         @param Buffer [in] Contains data to be written.
         @param Size [in] Size of data in buffer in bytes.
       }
-    class procedure Write(Channel: TStdIOOutput; const Text: string); overload;
-      {Write text to a channel.
-        @param Channel [in] Required output channel.
-        @param Text [in] Text to be written.
-      }
-    class procedure WriteLn(Channel: TStdIOOutput; const Text: string);
-      overload;
-      {Write text to a channel followed by a new line.
-        @param Channel [in] Required output channel.
-        @param Text [in] Text to be written.
-      }
-    class procedure WriteLn(Channel: TStdIOOutput); overload;
-      {Write a new line to a channel.
-        @param Channel [in] Required output channel.
-      }
     class function ReadBuf(var Buffer; const Count: Integer): Integer;
       {Read data from standard input to a buffer.
         @param Buffer [in] Buffer to receive data.
@@ -117,15 +102,6 @@ begin
   Result := BytesRead;
 end;
 
-class procedure TStdIO.Write(Channel: TStdIOOutput; const Text: string);
-  {Write text to a channel.
-    @param Channel [in] Required output channel.
-    @param Text [in] Text to be written.
-  }
-begin
-  Write(Channel, Text[1], Length(Text));
-end;
-
 class procedure TStdIO.Write(Channel: TStdIOOutput; const Buffer;
   const Size: Integer);
   {Write data from a buffer to an output channel.
@@ -138,23 +114,6 @@ var
 begin
   // Write the data
   Windows.WriteFile(GetHandle(Channel), Buffer, Size, Dummy, nil);
-end;
-
-class procedure TStdIO.WriteLn(Channel: TStdIOOutput; const Text: string);
-  {Write text to a channel followed by a new line.
-    @param Channel [in] Required output channel.
-    @param Text [in] Text to be written.
-  }
-begin
-  Write(Channel, Text + #13#10);
-end;
-
-class procedure TStdIO.WriteLn(Channel: TStdIOOutput);
-  {Write a new line to a channel.
-    @param Channel [in] Required output channel.
-  }
-begin
-  WriteLn(Channel, '');
 end;
 
 end.
