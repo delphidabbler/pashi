@@ -522,8 +522,8 @@ This section lists all releases of PasHi from the first version (0.1) to release
   + Version and build number.
   + List of new, modified and deleted source files.
   
-The Development tools, .bpg and .cfg files, test files and documentation are not
-included in this information.
+The Development tools, Delphi-maintained files, test files and documentation are
+not included in this information.
 
 --------------------------------------------------------------------------------
 PASHI: v0.1.0 build 1 of 28 May 2005
@@ -637,6 +637,8 @@ New    : UWBContainer.pas 1.0
 New    : Resources.rc 1.0
 New    : VersionInfo.vi 17 Jun 2006
 New    : Build.bat 1.0
+New    : Assets\MainIcon.ico 11 Jun 2006
+New    : Assets\fragment-tplt.html 17 Jun 2006
 
 --------------------------------------------------------------------------------
 $Rev$
