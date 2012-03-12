@@ -118,9 +118,11 @@ function TPasHi.BuildCommandLine(const CreateFragment: Boolean): string;
   }
 begin
   // ** do not localise anything in this method
-  Result := 'PasHi';
+  Result := 'PasHi --encoding utf-8 ';
   if CreateFragment then
-    Result := Result + ' ' + '-frag';
+    Result := Result + '--doc-type xhtml-fragment'
+  else
+    Result := Result + '--doc-type xhtml';
 end;
 
 function TPasHi.ConsoleOutput: string;
