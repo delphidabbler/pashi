@@ -40,9 +40,8 @@ that effect in the source file.
 Any other source code files that contain no copyright or license information can
 be used without restriction.
 
-Many source code files are licensed under the Mozilla Public License v1.1 or v2.
-A full copy of those licenses can be found in MPL-1.1.txt and MPL-2.txt in the
-Docs directory.
+Many source code files are licensed under the Mozilla Public License v2. A full
+copy of this license can be found in MPL-2.txt in the Docs directory.
 
 --------------------------------------------------------------------------------
 3rd Party Source Code
@@ -69,10 +68,9 @@ License.txt
 -----------
 May not be changed.
 
-MPL-1.1.txt and MPL-2.txt
--------------------------
-These files may not be modified and must be distributed with any derivative
-work.
+MPL-2.txt
+---------
+This file may not be modified and must be distributed with any derivative work.
 
 ReadMe.html
 -----------

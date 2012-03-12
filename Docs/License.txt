@@ -22,7 +22,7 @@ A source code version of some of DelphiDabbler PasHi's functionality that you
 may use, modify and distribute is available to you free of charge from
 http://www.delphidabbler.com under the Mozilla Public License and other open
 source software licenses. The Mozilla Public License can be found at
-http://www.mozilla.org/MPL/MPL-1.1.
+http://www.mozilla.org/MPL/2.0/.
 
 The accompanying executable code version of the Product is made available to you
 under the terms of this end user license agreement. By installing or using
