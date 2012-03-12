@@ -262,7 +262,7 @@ procedure TMainForm.actCopyExecute(Sender: TObject);
   }
 begin
   // Document saves to IOutputData object that writes clipboard
-  fDocument.Save(TOutputDataFactory.CreateForClipboard(CF_TEXT));
+  fDocument.Save(TOutputDataFactory.CreateForClipboard);
 end;
 
 procedure TMainForm.actCopyUpdate(Sender: TObject);

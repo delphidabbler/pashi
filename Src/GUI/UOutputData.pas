@@ -65,7 +65,7 @@ type
   }
   TOutputDataFactory = class(TObject)
   public
-    class function CreateForClipboard(const Fmt: TClipFormat): IOutputData;
+    class function CreateForClipboard: IOutputData;
       {Creates object that can write data to a clipboard.
         @param Fmt [in] Required clipboard format.
         @return Required object.
@@ -83,9 +83,9 @@ implementation
 
 uses
   // Delphi
-  SysUtils,
+  SysUtils, Clipbrd,
   // Project
-  UClipboardWriteStream;
+  UClipboardWriteStream, UUtils;
 
 
 type
@@ -119,32 +119,22 @@ type
   TClipboardOutputData = class(TInterfacedObject,
     IOutputData
   )
-  private
-    fClipFmt: TClipFormat;
-      {Clipboard data format}
   protected
     procedure WriteData(const Stm: TStream);
       {Writes data from stream to clipboard.
         @param Stm [in] Stream containing data to write to clipboard.
       }
-  public
-    constructor Create(const ClipFmt: TClipFormat);
-      {Class constructor. Sets up object.
-        @param Fmt [in] Clipboard data format.
-      }
   end;
-
 
 { TOutputDataFactory }
 
-class function TOutputDataFactory.CreateForClipboard(
-  const Fmt: TClipFormat): IOutputData;
+class function TOutputDataFactory.CreateForClipboard: IOutputData;
   {Creates object that can write data to a clipboard.
     @param Fmt [in] Required clipboard format.
     @return Required object.
   }
 begin
-  Result := TClipboardOutputData.Create(Fmt);
+  Result := TClipboardOutputData.Create;
 end;
 
 class function TOutputDataFactory.CreateForFile(
@@ -156,7 +146,6 @@ class function TOutputDataFactory.CreateForFile(
 begin
   Result := TFileOutputData.Create(FileName);
 end;
-
 
 { TFileOutputData }
 
@@ -184,34 +173,14 @@ begin
   end;
 end;
 
-
 { TClipboardOutputData }
-
-constructor TClipboardOutputData.Create(const ClipFmt: TClipFormat);
-  {Class constructor. Sets up object.
-    @param Fmt [in] Clipboard data format.
-  }
-begin
-  inherited Create;
-  fClipFmt := ClipFmt;
-end;
 
 procedure TClipboardOutputData.WriteData(const Stm: TStream);
   {Writes data from stream to clipboard.
     @param Stm [in] Stream containing data to write to clipboard.
   }
-var
-  ClipStm: TClipboardWriteStream; // stream onto clipboard
-  ZeroChar: AnsiChar;             // string termination character
 begin
-  ClipStm := TClipboardWriteStream.Create(fClipFmt);
-  try
-    ClipStm.CopyFrom(Stm, 0);
-    ZeroChar := #0;
-    ClipStm.WriteBuffer(ZeroChar, SizeOf(AnsiChar));  // ensure ends with #0
-  finally
-    FreeAndNil(ClipStm);
-  end;
+  Clipboard.AsText := StringFromStream(Stm);
 end;
 
 end.
