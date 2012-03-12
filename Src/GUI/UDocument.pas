@@ -98,7 +98,6 @@ type
       Document is loaded from resources.
         @return Document template.
       }
-    function StringFromStream(const Stm: TStream): string;
   public
     constructor Create;
       {Class constructor. Sets up object.
@@ -139,7 +138,9 @@ implementation
 
 uses
   // Delphi
-  SysUtils, Windows;
+  SysUtils, Windows,
+  // Project
+  UUtils;
 
 
 { TDocument }
@@ -274,29 +275,6 @@ begin
   fFragment := Value;
   if fSourceStream.Size > 0 then
     DoHilite;
-end;
-
-function TDocument.StringFromStream(const Stm: TStream): string;
-var
-  Bytes: TBytes;
-  Encoding: TEncoding;
-  PreambleSize: Integer;
-begin
-  SetLength(Bytes, Stm.Size);
-  if Length(Bytes) = 0 then
-    Exit('');
-  Stm.Position := 0;
-  Stm.ReadBuffer(Pointer(Bytes)^, Length(Bytes));
-  Encoding := nil;
-  PreambleSize := TEncoding.GetBufferEncoding(Bytes, Encoding);
-  try
-    Result := Encoding.GetString(
-      Bytes, PreambleSize, Length(Bytes) - PreambleSize
-    );
-  finally
-    if not TEncoding.IsStandardEncoding(Encoding) then
-      Encoding.Free;
-  end;
 end;
 
 end.

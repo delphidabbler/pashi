@@ -42,7 +42,7 @@ interface
 
 uses
   // Delphi
-  Windows;
+  Classes, Windows;
 
 
 function IsDirectory(const DirName: string): Boolean;
@@ -59,6 +59,7 @@ function TaskAllocWideString(const S: string): PWChar;
     @return Pointer to buffer containing wide string.
   }
 
+function StringFromStream(const Stm: TStream): string;
 
 implementation
 
@@ -98,6 +99,29 @@ begin
   if Assigned(Result) then
     // Convert string to wide string and store in buffer
     StringToWideChar(S, Result, StrLen);
+end;
+
+function StringFromStream(const Stm: TStream): string;
+var
+  Bytes: TBytes;
+  Encoding: TEncoding;
+  PreambleSize: Integer;
+begin
+  SetLength(Bytes, Stm.Size);
+  if Length(Bytes) = 0 then
+    Exit('');
+  Stm.Position := 0;
+  Stm.ReadBuffer(Pointer(Bytes)^, Length(Bytes));
+  Encoding := nil;
+  PreambleSize := TEncoding.GetBufferEncoding(Bytes, Encoding);
+  try
+    Result := Encoding.GetString(
+      Bytes, PreambleSize, Length(Bytes) - PreambleSize
+    );
+  finally
+    if not TEncoding.IsStandardEncoding(Encoding) then
+      Encoding.Free;
+  end;
 end;
 
 end.
