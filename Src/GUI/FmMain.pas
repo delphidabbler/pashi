@@ -20,8 +20,7 @@ interface
 uses
   // Delphi
   ImgList, Controls, ActnList, StdActns, Classes, Menus, StdCtrls, OleCtrls,
-  SHDocVw, ExtCtrls, ComCtrls, ToolWin, Forms, ActiveX, Windows, XPMan,
-  SysUtils,
+  SHDocVw, ExtCtrls, ComCtrls, ToolWin, Forms, ActiveX, Windows, SysUtils,
   // Project
   IntfDropDataHandler, UDocument, UWBContainer, UInputData;
 

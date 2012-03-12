@@ -18,3 +18,5 @@ FRAGMENTTPLT RCDATA "Resources\fragment-tplt.html"
 /* Program's icon */
 MAINICON ICON "Resources/MainIcon.ico"
 
+/* Manifest file for themed UI and execution level */
+1 24 Resources\PasHiGUI.manifest
