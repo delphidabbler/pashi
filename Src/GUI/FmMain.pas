@@ -246,11 +246,10 @@ procedure TMainForm.actAboutExecute(Sender: TObject);
     @param Sender [in] Not used.
   }
 begin
-  MessageBox(
-    Handle,
-      'PasHiGUI v0.1.1 beta.'#13#10#13#10
-      + 'A GUI front end for the PasHi Syntax Highlighter.'#13#10#13#10
-      + 'Copyright (c) 2006-2010 by Peter D Johnson (www.delphidabbler.com).',
+  Application.MessageBox(
+      'PasHiGUI v0.2.0 beta.'#13#10#13#10
+      + 'A GUI front end for the PasHi Syntax Highlighter v2.'#13#10#13#10
+      + 'Copyright (c) 2006-2012 by Peter D Johnson (www.delphidabbler.com).',
     'About',
     MB_OK
   );
