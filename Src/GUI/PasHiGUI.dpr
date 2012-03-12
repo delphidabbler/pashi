@@ -58,7 +58,6 @@ uses
   FmMain in 'FmMain.pas' {MainForm},
   IntfDropDataHandler in 'IntfDropDataHandler.pas',
   IntfUIHandlers in 'IntfUIHandlers.pas',
-  UClipboardWriteStream in 'UClipboardWriteStream.pas',
   UClipFmt in 'UClipFmt.pas',
   UConsoleApp in 'UConsoleApp.pas',
   UDataObjectAdapter in 'UDataObjectAdapter.pas',

@@ -85,7 +85,7 @@ uses
   // Delphi
   SysUtils, Clipbrd,
   // Project
-  UClipboardWriteStream, UUtils;
+  UUtils;
 
 
 type

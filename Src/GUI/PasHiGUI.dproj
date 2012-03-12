@@ -32,7 +32,6 @@
 			</DCCReference>
 			<DCCReference Include="IntfDropDataHandler.pas"/>
 			<DCCReference Include="IntfUIHandlers.pas"/>
-			<DCCReference Include="UClipboardWriteStream.pas"/>
 			<DCCReference Include="UClipFmt.pas"/>
 			<DCCReference Include="UConsoleApp.pas"/>
 			<DCCReference Include="UDataObjectAdapter.pas"/>
