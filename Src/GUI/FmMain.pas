@@ -542,10 +542,16 @@ begin
       DoLoad(
         TInputDataFactory.CreateFromFile(DOAdapter.GetDataAsText(CF_FILENAME))
       )
+    else if DOAdapter.HasFormat(CF_UNICODETEXT) then
+      DoLoad(
+        TInputDataFactory.CreateFromText(
+          DOAdapter.ReadDataAsUnicodeText(CF_UNICODETEXT)
+        )
+      )
     else if DOAdapter.HasFormat(CF_TEXT) then
       // Load text data
       DoLoad(
-        TInputDataFactory.CreateFromText(DOAdapter.GetDataAsText(CF_TEXT))
+        TInputDataFactory.CreateFromText(DOAdapter.ReadDataAsAnsiText(CF_TEXT))
       )
     else
       raise Exception.Create('Expected data format not available');
@@ -564,10 +570,11 @@ var
 begin
   DOAdapter := TDataObjectAdapter.Create(DataObj);
   try
-    // We accept text objects or file names that are not directories
-    Result := DOAdapter.HasFormat(CF_TEXT) or
-      (DOAdapter.HasFormat(CF_FILENAME) and
-      not IsDirectory(DOAdapter.GetDataAsText(CF_FILENAME)))
+    Result := DOAdapter.HasFormat(CF_UNICODETEXT)
+      or DOAdapter.HasFormat(CF_TEXT)
+      or
+        (DOAdapter.HasFormat(CF_FILENAME)
+        and not IsDirectory(DOAdapter.GetDataAsText(CF_FILENAME)))
   finally
     FreeAndNil(DOAdapter);
   end;

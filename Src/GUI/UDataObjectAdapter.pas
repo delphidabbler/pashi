@@ -79,6 +79,8 @@ type
         @except EOleSysError raised if can't extract data from data object or
           data object does not support required format.
       }
+    function ReadDataAsAnsiText(const Fmt: TClipFormat): string;
+    function ReadDataAsUnicodeText(const Fmt: TClipFormat): string;
   end;
 
 
@@ -87,7 +89,7 @@ implementation
 
 uses
   // Delphi
-  Windows, ComObj;
+  SysUtils, Windows, ComObj;
 
 
 { TDataObjectAdapter }
@@ -147,6 +149,45 @@ begin
   Result.dwAspect := DVASPECT_CONTENT;  // display representation
   Result.lindex := -1;                  // get all of data
   Result.tymed := TYMED_HGLOBAL;        // pass data in global memory
+end;
+
+function TDataObjectAdapter.ReadDataAsAnsiText(const Fmt: TClipFormat): string;
+var
+  Medium: TStgMedium;   // handle to storage medium
+  PText: PAnsiChar;
+begin
+  Result := '';
+  OleCheck(fDataObject.GetData(MakeFormatEtc(Fmt), Medium));
+  try
+    PText := GlobalLock(Medium.hGlobal);
+    try
+      Result := string(AnsiString(PText));
+    finally
+      GlobalUnlock(Medium.hGlobal);
+    end;
+  finally
+    ReleaseStgMedium(Medium);
+  end;
+end;
+
+function TDataObjectAdapter.ReadDataAsUnicodeText(const Fmt: TClipFormat):
+  string;
+var
+  Medium: TStgMedium;   // handle to storage medium
+  PText: PChar;         // pointer to text
+begin
+  Result := '';
+  OleCheck(fDataObject.GetData(MakeFormatEtc(Fmt), Medium));
+  try
+    PText := GlobalLock(Medium.hGlobal);
+    try
+      Result := PText;
+    finally
+      GlobalUnlock(Medium.hGlobal);
+    end;
+  finally
+    ReleaseStgMedium(Medium);
+  end;
 end;
 
 end.
