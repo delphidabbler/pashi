@@ -228,21 +228,14 @@ function TDocument.LoadHTMLTemplate: string;
   }
 var
   ResStm: TResourceStream;    // stream onto template resource
-  StrStm: TStringStream;      // helper stream for getting resource as string
 begin
-  StrStm := TStringStream.Create('');
+  ResStm := TResourceStream.Create(
+    HInstance, 'FRAGMENTTPLT', RT_RCDATA    // ** do not localise
+  );
   try
-    ResStm := TResourceStream.Create(
-      HInstance, 'FRAGMENTTPLT', RT_RCDATA    // ** do not localise
-    );
-    try
-      StrStm.CopyFrom(ResStm, 0);
-    finally
-      FreeAndNil(ResStm);
-    end;
-    Result := StrStm.DataString;
+    Result := StringFromStream(ResStm);
   finally
-    FreeAndNil(StrStm);
+    ResStm.Free;
   end;
 end;
 
