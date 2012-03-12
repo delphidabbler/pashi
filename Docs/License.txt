@@ -30,7 +30,7 @@ DelphiDabbler PasHi you are consenting to be bound by the agreement. If you do
 not agree to the terms and conditions of this agreement do not install or use
 any part of DelphiDabbler PasHi.
 
-DelphiDabbler PasHi is copyright (c) 2005-2010 by Peter D Johnson,
+DelphiDabbler PasHi is copyright (c) 2005-2012 by Peter D Johnson,
 http://www.delphidabbler.com.
 
 
