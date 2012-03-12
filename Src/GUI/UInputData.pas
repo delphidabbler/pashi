@@ -193,14 +193,14 @@ procedure TTextInputData.ReadData(const Stream: TStream);
     @const Stream [in] Stream to receive text.
   }
 var
-  StringStream: TStringStream;  // stream onto text string
+  PreambleBytes: TBytes;
+  ContentBytes: TBytes;
 begin
-  StringStream := TStringStream.Create(fText);
-  try
-    Stream.CopyFrom(StringStream, 0);
-  finally
-    FreeAndNil(StringStream);
-  end;
+  PreambleBytes := TEncoding.UTF8.GetPreamble;
+  ContentBytes := TEncoding.UTF8.GetBytes(fText);
+  if Length(PreambleBytes) > 0 then
+    Stream.WriteBuffer(Pointer(PreambleBytes)^, Length(PreambleBytes));
+  Stream.WriteBuffer(Pointer(ContentBytes)^, Length(ContentBytes));
 end;
 
 end.
