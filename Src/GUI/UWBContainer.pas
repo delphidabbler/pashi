@@ -43,7 +43,7 @@ interface
 
 uses
   // Delphi
-  Classes, Windows, ActiveX, ShDocVw,
+  SysUtils, Classes, Windows, ActiveX, ShDocVw,
   // Project
   UNulWBContainer, IntfUIHandlers;
 
@@ -155,9 +155,10 @@ type
       {Class constructor. Creates object that hosts a web browser control.
         @param HostedBrowser [in] Browser control this object is to host.
       }
-    procedure LoadFromString(const HTML: string);
+    procedure LoadFromString(const HTML: string; const Encoding: TEncoding);
       {Loads and displays valid HTML source from a string.
         @param HTML [in] String containing the HTML source.
+        @param Encoding [in] Document encoding.
       }
     procedure EmptyDocument;
       {Creates an empty document. This method guarantees that the browser
@@ -204,7 +205,7 @@ implementation
 
 uses
   // Delphi
-  SysUtils, StrUtils, Themes, Forms,
+  StrUtils, Themes, Forms,
   // Project
   UUtils;
 
@@ -323,14 +324,16 @@ begin
   LoadDocumentFromStream(Stm);
 end;
 
-procedure TWBContainer.LoadFromString(const HTML: string);
+procedure TWBContainer.LoadFromString(const HTML: string;
+  const Encoding: TEncoding);
   {Loads and displays valid HTML source from a string.
     @param HTML [in] String containing the HTML source.
+    @param Encoding [in] Document encoding.
   }
 var
   StringStream: TStringStream;  // stream onto string
 begin
-  StringStream := TStringStream.Create(HTML);
+  StringStream := TStringStream.Create(HTML, Encoding);
   try
     LoadFromStream(StringStream);
   finally

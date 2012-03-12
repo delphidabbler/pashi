@@ -717,7 +717,7 @@ procedure TMainForm.UpdateDisplay;
   {Updates main display with contents of document.
   }
 begin
-  fWBContainer.LoadFromString(fDocument.DisplayHTML);
+  fWBContainer.LoadFromString(fDocument.DisplayHTML, TEncoding.UTF8);
   edSource.Text := fDocument.SourceCode;
   edHTML.Text := fDocument.HilitedCode;
 end;
