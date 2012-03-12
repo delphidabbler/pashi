@@ -62,7 +62,7 @@ type
       {Value of Fragment property}
     fHilitedStream: TMemoryStream;
       {Stream containing highlighted source code}
-    fSourceStream: TStringStream;
+    fSourceStream: TMemoryStream;
       {Stream containing raw un-highlighted source code}
     fOnHilite: TNotifyEvent;
       {References OnHilite event handler}
@@ -98,6 +98,7 @@ type
       Document is loaded from resources.
         @return Document template.
       }
+    function StringFromStream(const Stm: TStream): string;
   public
     constructor Create;
       {Class constructor. Sets up object.
@@ -150,7 +151,7 @@ begin
   inherited Create;
   fPasHi := TPasHi.Create;
   fHilitedStream := TMemoryStream.Create;
-  fSourceStream := TStringStream.Create('');
+  fSourceStream := TMemoryStream.Create;
 end;
 
 destructor TDocument.Destroy;
@@ -190,26 +191,8 @@ function TDocument.GetHilitedCode: string;
   {Read accessor for HilitedCode property.
     @return Required highlighted code.
   }
-var
-  Bytes: TBytes;
-  Encoding: TEncoding;
-  PreambleSize: Integer;
 begin
-  SetLength(Bytes, fHilitedStream.Size);
-  if Length(Bytes) = 0 then
-    Exit('');
-  fHilitedStream.Position := 0;
-  fHilitedStream.ReadBuffer(Pointer(Bytes)^, Length(Bytes));
-  Encoding := nil;
-  PreambleSize := TEncoding.GetBufferEncoding(Bytes, Encoding);
-  try
-    Result := Encoding.GetString(
-      Bytes, PreambleSize, Length(Bytes) - PreambleSize
-    );
-  finally
-    if not TEncoding.IsStandardEncoding(Encoding) then
-      Encoding.Free;
-  end;
+  Result := StringFromStream(fHilitedStream);
 end;
 
 function TDocument.GetSourceCode: string;
@@ -217,7 +200,7 @@ function TDocument.GetSourceCode: string;
     @return Un-highlighted source code.
   }
 begin
-  Result := fSourceStream.DataString;
+  Result := StringFromStream(fSourceStream);
 end;
 
 function TDocument.IsEmpty: Boolean;
@@ -298,6 +281,29 @@ begin
   fFragment := Value;
   if fSourceStream.Size > 0 then
     DoHilite;
+end;
+
+function TDocument.StringFromStream(const Stm: TStream): string;
+var
+  Bytes: TBytes;
+  Encoding: TEncoding;
+  PreambleSize: Integer;
+begin
+  SetLength(Bytes, Stm.Size);
+  if Length(Bytes) = 0 then
+    Exit('');
+  Stm.Position := 0;
+  Stm.ReadBuffer(Pointer(Bytes)^, Length(Bytes));
+  Encoding := nil;
+  PreambleSize := TEncoding.GetBufferEncoding(Bytes, Encoding);
+  try
+    Result := Encoding.GetString(
+      Bytes, PreambleSize, Length(Bytes) - PreambleSize
+    );
+  finally
+    if not TEncoding.IsStandardEncoding(Encoding) then
+      Encoding.Free;
+  end;
 end;
 
 end.
