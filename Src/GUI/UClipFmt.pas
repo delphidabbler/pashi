@@ -46,7 +46,8 @@ uses
 
 var
   // Name of clipboard format that stores file names as ANSI text
-  CF_FILENAME: TClipFormat;
+  CF_FILENAMEA: TClipFormat;
+  CF_FILENAMEW: TClipFormat;
 
 
 implementation
@@ -59,8 +60,9 @@ uses
 
 initialization
 
-// Register file name clipboard format
-CF_FILENAME := RegisterClipboardFormat(CFSTR_FILENAMEA);
+// Register file name clipboard formats
+CF_FILENAMEA := RegisterClipboardFormat(CFSTR_FILENAMEA);
+CF_FILENAMEW := RegisterClipboardFormat(CFSTR_FILENAMEW);
 
 
 end.

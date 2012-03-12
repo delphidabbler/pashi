@@ -536,11 +536,21 @@ var
 begin
   DOAdapter := TDataObjectAdapter.Create(DataObj);
   try
-    if DOAdapter.HasFormat(CF_FILENAME) then
+    if DOAdapter.HasFormat(CF_FILENAMEW) then
       // Load data from file: we know it is not a directory since this method
       // is only called for valid data objects
       DoLoad(
-        TInputDataFactory.CreateFromFile(DOAdapter.GetDataAsText(CF_FILENAME))
+        TInputDataFactory.CreateFromFile(
+          DOAdapter.ReadDataAsUnicodeText(CF_FILENAMEW)
+        )
+      )
+    else if DOAdapter.HasFormat(CF_FILENAMEA) then
+      // Load data from file: we know it is not a directory since this method
+      // is only called for valid data objects
+      DoLoad(
+        TInputDataFactory.CreateFromFile(
+          DOAdapter.ReadDataAsAnsiText(CF_FILENAMEA)
+        )
       )
     else if DOAdapter.HasFormat(CF_UNICODETEXT) then
       DoLoad(
@@ -573,8 +583,11 @@ begin
     Result := DOAdapter.HasFormat(CF_UNICODETEXT)
       or DOAdapter.HasFormat(CF_TEXT)
       or
-        (DOAdapter.HasFormat(CF_FILENAME)
-        and not IsDirectory(DOAdapter.GetDataAsText(CF_FILENAME)))
+        (DOAdapter.HasFormat(CF_FILENAMEW)
+        and not IsDirectory(DOAdapter.ReadDataAsUnicodeText(CF_FILENAMEW)))
+      or
+        (DOAdapter.HasFormat(CF_FILENAMEA)
+        and not IsDirectory(DOAdapter.ReadDataAsAnsiText(CF_FILENAMEA)))
   finally
     FreeAndNil(DOAdapter);
   end;
