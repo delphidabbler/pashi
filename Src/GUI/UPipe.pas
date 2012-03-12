@@ -35,7 +35,6 @@
 
 unit UPipe;
 
-{$WARN UNSAFE_CODE OFF}
 
 interface
 

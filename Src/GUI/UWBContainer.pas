@@ -36,7 +36,6 @@
 
 unit UWBContainer;
 
-{$WARN UNSAFE_CODE OFF}
 
 interface
 

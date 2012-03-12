@@ -38,7 +38,6 @@ unit UUtils;
 
 interface
 
-{$WARN SYMBOL_PLATFORM OFF}
 
 uses
   // Delphi
