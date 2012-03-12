@@ -60,7 +60,7 @@ type
       {Reference to object that performs highlighting by interacting with PasHi}
     fFragment: Boolean;
       {Value of Fragment property}
-    fHilitedStream: TStringStream;
+    fHilitedStream: TMemoryStream;
       {Stream containing highlighted source code}
     fSourceStream: TStringStream;
       {Stream containing raw un-highlighted source code}
@@ -149,7 +149,7 @@ constructor TDocument.Create;
 begin
   inherited Create;
   fPasHi := TPasHi.Create;
-  fHilitedStream := TStringStream.Create('');
+  fHilitedStream := TMemoryStream.Create;
   fSourceStream := TStringStream.Create('');
 end;
 
@@ -190,8 +190,26 @@ function TDocument.GetHilitedCode: string;
   {Read accessor for HilitedCode property.
     @return Required highlighted code.
   }
+var
+  Bytes: TBytes;
+  Encoding: TEncoding;
+  PreambleSize: Integer;
 begin
-  Result := fHilitedStream.DataString;
+  SetLength(Bytes, fHilitedStream.Size);
+  if Length(Bytes) = 0 then
+    Exit('');
+  fHilitedStream.Position := 0;
+  fHilitedStream.ReadBuffer(Pointer(Bytes)^, Length(Bytes));
+  Encoding := nil;
+  PreambleSize := TEncoding.GetBufferEncoding(Bytes, Encoding);
+  try
+    Result := Encoding.GetString(
+      Bytes, PreambleSize, Length(Bytes) - PreambleSize
+    );
+  finally
+    if not TEncoding.IsStandardEncoding(Encoding) then
+      Encoding.Free;
+  end;
 end;
 
 function TDocument.GetSourceCode: string;
