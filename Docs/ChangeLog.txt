@@ -4,6 +4,45 @@
 ; $Date$
 ; ------------------------------------------------------------------------------
 
+Release ???
+PasHi v??? build 9
+  + Improved Pascal syntax highlighter:
+    - Understands Delphi 2010 keywords and directives.
+    - Support added for context sensitive directives which are now highlighted only within property, exports and external statements.
+    - Keywords prefixed with '&' are now treated as identifiers, not reserved words.
+    - Fixes some bugs that caused parser to crash when unuexpected characters encountered. 
+    - Major refactoring of code.
+  + Unicode now support throughout program:
+    - UTF-8 is now default encoding instead of default ANSI code page, except for messages written to stderr which remain ANSI.
+    - UTF-16 little endian & big endian, UTF-8 and default ANSI code page input now supported. Auto-detected using byte order marks in files.
+    - Clipboard is always read and written in Unicode.
+  + Input can now be read directly from files passed on command line. Where more one file is specified, files are concatenated before highlighting.
+  + Changes to generated XHTML files:
+    - Output file encoding can now be specified with default changed to UTF-8. Files have correct byte order mark and encoding is added to XHTML document in <?xml?> processing instruction and content type meta tag.
+    - Language used for output files can now be specified by user and included <html> tags.
+    - Custom style sheets can now be either embedded <style> documents or be linked to via <link> tags.
+    - Document title can be specified by user.
+    - "Branding" (HTML comment declaring PasHi as generator) can be inhibited in XHTML fragments.
+  + Output file name can now be specified on command line as an option to using shell redirection.
+  + Command line commands were standardised with both an long and short form for each command, with-support for form used in v1.x retained as aliases. Some existing commands were modified to be more flexible. These are documented in ReadMe file.
+  + Recompiled with Delphi 2010
+  + Significant refactoring, especially in syntax highlighter, input/output and command line parsing.
+  + Updated documentation
+  + Changed source code to Mozilla Public License v2.0.
+PasHiGUI v??? build 3
+  + Program now has full Unicode support:
+    - Detects and correctlt handles Unicode or ANSI output from PasHi on stdout (ANSI output continues from PasHi stderr).
+    - Correctly handles ANSI, UTF-8 or UTF-18 encoded Pascal files using byte order mark.
+    - Code fragment template now uses UTF-8 encoding.
+    - Both ANSI and Unicode text can be read from clipboard, with preference for Unicode.
+    - Clipboard is always written to in Unicode.
+    - Fixed code that displays HTML in browser control to handle Unicode correctly.
+    - Names of files dragged and dropped or copies and pasted can either be ANSI or Unicode.
+  + Command line passed to PasHi modified to be more explicit and to use new PasHi commands.
+  + A little refactoring.
+  + Recompiled with Delphi 2010
+  + Changed source code to Mozilla Public License v2.0.
+
 Release 1.1.0 - 15 February 2010
 PasHi v1.0.1 build 8
   + Renamed PasH to PasHi to avoid class with another open source project name PasH.
