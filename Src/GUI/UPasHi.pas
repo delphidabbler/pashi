@@ -45,7 +45,8 @@ type
       respective data streams.
         @param Sender [in] Not used.
       }
-    function BuildCommandLine(const CreateFragment: Boolean): string;
+    function BuildCommandLine(const Files: TArray<string>;
+      const CreateFragment: Boolean): string;
       {Creates command line needed to execute PasHi.exe with required switches.
         @param CreateFragment [in] Flag indicating if code fragment (true) or
           complete HTML document to be generated.
@@ -58,7 +59,7 @@ type
       }
   public
     function Hilite(const SourceStream, HilitedStream: TStream;
-      const CreateFragment: Boolean): Boolean;
+      const CreateFragment: Boolean): Boolean; overload;
       {Highlights source code by executing PasHi.exe with appropriate
       parameters.
         @param SourceStream [in] Stream containing raw source code (input to
@@ -69,6 +70,8 @@ type
           complete HTML document to be generated.
         @return True if program completed normally, false on error.
       }
+    function Hilite(const Files: TArray<string>; const HilitedStream: TStream;
+      const CreateFragment: Boolean): Boolean; overload;
     function ConsoleOutput: string;
       {Returns any text written by PasHi to console stderr}
   end;
@@ -86,15 +89,23 @@ uses
 
 { TPasHi }
 
-function TPasHi.BuildCommandLine(const CreateFragment: Boolean): string;
+function TPasHi.BuildCommandLine(const Files: TArray<string>;
+  const CreateFragment: Boolean): string;
   {Creates command line needed to execute PasHi.exe with required switches.
     @param CreateFragment [in] Flag indicating if code fragment (true) or
       complete HTML document to be generated.
     @return Required command line.
   }
+var
+  FileNames: string;
+  FileName: string;
 begin
   // ** do not localise anything in this method
-  Result := 'PasHi --encoding utf-8 ';
+  FileNames := '';
+  if Assigned(Files) then
+    for FileName in Files do
+      FileNames := FileNames + FileName + ' ';
+  Result := 'PasHi ' + FileNames + '--encoding utf-8 ';
   if CreateFragment then
     Result := Result + '--doc-type xhtml-fragment'
   else
@@ -114,6 +125,32 @@ procedure TPasHi.HandleAppOutput(Sender: TObject);
 begin
   fOutPipe.CopyToStream(fOutStream);
   fErrPipe.CopyToStream(fConsoleOutputStream);
+end;
+
+// TODO: refactor Hilite methods using extract method passing fInPipe as param
+function TPasHi.Hilite(const Files: TArray<string>;
+  const HilitedStream: TStream; const CreateFragment: Boolean): Boolean;
+begin
+  fErrPipe := nil;
+  fConsoleOutputStream := nil;
+  fOutPipe := nil;
+  fInPipe := nil;
+  try
+    // Create output pipes
+    fOutPipe := TPipe.Create;
+    fErrPipe := TPipe.Create;
+    // Create / record output streams
+    // default encoding used for console output on stderr
+    fConsoleOutputStream := TStringStream.Create('', TEncoding.Default);
+    fOutStream := HilitedStream;
+    // Run program and check for success
+    RunPasHi(BuildCommandLine(Files, CreateFragment));
+    Result := AnsiPos('Error:', ConsoleOutput) = 0;
+  finally
+    FreeAndNil(fConsoleOutputStream);
+    FreeAndNil(fOutPipe);
+    FreeAndNil(fErrPipe);
+  end;
 end;
 
 function TPasHi.Hilite(const SourceStream, HilitedStream: TStream;
@@ -143,7 +180,7 @@ begin
     fConsoleOutputStream := TStringStream.Create('', TEncoding.Default);
     fOutStream := HilitedStream;
     // Run program and check for success
-    RunPasHi(BuildCommandLine(CreateFragment));
+    RunPasHi(BuildCommandLine(nil, CreateFragment));
     Result := AnsiPos('Error:', ConsoleOutput) = 0;
   finally
     FreeAndNil(fConsoleOutputStream);
