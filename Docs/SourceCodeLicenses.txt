@@ -57,7 +57,9 @@ Documentation
 Documentation files are maintained in the Docs directory. In addition the
 Build.html file is maintained in the root directory.
 
-Terms and conditions apply to the following files:
+Terms and conditions apply to the following files. For other files please refer
+to the document, including its source code for HTML files. Where no licensing or
+restrictions apply the files can be used freely.
 
 ChangeLog.txt
 -------------
@@ -81,8 +83,6 @@ SourceCodeLicenses.txt
 May be updated to provide license information that applies to any additional
 source files. Information pertaining to unmodified existing files must be
 retained.
-
-Any other files are placed in the Public Domain.
 
 --------------------------------------------------------------------------------
 Image Files
