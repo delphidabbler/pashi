@@ -110,11 +110,6 @@ type
     procedure UpdateDisplay;
       {Updates main display with contents of document.
       }
-    procedure DocHiliteHandler(Sender: TObject);
-      {Called when document object reports it has finished highlighting a
-      document. Updates display with newly highlighted document.
-        @param Sender [in] Not used.
-      }
     procedure DoLoad(const InputData: IInputData);
       {Loads data into document, setting program busy while load takes place.
         @param InputData [in] Object encapsulating data to be loaded.
@@ -390,15 +385,6 @@ begin
   Result := not fDocument.IsEmpty;
 end;
 
-procedure TMainForm.DocHiliteHandler(Sender: TObject);
-  {Called when document object reports it has finished highlighting a document.
-  Updates display with newly highlighted document.
-    @param Sender [in] Not used.
-  }
-begin
-  UpdateDisplay;
-end;
-
 procedure TMainForm.DoLoad(const InputData: IInputData);
   {Loads data into document, setting program busy while load takes place.
     @param InputData [in] Object encapsulating data to be loaded.
@@ -407,6 +393,7 @@ begin
   Busy(True);
   try
     fDocument.Load(InputData);
+    UpdateDisplay;
   finally
     Busy(False);
   end;
@@ -459,7 +446,6 @@ begin
   OleInitialize(nil);
   // Create document object
   fDocument := TDocument.Create;
-  fDocument.OnHilite := DocHiliteHandler;
   // Create OLE drop target object and register it for this window
   fDropTarget := TDropTarget.Create(Self);
   OleCheck(RegisterDragDrop(Handle, fDropTarget));

@@ -43,8 +43,6 @@ type
       {Stream containing highlighted source code}
     fSourceStream: TMemoryStream;
       {Stream containing raw un-highlighted source code}
-    fOnHilite: TNotifyEvent;
-      {References OnHilite event handler}
     function GetDisplayHTML: string;
       {Read accessor for DisplayHTML property.
         @return Required HTML code.
@@ -107,8 +105,6 @@ type
     property DisplayHTML: string read GetDisplayHTML;
       {HTML displayed in main program window. If Fragment = True this is
       document that contains fragment otherwise it is the same as HilitedCode}
-    property OnHilite: TNotifyEvent read fOnHilite write fOnHilite;
-      {Event triggered when document is highlighted}
   end;
 
 
@@ -152,8 +148,6 @@ begin
   fHilitedStream.Size := 0;
   fSourceStream.Position := 0;
   fPasHi.Hilite(fSourceStream, fHilitedStream, fFragment);
-  if Assigned(fOnHilite) then
-    fOnHilite(Self);
 end;
 
 function TDocument.GetDisplayHTML: string;
