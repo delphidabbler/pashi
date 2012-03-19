@@ -42,7 +42,6 @@ type
     actSaveAs: TFileSaveAs;
     alMain: TActionList;
     edHTML: TMemo;
-    edSource: TMemo;
     ilMain: TImageList;
     miAbout: TMenuItem;
     miCopy: TMenuItem;
@@ -61,7 +60,6 @@ type
     pcMain: TPageControl;
     pnlHTML: TPanel;
     pnlRendered: TPanel;
-    pnlSource: TPanel;
     sbMain: TStatusBar;
     tbCopy: TToolButton;
     tbFrag: TToolButton;
@@ -73,7 +71,6 @@ type
     tbPaste: TToolButton;
     tsHTML: TTabSheet;
     tsRendered: TTabSheet;
-    tsSource: TTabSheet;
     wbRendered: TWebBrowser;
     procedure actAboutExecute(Sender: TObject);
     procedure actCopyExecute(Sender: TObject);
@@ -708,7 +705,6 @@ procedure TMainForm.UpdateDisplay;
   }
 begin
   fWBContainer.LoadFromString(fDocument.DisplayHTML, TEncoding.UTF8);
-  edSource.Text := fDocument.SourceCode;
   edHTML.Text := fDocument.HilitedCode;
 end;
 

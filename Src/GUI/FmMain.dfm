@@ -169,41 +169,6 @@ object MainForm: TMainForm
         end
       end
     end
-    object tsSource: TTabSheet
-      Tag = 1
-      Caption = 'Source Code View'
-      object pnlSource: TPanel
-        Left = 0
-        Top = 0
-        Width = 554
-        Height = 397
-        Align = alClient
-        BevelEdges = [beLeft, beTop]
-        BevelKind = bkTile
-        BevelOuter = bvNone
-        Caption = 'pnlSource'
-        TabOrder = 0
-        object edSource: TMemo
-          Left = 0
-          Top = 0
-          Width = 552
-          Height = 395
-          Align = alClient
-          BevelOuter = bvNone
-          BorderStyle = bsNone
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -12
-          Font.Name = 'Courier New'
-          Font.Style = []
-          ParentFont = False
-          ReadOnly = True
-          ScrollBars = ssBoth
-          TabOrder = 0
-          WordWrap = False
-        end
-      end
-    end
   end
   object mnuMain: TMainMenu
     Images = ilMain
