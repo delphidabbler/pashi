@@ -28,6 +28,11 @@ uses
 
 type
 
+  TDocOutputType = (
+    doXHTML,
+    doXHTMLFragment
+  );
+
   {
   TDocument:
     Encapsulates a Pascal document and manages the various views displayed by
@@ -35,10 +40,10 @@ type
   }
   TDocument = class(TObject)
   private
+    fOutputType: TDocOutputType;
+    fInputData: IInputData;
     fPasHi: TPasHi;
       {Reference to object that performs highlighting by interacting with PasHi}
-    fFragment: Boolean;
-      {Value of Fragment property}
     fHilitedStream: TMemoryStream;
       {Stream containing highlighted source code}
     fSourceStream: TMemoryStream;
@@ -54,12 +59,6 @@ type
     function GetSourceCode: string;
       {Read accessor for SourceCode property.
         @return Un-highlighted source code.
-      }
-    procedure SetFragment(const Value: Boolean);
-      {Write accessor for Fragment property. Re-highlights source code in
-      required style.
-        @param Value [in] Flag indicating whether to generate HTML fragment or
-          complete HTML document.
       }
     procedure DoHilite;
       {Highlights document from source stream, writes to output stream and
@@ -82,10 +81,7 @@ type
     destructor Destroy; override;
       {Class destructor. Tears down object.
       }
-    procedure Load(const InputData: IInputData);
-      {Loads document via input data object and highlights it.
-        @param InputData [in] Object that can access and read data.
-      }
+    procedure Highlight;
     procedure Save(const OutputData: IOutputData);
       {Saves document via output data object.
         @param OutputData [in] Object used to write the highlighted document's
@@ -95,9 +91,8 @@ type
       {Checks if document is empty.
         @return True if document has no content.
       }
-    property Fragment: Boolean read fFragment write SetFragment;
-      {Generate highlighted source as HTML fragments when property true and
-      complete HTML documents when false}
+    property OutputType: TDocOutputType read fOutputType write fOutputType;
+    property InputData: IInputData read fInputData write fInputData;
     property SourceCode: string read GetSourceCode;
       {Raw, un-highlighted source code}
     property HilitedCode: string read GetHilitedCode;
@@ -147,7 +142,7 @@ procedure TDocument.DoHilite;
 begin
   fHilitedStream.Size := 0;
   fSourceStream.Position := 0;
-  fPasHi.Hilite(fSourceStream, fHilitedStream, fFragment);
+  fPasHi.Hilite(fSourceStream, fHilitedStream, fOutputType = doXHTMLFragment);
 end;
 
 function TDocument.GetDisplayHTML: string;
@@ -155,7 +150,7 @@ function TDocument.GetDisplayHTML: string;
     @return Required HTML code.
   }
 begin
-  if fFragment then
+  if fOutputType = doXHTMLFragment then
     Result := SampleHTMLFragmentDoc
   else
     Result := GetHilitedCode;
@@ -177,22 +172,21 @@ begin
   Result := StringFromStream(fSourceStream);
 end;
 
+procedure TDocument.Highlight;
+begin
+  if not Assigned(fInputData) then
+    Exit;
+  fSourceStream.Size := 0;
+  fInputData.ReadData(fSourceStream);
+  DoHilite;
+end;
+
 function TDocument.IsEmpty: Boolean;
   {Checks if document is empty.
     @return True if document has no content.
   }
 begin
   Result := fSourceStream.Size = 0;
-end;
-
-procedure TDocument.Load(const InputData: IInputData);
-  {Loads document via input data object and highlights it.
-    @param InputData [in] Object that can access and read data.
-  }
-begin
-  fSourceStream.Size := 0;
-  InputData.ReadData(fSourceStream);
-  DoHilite;
 end;
 
 function TDocument.LoadHTMLTemplate: string;
@@ -219,7 +213,8 @@ function TDocument.SampleHTMLFragmentDoc: string;
     @return Required HTML document.
   }
 begin
-  Assert(fFragment, 'TDocument.SampleHTMLFragmentDoc: Fragment not true');
+  Assert(fOutputType = doXHTMLFragment,
+    'TDocument.SampleHTMLFragmentDoc: Fragment not true');
   Result := StringReplace(
     LoadHTMLTemplate,
     '<%Fragment-Here%>',    // ** do not localise
@@ -236,18 +231,6 @@ procedure TDocument.Save(const OutputData: IOutputData);
 begin
   fHilitedStream.Position := 0;
   OutputData.WriteData(fHilitedStream);
-end;
-
-procedure TDocument.SetFragment(const Value: Boolean);
-  {Write accessor for Fragment property. Re-highlights source code in required
-  style.
-    @param Value [in] Flag indicating whether to generate HTML fragment or
-      complete HTML document.
-  }
-begin
-  fFragment := Value;
-  if fSourceStream.Size > 0 then
-    DoHilite;
 end;
 
 end.

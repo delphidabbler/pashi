@@ -251,7 +251,12 @@ begin
   actFrag.Checked := not actFrag.Checked;
   Busy(True);
   try
-    fDocument.Fragment := actFrag.Checked;
+    if actFrag.Checked then
+      fDocument.OutputType := doXHTMLFragment
+    else
+      fDocument.OutputType := doXHTML;
+    fDocument.Highlight;
+    UpdateDisplay;
   finally
     Busy(False);
   end;
@@ -392,7 +397,8 @@ procedure TMainForm.DoLoad(const InputData: IInputData);
 begin
   Busy(True);
   try
-    fDocument.Load(InputData);
+    fDocument.InputData := InputData;
+    fDocument.Highlight;
     UpdateDisplay;
   finally
     Busy(False);
