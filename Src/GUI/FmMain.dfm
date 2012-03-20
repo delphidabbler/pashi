@@ -227,7 +227,7 @@ object MainForm: TMainForm
       Dialog.Filter = 
         'Pascal files (*.pas,*.dpr,*.inc)|*.pas;*.dpr;*.inc|All files (*.' +
         '*)|*.*'
-      Dialog.Options = [ofHideReadOnly, ofFileMustExist, ofEnableSizing]
+      Dialog.Options = [ofHideReadOnly, ofAllowMultiSelect, ofFileMustExist, ofEnableSizing]
       Hint = 'Open|Opens and highlights a file'
       ImageIndex = 0
       ShortCut = 16463

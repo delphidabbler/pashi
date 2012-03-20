@@ -111,10 +111,12 @@ type
     procedure UpdateDisplay;
       {Updates main display with contents of document.
       }
-    procedure DoLoad(const InputData: IInputData);
+    procedure DoLoad(const InputData: IInputData); overload;
       {Loads data into document, setting program busy while load takes place.
         @param InputData [in] Object encapsulating data to be loaded.
       }
+    procedure DoLoad(const Files: TArray<string>); overload;
+    procedure DoLoad(const FileName: string); overload;
     procedure TranslateAccelHandler(Sender: TObject; const Msg: TMSG;
       const CmdID: DWORD; var Handled: Boolean);
       {Handles event triggered by web browser controller when a key is pressed
@@ -281,9 +283,16 @@ procedure TMainForm.actOpenAccept(Sender: TObject);
   {Loads the file selected in file open dialog into document.
     @param Sender [in] Not used.
   }
+var
+  Files: TArray<string>;
+  Idx: Integer;
 begin
-  // Document loaded using IInputData object that can read from file
-  DoLoad(TInputDataFactory.CreateFromFile(actOpen.Dialog.FileName));
+  SetLength(Files, actOpen.Dialog.Files.Count);
+  for Idx := 0 to Pred(actOpen.Dialog.Files.Count) do
+    Files[Idx] := actOpen.Dialog.Files[Idx];
+  if Length(Files) = 0 then
+    Exit;
+  DoLoad(Files);
 end;
 
 procedure TMainForm.actPasteExecute(Sender: TObject);
@@ -392,6 +401,29 @@ function TMainForm.DocHasContent: Boolean;
   }
 begin
   Result := fDocLoaded;
+end;
+
+procedure TMainForm.DoLoad(const FileName: string);
+var
+  Files: TArray<string>;
+begin
+  SetLength(Files, 1);
+  Files[0] := FileName;
+  DoLoad(Files);
+end;
+
+procedure TMainForm.DoLoad(const Files: TArray<string>);
+// todo: merge DoLoad methods and set fDocument properties via closures
+begin
+  Busy(True);
+  try
+    fDocument.InputFiles := Files;
+    fDocument.Highlight;
+    UpdateDisplay;
+    fDocLoaded := True;
+  finally
+    Busy(False);
+  end;
 end;
 
 procedure TMainForm.DoLoad(const InputData: IInputData);
@@ -510,19 +542,11 @@ begin
     if DOAdapter.HasFormat(CF_FILENAMEW) then
       // Load data from file: we know it is not a directory since this method
       // is only called for valid data objects
-      DoLoad(
-        TInputDataFactory.CreateFromFile(
-          DOAdapter.ReadDataAsUnicodeText(CF_FILENAMEW)
-        )
-      )
+      DoLoad(DOAdapter.ReadDataAsUnicodeText(CF_FILENAMEW))
     else if DOAdapter.HasFormat(CF_FILENAMEA) then
       // Load data from file: we know it is not a directory since this method
       // is only called for valid data objects
-      DoLoad(
-        TInputDataFactory.CreateFromFile(
-          DOAdapter.ReadDataAsAnsiText(CF_FILENAMEA)
-        )
-      )
+      DoLoad(DOAdapter.ReadDataAsAnsiText(CF_FILENAMEA))
     else if DOAdapter.HasFormat(CF_UNICODETEXT) then
       DoLoad(
         TInputDataFactory.CreateFromText(
