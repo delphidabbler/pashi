@@ -204,7 +204,8 @@ begin
     ConsoleApp.OnWork := HandleAppOutput;
     ConsoleApp.StdOut := fOutPipe.WriteHandle;
     ConsoleApp.StdErr := fErrPipe.WriteHandle;
-    ConsoleApp.StdIn := fInPipe.ReadHandle;
+    if Assigned(fInPipe) then
+      ConsoleApp.StdIn := fInPipe.ReadHandle;
     if not ConsoleApp.Execute(CmdLine, '') then
       raise Exception.Create(
         'Error executing PasHi:'#13#10 + ConsoleApp.ErrorMessage
