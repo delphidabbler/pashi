@@ -54,10 +54,6 @@ type
       {Read accessor for HilitedCode property.
         @return Required highlighted code.
       }
-    procedure DoHilite;
-      {Highlights document from source stream, writes to output stream and
-      triggers OnHilite event.
-      }
     function SampleHTMLFragmentDoc: string;
       {Builds complete HTML document containing fragment of highlighted HTML.
       Used as display document when HTML fragments being generated.
@@ -121,24 +117,6 @@ begin
   inherited;
 end;
 
-procedure TDocument.DoHilite;
-  {Highlights document from source stream, writes to output stream and triggers
-  OnHilite event.
-  }
-var
-  SourceStm: TStream;
-begin
-  fHilitedStream.Size := 0;
-  SourceStm := TMemoryStream.Create;
-  try
-    fInputData.ReadData(SourceStm);
-    SourceStm.Position := 0;
-    fPasHi.Hilite(SourceStm, fHilitedStream, fOutputType = doXHTMLFragment);
-  finally
-    SourceStm.Free;
-  end;
-end;
-
 function TDocument.GetDisplayHTML: string;
   {Read accessor for DisplayHTML property.
     @return Required HTML code.
@@ -159,10 +137,20 @@ begin
 end;
 
 procedure TDocument.Highlight;
+var
+  SourceStm: TStream;
 begin
   if not Assigned(fInputData) then
     Exit;
-  DoHilite;
+  fHilitedStream.Size := 0;
+  SourceStm := TMemoryStream.Create;
+  try
+    fInputData.ReadData(SourceStm);
+    SourceStm.Position := 0;
+    fPasHi.Hilite(SourceStm, fHilitedStream, fOutputType = doXHTMLFragment);
+  finally
+    SourceStm.Free;
+  end;
 end;
 
 function TDocument.LoadHTMLTemplate: string;
