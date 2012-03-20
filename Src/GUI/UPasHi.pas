@@ -99,6 +99,14 @@ function TPasHi.BuildCommandLine(const Files: TArray<string>;
       complete HTML document to be generated.
     @return Required command line.
   }
+
+  function NormaliseFileName(const FileName: string): string;
+  begin
+    if FindDelimiter(' '#9, FileName) = 0 then
+      Exit(FileName);
+    Result := '"' + FileName + '"';
+  end;
+
 var
   FileNames: string;
   FileName: string;
@@ -107,7 +115,7 @@ begin
   FileNames := '';
   if Assigned(Files) then
     for FileName in Files do
-      FileNames := FileNames + FileName + ' ';
+      FileNames := FileNames + NormaliseFileName(FileName) + ' ';
   Result := 'PasHi ' + FileNames + '--encoding utf-8 ';
   if CreateFragment then
     Result := Result + '--doc-type xhtml-fragment'
