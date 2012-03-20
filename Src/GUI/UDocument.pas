@@ -33,6 +33,11 @@ type
     doXHTMLFragment
   );
 
+  TDocInputSource = (
+    isData,
+    isFiles
+  );
+
   {
   TDocument:
     Encapsulates a Pascal document and manages the various views displayed by
@@ -41,11 +46,15 @@ type
   TDocument = class(TObject)
   private
     fOutputType: TDocOutputType;
+    fInputSource: TDocInputSource;
     fInputData: IInputData;
+    fInputFiles: TArray<string>;
     fPasHi: TPasHi;
       {Reference to object that performs highlighting by interacting with PasHi}
     fHilitedStream: TMemoryStream;
       {Stream containing highlighted source code}
+    procedure SetInputData(const Value: IInputData);
+    procedure SetInputFiles(const Value: TArray<string>);
     function GetDisplayHTML: string;
       {Read accessor for DisplayHTML property.
         @return Required HTML code.
@@ -78,7 +87,8 @@ type
           content.
       }
     property OutputType: TDocOutputType read fOutputType write fOutputType;
-    property InputData: IInputData read fInputData write fInputData;
+    property InputData: IInputData read fInputData write SetInputData;
+    property InputFiles: TArray<string> read fInputFiles write SetInputFiles;
     property HilitedCode: string read GetHilitedCode;
       {Highlighted source code}
     property DisplayHTML: string read GetDisplayHTML;
@@ -140,16 +150,27 @@ procedure TDocument.Highlight;
 var
   SourceStm: TStream;
 begin
-  if not Assigned(fInputData) then
-    Exit;
   fHilitedStream.Size := 0;
-  SourceStm := TMemoryStream.Create;
-  try
-    fInputData.ReadData(SourceStm);
-    SourceStm.Position := 0;
-    fPasHi.Hilite(SourceStm, fHilitedStream, fOutputType = doXHTMLFragment);
-  finally
-    SourceStm.Free;
+  case fInputSource of
+    isData:
+    begin
+      if not Assigned(fInputData) then
+        Exit;
+      SourceStm := TMemoryStream.Create;
+      try
+        fInputData.ReadData(SourceStm);
+        SourceStm.Position := 0;
+        fPasHi.Hilite(SourceStm, fHilitedStream, fOutputType = doXHTMLFragment);
+      finally
+        SourceStm.Free;
+      end;
+    end;
+    isFiles:
+    begin
+      if Length(fInputFiles) = 0 then
+        Exit;
+      fPasHi.Hilite(fInputFiles, fHilitedStream, fOutputType = doXHTMLFragment);
+    end;
   end;
 end;
 
@@ -195,6 +216,20 @@ procedure TDocument.Save(const OutputData: IOutputData);
 begin
   fHilitedStream.Position := 0;
   OutputData.WriteData(fHilitedStream);
+end;
+
+procedure TDocument.SetInputData(const Value: IInputData);
+begin
+  fInputData := Value;
+  fInputSource := isData;
+  SetLength(fInputFiles, 0);
+end;
+
+procedure TDocument.SetInputFiles(const Value: TArray<string>);
+begin
+  fInputFiles := Copy(Value);
+  fInputSource := isFiles;
+  fInputData := nil;
 end;
 
 end.
