@@ -46,8 +46,6 @@ type
       {Reference to object that performs highlighting by interacting with PasHi}
     fHilitedStream: TMemoryStream;
       {Stream containing highlighted source code}
-    fSourceStream: TMemoryStream;
-      {Stream containing raw un-highlighted source code}
     function GetDisplayHTML: string;
       {Read accessor for DisplayHTML property.
         @return Required HTML code.
@@ -55,10 +53,6 @@ type
     function GetHilitedCode: string;
       {Read accessor for HilitedCode property.
         @return Required highlighted code.
-      }
-    function GetSourceCode: string;
-      {Read accessor for SourceCode property.
-        @return Un-highlighted source code.
       }
     procedure DoHilite;
       {Highlights document from source stream, writes to output stream and
@@ -87,14 +81,8 @@ type
         @param OutputData [in] Object used to write the highlighted document's
           content.
       }
-    function IsEmpty: Boolean;
-      {Checks if document is empty.
-        @return True if document has no content.
-      }
     property OutputType: TDocOutputType read fOutputType write fOutputType;
     property InputData: IInputData read fInputData write fInputData;
-    property SourceCode: string read GetSourceCode;
-      {Raw, un-highlighted source code}
     property HilitedCode: string read GetHilitedCode;
       {Highlighted source code}
     property DisplayHTML: string read GetDisplayHTML;
@@ -122,14 +110,12 @@ begin
   inherited Create;
   fPasHi := TPasHi.Create;
   fHilitedStream := TMemoryStream.Create;
-  fSourceStream := TMemoryStream.Create;
 end;
 
 destructor TDocument.Destroy;
   {Class destructor. Tears down object.
   }
 begin
-  FreeAndNil(fSourceStream);
   FreeAndNil(fHilitedStream);
   FreeAndNil(fPasHi);
   inherited;
@@ -139,10 +125,18 @@ procedure TDocument.DoHilite;
   {Highlights document from source stream, writes to output stream and triggers
   OnHilite event.
   }
+var
+  SourceStm: TStream;
 begin
   fHilitedStream.Size := 0;
-  fSourceStream.Position := 0;
-  fPasHi.Hilite(fSourceStream, fHilitedStream, fOutputType = doXHTMLFragment);
+  SourceStm := TMemoryStream.Create;
+  try
+    fInputData.ReadData(SourceStm);
+    SourceStm.Position := 0;
+    fPasHi.Hilite(SourceStm, fHilitedStream, fOutputType = doXHTMLFragment);
+  finally
+    SourceStm.Free;
+  end;
 end;
 
 function TDocument.GetDisplayHTML: string;
@@ -164,29 +158,11 @@ begin
   Result := StringFromStream(fHilitedStream);
 end;
 
-function TDocument.GetSourceCode: string;
-  {Read accessor for SourceCode property.
-    @return Un-highlighted source code.
-  }
-begin
-  Result := StringFromStream(fSourceStream);
-end;
-
 procedure TDocument.Highlight;
 begin
   if not Assigned(fInputData) then
     Exit;
-  fSourceStream.Size := 0;
-  fInputData.ReadData(fSourceStream);
   DoHilite;
-end;
-
-function TDocument.IsEmpty: Boolean;
-  {Checks if document is empty.
-    @return True if document has no content.
-  }
-begin
-  Result := fSourceStream.Size = 0;
 end;
 
 function TDocument.LoadHTMLTemplate: string;

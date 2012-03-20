@@ -91,6 +91,7 @@ type
       Y: Integer);
     procedure sbMainHint(Sender: TObject);
   private
+    fDocLoaded: Boolean;
     fDocument: TDocument;
       {Currently loaded document}
     fDropTarget: IDropTarget;
@@ -255,12 +256,15 @@ begin
       fDocument.OutputType := doXHTMLFragment
     else
       fDocument.OutputType := doXHTML;
+    UpdateStatusBar;
+    if not fDocLoaded then
+      Exit;
     fDocument.Highlight;
     UpdateDisplay;
+    fDocLoaded := True;
   finally
     Busy(False);
   end;
-  UpdateStatusBar;
 end;
 
 procedure TMainForm.actHintsExecute(Sender: TObject);
@@ -387,7 +391,7 @@ function TMainForm.DocHasContent: Boolean;
     @return True if document has content.
   }
 begin
-  Result := not fDocument.IsEmpty;
+  Result := fDocLoaded;
 end;
 
 procedure TMainForm.DoLoad(const InputData: IInputData);
@@ -400,6 +404,7 @@ begin
     fDocument.InputData := InputData;
     fDocument.Highlight;
     UpdateDisplay;
+    fDocLoaded := True;
   finally
     Busy(False);
   end;
