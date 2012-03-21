@@ -42,11 +42,6 @@ type
   }
   TInputDataFactory = class(TObject)
   public
-    class function CreateFromFile(const FileName: string): IInputData;
-      {Creates object that can read data from file.
-        @param FileName [in] Name of file containing data.
-        @return Required object.
-      }
     class function CreateFromText(const Text: string): IInputData;
       {Creates object that can read data from string.
         @param Text [in] Data as text.
@@ -64,26 +59,6 @@ uses
 
 
 type
-
-  {
-  TFileInputData:
-    IInputData implementation that reads data from a file.
-  }
-  TFileInputData = class(TInterfacedObject, IInputData)
-  private
-    fFileName: string;
-      {Name of file containing data}
-  protected
-    { IInputData }
-    procedure ReadData(const Stream: TStream);
-      {Reads data from file into stream.
-        @param Stream [in] Stream to receive file data.
-      }
-  public
-    constructor Create(const FileName: string);
-      {Class constructor. Sets up object.
-      }
-  end;
 
   {
   TTextInputData:
@@ -108,15 +83,15 @@ type
 
 { TInputDataFactory }
 
-class function TInputDataFactory.CreateFromFile(
-  const FileName: string): IInputData;
-  {Creates object that can read data from file.
-    @param FileName [in] Name of file containing data.
-    @return Required object.
-  }
-begin
-  Result := TFileInputData.Create(FileName);
-end;
+//class function TInputDataFactory.CreateFromFile(
+//  const FileName: string): IInputData;
+//  {Creates object that can read data from file.
+//    @param FileName [in] Name of file containing data.
+//    @return Required object.
+//  }
+//begin
+//  Result := TFileInputData.Create(FileName);
+//end;
 
 class function TInputDataFactory.CreateFromText(const Text: string): IInputData;
   {Creates object that can read data from string.
@@ -126,33 +101,6 @@ class function TInputDataFactory.CreateFromText(const Text: string): IInputData;
 begin
   Result := TTextInputData.Create(Text);
 end;
-
-
-{ TFileInputData }
-
-constructor TFileInputData.Create(const FileName: string);
-  {Class constructor. Sets up object.
-  }
-begin
-  inherited Create;
-  fFileName := FileName;
-end;
-
-procedure TFileInputData.ReadData(const Stream: TStream);
-  {Reads data from file into stream.
-    @param Stream [in] Stream to receive file data.
-  }
-var
-  FileStream: TFileStream;  // stream onto file
-begin
-  FileStream := TFileStream.Create(fFileName, fmOpenRead or fmShareDenyNone);
-  try
-    Stream.CopyFrom(FileStream, 0);
-  finally
-    FreeAndNil(FileStream);
-  end;
-end;
-
 
 { TTextInputData }
 
