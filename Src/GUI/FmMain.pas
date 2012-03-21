@@ -534,12 +534,32 @@ procedure TMainForm.HandleData(const DataObj: IDataObject);
   returned true.
     @param DataObj [in] Dropped data object.
   }
+
+  function StripDirectories(const Files: TArray<string>): TArray<string>;
+  var
+    FileName: string;
+    Count: Integer;
+  begin
+    SetLength(Result, Length(Files));
+    Count := 0;
+    for FileName in Files do
+    begin
+      if IsDirectory(FileName) then
+        Continue;
+      Result[Count] := FileName;
+      Inc(Count);
+    end;
+    SetLength(Result, Count);
+  end;
+
 var
   DOAdapter: TDataObjectAdapter;  // helper object used to access data object
 begin
   DOAdapter := TDataObjectAdapter.Create(DataObj);
   try
-    if DOAdapter.HasFormat(CF_FILENAMEW) then
+    if DOAdapter.HasFormat(CF_HDROP) then
+      DoLoad(StripDirectories(DOAdapter.GetHDROPFileNames))
+    else if DOAdapter.HasFormat(CF_FILENAMEW) then
       // Load data from file: we know it is not a directory since this method
       // is only called for valid data objects
       DoLoad(DOAdapter.ReadDataAsUnicodeText(CF_FILENAMEW))
@@ -570,6 +590,17 @@ function TMainForm.IsValidDataObj(const DataObj: IDataObject): Boolean;
     @param DataObj [in] Data object to check.
     @return True if data object valid, false if not.
   }
+
+  function HasTrueFiles(const Files: TArray<string>): Boolean;
+  var
+    FileName: string;
+  begin
+    Result := False;
+    for FileName in Files do
+      if not IsDirectory(FileName) then
+        Exit(True);
+  end;
+
 var
   DOAdapter: TDataObjectAdapter;  // helper object used to access data object
 begin
@@ -577,6 +608,8 @@ begin
   try
     Result := DOAdapter.HasFormat(CF_UNICODETEXT)
       or DOAdapter.HasFormat(CF_TEXT)
+      or (DOAdapter.HasFormat(CF_HDROP)
+        and HasTrueFiles(DOAdapter.GetHDROPFileNames))
       or
         (DOAdapter.HasFormat(CF_FILENAMEW)
         and not IsDirectory(DOAdapter.ReadDataAsUnicodeText(CF_FILENAMEW)))

@@ -60,6 +60,7 @@ type
       }
     function ReadDataAsAnsiText(const Fmt: TClipFormat): string;
     function ReadDataAsUnicodeText(const Fmt: TClipFormat): string;
+    function GetHDROPFileNames: TArray<string>;
   end;
 
 
@@ -68,7 +69,7 @@ implementation
 
 uses
   // Delphi
-  SysUtils, Windows, ComObj;
+  SysUtils, Windows, ComObj, ShellAPI;
 
 
 { TDataObjectAdapter }
@@ -105,6 +106,37 @@ begin
     end;
   finally
     ReleaseStgMedium(Medium);
+  end;
+end;
+
+function TDataObjectAdapter.GetHDROPFileNames: TArray<string>;
+var
+  Medium: TStgMedium;
+  HDrop: THandle;
+  FileCount: Integer;
+  NameLen: Integer;
+  Idx: Integer;
+  FileName: string;
+begin
+  Assert(HasFormat(CF_HDROP));
+  SetLength(Result, 0);
+  OleCheck(fDataObject.GetData(MakeFormatEtc(CF_HDROP), Medium));
+  HDrop := Medium.hGlobal;
+  if HDrop = 0 then
+    Exit;
+  // Scan through files specified by HDROP handle, adding to lists
+  FileCount := DragQueryFile(HDrop, Cardinal(-1), nil, 0);
+  SetLength(Result, FileCount);
+  try
+    for Idx := 0 to Pred(FileCount) do
+    begin
+      NameLen := DragQueryFile(HDrop, Idx, nil, 0);
+      SetLength(FileName, NameLen);
+      DragQueryFile(HDrop, Idx, PChar(FileName), NameLen + 1);
+      Result[Idx] := FileName;
+    end;
+  finally
+    DragFinish(HDrop);
   end;
 end;
 
