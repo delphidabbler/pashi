@@ -302,7 +302,8 @@ procedure TMainForm.actPasteExecute(Sender: TObject);
 var
   CBData: IDataObject;  // object storing clipboard data
 begin
-  OleCheck(OleGetClipboard(CBData));
+  if not Succeeded(OleGetClipboard(CBData)) then
+    Exit;
   HandleData(CBData);
 end;
 
@@ -314,8 +315,8 @@ procedure TMainForm.actPasteUpdate(Sender: TObject);
 var
   CBData: IDataObject;  // object storing clipboard data
 begin
-  OleCheck(OleGetClipboard(CBData));
-  actPaste.Enabled := IsValidDataObj(CBData);
+  actPaste.Enabled := Succeeded(OleGetClipboard(CBData))
+    and IsValidDataObj(CBData);
 end;
 
 procedure TMainForm.actSaveAsAccept(Sender: TObject);
