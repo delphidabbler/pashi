@@ -232,6 +232,8 @@ begin
     Add('no', False);
     Add('Y', True);
     Add('N', False);
+    Add('on', True);
+    Add('off', False);
   end;
 end;
 
