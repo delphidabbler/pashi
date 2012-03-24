@@ -435,8 +435,8 @@
 </p>
 
 <p>
-  Commands have both a long and a short form and are explained in the following
-  table.
+  Most commands have both a long and a short form, although some commands have a
+  long form only. All are explained in the following table.
 </p>
 
 <table>
@@ -454,11 +454,29 @@
     </th>
   <tr>
   <tr>
+    <td class="switch">--input-stdin</td>
+    <td class="switch">&nbsp;</td>
+    <td>
+      Reads source code from standard input. Since this is the default behaviour
+      this command is provided mainly to restore default behaviour if it has
+      been overridden in the config file.
+    </td>
+  </tr>
+  <tr>
     <td class="switch">--input-clipboard</td>
     <td class="switch">-r</td>
     <td>
       Reads source code in Unicode from the clipboard instead of standard input.
       Standard input and any files specified on the command line are ignored. 
+    </td>
+  </tr>
+  <tr>
+    <td class="switch">--output-stdout</td>
+    <td class="switch">&nbsp;</td>
+    <td>
+      Writes highlighted code to standard output. Since this is the default
+      behaviour this command is provided mainly to restore default behaviour if
+      it has been overridden in the config file.
     </td>
   </tr>
   <tr>
@@ -513,11 +531,13 @@
       following:
       <ul style="margin-top:0;">
         <li>
-          <code>True</code>, <code>1</code>, <code>Y</code> or <code>yes</code>:
+          <code>True</code>, <code>1</code>, <code>Y</code>, <code>yes</code> or
+          <code>on</code>:
           Include branding.
         </li>
         <li>
-          <code>False</code>, <code>0</code>, <code>N</code> or <code>no</code>:
+          <code>False</code>, <code>0</code>, <code>N</code>, <code>no</code> or
+          <code>off</code>:
           Exclude branding.
         </li>
       </ul>
@@ -588,11 +608,13 @@
       must be one of the following:
       <ul style="margin-top:0;">
         <li>
-          <code>True</code>, <code>1</code>, <code>Y</code> or <code>yes</code>:
+          <code>True</code>, <code>1</code>, <code>Y</code>, <code>yes</code> or
+          <code>on</code>:
           Hide the CSS in comments.
         </li>
         <li>
-          <code>False</code>, <code>0</code>, <code>N</code> or <code>no</code>:
+          <code>False</code>, <code>0</code>, <code>N</code>, <code>no</code> or
+          <code>off</code>:
           Do not use comments.
         </li>
       </ul>
