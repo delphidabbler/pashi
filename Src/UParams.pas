@@ -97,7 +97,8 @@ type
       fDocTypeLookup: TDictionary<string, TDocType>;
       fBooleanLookup: TDictionary<string, Boolean>;
       fConfig: TConfig; // Reference to program's configuration object
-    procedure PopulateCommandQueue;
+    procedure GetConfigParams;
+    procedure GetCmdLineParams;
     procedure ParseCommand;
     procedure ParseFileName;
     function GetStringParameter(const Cmd: TCommand): string;
@@ -124,9 +125,9 @@ implementation
 
 uses
   // Delphi
-  StrUtils, SysUtils, Character,
+  StrUtils, SysUtils, Classes, Character,
   // Project
-  UComparers;
+  UComparers, UConfigFiles;
 
 
 { TParams }
@@ -255,6 +256,34 @@ begin
   Result := fBooleanLookup[Param];
 end;
 
+procedure TParams.GetCmdLineParams;
+var
+  Idx: Integer;
+begin
+  fParamQueue.Clear;
+  for Idx := 1 to ParamCount do
+    fParamQueue.Enqueue(ParamStr(Idx));
+end;
+
+procedure TParams.GetConfigParams;
+var
+  CfgFileReader: TConfigFileReader;
+  CfgEntry: TPair<string,string>;
+begin
+  fParamQueue.Clear;
+  CfgFileReader := TConfigFiles.ConfigFileReaderInstance;
+  try
+    for CfgEntry in CfgFileReader do
+    begin
+      fParamQueue.Enqueue('--' + CfgEntry.Key);
+      if CfgEntry.Value <> '' then
+        fParamQueue.Enqueue(CfgEntry.Value);
+    end;
+  finally
+    CfgFileReader.Free;
+  end;
+end;
+
 function TParams.GetDocTypeParameter(const Cmd: TCommand): TDocType;
 var
   Param: string;
@@ -295,17 +324,31 @@ procedure TParams.Parse;
 { Parses the command line.
   @except Exception raised if error in command line.
   }
-begin
-  PopulateCommandQueue;
-  // Loop through all commands on command line
-  while fParamQueue.Count > 0 do
+
+  procedure ParseQueue(const ErrorFmtStr: string);
   begin
-    // Check command line item
-    if AnsiStartsStr('-', fParamQueue.Peek) then
-      ParseCommand
-    else
-      ParseFileName;
+    try
+      while fParamQueue.Count > 0 do
+      begin
+        if AnsiStartsStr('-', fParamQueue.Peek) then
+          ParseCommand
+        else
+          ParseFileName;
+      end;
+    except
+      on E: Exception do
+        raise Exception.CreateFmt(ErrorFmtStr, [E.Message]);
+    end;
   end;
+
+resourcestring
+  sConfigFileErrorFmt = '%s (in config file)';
+  sCommandLineErrorFmt = '%s';
+begin
+  GetConfigParams;
+  ParseQueue(sConfigFileErrorFmt);
+  GetCmdLineParams;
+  ParseQueue(sCommandLineErrorFmt);
 end;
 
 procedure TParams.ParseCommand;
@@ -409,15 +452,6 @@ begin
   fConfig.InputSource := isFiles;
   // Next parameter
   fParamQueue.Dequeue;
-end;
-
-procedure TParams.PopulateCommandQueue;
-var
-  Idx: Integer;
-begin
-  fParamQueue.Clear;
-  for Idx := 1 to ParamCount do
-    fParamQueue.Enqueue(ParamStr(Idx));
 end;
 
 { TCommand }
