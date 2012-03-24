@@ -64,7 +64,9 @@ uses
   IO.Readers.UFiles in 'IO.Readers.UFiles.pas',
   IO.Writers.UFile in 'IO.Writers.UFile.pas',
   IO.UHelper in 'IO.UHelper.pas',
-  URenderers in 'URenderers.pas';
+  URenderers in 'URenderers.pas',
+  UConfigFiles in 'UConfigFiles.pas',
+  USpecialFolders in 'USpecialFolders.pas';
 
 { Main program code }
 

@@ -52,6 +52,8 @@
 			<DCCReference Include="IO.Writers.UFile.pas"/>
 			<DCCReference Include="IO.UHelper.pas"/>
 			<DCCReference Include="URenderers.pas"/>
+			<DCCReference Include="UConfigFiles.pas"/>
+			<DCCReference Include="USpecialFolders.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>
