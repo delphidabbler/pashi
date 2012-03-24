@@ -42,8 +42,11 @@ type
     siForceHideCSS,     // hide embedded CSS in comments (legacy)
     siEmbedCSS,         // embed css from a file
     siLinkCSS,          // link to external CSS file
+    siDefaultCSS,       // embed default CSS
     siLanguage,         // specify output language
+    siLanguageNeutral,  // no output language specified
     siTitle,            // document title
+    siTitleDefault,     // use default document title
     siBranding,         // determines whether branding written to code fragments
     siHelp,             // display help
     siQuiet             // don't display any output to console
@@ -165,13 +168,15 @@ begin
     Add('-w', siOutputClipboard);
     // long forms
     Add('--doc-type', siOutputDocType);
-    Add('--embed-css', siEmbedCSS);
     Add('--encoding', siOuputEncoding);
     Add('--help', siHelp);
     Add('--hide-css', siHideCSS);
     Add('--input-clipboard', siInputClipboard);
     Add('--input-stdin', siInputStdIn);
     Add('--language', siLanguage);
+    Add('--language-neutral', siLanguageNeutral);
+    Add('--embed-css', siEmbedCSS);
+    Add('--default-css', siDefaultCSS);
     Add('--link-css', siLinkCSS);
     Add('--branding', siBranding);
     Add('--output-clipboard', siOutputClipboard);
@@ -179,6 +184,7 @@ begin
     Add('--output-stdout', siOutputStdOut);
     Add('--quiet', siQuiet);
     Add('--title', siTitle);
+    Add('--title-default', siTitleDefault);
     // commands kept for backwards compatibility with v1.x
     Add('-frag', siFragment);
     Add('-hidecss', siForceHideCSS);
@@ -422,6 +428,11 @@ begin
       fConfig.CSSSource := csFile;
       fParamQueue.Dequeue;
     end;
+    siDefaultCSS:
+    begin
+      fConfig.CSSLocation := '';
+      fConfig.CSSSource := csDefault;
+    end;
     siLinkCSS:
     begin
       fConfig.CSSLocation := GetStringParameter(Command);
@@ -433,11 +444,15 @@ begin
       fConfig.Language := GetStringParameter(Command);
       fParamQueue.Dequeue;
     end;
+    siLanguageNeutral:
+      fConfig.Language := '';
     siTitle:
     begin
       fConfig.Title := GetStringParameter(Command);
       fParamQueue.Dequeue;
     end;
+    siTitleDefault:
+      fConfig.Title := '';
     siBranding:
     begin
       if Command.IsSwitch then
