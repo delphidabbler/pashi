@@ -31,8 +31,10 @@ type
   }
   TCommandId = (
     siInputClipboard,   // read input from clipboard
+    siInputStdIn,       // read input from standard input
     siOutputClipboard,  // write output to clipboard
     siOutputFile,       // write output to a file
+    siOutputStdOut,     // write output to standard output
     siOuputEncoding,    // use specified encoding for output
     siOutputDocType,    // type of document to be output
     siFragment,         // write output as XHTML document fragment (legacy)
@@ -168,11 +170,13 @@ begin
     Add('--help', siHelp);
     Add('--hide-css', siHideCSS);
     Add('--input-clipboard', siInputClipboard);
+    Add('--input-stdin', siInputStdIn);
     Add('--language', siLanguage);
     Add('--link-css', siLinkCSS);
     Add('--branding', siBranding);
     Add('--output-clipboard', siOutputClipboard);
     Add('--output-file', siOutputFile);
+    Add('--output-stdout', siOutputStdOut);
     Add('--quiet', siQuiet);
     Add('--title', siTitle);
     // commands kept for backwards compatibility with v1.x
@@ -374,6 +378,8 @@ begin
   case CommandId of
     siInputClipboard:
       fConfig.InputSource := isClipboard;
+    siInputStdIn:
+      fConfig.InputSource := isStdIn;
     siOutputClipboard:
       fConfig.OutputSink := osClipboard;
     siOutputFile:
@@ -382,6 +388,8 @@ begin
       fConfig.OutputSink := osFile;
       fParamQueue.Dequeue;
     end;
+    siOutputStdOut:
+      fConfig.OutputSink := osStdOut;
     siOuputEncoding:
     begin
       fConfig.OutputEncodingId := GetEncodingParameter(Command);
