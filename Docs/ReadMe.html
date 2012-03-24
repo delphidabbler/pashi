@@ -561,14 +561,36 @@
     </td>
   </tr>
   <tr>
+    <td class="switch">--language-neutral</td>
+    <td class="switch">&nbsp;</td>
+    <td>
+      Specifies that no language is to be specified in output document. Since
+      this is the default behaviour this command is provided mainly to restore
+      default behaviour if it has been overridden in the config file. This
+      command is ignored if the <code>--doc-type&nbsp;xhtml-fragment</code>
+      command is specifed.
+    </td>
+  </tr>
+  <tr>
     <td class="switch">--title</td>
     <td class="switch">-t</td>
     <td>
       Specifies the title of the output document. The required title must be
       supplied in the parameter immediately follow the command. Titles
       containing spaces must be enclosed in double quotes. This command has no
-      effect the <code>--doc-type&nbsp;xhtml-fragment</code> command is also
+      effect if the <code>--doc-type&nbsp;xhtml-fragment</code> command is also
       used.
+    </td>
+  </tr>
+  <tr>
+    <td class="switch">--title-default</td>
+    <td class="switch">&nbsp;</td>
+    <td>
+      Specifies that the default title is to be used in the output document.
+      Since this is the default behaviour this command is provided mainly to
+      restore default behaviour if it has been overridden in the config file.
+      This command has no effect if the
+      <code>--doc-type&nbsp;xhtml-fragment</code> command is also used.
     </td>
   </tr>
   <tr>
@@ -593,6 +615,18 @@
       ignored if the <code>--doc-type&nbsp;xhtml-fragment</code> command is also
       specified. Since no CSS is embedded in the output file the
       <code>--hide-css</code> command does nothing.
+    </td>
+  </tr>
+  <tr>
+    <td class="switch">--default-css</td>
+    <td class="switch">&nbsp;</td>
+    <td>
+      Specifies that the default style sheet is to be embedded in the output
+      document. Since this is the default behaviour, this command is provided
+      mainly to restore default behaviour if it has been overridden in the
+      config file. The command negates both the <code>--embed-css</code> and
+      <code>--link-css</code> commands. This command is ignored if the
+      <code>--doc-type&nbsp;xhtml-fragment</code> command is also specified.
     </td>
   </tr>
   <tr>
