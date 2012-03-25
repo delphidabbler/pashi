@@ -197,7 +197,7 @@ begin
     // Configure program
     Configure;
     // Decide if program is to write to console
-    fConsole.Silent := fConfig.Quiet and not fConfig.ShowHelp;
+    fConsole.Silent := (fConfig.Verbosity = vbQuiet) and not fConfig.ShowHelp;
     if fConfig.ShowHelp then
       // Want help so show it
       ShowHelp

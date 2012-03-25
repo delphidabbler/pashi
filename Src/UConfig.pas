@@ -66,6 +66,11 @@ type
     dtXHTMLFragment // a fragment of HTML code, with no embedded style sheet
   );
 
+  TVerbosity = (
+    vbQuiet,
+    vbNormal
+  );
+
   {
   TConfig:
     Class that records details of program's configuration. Used to determine
@@ -73,11 +78,11 @@ type
   }
   TConfig = class(TObject)
   private
-    fQuiet: Boolean;              // Value of Quiet property
     fDocType: TDocType;           // Value of DocType property
     fInputSource: TInputSource;   // Value of InputSource property
     fOutputSink: TOutputSink;     // Value of OutputSink property
     fShowHelp: Boolean;           // Values of ShowHelp property
+    fVerbosity: TVerbosity;
     fHideCSS: Boolean;
     fOutputFile: string;
     fLanguage: string;
@@ -102,8 +107,9 @@ type
     property DocType: TDocType
       read fDocType write fDocType default dtXHTML;
       {Type of document to be generated}
-    property Quiet: Boolean
-      read fQuiet write fQuiet default False;
+    property Verbosity: TVerbosity
+      read fVerbosity write fVerbosity default vbNormal;
+
       {Whether program is to display project progress on console. Setting Quiet
       to true inhibits visual output}
     property ShowHelp: Boolean
@@ -150,12 +156,12 @@ begin
   fInputSource := isStdIn;
   fOutputSink := osStdOut;
   fDocType := dtXHTML;
-  fQuiet := False;
   fShowHelp := False;
   fHideCSS := False;
   fOutputEncodingId := oeUTF8;
   fBrandingPermitted := True;
   fLanguage := '';
+  fVerbosity := vbNormal;
 end;
 
 destructor TConfig.Destroy;

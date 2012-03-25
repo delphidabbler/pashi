@@ -49,6 +49,7 @@ type
     siTitleDefault,     // use default document title
     siBranding,         // determines whether branding written to code fragments
     siHelp,             // display help
+    siVerbosity,        // determines amount of messages output by program
     siQuiet             // don't display any output to console
   );
 
@@ -101,6 +102,7 @@ type
       fEncodingLookup: TDictionary<string, TOutputEncodingId>;
       fDocTypeLookup: TDictionary<string, TDocType>;
       fBooleanLookup: TDictionary<string, Boolean>;
+      fVerbosityLookup: TDictionary<string, TVerbosity>;
       fConfig: TConfig; // Reference to program's configuration object
     procedure GetConfigParams;
     procedure GetCmdLineParams;
@@ -110,6 +112,7 @@ type
     function GetBooleanParameter(const Cmd: TCommand): Boolean;
     function GetEncodingParameter(const Cmd: TCommand): TOutputEncodingId;
     function GetDocTypeParameter(const Cmd: TCommand): TDocType;
+    function GetVerbosityParameter(const Cmd: TCommand): TVerbosity;
   public
     constructor Create(const Config: TConfig);
     { Class constructor. Initialises object.
@@ -182,6 +185,7 @@ begin
     Add('--output-clipboard', siOutputClipboard);
     Add('--output-file', siOutputFile);
     Add('--output-stdout', siOutputStdOut);
+    Add('--verbosity', siVerbosity);
     Add('--quiet', siQuiet);
     Add('--title', siTitle);
     Add('--title-default', siTitleDefault);
@@ -241,12 +245,21 @@ begin
     Add('on', True);
     Add('off', False);
   end;
+  fVerbosityLookup := TDictionary<string, TVerbosity>.Create(
+    TTextEqualityComparer.Create
+  );
+  with fVerbosityLookup do
+  begin
+    Add('normal', vbNormal);
+    Add('quiet', vbQuiet);
+  end;
 end;
 
 destructor TParams.Destroy;
 { Class destructor. Tears down object.
   }
 begin
+  fVerbosityLookup.Free;
   fBooleanLookup.Free;
   fDocTypeLookup.Free;
   fEncodingLookup.Free;
@@ -330,6 +343,18 @@ begin
     Result := fParamQueue.Peek;
   if (Result = '') or AnsiStartsStr('-', Result) then
     raise Exception.CreateFmt(sNoParam, [Cmd.Name]);
+end;
+
+function TParams.GetVerbosityParameter(const Cmd: TCommand): TVerbosity;
+var
+  Param: string;
+resourcestring
+  sBadValue = 'Unrecognised verbosity value "%s"';
+begin
+  Param := GetStringParameter(Cmd);
+  if not fVerbosityLookup.ContainsKey(Param) then
+    raise Exception.CreateFmt(sBadValue, [Param]);
+  Result := fVerbosityLookup[Param];
 end;
 
 procedure TParams.Parse;
@@ -465,8 +490,13 @@ begin
     end;
     siHelp:
       fConfig.ShowHelp := True;
+    siVerbosity:
+    begin
+      fConfig.Verbosity := GetVerbosityParameter(Command);
+      fParamQueue.Dequeue;
+    end;
     siQuiet:
-      fConfig.Quiet := True;
+      fConfig.Verbosity := vbQuiet;
   end;
 end;
 
