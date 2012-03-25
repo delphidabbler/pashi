@@ -106,6 +106,10 @@
 		ul {
 			list-style-type: square;
 		}
+    ul.squashed,
+    ol.squashed {
+      margin-top: 0;
+    }
 		ul.spaced li,
 		ol.spaced li {
 			margin-top: 0.5em;
@@ -115,6 +119,8 @@
 		dl.spaced dt {
 			margin-top: 0.5em;
 		}
+    ul.squashed li,
+    ol.squashed li,
 		ul.unspaced li,
 		ol.unspaced li {
 			margin-top: 0;
@@ -505,7 +511,7 @@
       Determines type of document to be output. The required document type is
       specified in the following parameter which must be one of the following
       values:
-      <ul style="margin-top:0;">
+      <ul class="squashed">
         <li>
           <code>xhtml</code>: Complete XHTML document containing highlighted
           source code (the default).
@@ -529,7 +535,7 @@
       In the case of <code>--branding</code> the parameter following the command
       determines whether branding is switched on or off. It must be one of the
       following:
-      <ul style="margin-top:0;">
+      <ul class="squashed">
         <li>
           <code>True</code>, <code>1</code>, <code>Y</code>, <code>yes</code> or
           <code>on</code>:
@@ -640,7 +646,7 @@
       In the case of <code>--hide-css</code> the parameter following the command
       determines whether the CSS is hidden in comments or not. This parameter
       must be one of the following:
-      <ul style="margin-top:0;">
+      <ul class="squashed">
         <li>
           <code>True</code>, <code>1</code>, <code>Y</code>, <code>yes</code> or
           <code>on</code>:
@@ -669,7 +675,7 @@
       resulting file may include byte order marks. This command is ignored if
       the <code>--output-clipboard</code> command is specified, because data is
       always written to the clipboard in Unicode. Valid encoding parameters are:
-      <ul style="margin-top:0;">
+      <ul class="squashed">
         <li>
           <code>utf-8</code> or <code>utf8</code>: Encodes in Unicode using
           UTF-8 format with byte order mark (the default).
@@ -691,15 +697,34 @@
     </td>
   </tr>
   <tr>
+    <td class="switch">--verbosity</td>
+    <td class="switch">&nbsp;</td>
+    <td>
+      Determines that amount of output PasHi writes to standard error while
+      executing. What is output depends on the value of the following parameter,
+      which must be one of:
+      <ul class="squashed">
+        <li>
+          <code>normal</code>: Normal screen output (the default). This causes
+          the program to display sign-on information and to display a message
+          when the program completes. All output goes to standard error so that
+          it does not affect highlighted source code written to standard output.
+          Any error messages are also written to standard error.
+        </li>
+        <li>
+          <code>quiet</code>: Quiet mode. Displays no sign on or completion
+          message. If the program detects errors or if the <code>--help</code>
+          command is used then this option is ignored and the program acts as
+          if the <code>normal</code> parameter had been specified.
+        </li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
     <td class="switch">--quiet</td>
     <td class="switch">-q</td>
     <td>
-      Specifies &quot;quiet mode&quot; meaning that <em>PasHi</em> does not
-      write any output to the console. Note that <em>PasHi</em> writes console
-      output to standard error since standard output can be used to output the
-      highlighted source code. This command is ignored when the
-      <code>--help</code> command is used or if <em>PasHi</em> detects command
-      line errors.
+      Alias for the <code>--verbosity&nbsp;quiet</code> command.
     </td>
   </tr>
   <tr>
@@ -731,27 +756,26 @@
   <tr>
     <td class="switch">-rc</td>
     <td>
-      Alias for <code>--input-clipboard</code> command.
+      Alias for the <code>--input-clipboard</code> command.
     </td>
   </tr>
   <tr>
     <td class="switch">-wc</td>
     <td>
-      Alias for <code>--output-clipboard</code> command.
+      Alias for the <code>--output-clipboard</code> command.
     </td>
   </tr>
   <tr>
     <td class="switch">-frag</td>
     <td>
-      Alias for <code>--doc-type</code> command with <code>xhtml-fragment</code>
-      parameter.
+      Alias for the <code>--doc-type&nbsp;xhtml-fragment</code> command.
     </td>
   </tr>
   <tr>
     <td class="switch">-hidecss</td>
     <td>
-      Alias for <code>-c+</code> or <code>--hide-css</code> with
-      <code>yes</code> parameter.
+      Alias for <code>-c+</code> or the <code>--hide-css&nbsp;yes</code>
+      command.
     </td>
   </tr>
 </table>
