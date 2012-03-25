@@ -192,6 +192,9 @@
     .switch {
 			font-family: "Courier New", Courier, monospace;
     }
+    .smallcaps {
+      font-variant: small-caps;
+    }
 		td.pad-left, th.pad-left {
 			padding-left: 2em;
 		}
@@ -422,13 +425,14 @@
 <p class="pullout">
   Note that if you do not redirect output the resulting HTML is displayed on the
   console. If you don't redirect input then you must enter the source code
-  manually on the command line a line at a time and press Ctrl+Z and Return when
-  you have finished to signify end of file.
+  manually on the command line, a line at a time. When you have finished you 
+  must signal end-of-file by pressing <span class="smallcaps">Ctrl+Z</span> on a
+  line on its own, followed by <span class="smallcaps">Return</span>.
 </p>
 
 <p>
   <em>PashHi</em>'s behaviour can be modified by specifying one or more file
-  names and / or parameters on the command line. File names and commands can be
+  names and command on the command line. File names and commands can be
   intermixed.
 </p>
 
@@ -438,6 +442,13 @@
   concatenated before being highlighted. Standard input is ignored. Specifying
   one file name has the same effect as redirecting standard input from that
   file.
+</p>
+
+<p class="pullout">
+  If you specify file names on the command line you should not also use the
+  <code>--input-stdin</code> or <code>--input-clipboard</code> commands. No
+  error will be reported if you do so, but the behaviour is not defined and may
+  not be as expected.
 </p>
 
 <p>
@@ -463,54 +474,59 @@
     <td class="switch">--input-stdin</td>
     <td class="switch">&nbsp;</td>
     <td>
-      Reads source code from standard input. Since this is the default behaviour
-      this command is provided mainly to restore default behaviour if it has
-      been overridden in the config file.
+      Reads source code from standard input. Since standard input is the default
+      input source, this command is provided mainly to restore the default
+      behaviour if it has been overridden in the config file. This command
+      should not be combined with <code>--input-clipboard</code> or if file
+      names are specified on the command line.
     </td>
   </tr>
   <tr>
     <td class="switch">--input-clipboard</td>
     <td class="switch">-r</td>
     <td>
-      Reads source code in Unicode from the clipboard instead of standard input.
-      Standard input and any files specified on the command line are ignored. 
+      Reads source code in Unicode from the clipboard. This command should not
+      be combined with <code>--input-stdin</code> or if file names are specified
+      on the command line.
     </td>
   </tr>
   <tr>
     <td class="switch">--output-stdout</td>
     <td class="switch">&nbsp;</td>
     <td>
-      Writes highlighted code to standard output. Since this is the default
-      behaviour this command is provided mainly to restore default behaviour if
-      it has been overridden in the config file.
+      Writes highlighted code to standard output. Since standard output is the
+      default output destination, this command is provided mainly to restore the
+      default behaviour if it has been overridden in the config file. This
+      command should not be combined with either <code>--output-file</code> or
+      <code>--output-clipboard</code>.
     </td>
   </tr>
   <tr>
     <td class="switch">--output-file</td>
     <td class="switch">-o</td>
     <td>
-      Writes highlighted code to the file specified by the following parameter
-      instead of to standard output. Using this command has exactly the same
-      effect as redirecting standard output to a file.
+      Writes highlighted code to the file specified by the following parameter.
+      Using this command has exactly the same effect as redirecting standard
+      output to a file. This command should not be combined with either
+      <code>--output-stdout</code> or <code>--output-clipboard</code>.
     </td>
   </tr>
   <tr>
     <td class="switch">--output-clipboard</td>
     <td class="switch">-w</td>
     <td>
-      Writes highlighted code to the clipboard instead of standard output. All
-      output is stored as Unicode and complete XHTML documents have no charset
-      information recorded in the file. Do not use with
-      <code>--output-file</code> as behaviour can be unpredictable.
+      Writes highlighted code to the clipboard. All output is stored as Unicode
+      and complete XHTML documents have no charset information recorded in the
+      file. Do not combine this command with either <code>--output-stdout</code>
+      or <code>--output-file</code>.
     </td>
   </tr>
   <tr>
     <td class="switch">--doc-type</td>
     <td class="switch">-d</td>
     <td>
-      Determines type of document to be output. The required document type is
-      specified in the following parameter which must be one of the following
-      values:
+      Determines the type of document to be output. The required document type
+      is specified in the following parameter which must be one of these values:
       <ul class="squashed">
         <li>
           <code>xhtml</code>: Complete XHTML document containing highlighted
@@ -519,10 +535,8 @@
         <li>
           <code>xhtml-fragment</code>: An XHTML code fragment containing only
           the highlighted code wrapped in <code>&lt;pre&gt;</code> ...
-          code>&lt;/pre&gt;</code> tags. The <code>--language</code>,
-          <code>-embed-css</code>, <code>--link-css</code>,
-          <code>--hide-css</code> and <code>--title</code> commands are ignored
-          when this option is used.
+          <code>&lt;/pre&gt;</code> tags. Various commands that relate only to
+          complete XHTML documents are ignored when this option is used.
         </li>
     </td>
   </tr>
@@ -530,11 +544,10 @@
     <td class="switch">--branding</td>
     <td class="switch">-b</td>
     <td>
-      Switches on or off the output of the comment included in code fragments
-      that declares that the code was generated by <em>PasHi</em>.<br />
-      In the case of <code>--branding</code> the parameter following the command
-      determines whether branding is switched on or off. It must be one of the
-      following:
+      Switches on or off the inclusion of an HTML comment in code fragments that
+      declares that the fragment was generated by <em>PasHi</em>.<br />
+      In the case of <code>--branding</code>, the following parameter determines
+      whether branding is switched on or off. The parameter must be one of:
       <ul class="squashed">
         <li>
           <code>True</code>, <code>1</code>, <code>Y</code>, <code>yes</code> or
@@ -738,7 +751,7 @@
 
 <p>
   There are some commands inherited from <em>PasHi</em> v1 that are not listed
-  above. They have ow been superceded by other commands. They are:
+  above. They have now been superceded by other commands. They are:
 </p>
 
 <table>
