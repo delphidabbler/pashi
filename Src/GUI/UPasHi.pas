@@ -108,15 +108,25 @@ function TPasHi.BuildCommandLine(const Files: TArray<string>;
   end;
 
 var
-  FileNames: string;
   FileName: string;
 begin
   // ** do not localise anything in this method
-  FileNames := '';
+  // any commands not specified here use program defaults or values in PasHi's
+  // config file
+  Result := 'PasHi '
+    + '--output-stdout '
+    + '--encoding utf-8 '
+    + '--default-css '
+    + '--hide-css no '
+    + '--verbosity normal '
+  ;
   if Assigned(Files) then
+  begin
     for FileName in Files do
-      FileNames := FileNames + NormaliseFileName(FileName) + ' ';
-  Result := 'PasHi ' + FileNames + '--encoding utf-8 ';
+      Result := Result + NormaliseFileName(FileName) + ' ';
+  end
+  else
+    Result := Result + '--input-stdin ';
   if CreateFragment then
     Result := Result + '--doc-type xhtml-fragment'
   else
@@ -142,6 +152,8 @@ end;
 function TPasHi.Hilite(const Files: TArray<string>;
   const HilitedStream: TStream; const CreateFragment: Boolean): Boolean;
 begin
+  Assert(Assigned(Files));
+  Assert(Length(Files) > 0);
   fErrPipe := nil;
   fConsoleOutputStream := nil;
   fOutPipe := nil;
