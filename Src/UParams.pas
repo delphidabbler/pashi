@@ -164,6 +164,7 @@ begin
     Add('-h', siHelp);
     Add('-k', siLinkCSS);
     Add('-l', siLanguage);
+    Add('-m', siTrim);
     Add('-o', siOutputFile);
     Add('-q', siQuiet);
     Add('-r', siInputClipboard);
@@ -203,6 +204,7 @@ begin
   begin
     Add('-b');
     Add('-c');
+    Add('-m');
   end;
   // lookup table for --encoding command values: case insensitive
   fEncodingLookup := TDictionary<string,TOutputEncodingId>.Create(
@@ -492,8 +494,13 @@ begin
     end;
     siTrim:
     begin
-      fConfig.TrimSource := GetBooleanParameter(Command);
-      fParamQueue.Dequeue;
+      if Command.IsSwitch then
+        fConfig.TrimSource := Command.SwitchValue
+      else
+      begin
+        fConfig.TrimSource := GetBooleanParameter(Command);
+        fParamQueue.Dequeue;
+      end;
     end;
     siHelp:
       fConfig.ShowHelp := True;
