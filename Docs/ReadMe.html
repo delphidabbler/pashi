@@ -710,6 +710,32 @@
     </td>
   </tr>
   <tr>
+    <td class="switch">--trim</td>
+    <td class="switch">-m</td>
+    <td>
+      Determines if source code is trimmed of leading and trailing blank lines
+      before highlighting. Multiple source files are trimmed individually before
+      concatenation.<br />
+      In the case of <code>--title</code> the following parameter is used to
+      turn trimming on or off as follows:
+      <ul class="squashed">
+        <li>
+          <code>True</code>, <code>1</code>, <code>Y</code>, <code>yes</code> or
+          <code>on</code>:
+          Source code is trimmed.
+        </li>
+        <li>
+          <code>False</code>, <code>0</code>, <code>N</code>, <code>no</code> or
+          <code>off</code>:
+          Source code is not trimmed.
+        </li>
+      </ul>
+      The short form of the command, <code>-m</code>, acts as a switch:
+      <code>-m+</code> and <code>-m1</code> switch trimming on while
+      <code>-m-</code> and <code>-m0</code> switch it off.
+    </td>
+  </tr>
+  <tr>
     <td class="switch">--verbosity</td>
     <td class="switch">&nbsp;</td>
     <td>
