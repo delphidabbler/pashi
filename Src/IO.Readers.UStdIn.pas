@@ -23,7 +23,7 @@ uses
 type
   TStdInReader = class(TInterfacedObject, IInputReader)
   public
-    function Read: string;
+    function Read: TArray<string>;
   end;
 
 implementation
@@ -33,7 +33,7 @@ uses
 
 { TStdInReader }
 
-function TStdInReader.Read: string;
+function TStdInReader.Read: TArray<string>;
 const
   ChunkSize = 1024 * 16;
 var
@@ -56,7 +56,8 @@ begin
     Move(Buffer[0], Data[Offset], BytesRead);
   until False;
   // convert to string, detecting encoding
-  Result := TIOHelper.BytesToString(Data);
+  SetLength(Result, 1);
+  Result[0] := TIOHelper.BytesToString(Data);
 end;
 
 end.

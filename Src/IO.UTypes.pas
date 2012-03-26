@@ -22,8 +22,7 @@ uses
 type
   IInputReader = interface
     ['{0E702A31-2D93-48D7-98F7-76823C209FF9}']
-    // Pass nil as Encoding to auto-detect encoding: actual encoding returned
-    function Read: string;
+    function Read: TArray<string>;
   end;
 
 type

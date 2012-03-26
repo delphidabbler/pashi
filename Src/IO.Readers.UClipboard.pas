@@ -23,7 +23,7 @@ uses
 type
   TClipboardReader = class(TInterfacedObject, IInputReader)
   public
-    function Read: string;
+    function Read: TArray<string>;
   end;
 
 implementation
@@ -34,7 +34,7 @@ uses
 
 { TClipboardReader }
 
-function TClipboardReader.Read: string;
+function TClipboardReader.Read: TArray<string>;
 var
   ClipMgr: TClipboardMgr;
   DataHandle: THandle;
@@ -47,11 +47,15 @@ begin
     ClipMgr.Free;
   end;
   if DataHandle = 0 then
-    Exit('');
+  begin
+    SetLength(Result, 0);
+    Exit;
+  end;
   // Get a pointer to clipboard memory block and record its size
   Data := GlobalLock(DataHandle);
   try
-    Result := Data;
+    SetLength(Result, 1);
+    Result[0] := Data;
   finally
     GlobalUnlock(DataHandle);
   end;

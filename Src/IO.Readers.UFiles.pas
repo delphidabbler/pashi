@@ -24,11 +24,9 @@ type
   strict private
     var
       fFileNames: TArray<string>;
-    function ReadFile(const FileName: string): string;
-    function StripBoundingBlankLines(const S: string): string;
   public
     constructor Create(const FileNames: TArray<string>);
-    function Read: string;
+    function Read: TArray<string>;
   end;
 
 implementation
@@ -49,48 +47,15 @@ begin
     fFileNames[Idx] := FileNames[Idx];
 end;
 
-function TFilesReader.Read: string;
+function TFilesReader.Read: TArray<string>;
 var
-  SB: TStringBuilder;
-  FileName: string;
+  Idx: Integer;
 begin
-  SB := TStringBuilder.Create;
-  try
-    for FileName in fFileNames do
-    begin
-      if SB.Length > 0 then
-        SB.AppendLine;
-      SB.AppendLine(ReadFile(FileName));
-    end;
-    Result := SB.ToString;
-  finally
-    SB.Free;
-  end;
-end;
-
-function TFilesReader.ReadFile(const FileName: string): string;
-begin
-  Result := StripBoundingBlankLines(
-    TIOHelper.FileToString(FileName)
-  );
-end;
-
-function TFilesReader.StripBoundingBlankLines(const S: string): string;
-var
-  Lines: TStringList;
-begin
-  Lines := TStringList.Create;
-  try
-    Lines.Text := S;
-    while (Lines.Count > 0) and (Trim(Lines[0]) = '') do
-      Lines.Delete(0);
-    while (Lines.Count > 0) and (Trim(Lines[Pred(Lines.Count)]) = '') do
-      Lines.Delete(Pred(Lines.Count));
-    Result := Lines.Text;
-  finally
-    Lines.Free;
-  end;
+  SetLength(Result, Length(fFileNames));
+  for Idx := Low(fFileNames) to High(fFileNames) do
+    Result[Idx] := TIOHelper.FileToString(fFileNames[Idx])
 end;
 
 end.
+
 
