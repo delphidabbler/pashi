@@ -66,7 +66,8 @@ uses
   IO.UHelper in 'IO.UHelper.pas',
   URenderers in 'URenderers.pas',
   UConfigFiles in 'UConfigFiles.pas',
-  USpecialFolders in 'USpecialFolders.pas';
+  USpecialFolders in 'USpecialFolders.pas',
+  USourceProcessor in 'USourceProcessor.pas';
 
 { Main program code }
 

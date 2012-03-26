@@ -73,7 +73,8 @@ uses
   // Delphi
   SysUtils, Windows,
   // Project
-  IO.UTypes, IO.Readers.UFactory, IO.Writers.UFactory, UParams, URenderers;
+  IO.UTypes, IO.Readers.UFactory, IO.Writers.UFactory, UParams, URenderers,
+  USourceProcessor;
 
 
 function GetProductVersionStr: string;
@@ -227,6 +228,7 @@ end;
 function TMain.GetInputSourceCode: string;
 var
   Reader: IInputReader;
+  SourceProcessor: TSourceProcessor;
 begin
   case fConfig.InputSource of
     isStdIn: Reader := TInputReaderFactory.StdInReaderInstance;
@@ -238,7 +240,12 @@ begin
     Reader := nil;
   end;
   Assert(Assigned(Reader), 'TMain.GetInputSourceCode: Reader is nil');
-  Result := Reader.Read;
+  SourceProcessor := TSourceProcessor.Create(fConfig);
+  try
+    Result := SourceProcessor.Process(Reader.Read)
+  finally
+    SourceProcessor.Free;
+  end;
 end;
 
 procedure TMain.ShowHelp;

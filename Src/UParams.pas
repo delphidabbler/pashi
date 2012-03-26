@@ -50,6 +50,7 @@ type
     siBranding,         // determines whether branding written to code fragments
     siHelp,             // display help
     siVerbosity,        // determines amount of messages output by program
+    siTrim,             // determines if source code is trimmed
     siQuiet             // don't display any output to console
   );
 
@@ -189,6 +190,7 @@ begin
     Add('--quiet', siQuiet);
     Add('--title', siTitle);
     Add('--title-default', siTitleDefault);
+    Add('--trim', siTrim);
     // commands kept for backwards compatibility with v1.x
     Add('-frag', siFragment);
     Add('-hidecss', siForceHideCSS);
@@ -487,6 +489,11 @@ begin
         fConfig.BrandingPermitted := GetBooleanParameter(Command);
         fParamQueue.Dequeue;
       end;
+    end;
+    siTrim:
+    begin
+      fConfig.TrimSource := GetBooleanParameter(Command);
+      fParamQueue.Dequeue;
     end;
     siHelp:
       fConfig.ShowHelp := True;

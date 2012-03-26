@@ -54,6 +54,7 @@
 			<DCCReference Include="URenderers.pas"/>
 			<DCCReference Include="UConfigFiles.pas"/>
 			<DCCReference Include="USpecialFolders.pas"/>
+			<DCCReference Include="USourceProcessor.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

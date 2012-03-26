@@ -91,6 +91,7 @@ type
     fCSSSource: TCSSSource;
     fCSSLocation: string;
     fOutputEncodingId: TOutputEncodingId;
+    fTrimSource: Boolean;
     fInFiles: TStringList;
     function GetInputFiles: TArray<string>;
   public
@@ -128,6 +129,8 @@ type
     property InputFiles: TArray<string> read GetInputFiles;
     property BrandingPermitted: Boolean
       read fBrandingPermitted write fBrandingPermitted default True;
+    property TrimSource: Boolean
+      read fTrimSource write fTrimSource default True;
     procedure AddInputFile(const FN: string);
     function OutputEncoding: TEncoding;
     function OutputEncodingName: string;
@@ -162,6 +165,7 @@ begin
   fBrandingPermitted := True;
   fLanguage := '';
   fVerbosity := vbNormal;
+  fTrimSource := True;
 end;
 
 destructor TConfig.Destroy;
