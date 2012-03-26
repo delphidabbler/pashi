@@ -857,13 +857,48 @@
 	</li>
 	<li>
 		Switch to a command window and do
-		<pre style="display:inline">PasHi -rc -wc -frag</pre>.
+		<pre
+      class="indent"
+      style="margin-top:0;margin-bottom:0;"
+    >PasHi --input-clipboard --output-clipboard --doc-type xhtml-fragment</pre>
+    Alternatively you can use short forms or v1 commands to shorten this:
+		<pre
+      class="indent"
+      style="margin-top:0;margin-bottom:0;"
+    >PasHi -r -w -d xhtml-fragment</pre>
+    or
+		<pre
+      class="indent"
+      style="margin-top:0;margin-bottom:0;"
+    >PasHi -rc -wc -frag</pre>
 	</li>
 	<li>
 		Switch to the editor containing the web page and paste in the
 		highlighted code.
 	</li>
 </ol>
+
+<p>
+  If you mainly use <em>PasHi</em> in this way you can add the following
+  commands to the <code>config</code> file to change <em>PashHi</em>'s default
+  action to read and write the clipboard using XHTML fragments:
+</p>
+
+<pre>input-clipboard
+output-clipboard
+doc-type xhtml-fragment</pre>
+
+<p>
+  Now all you need to do is enter:
+</p>
+
+<pre class="indent">PasHi</pre>
+
+<p>
+  on its own on the command line. However, if you do this, you will need to use
+  the <code>--input-stdin</code>, <code>--output-stdout</code> and
+  <code>--doc-type xhtml</code> commands to revert to normal behaviour.
+</p>
 
 <p class="gototop">
 	&raquo; <a href="#contents">Contents</a>
