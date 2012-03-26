@@ -71,6 +71,8 @@ type
     vbNormal
   );
 
+  TSeparatorLines = 0..16;
+
   {
   TConfig:
     Class that records details of program's configuration. Used to determine
@@ -93,6 +95,7 @@ type
     fOutputEncodingId: TOutputEncodingId;
     fTrimSource: Boolean;
     fInFiles: TStringList;
+    fSeparatorLines: TSeparatorLines;
     function GetInputFiles: TArray<string>;
   public
     constructor Create;
@@ -131,6 +134,8 @@ type
       read fBrandingPermitted write fBrandingPermitted default True;
     property TrimSource: Boolean
       read fTrimSource write fTrimSource default True;
+    property SeparatorLines: TSeparatorLines
+      read fSeparatorLines write fSeparatorLines default 1;
     procedure AddInputFile(const FN: string);
     function OutputEncoding: TEncoding;
     function OutputEncodingName: string;
@@ -166,6 +171,7 @@ begin
   fLanguage := '';
   fVerbosity := vbNormal;
   fTrimSource := True;
+  fSeparatorLines := 1;
 end;
 
 destructor TConfig.Destroy;

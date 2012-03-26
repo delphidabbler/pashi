@@ -51,6 +51,7 @@ type
     siHelp,             // display help
     siVerbosity,        // determines amount of messages output by program
     siTrim,             // determines if source code is trimmed
+    siSeparatorLines,   // specifies number of lines that separate source files
     siQuiet             // don't display any output to console
   );
 
@@ -114,6 +115,8 @@ type
     function GetEncodingParameter(const Cmd: TCommand): TOutputEncodingId;
     function GetDocTypeParameter(const Cmd: TCommand): TDocType;
     function GetVerbosityParameter(const Cmd: TCommand): TVerbosity;
+    function GetNumericParameter(const Cmd: TCommand; const Lo, Hi: UInt16):
+      UInt16;
   public
     constructor Create(const Config: TConfig);
     { Class constructor. Initialises object.
@@ -192,6 +195,7 @@ begin
     Add('--title', siTitle);
     Add('--title-default', siTitleDefault);
     Add('--trim', siTrim);
+    Add('--separator-lines', siSeparatorLines);
     // commands kept for backwards compatibility with v1.x
     Add('-frag', siFragment);
     Add('-hidecss', siForceHideCSS);
@@ -335,6 +339,23 @@ begin
   if not fEncodingLookup.ContainsKey(Param) then
     raise Exception.CreateFmt(sBadValue, [Param]);
   Result := fEncodingLookup[Param];
+end;
+
+function TParams.GetNumericParameter(const Cmd: TCommand; const Lo,
+  Hi: UInt16): UInt16;
+var
+  Param: string;
+  Value: Integer;
+resourcestring
+  sNotNumber = 'Numeric parameter expected for %s';
+  sOutOfRange = 'Parameter for %0:s must be in range %1:d..%2:d';
+begin
+  Param := GetStringParameter(Cmd);
+  if not TryStrToInt(Param, Value) then
+    raise Exception.CreateFmt(sNotNumber, [Cmd.Name]);
+  if (Value < Lo) or (Value > Hi) then
+    raise Exception.CreateFmt(sOutOfRange, [Cmd.Name, Lo, Hi]);
+  Result := UInt16(Value);
 end;
 
 function TParams.GetStringParameter(const Cmd: TCommand): string;
@@ -501,6 +522,13 @@ begin
         fConfig.TrimSource := GetBooleanParameter(Command);
         fParamQueue.Dequeue;
       end;
+    end;
+    siSeparatorLines:
+    begin
+      fConfig.SeparatorLines := GetNumericParameter(
+        Command, Low(TSeparatorLines), High(TSeparatorLines)
+      );
+      fParamQueue.Dequeue;
     end;
     siHelp:
       fConfig.ShowHelp := True;

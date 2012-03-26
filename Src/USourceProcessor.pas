@@ -78,8 +78,12 @@ begin
 end;
 
 function TSourceProcessor.Separator: string;
+var
+  LineIdx: TSeparatorLines;
 begin
-  Result := CRLF;
+  Result := '';
+  for LineIdx := 1 to fConfig.SeparatorLines do
+    Result := Result + CRLF;
 end;
 
 class function TSourceProcessor.TrimSource(const SourceCode: string): string;
@@ -91,9 +95,7 @@ begin
     Lines.Text := SourceCode;
     while (Lines.Count > 0) and (Trim(Lines[0]) = '') do
       Lines.Delete(0);
-    while (Lines.Count > 0) and (Trim(Lines[Pred(Lines.Count)]) = '') do
-      Lines.Delete(Pred(Lines.Count));
-    Result := Lines.Text;
+    Result := TrimRight(Lines.Text);
   finally
     Lines.Free;
   end;
