@@ -45,6 +45,11 @@ VIED = "$(VIEDROOT)\VIEd.exe" -makerc
 !else
 VIED = VIEd.exe -makerc
 !endif
+!ifdef INNOSETUP
+ISCC = "$(INNOSETUP)\ISCC.exe"
+!else
+ISCC = ISCC.exe
+!endif
 !ifdef ZIPROOT
 ZIP = "$(ZIPROOT)\Zip.exe"
 !else

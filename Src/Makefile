@@ -18,8 +18,20 @@ BIN = ..\Bin
 # Include common macros and rules
 !include Common.mak
 
-# Default target is to configure and build the executable program
-everything: config resources pascal
+# Default target is to configure and build the PasHi executable program
+default: pashi
+
+# Configure and build PasHi
+pashi: config resources pascal
+
+# Configure and build PasHiGUI
+pashigui:
+  @cd GUI
+  @$(MAKE)
+  @cd ..
+
+# Build all exes, including setup and create release file
+all: pashi pashigui setup release
 
 # Configure source folders
 config:
@@ -40,6 +52,11 @@ resources: VerInfo.res Resources.res
 # Builds PasHi pascal files and links program
 pascal: PasHi.exe
 
+# Builds setup program
+setup:
+  @del ..\Exe\PasHi-Setup-*
+  @$(ISCC) Install\Install.iss
+
 # Build release files (.zip)
 !ifndef RELEASEFILENAME
 RELEASEFILENAME = dd-pashi
@@ -51,7 +68,7 @@ release:
   @echo ---------------------
   @cd ..
   -@if exist $(OUTFILE) del $(OUTFILE)
-  @$(ZIP) -j -9 $(OUTFILE) Exe\PasHi.exe Exe\PasHiGUI.exe
+  @$(ZIP) -j -9 $(OUTFILE) Exe\PasHi-Setup-*.exe
   @$(ZIP) -j -9 $(OUTFILE) Docs\ReadMe.html Docs\License.txt
   @cd Src
 
