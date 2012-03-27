@@ -1,0 +1,149 @@
+﻿# PasHi config file
+# -----------------
+#
+# This file must be saved in UTF-8 encoding, with or without BOM (byte order
+# mark).
+#
+# This file configures PasHi and is used to set its default state. Any command
+# that is valid on the command line has an equivalent in this config file,
+# except that input file names cannot be specified.
+#
+# Commands have the same name as the long form commands used on the command line
+# except that they do not have the leading "--" characters. Commands that expect
+# a following parameter must be followed by the parameter value on the same
+# line.
+#
+# Command line commands override commands in this file.
+#
+# Blank lines are ignored as are lines beginning with # are ignored. Leading and
+# trailing spaces and tabs are also ignored.
+#
+# Errors in this file will crash PasHi. The program can usually work out if an
+# error was caused by this file and will report the fact in its error message.
+#
+# Possible commands are noted below. For an explanation of each command, and its
+# permitted parameters (if any) see the command reference in ReadMe.html.
+
+
+# --- Input source commands ---
+# Commands:
+#   input-stdin
+#   input-clipboard
+# Default:
+#   input-stdin
+
+
+# --- Input source trimming ---
+# Commands
+#   trim <param>
+#     where <param> ie either "yes" or "no"
+# Default:
+#   trim yes
+
+
+# --- Multiple input file separation ---
+# Command:
+#   separator-lines <param>
+#     where <param> is a number in range 0..16
+# Default:
+#   separator-lines 1
+
+
+# --- Output sink commands ---
+# Commands:
+#   output-stdout
+#   output-file <param>
+#     where <param> is the required file name
+#   output-clipboard
+# Examples:
+#   output-file C:\MyDocs\MyFile.html
+#   output-file MyFile.html
+# Default:
+#   output-stdout
+
+
+# --- Output document type ---
+# Command:
+#   doc-type <param>
+#     where <param> is either "xhtml" or "xhtml-fragment"
+# Default:
+#   doc-type xhtml
+
+
+# --- Output file branding ---
+# Command:
+#   branding <param>
+#     where <param> is either "on" or "off"
+# Default:
+#   branding on
+
+
+# --- Output file language ---
+# Command:
+#   language <param>
+#     where <param> is either a valid language code recognised by HTML
+#   language-neutral
+# Examples:
+#   language en
+#   language en-gb
+# Default:
+#   language-neutral
+
+
+# --- Output document title ---
+# Command:
+#   title <param>
+#     where <param> is the required title text
+#   title-default
+# Example
+#   title Highlighted Pascal Source Code
+# Default:
+#   title-default
+
+
+# -- Output document encoding ---
+# Command:
+#   encoding <param>
+#     where <param> is one of "utf-8", "utf-16", "windows-1252" or "iso-8859-1"
+# Default:
+#   encoding utf-8
+
+
+# --- Style sheets ---
+# Commands:
+#   embed-css <param>
+#     where <param> is the name of a CSS file
+#   default-css
+#   link-css <param>
+#     where <param> is the name of a CSS file
+# Examples:
+#   embed-css C:\CSS\style.css
+#   embed-css .\style.css
+#   embed-css delphi7.css
+#   link-css http://example.com/css/example.css
+#   link-css example.css
+# Default:
+#   default-css
+
+
+# --- Comment out embedded style sheets ---
+# Command:
+#   hide-css <param>
+#     where <param> is either "yes" or "no"
+# Default:
+#   hide-css no
+
+
+# --- Output verbosity ---
+# Commands:
+#   verbosity <param>
+#     where <param> is either "quiet" or "normal"
+#   quiet
+# Default:
+#   verbosity normal
+
+
+# --- Help ---
+# While it is possible to specify the help command in this file, you definately
+# should not. If you do then PasHi will only ever display help and will ignore
+# any other commands in this file or on the command line. You have been warned!
