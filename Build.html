@@ -253,6 +253,26 @@
 </p>
 
 <h3>
+  Inno Setup
+</h3>
+
+<p>
+  The Unicode version on the Inno setup command line compiler is needed to
+  create <em>CodeSnip</em>'s install program. v5.4.0 (u) or later is required as
+  is a compatible version of the ISPP pre-processor. You can get Inno Setup with
+  ISPP at <a
+    href="http://www.jrsoftware.org/isinfo.php"
+  >http://www.jrsoftware.org/isinfo.php</a>. Choose the Unicode version. If you
+  already have the ANSI version the Unicode version can be installed alongside
+  it - just use a different install directory and program group name.
+</p>
+
+<p>
+  The program is expected to be on the path unless its install directory is
+  specified by the <code>INNOSETUP</code> environment variable.
+</p>
+
+<h3>
 	Zip
 </h3>
 
@@ -283,9 +303,9 @@
 </p>
 
 <p>
-	Next, set any of the optional <code>VIEDROOT</code> and <code>ZIPROOT</code>
-	environment variables that are needed to specify the path to any tools that
-	are not on the system path.
+	Next, set any of the optional <code>VIEDROOT</code>, <code>INNOSETUP</code>
+  and <code>ZIPROOT</code> environment variables that are needed to specify the
+  path to any tools that are not on the system path.
 </p>
 
 <p>
@@ -377,6 +397,8 @@
 
 <pre>./
   |
+  +-- Config                - config files to be installed with PasHi
+  |
   +-- Docs                  - documentation
   |
   +-- Src                   - source code for PasHi
@@ -433,6 +455,8 @@
 <pre>./
   +-- Bin                   - receives object files and .res files for PasHi
   <span class="disabled">|
+  +-- Config                - config files to be installed with PasHi
+  |
   +-- Docs                  - documentation
   |</span>
   +-- Exe                   - receives executable code
@@ -476,6 +500,8 @@
   |   |
   |   +-- GUI
   <span class="disabled">|
+  +-- Config                - config files to be installed with PasHi
+  |
   +-- Docs                  - documentation
   |
   +-- Exe                   - receives executable code
@@ -583,14 +609,28 @@
 <span class="prompt">Src\GUI&gt;</span> Make
 <span class="prompt">Src\GUI&gt;</span> cd ..</pre>
 
+<p>
+  There's a shortcut for building <em>PasHiGUI</em>: using the main makefile
+  just do:
+</p>
+
+<pre class="cmd"><span class="prompt">Src&gt;</span> Make pashigui</pre>
+
+<p>
+  When both the <em>PasHi</em> and <em>PasHiGUI</em> executables have been built
+  you can create the setup program. This is done from the main makefile with:
+</p>
+
+<pre class="cmd"><span class="prompt">Src&gt;</span> Make pashigui</pre>
+
 <h2>
 	Creating the Release zip file
 </h2>
 
 <p>
-  Once the <code>.exe</code> files have been generated you can create a zip file
-  containing <em>PasHi</em>, <em>PasHiGUI</em> and the required documentation
-  files. You create the zip by doing:
+  Once the setup program has been generated you can create a zip file containing
+  the setup program and the required documentation files. You create the zip
+  by doing:
 </p>
 
 <pre class="cmd"><span class="prompt">Src&gt;</span> Make release</pre>
@@ -600,7 +640,6 @@
 	the <code>release</code> target is not supported by
 	<code>Src\GUI\Makefile</code>.
 </p>
-
 
 <p>
 	By default the release file is called <code>dd-pashi.zip</code>. You can
@@ -615,6 +654,25 @@
 	Release zip files are always placed in the <code>Release</code>
 	directory. The directory is created if it doesn't exist.
 </p>
+
+<h2>
+  One-shot Build and Release
+</h2>
+
+<p>
+  When you are ready to created a release there is a shortcut you can you to
+  configure the source tree, build the executables then the setup program and
+  finally package the release zip file. Use the following command:
+</p>
+
+<pre class="cmd"><span class="prompt">Src&gt;</span> Make all</pre>
+
+<p>
+  Once again you can change the release file name using the
+  <code>RELEASEFILENAME</code> environment variable or macro:
+</p>
+
+<pre class="cmd"><span class="prompt">Src&gt;</span> Make -DRELEASEFILENAME=MyRelease all</pre>
 
 <h2>
 	Clean Up
@@ -657,9 +715,8 @@
 
 <p>
 	If you are planning to re-use or modify any of the code, please see the
-	<code>SourceCodeLicenses.txt</code> files in the <code>Docs</code> and
-	<code>Docs\GUI</code> directories for an overview of the open source
-	licenses that apply to the source code.
+	<code>SourceCodeLicenses.txt</code> file in the <code>Docs</code> directory
+	for an overview of the open source licenses that apply to the source code.
 </p>
 
 </body>
