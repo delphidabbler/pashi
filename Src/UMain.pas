@@ -73,8 +73,8 @@ uses
   // Delphi
   SysUtils, Windows,
   // Project
-  IO.UTypes, IO.Readers.UFactory, IO.Writers.UFactory, UParams, URenderers,
-  USourceProcessor;
+  IO.UTypes, IO.Readers.UFactory, IO.Writers.UFactory, IO.UHelper, UParams,
+  URenderers, USourceProcessor;
 
 
 function GetProductVersionStr: string;
@@ -128,28 +128,6 @@ resourcestring
   sCompleted = 'Completed';
   sError = 'Error: %s';
   sUsage = 'Usage: PasHi ([-rc] [-wc] [-frag | -hidecss] [-q] ) | -h';
-  sHelp =
-      '  -rc      | Takes input from clipboard instead of standard input.'#13#10
-    + '  -wc      | Writes HTML output to clipboard (CF_TEXT format) instead '
-    + 'of '#13#10
-    + '           | standard output.'#13#10
-    + '  -frag    | Writes HTML fragment rather than complete XHTML '
-    + 'document'#13#10
-    + '           | contains only <pre> tag containing source - user must '
-    + 'provide a'#13#10
-    + '           | style sheet with required names. Do not use with '
-    + '-hidecss'#13#10
-    + '  -hidecss | Protects embedded CSS style in HTML comments (required '
-    + 'for some'#13#10
-    + '           | old browsers). Do not use with -frag.'#13#10
-    + '  -q       | Quiet mode - does not write to console.'#13#10
-    + '  -h       | Displays help screen (quiet mode ignored).'#13#10
-    + #13#10
-    + 'Input is read from standard input and highlighted HTML code is written '
-    + 'to'#13#10
-    + 'standard output unless -rc or -wc switches are used.'#13#10
-    + 'If -frag and -hidecss are used together, last one used takes '
-    + 'precedence.';
 
 { TMain }
 
@@ -251,12 +229,19 @@ end;
 procedure TMain.ShowHelp;
   {Writes help text to console.
   }
+var
+  RS: TResourceStream;
 begin
   SignOn;
   fConsole.WriteLn;
-  fConsole.WriteLn(sUsage);
-  fConsole.WriteLn;
-  fConsole.WriteLn(sHelp);
+  RS := TResourceStream.Create(HInstance, 'HELP', RT_RCDATA);
+  try
+    fConsole.WriteLn(
+      TIOHelper.BytesToString(TIOHelper.StreamToBytes(RS))
+    );
+  finally
+    RS.Free;
+  end;
 end;
 
 procedure TMain.SignOn;

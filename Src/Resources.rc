@@ -21,3 +21,6 @@ MAINICON ICON Assets\PasHi.ico
 /* Default CSS */
 CSS_DEFAULT RCDATA Assets\Default.css
 
+/* Help screen text */
+HELP RCDATA Assets\Help.txt
+
