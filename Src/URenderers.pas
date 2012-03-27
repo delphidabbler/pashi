@@ -178,7 +178,7 @@ implementation
 
 uses
   SysUtils, StrUtils, Classes, Windows,
-  UHTMLUtils, IO.UHelper, Hiliter.UGlobals, Hiliter.UHiliters;
+  UHTMLUtils, IO.UHelper, Hiliter.UGlobals, Hiliter.UHiliters, UConfigFiles;
 
 { TRendererFactory }
 
@@ -469,8 +469,15 @@ begin
 end;
 
 function TCSSFileRenderer.GetCSS: string;
+var
+  FileName: string;
 begin
-  Result := TIOHelper.FileToString(fCSSFile); // copes with encodings with BOMs
+  if not ContainsStr(fCSSFile, PathDelim) then
+    FileName := IncludeTrailingPathDelimiter(TConfigFiles.UserConfigDir)
+      + fCSSFile
+  else
+    FileName := fCSSFile;
+  Result := TIOHelper.FileToString(FileName); // copes with encodings with BOMs
 end;
 
 { TCSSResourceRenderer }

@@ -33,12 +33,12 @@ type
 
   TConfigFiles = class(TObject)
   strict private
-    class function UserConfigDir: string;
     class function FindConfigFile(const BaseName: string; out FullPath: string):
       Boolean;
     class function ConfigFileName: string;
   public
     class function ConfigFileReaderInstance: TConfigFileReader;
+    class function UserConfigDir: string;
   end;
 
 implementation
