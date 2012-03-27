@@ -73,7 +73,6 @@ deepclean: clean
   @cd ..
   # remove files created by make config
   -@del /S *.cfg 2>nul
-  -@del /S *.bdsproj 2>nul
   # remove folders created by make config
   -@if exist Bin rmdir /S /Q Bin
   -@if exist Exe rmdir /S /Q Exe
