@@ -244,6 +244,9 @@
 		<a href="#usage">Using <em>PasHi</em></a>
 	</li>
 	<li>
+		<a href="#config">Configuring <em>PasHi</em></a>
+	</li>
+	<li>
 		<a href="#css">CSS styles used by <em>PasHi</em></a>
 	</li>
 	<li>
@@ -425,7 +428,7 @@
 <p class="pullout">
   Note that if you do not redirect output the resulting HTML is displayed on the
   console. If you don't redirect input then you must enter the source code
-  manually on the command line, a line at a time. When you have finished you 
+  manually on the command line, a line at a time. When you have finished you
   must signal end-of-file by pressing <span class="smallcaps">Ctrl+Z</span> on a
   line on its own, followed by <span class="smallcaps">Return</span>.
 </p>
@@ -561,7 +564,7 @@
         </li>
       </ul>
       The short form of the command, <code>-b</code>, acts as a switch:
-      <code>-b+</code> and <code>-b1</code> include branding while 
+      <code>-b+</code> and <code>-b1</code> include branding while
       <code>-b-</code> and <code>-b0</code> exclude it.<br />
       This command only has any effect when used in combination with
       <code>--doc-type&nbsp;xhtml-fragment</code>.
@@ -574,7 +577,7 @@
       Specifies the language used in the output document. A language code
       recognised by HTML must be provided in the parameter that immediately
       follows this command. The code is not checked. If this command is not
-      supplied then no language information is included in the output file. 
+      supplied then no language information is included in the output file.
       This command is ignored if the <code>--doc-type&nbsp;xhtml-fragment</code>
       command is specifed.
     </td>
@@ -884,12 +887,72 @@
 </ol>
 
 <p>
-  If you mainly use <em>PasHi</em> in this way you can add the following
-  commands to the <code>config</code> file to change <em>PashHi</em>'s default
-  action to read and write the clipboard using XHTML fragments:
+  If you mainly use <em>PasHi</em> in this way you can configure <em>PasHi</em>
+  to use those parameters by default. See <a
+    href="#config"
+  >Configuring <em>PasHi</em></a> for details.
 </p>
 
-<pre>input-clipboard
+<p class="gototop">
+	&raquo; <a href="#contents">Contents</a>
+</p>
+
+<h2 id="config">
+  Configuring <em>PasHi</em>
+</h2>
+
+<p>
+  <em>PasHi</em> reads the <code>config</code> file in the
+  <code>%AppData%\DelphiDabbler\PasHi</code> directory when it starts up. Any
+  commands it finds in that file can be used to change the program's default
+  state.
+</p>
+
+<p>
+  You can edit <code>config</code> as required. The format of the file is as
+  follows:
+</p>
+
+<ul class="spaced">
+  <li>
+    Each command is listed on its own line.
+  </li>
+  <li>
+    Where a command takes a parameter the parameter should be placed on the same
+    line as the command, separated from it by one or more spaces. Parameters
+    containing spaces should not be quoted (unlike on the command line).
+  </li>
+  <li>
+    All the long form command listed in <a
+      href="#usage"
+    >Using <em>PasHi</em></a> have an equivalent in the config file. Config
+    commands have the same name as the long form version except that the leading
+    &quot;--&quot; characters are omitted.
+  </li>
+  <li>
+    Lines begining with &quot;#&quot; are treated as comments and ignored.
+  </li>
+  <li>
+    Leading and trailing spaces are ignored.
+  </li>
+</ul>
+
+<p>
+  The default <code>config</code> file installed with <em>PasHi</em> does
+  nothing but is copiously commented and includes all possible commands. To make
+  changes simply add the required commands to the file.
+</p>
+
+<p>
+  As mentioned in <a
+    href="#usage"
+  >Using <em>PasHi</em></a>, a common use for <em>PasHi</em> is to highlight
+  source code from the clipboard as an XHTML fragment and place that back on the
+  clipboard. Instead of using the necessary commands each time you run
+  <em>PasHi</em> you can add the following commands to the config file:
+</p>
+  
+<pre class="indent">input-clipboard
 output-clipboard
 doc-type xhtml-fragment</pre>
 
@@ -900,14 +963,26 @@ doc-type xhtml-fragment</pre>
 <pre class="indent">PasHi</pre>
 
 <p>
-  on its own on the command line. However, if you do this, you will need to use
-  the <code>--input-stdin</code>, <code>--output-stdout</code> and
+  on its own on the command line and it will perform the required actions by
+  default. Be warned that if you do this, you will need to use the
+  <code>--input-stdin</code>, <code>--output-stdout</code> and
   <code>--doc-type xhtml</code> commands to revert to normal behaviour.
 </p>
 
-<p class="gototop">
-	&raquo; <a href="#contents">Contents</a>
+<p>
+  Another useful example is if you provide your own CSS file containing your
+  desired highlighting style that you always want to use. To save you having
+  to specify this file on the command line each time, simply put a suitable
+  command in <code>config</code>, for example, to embed CSS use:
 </p>
+
+<pre class="indent">embed-css C:\CSS\pascal-hilite.css</pre>
+
+<p>
+  or to link to your CSS file on the net:
+</p>
+
+<pre class="indent">link-css http://example.com/css/pascal-hilite.css</pre>
 
 <h2 id="css">
 	CSS styles used by <em>PasHi</em>
