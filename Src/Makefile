@@ -82,6 +82,7 @@ clean:
   -@del /S *.ddp 2>nul
   -@del /S *.local 2>nul
   -@del /S *.identcache 2>nul
+  -@del /S *.tvsconfig 2>nul
   # remove any __history folders
   -@for /F "usebackq" %i in (`dir /S /B /A:D ..\__history`) do @rmdir /S /Q %i
   @cd Src
