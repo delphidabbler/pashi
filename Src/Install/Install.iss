@@ -40,7 +40,7 @@
 #define WebAddress "www.delphidabbler.com"
 #define WebURL "http://" + WebAddress + "/"
 #define AppURL WebURL + "/software/pashi"
-#define AppDataDir "{userappdata}\" + AppPublisher + "\" + AppName
+#define AppDataDir "{commonappdata}" + "\" + AppPublisher + "\" + AppName;
 
 
 [Setup]
@@ -87,7 +87,7 @@ Source: {#SrcExePath}{#ExeFile}; DestDir: {app}; Flags: uninsrestartdelete repla
 Source: {#SrcExePath}PasHiGUI.exe; DestDir: {app}; Flags: uninsrestartdelete replacesameversion
 Source: {#SrcDocsPath}{#LicenseFile}; DestDir: {app}; Flags: ignoreversion
 Source: {#SrcDocsPath}{#ReadmeFile}; DestDir: {app}; Flags: ignoreversion
-Source: {#SrcConfigPath}config; DestDir: {#AppDataDir}; Flags: onlyifdoesntexist
+Source: {#SrcConfigPath}config; DestDir: {#AppDataDir}; Flags: ignoreversion
 Source: {#SrcConfigPath}config; DestDir: {#AppDataDir}; DestName: config-default; Flags: ignoreversion
 
 [Icons]
@@ -96,10 +96,10 @@ Name: {group}\{cm:UninstallProgram,{#AppName}}; Filename: {uninstallexe}
 
 [Run]
 Filename: {app}\{#ReadMeFile}; Description: "View the README file"; Flags: nowait postinstall skipifsilent shellexec
-Filename: {app}\{#ExeFile}; Description: {cm:LaunchProgram,DelphiDabbler 8 Queens}; Flags: nowait postinstall skipifsilent
 
 [Dirs]
 Name: {app}\{#InstUninstDir}; Flags: uninsalwaysuninstall
+Name: {#AppDataDir};
 
 [Messages]
 ; Brand installer
