@@ -98,9 +98,13 @@ Name: {group}\{cm:UninstallProgram,{#AppName}}; Filename: {uninstallexe}
 Filename: {app}\{#ReadMeFile}; Description: "View the README file"; Flags: nowait postinstall skipifsilent shellexec
 
 [Dirs]
-Name: {app}\{#InstUninstDir}; Flags: uninsalwaysuninstall
 Name: {#AppDataDir};
 
 [Messages]
 ; Brand installer
 BeveledLabel={#Company}
+
+[UninstallDelete]
+; Deletes common app config etc. directory & files
+; (per-user directory & files are left in place)
+Type: filesandordirs; Name: {#AppDataDir}
