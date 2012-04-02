@@ -22,52 +22,51 @@
     font-size: 9pt;
 }
 
-.comment, .pas-comment {
+.code-pascal .comment, .pas-comment {
     font-style: italic;
     font-weight: normal;
     text-decoration: none;
     color: #000080;
 }
 
-.kwd, .pas-kwd {
+.code-pascal .kwd, .pas-kwd {
     font-style: normal;
     font-weight: bold;
     text-decoration: none;
 }
 
-.str, .pas-str {
+.code-pascal .str, .pas-str {
     font-style: normal;
     font-weight: normal;
     text-decoration: none;
     color: #800080;
 }
 
-.num, .pas-num,
-.float, .pas-float,
-.hex, .pas-hex {
+.code-pascal .num, .pas-num,
+.code-pascal .float, .pas-float,
+.code-pascal .hex, .pas-hex {
     font-style: normal;
     font-weight: normal;
     text-decoration: none;
     color: #800000;
 }
 
-.preproc, .pas-preproc {
+.code-pascal .preproc, .pas-preproc {
     font-style: normal;
     font-weight: normal;
     text-decoration: none;
     color: #008000;
 }
 
-.asm, .pas-asm {
+.code-pascal .asm, .pas-asm {
     font-style: italic;
     font-weight: normal;
     text-decoration: none;
 }
 
-.err, .pas-err {
+.code-pascal .err, .pas-err {
     font-style: normal;
     font-weight: normal;
     text-decoration: none;
     color: #FF0000;
 }
-
