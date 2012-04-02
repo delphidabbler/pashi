@@ -96,6 +96,7 @@ type
     fTrimSource: Boolean;
     fInFiles: TStringList;
     fSeparatorLines: TSeparatorLines;
+    fLegacyCSSNames: Boolean;
     function GetInputFiles: TArray<string>;
   public
     constructor Create;
@@ -136,6 +137,8 @@ type
       read fTrimSource write fTrimSource default True;
     property SeparatorLines: TSeparatorLines
       read fSeparatorLines write fSeparatorLines default 1;
+    property LegacyCSSNames: Boolean
+      read fLegacyCSSNames write fLegacyCSSNames default False;
     procedure AddInputFile(const FN: string);
     function OutputEncoding: TEncoding;
     function OutputEncodingName: string;
@@ -172,6 +175,7 @@ begin
   fVerbosity := vbNormal;
   fTrimSource := True;
   fSeparatorLines := 1;
+  fLegacyCSSNames := False;
 end;
 
 destructor TConfig.Destroy;

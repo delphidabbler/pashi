@@ -168,8 +168,10 @@ type
   TSourceCodeRenderer = class(TInterfacedObject, IRenderer)
   strict private
     fSourceCode: string;
+    fLegacyCSSNames: Boolean;
   public
-    constructor Create(const SourceCode: string);
+    constructor Create(const SourceCode: string;
+      const LegacyCSSClasses: Boolean);
     function Render: string;
   end;
 
@@ -213,7 +215,9 @@ begin
             Config.CSSLocation
           );
       end;
-      DocParams.SourceCode := TSourceCodeRenderer.Create(SourceCode);
+      DocParams.SourceCode := TSourceCodeRenderer.Create(
+        SourceCode, Config.LegacyCSSNames
+      );
       Result := TXHTMLDocumentRenderer.Create(DocParams);
     end;
     dtXHTMLFragment:
@@ -221,7 +225,9 @@ begin
       FragParams.GeneratorComment := TGeneratorCommentRenderer.Create(
         Config.BrandingPermitted
       );
-      FragParams.SourceCode := TSourceCodeRenderer.Create(SourceCode);
+      FragParams.SourceCode := TSourceCodeRenderer.Create(
+        SourceCode, Config.LegacyCSSNames
+      );
       Result := TXHTMLFragmentRenderer.Create(FragParams);
     end;
   end;
@@ -513,17 +519,22 @@ end;
 
 { TSourceCodeRenderer }
 
-constructor TSourceCodeRenderer.Create(const SourceCode: string);
+constructor TSourceCodeRenderer.Create(const SourceCode: string;
+  const LegacyCSSClasses: Boolean);
 begin
   inherited Create;
   fSourceCode := SourceCode;
+  fLegacyCSSNames := LegacyCSSClasses;
 end;
 
 function TSourceCodeRenderer.Render: string;
 var
   Hiliter: ISyntaxHiliter;
 begin
-  Hiliter := TXHTMLHiliter.Create(TLegacyCSSNames.Create);
+  if fLegacyCSSNames then
+    Hiliter := TXHTMLHiliter.Create(TLegacyCSSNames.Create)
+  else
+    Hiliter := TXHTMLHiliter.Create(TCSSNames.Create);
   Result := Trim(Hiliter.Hilite(fSourceCode));
 end;
 

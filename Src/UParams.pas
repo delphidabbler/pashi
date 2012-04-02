@@ -43,6 +43,7 @@ type
     siEmbedCSS,         // embed css from a file
     siLinkCSS,          // link to external CSS file
     siDefaultCSS,       // embed default CSS
+    siLegacyCSS,        // use legacy CSS class names
     siLanguage,         // specify output language
     siLanguageNeutral,  // no output language specified
     siTitle,            // document title
@@ -186,6 +187,7 @@ begin
     Add('--embed-css', siEmbedCSS);
     Add('--default-css', siDefaultCSS);
     Add('--link-css', siLinkCSS);
+    Add('--legacy-css', siLegacyCSS);
     Add('--branding', siBranding);
     Add('--output-clipboard', siOutputClipboard);
     Add('--output-file', siOutputFile);
@@ -487,6 +489,11 @@ begin
     begin
       fConfig.CSSLocation := GetStringParameter(Command);
       fConfig.CSSSource := csLink;
+      fParamQueue.Dequeue;
+    end;
+    siLegacyCSS:
+    begin
+      fConfig.LegacyCSSNames := GetBooleanParameter(Command);
       fParamQueue.Dequeue;
     end;
     siLanguage:
