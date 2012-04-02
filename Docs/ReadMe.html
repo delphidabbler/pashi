@@ -688,6 +688,33 @@
     </td>
   </tr>
   <tr>
+    <td class="switch">--legacy-css</td>
+    <td class="switch">&nbsp;</td>
+    <td>
+      Determines whether CSS classes in generated XHTML documents revert to
+      those used in <em>PasHi</em> v1 (legacy) or whether the new class names
+      introduced in <em>PasHi</em> v2 are used. The next parameter must have one
+      of the following values:
+      <ul class="squashed">
+        <li>
+          <code>True</code>, <code>1</code>, <code>Y</code>, <code>yes</code> or
+          <code>on</code>:
+          Use legacy (<em>PasHi</em> v1 style class names.
+        </li>
+        <li>
+          <code>False</code>, <code>0</code>, <code>N</code>, <code>no</code> or
+          <code>off</code>:
+          Use new CSS class names (the default).
+        </li>
+      </ul>
+      When using the <code>--embed-css</code> or <code>--link-css</code> you
+      should be careful to ensure that the class names in the CSS file you are
+      embedding or linking provides the correct class names.<br />
+      This command is provided mainly when you are committed to using the old
+      CSS style names.
+    </td>
+  </tr>
+  <tr>
     <td class="switch">--encoding</td>
     <td class="switch">-e</td>
     <td>
@@ -958,7 +985,7 @@
   clipboard. Instead of using the necessary commands each time you run
   <em>PasHi</em> you can add the following commands to the config file:
 </p>
-  
+
 <pre class="indent">input-clipboard
 output-clipboard
 doc-type xhtml-fragment</pre>

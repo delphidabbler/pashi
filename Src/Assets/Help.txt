@@ -58,6 +58,12 @@ PasHi supports the following commands:
                            The following parameter must contain a language code
                            that HTML recognises. E.g. "en" or "en-gb".
 --language-neutral         Outputs no language information [default].
+--legacy-css               Determines which CSS class names are used in the
+                           output XHTML document. These can either the current
+                           names or the same names used in PasHi v1. The next
+                           parameter must supply one of the following values:
+                             yes - use PasHi v1 CSS class names
+                             no - use current CSS class names [default].
 --link-css           -k    Generates a <link> tag in the output XHTML document
                            that references an external CSS file. A full or
                            partial URL must be specified in the next parameter.

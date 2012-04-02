@@ -134,6 +134,14 @@
 #   hide-css no
 
 
+# --- CSS class naming convention ---
+# Command:
+#   legacy-css <param>
+#     where <param> is either "yes" of "no"
+# Default:
+#   legacy-css no
+
+
 # --- Output verbosity ---
 # Commands:
 #   verbosity <param>
