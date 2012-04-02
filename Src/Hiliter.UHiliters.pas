@@ -97,9 +97,17 @@ type
   end;
 
 type
+  TLegacyCSSNames = class(TInterfacedObject, ICSSClassNames)
+  public
+    function MainClass: string;
+    function ElementClass(const Elem: THiliteElement): string;
+  end;
+
+type
   TXHTMLHiliter = class sealed(TParsedSyntaxHiliter, ISyntaxHiliter)
   strict private
     fIsFirstLine: Boolean; // Record whether we are about to write first line
+    fCSSClases: ICSSClassNames;  // provides name of CSS classes
   strict protected
     procedure BeginDoc; override;
       {Called just before document is parsed: writes opening <pre> tag.
@@ -125,15 +133,8 @@ type
       required.
         @param Elem [in] Kind of highlight element.
       }
-    function GetMainCSSClass: string;
-      {Gets name of CSS class used to format the whole of the source code.
-        @return name of CSS class.
-      }
-    function GetElemCSSClass(const Elem: THiliteElement): string;
-      {Gets name of CSS class associated with a highlight element.
-        @param Elem [in] Element for which we need CSS class name.
-        @return Name of CSS class.
-      }
+  public
+    constructor Create(CSSClasses: ICSSClassNames); reintroduce;
   end;
 
 implementation
@@ -282,13 +283,13 @@ procedure TXHTMLHiliter.BeforeElem(Elem: THiliteElement);
 begin
   inherited;
   // Open a span for required class
-  Writer.AppendFormat('<span class="%s">', [GetElemCSSClass(Elem)]);
+  Writer.AppendFormat('<span class="%s">', [fCSSClases.ElementClass(Elem)]);
 end;
 
 procedure TXHTMLHiliter.BeginDoc;
 begin
   fIsFirstLine := True;
-  Writer.AppendFormat('<pre class="%s">', [GetMainCSSClass])
+  Writer.AppendFormat('<pre class="%s">', [fCSSClases.MainClass])
 end;
 
 procedure TXHTMLHiliter.BeginLine;
@@ -301,17 +302,26 @@ begin
     Writer.AppendLine;
 end;
 
+constructor TXHTMLHiliter.Create(CSSClasses: ICSSClassNames);
+begin
+  inherited Create;
+  fCSSClases := CSSClasses;
+end;
+
 procedure TXHTMLHiliter.EndDoc;
 begin
   Writer.AppendLine('</pre>');
 end;
 
-function TXHTMLHiliter.GetElemCSSClass(
-  const Elem: THiliteElement): string;
-  {Gets name of CSS class associated with a highlight element.
-    @param Elem [in] Element for which we need CSS class name.
-    @return Name of CSS class.
-  }
+procedure TXHTMLHiliter.WriteElem(const ElemText: string);
+begin
+  // Write element text with illegal characters converted to entities
+  Writer.Append(MakeSafeHTMLText(ElemText));
+end;
+
+{ TLegacyCSSNames }
+
+function TLegacyCSSNames.ElementClass(const Elem: THiliteElement): string;
 const
   // Map of highlight element kinds onto name of CSS class used to format it
   cClassMap: array[THiliteElement] of string = (
@@ -332,18 +342,9 @@ begin
   Result := cClassMap[Elem];
 end;
 
-function TXHTMLHiliter.GetMainCSSClass: string;
-  {Gets name of CSS class used to format the whole of the source code.
-    @return Name of CSS class.
-  }
+function TLegacyCSSNames.MainClass: string;
 begin
   Result := 'pas-source';
-end;
-
-procedure TXHTMLHiliter.WriteElem(const ElemText: string);
-begin
-  // Write element text with illegal characters converted to entities
-  Writer.Append(MakeSafeHTMLText(ElemText));
 end;
 
 end.

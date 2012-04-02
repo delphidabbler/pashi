@@ -523,7 +523,7 @@ function TSourceCodeRenderer.Render: string;
 var
   Hiliter: ISyntaxHiliter;
 begin
-  Hiliter := TXHTMLHiliter.Create;
+  Hiliter := TXHTMLHiliter.Create(TLegacyCSSNames.Create);
   Result := Trim(Hiliter.Hilite(fSourceCode));
 end;
 

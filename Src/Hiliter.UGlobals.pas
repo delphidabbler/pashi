@@ -61,6 +61,12 @@ type
       }
   end;
 
+  ICSSClassNames = interface(IInterface)
+    ['{98845F5E-9871-4821-9850-010BF3B9C0B3}']
+    function MainClass: string;
+    function ElementClass(const Elem: THiliteElement): string;
+  end;
+
 
 implementation
 
