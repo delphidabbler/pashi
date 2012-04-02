@@ -12,63 +12,59 @@
  */
 
 
-/*
-  .pas-source class sets font for whole of source code: background colour,
-  border, margins and padding could also be set here
+ /*
+  All classes have two names: the first name is that used by default in PasHi v2
+  and later while the second is the older class name used in PasHi v1.
 */
 
-.pas-source {
+.code-pascal, .pas-source {
     font-family: "Courier New", monospace;
     font-size: 9pt;
 }
 
-
-/*
-  remaining classes set text colour, style, weight and decoration for each
-  highlighted element
-*/
-
-.pas-comment {
+.comment, .pas-comment {
     font-style: italic;
     font-weight: normal;
     text-decoration: none;
     color: #000080;
 }
 
-.pas-kwd {
+.kwd, .pas-kwd {
     font-style: normal;
     font-weight: bold;
     text-decoration: none;
 }
 
-.pas-str {
+.str, .pas-str {
     font-style: normal;
     font-weight: normal;
     text-decoration: none;
     color: #800080;
 }
 
-.pas-num, .pas-float, .pas-hex {
+.num, .pas-num,
+.float, .pas-float,
+.hex, .pas-hex {
     font-style: normal;
     font-weight: normal;
     text-decoration: none;
     color: #800000;
 }
 
-.pas-preproc {
+.preproc, .pas-preproc {
     font-style: normal;
     font-weight: normal;
     text-decoration: none;
     color: #008000;
 }
 
-.pas-asm {
+.asm, .pas-asm {
     font-style: italic;
     font-weight: normal;
     text-decoration: none;
 }
 
-.pas-err {
+.err, .pas-err {
     font-style: normal;
     font-weight: normal;
     text-decoration: none;

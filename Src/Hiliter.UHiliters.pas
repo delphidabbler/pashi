@@ -103,6 +103,11 @@ type
     function ElementClass(const Elem: THiliteElement): string;
   end;
 
+  TCSSNames = class(TInterfacedObject, ICSSClassNames)
+    function MainClass: string;
+    function ElementClass(const Elem: THiliteElement): string;
+  end;
+
 type
   TXHTMLHiliter = class sealed(TParsedSyntaxHiliter, ISyntaxHiliter)
   strict private
@@ -345,6 +350,34 @@ end;
 function TLegacyCSSNames.MainClass: string;
 begin
   Result := 'pas-source';
+end;
+
+{ TCSSNames }
+
+function TCSSNames.ElementClass(const Elem: THiliteElement): string;
+const
+  // Map of highlight element kinds onto name of CSS class used to format it
+  cClassMap: array[THiliteElement] of string = (
+    'space',    // heWhitespace
+    'comment',  // heComment
+    'kwd',      // heReserved
+    'ident',    // heIdentifier
+    'sym',      // heSymbol
+    'str',      // heString
+    'num',      // heNumber
+    'float',    // heFloat
+    'hex',      // heHex
+    'preproc',  // hePreProcessor
+    'asm',      // heAssembler
+    'err'       // heError
+  );
+begin
+  Result := cClassMap[Elem];
+end;
+
+function TCSSNames.MainClass: string;
+begin
+  Result := 'code-pascal';
 end;
 
 end.
