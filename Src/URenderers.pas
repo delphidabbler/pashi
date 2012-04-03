@@ -17,7 +17,7 @@ unit URenderers;
 interface
 
 uses
-  UConfig;
+  Hiliter.UGlobals, UConfig;
 
 type
   IRenderer = interface(IInterface)
@@ -169,9 +169,10 @@ type
   strict private
     fSourceCode: string;
     fLegacyCSSNames: Boolean;
+    fHiliteOptions: THiliteOptions;
   public
     constructor Create(const SourceCode: string;
-      const LegacyCSSClasses: Boolean);
+      const LegacyCSSClasses: Boolean; const HiliteOptions: THiliteOptions);
     function Render: string;
   end;
 
@@ -180,7 +181,7 @@ implementation
 
 uses
   SysUtils, StrUtils, Classes, Windows,
-  UHTMLUtils, IO.UHelper, Hiliter.UGlobals, Hiliter.UHiliters, UConfigFiles;
+  UHTMLUtils, IO.UHelper, Hiliter.UHiliters, UConfigFiles;
 
 { TRendererFactory }
 
@@ -216,7 +217,13 @@ begin
           );
       end;
       DocParams.SourceCode := TSourceCodeRenderer.Create(
-        SourceCode, Config.LegacyCSSNames
+        SourceCode,
+        Config.LegacyCSSNames,
+        THiliteOptions.Create(
+          Config.UseLineNumbering,
+          Config.LineNumberWidth,
+          Config.LineNumberPadding
+        )
       );
       Result := TXHTMLDocumentRenderer.Create(DocParams);
     end;
@@ -226,7 +233,13 @@ begin
         Config.BrandingPermitted
       );
       FragParams.SourceCode := TSourceCodeRenderer.Create(
-        SourceCode, Config.LegacyCSSNames
+        SourceCode,
+        Config.LegacyCSSNames,
+        THiliteOptions.Create(
+          Config.UseLineNumbering,
+          Config.LineNumberWidth,
+          Config.LineNumberPadding
+        )
       );
       Result := TXHTMLFragmentRenderer.Create(FragParams);
     end;
@@ -520,11 +533,12 @@ end;
 { TSourceCodeRenderer }
 
 constructor TSourceCodeRenderer.Create(const SourceCode: string;
-  const LegacyCSSClasses: Boolean);
+  const LegacyCSSClasses: Boolean; const HiliteOptions: THiliteOptions);
 begin
   inherited Create;
   fSourceCode := SourceCode;
   fLegacyCSSNames := LegacyCSSClasses;
+  fHiliteOptions := HiliteOptions;
 end;
 
 function TSourceCodeRenderer.Render: string;
@@ -535,7 +549,7 @@ begin
     Hiliter := TXHTMLHiliter.Create(TLegacyCSSNames.Create)
   else
     Hiliter := TXHTMLHiliter.Create(TCSSNames.Create);
-  Result := Trim(Hiliter.Hilite(fSourceCode));
+  Result := Trim(Hiliter.Hilite(fSourceCode, fHiliteOptions));
 end;
 
 end.

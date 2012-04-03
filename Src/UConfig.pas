@@ -73,6 +73,8 @@ type
 
   TSeparatorLines = 0..16;
 
+  TLineNumberWidth = 1..6;
+
   {
   TConfig:
     Class that records details of program's configuration. Used to determine
@@ -97,6 +99,9 @@ type
     fInFiles: TStringList;
     fSeparatorLines: TSeparatorLines;
     fLegacyCSSNames: Boolean;
+    fUseLineNumbering: Boolean;
+    fLineNumberWidth: TLineNumberWidth;
+    fLineNumberPadding: Char;
     function GetInputFiles: TArray<string>;
   public
     constructor Create;
@@ -139,6 +144,12 @@ type
       read fSeparatorLines write fSeparatorLines default 1;
     property LegacyCSSNames: Boolean
       read fLegacyCSSNames write fLegacyCSSNames default False;
+    property UseLineNumbering: Boolean
+      read fUseLineNumbering write fUseLineNumbering default False;
+    property LineNumberWidth: TLineNumberWidth
+      read fLineNumberWidth write fLineNumberWidth default 3;
+    property LineNumberPadding: Char
+      read fLineNumberPadding write fLineNumberPadding default ' ';
     procedure AddInputFile(const FN: string);
     function OutputEncoding: TEncoding;
     function OutputEncodingName: string;
@@ -176,6 +187,9 @@ begin
   fTrimSource := True;
   fSeparatorLines := 1;
   fLegacyCSSNames := False;
+  fUseLineNumbering := False;
+  fLineNumberWidth := 3;
+  fLineNumberPadding := ' ';
 end;
 
 destructor TConfig.Destroy;

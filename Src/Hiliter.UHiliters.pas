@@ -37,6 +37,8 @@ type
   TParsedSyntaxHiliter = class abstract(TInterfacedObject)
   strict private
     fWriter: TStringBuilder;  // Helper object used to emit formatted source
+    fLineNumber: Integer;
+    fOptions: THiliteOptions;
     procedure ElementHandler(Parser: THilitePasParser; Elem: THiliteElement;
       const ElemText: string);
       {Handles parser's OnElement event: calls virtual do nothing and abstract
@@ -87,9 +89,13 @@ type
       }
     property Writer: TStringBuilder read fWriter;
       {Helper object used to write formatted code to output}
+    property LineNumber: Integer read fLineNumber write fLineNumber;
+    function LineNumberStr: string;
+    property Options: THiliteOptions read fOptions;
   public
     constructor Create; virtual;
-    function Hilite(const RawCode: string): string;
+    function Hilite(const RawCode: string; const Options: THiliteOptions):
+      string;
       {Highlights source code and writes to a string.
         @param RawCode [in] Contains source code to be highlighted.
         @return Highlighted source code.
@@ -220,14 +226,13 @@ begin
   // Do nothing: descendants override
 end;
 
-function TParsedSyntaxHiliter.Hilite(const RawCode: string): string;
-  {Highlights source code and writes to a string.
-    @param RawCode [in] Contains source code to be highlighted.
-    @return Highlighted source code.
-  }
+function TParsedSyntaxHiliter.Hilite(const RawCode: string;
+  const Options: THiliteOptions): string;
 var
   Parser: THilitePasParser;   // object used to parse source
 begin
+  fOptions := Options;
+  fLineNumber := 0;
   fWriter := TStringBuilder.Create;
   try
     // Create parser
@@ -256,6 +261,7 @@ procedure TParsedSyntaxHiliter.LineBeginHandler(Parser: THilitePasParser);
     @param Parser [in] Reference to parser that triggered event (unused).
   }
 begin
+  Inc(fLineNumber);
   BeginLine;
 end;
 
@@ -266,6 +272,13 @@ procedure TParsedSyntaxHiliter.LineEndHandler(Parser: THilitePasParser);
   }
 begin
   EndLine;
+end;
+
+function TParsedSyntaxHiliter.LineNumberStr: string;
+begin
+  Result := IntToStr(fLineNumber);
+  while Length(Result) < Options.Width do
+    Result := Options.Padding + Result;
 end;
 
 { TXHTMLHiliter }
@@ -302,9 +315,17 @@ begin
   // Note we don't emit CRLF before first line since it must be on same line as
   // any opening <pre> tag
   if fIsFirstLine then
+  begin
     fIsFirstLine := False
+  end
   else
+  begin
     Writer.AppendLine;
+  end;
+  if Options.UseLineNumbering then
+    Writer.Append(
+      Format('<span class="linenum">%s</span>', [LineNumberStr])
+    );
 end;
 
 constructor TXHTMLHiliter.Create(CSSClasses: ICSSClassNames);

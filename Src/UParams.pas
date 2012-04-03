@@ -53,6 +53,9 @@ type
     siVerbosity,        // determines amount of messages output by program
     siTrim,             // determines if source code is trimmed
     siSeparatorLines,   // specifies number of lines that separate source files
+    siLineNumbering,    // determines if output file is to be line numbered
+    siLineNumberWidth,  // specifies width of line numbers in characters
+    siLineNumberPadding,// specifies character used to pad line number lines
     siQuiet             // don't display any output to console
   );
 
@@ -106,6 +109,7 @@ type
       fDocTypeLookup: TDictionary<string, TDocType>;
       fBooleanLookup: TDictionary<string, Boolean>;
       fVerbosityLookup: TDictionary<string, TVerbosity>;
+      fPaddingLookup: TDictionary<string, Char>;
       fConfig: TConfig; // Reference to program's configuration object
     procedure GetConfigParams;
     procedure GetCmdLineParams;
@@ -118,6 +122,7 @@ type
     function GetVerbosityParameter(const Cmd: TCommand): TVerbosity;
     function GetNumericParameter(const Cmd: TCommand; const Lo, Hi: UInt16):
       UInt16;
+    function GetPaddingParameter(const Cmd: TCommand): Char;
   public
     constructor Create(const Config: TConfig);
     { Class constructor. Initialises object.
@@ -166,10 +171,13 @@ begin
     Add('-d', siOutputDocType);
     Add('-e', siOuputEncoding);
     Add('-h', siHelp);
+    Add('-i', siLineNumberWidth);
     Add('-k', siLinkCSS);
     Add('-l', siLanguage);
     Add('-m', siTrim);
+    Add('-n', siLineNumbering);
     Add('-o', siOutputFile);
+    Add('-p', siLineNumberPadding);
     Add('-q', siQuiet);
     Add('-r', siInputClipboard);
     Add('-s', siEmbedCSS);
@@ -198,6 +206,9 @@ begin
     Add('--title-default', siTitleDefault);
     Add('--trim', siTrim);
     Add('--separator-lines', siSeparatorLines);
+    Add('--line-numbering', siLineNumbering);
+    Add('--line-number-width', siLineNumberWidth);
+    Add('--line-number-padding', siLineNumberPadding);
     // commands kept for backwards compatibility with v1.x
     Add('-frag', siFragment);
     Add('-hidecss', siForceHideCSS);
@@ -211,6 +222,7 @@ begin
     Add('-b');
     Add('-c');
     Add('-m');
+    Add('-n');
   end;
   // lookup table for --encoding command values: case insensitive
   fEncodingLookup := TDictionary<string,TOutputEncodingId>.Create(
@@ -263,12 +275,24 @@ begin
     Add('normal', vbNormal);
     Add('quiet', vbQuiet);
   end;
+  fPaddingLookup := TDictionary<string, Char>.Create(
+    TTextEqualityComparer.Create
+  );
+  with fPaddingLookup do
+  begin
+    Add('space', ' ');
+    Add('zero', '0');
+    Add('0', '0');
+    Add('dash', '-');
+    Add('dot', '.');
+  end;
 end;
 
 destructor TParams.Destroy;
 { Class destructor. Tears down object.
   }
 begin
+  fPaddingLookup.Free;
   fVerbosityLookup.Free;
   fBooleanLookup.Free;
   fDocTypeLookup.Free;
@@ -358,6 +382,18 @@ begin
   if (Value < Lo) or (Value > Hi) then
     raise Exception.CreateFmt(sOutOfRange, [Cmd.Name, Lo, Hi]);
   Result := UInt16(Value);
+end;
+
+function TParams.GetPaddingParameter(const Cmd: TCommand): Char;
+var
+  Param: string;
+resourcestring
+  sBadValue = 'Unrecognised padding value "%s"';
+begin
+  Param := GetStringParameter(Cmd);
+  if not fPaddingLookup.ContainsKey(Param) then
+    raise Exception.CreateFmt(sBadValue, [Param]);
+  Result := fPaddingLookup[Param];
 end;
 
 function TParams.GetStringParameter(const Cmd: TCommand): string;
@@ -535,6 +571,28 @@ begin
       fConfig.SeparatorLines := GetNumericParameter(
         Command, Low(TSeparatorLines), High(TSeparatorLines)
       );
+      fParamQueue.Dequeue;
+    end;
+    siLineNumbering:
+    begin
+      if Command.IsSwitch then
+        fConfig.UseLineNumbering := Command.SwitchValue
+      else
+      begin
+        fConfig.UseLineNumbering := GetBooleanParameter(Command);
+        fParamQueue.Dequeue;
+      end;
+    end;
+    siLineNumberWidth:
+    begin
+      fConfig.LineNumberWidth := GetNumericParameter(
+        Command, Low(TLineNumberWidth), High(TLineNumberWidth)
+      );
+      fParamQueue.Dequeue;
+    end;
+    siLineNumberPadding:
+    begin
+      fConfig.LineNumberPadding := GetPaddingParameter(Command);
       fParamQueue.Dequeue;
     end;
     siHelp:

@@ -47,6 +47,19 @@ type
     heError         // an unrecognised piece of code (shouldn't happen)
   );
 
+  THiliteOptions = record
+  strict private
+    fUseLineNumbering: Boolean;
+    fWidth: Byte;
+    fPadding: Char;
+  public
+    property UseLineNumbering: Boolean read fUseLineNumbering;
+    property Width: Byte read fWidth;
+    property Padding: Char read fPadding;
+    constructor Create(AUseLineNumbering: Boolean; AWidth: Byte;
+      APadding: Char);
+  end;
+
   {
   ISyntaxHiliter:
     Interface implemented by all highlighter classes. Provides overloaded
@@ -54,7 +67,8 @@ type
   }
   ISyntaxHiliter = interface(IInterface)
     ['{1E26A663-705C-4A20-A3CE-771176B35F65}']
-    function Hilite(const RawCode: string): string;
+    function Hilite(const RawCode: string; const Options: THiliteOptions):
+      string;
       {Highlights source code and writes to a string.
         @param RawCode [in] Contains source code to be highlighted.
         @return Highlighted source code.
@@ -69,6 +83,24 @@ type
 
 
 implementation
+
+{ THiliteOptions }
+
+constructor THiliteOptions.Create(AUseLineNumbering: Boolean;
+  AWidth: Byte; APadding: Char);
+begin
+  fUseLineNumbering := AUseLineNumbering;
+  if fUseLineNumbering then
+  begin
+    fWidth := AWidth;
+    fPadding := APadding;
+  end
+  else
+  begin
+    fWidth := 0;
+    fPadding := #0;
+  end;
+end;
 
 end.
 
