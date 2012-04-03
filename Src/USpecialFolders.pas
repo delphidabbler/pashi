@@ -27,6 +27,7 @@ type
     class function SpecialFolderPath(CSIDL: Integer): string; static;
   public
     class function UserAppData: string; static;
+    class function CommonAppData: string; static;
   end;
 
 implementation
@@ -35,6 +36,11 @@ uses
   SysUtils, Windows, ActiveX;
 
 { TSpecialFolders }
+
+class function TSpecialFolders.CommonAppData: string;
+begin
+  Result := SpecialFolderPath(CSIDL_COMMON_APPDATA);
+end;
 
 class procedure TSpecialFolders.FreePIDL(PIDL: PItemIDList);
 var
