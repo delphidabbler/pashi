@@ -142,6 +142,20 @@
 #   legacy-css no
 
 
+# -- Line numbering
+# Commands:
+#   line-numbering <param>
+#     where <param> is either "on" or "off"
+#   line-number-width <param>
+#     where <param> is a number in range 1..6
+#   line-number-padding <param>
+#     where <param> is one of "space", "zero", "dot" or "dash"
+# Defaults:
+#   line-numbering off
+#   line-number-width 3
+#   line-number-padding space
+
+
 # --- Output verbosity ---
 # Commands:
 #   verbosity <param>
