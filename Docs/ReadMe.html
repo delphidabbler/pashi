@@ -1237,14 +1237,15 @@ doc-type xhtml-fragment</pre>
     File | Open
   </dt>
   <dd>
-    Opens a source file for highlighting.
+    Opens one or more source files for highlighting. Multiple files are combined
+    before highlighting.
   </dd>
   <dt>
     File | Save
   </dt>
   <dd>
     Saves highlighted code as XTHML to a file. The file can be saved with
-    either an html or txt extension.
+    either .html or .txt extensions.
   </dd>
   <dt>
     File | Exit
@@ -1270,8 +1271,8 @@ doc-type xhtml-fragment</pre>
   </dt>
   <dd>
     When this option is set an HTML fragment is generated instead of a
-    complete XHTML document. For more information see details of
-    <em>PasHi</em>'s <code>-frag</code> switch.
+    complete XHTML document. For more information see the documentation of
+    <em>PasHi</em>'s <code>--doc-type xhtml-fragment</code> command.
   </dd>
   <dt>
     Options | Show Hints
@@ -1291,11 +1292,31 @@ doc-type xhtml-fragment</pre>
 </dl>
 
 <h3>
+  Drag and drop
+</h3>
+
+<p>
+  <em>PasHiGUI</em> supports the following drag and drop operations as a means
+  of inputing source code to be highlighted:
+</p>
+
+<ul class="spaced">
+  <li>
+    Drag and drop one or more file names from Windows Explorer: this opens the
+    dropped file(s). Folders are ignored.
+  </li>
+  <li>
+    Drag and drop selected text from a suitable text editor: the selected text
+    is highlighted and is assumed to be valid Pascal source code.
+  </li>
+</ul>
+
+<h3>
   Main Display
 </h3>
 
 <p>
-  There are three display tabs each of which render the generated XHTML in a
+  There are two display tabs each of which render the generated XHTML in a
   different way:
 </p>
 
@@ -1305,33 +1326,31 @@ doc-type xhtml-fragment</pre>
   </dt>
   <dd>
     Renders the XHTML as it will appear in a browser. If the generated code
-    is a complete document it is display as-is. If it is a fragment the code
+    is a complete document it is displayed as-is. If it is a fragment the code
     is displayed in a yellow box.
   </dd>
   <dt>
     HTML View
   </dt>
   <dd>
-    Displays the generated XHTML code.
+    Displays the generated XHTML source code.
   </dd>
 </dl>
 
 <h3>
-  Errors
+  Dependencies
 </h3>
 
 <p>
-  If you see an error telling you that there is an error executing
-  <em>PasHi</em> because &quot;the system cannot find the file specified&quot;
-  this means that <em>PasHiGUI</em> can't find <em>PasHi</em>. Make sure that
-  <em>PasHiGUI</em> is placed in the same directory as <em>PasHi</em>.
+  <em>PasHiGUI</em> is designed as a front end for <em>PasHi</em> and therefore
+  will not work unless a suitable version of <em>PasHi</em> is installed and
+  accessible. The best solution is to use the correct install program which
+  places <em>PasHiHUI</em> and <em>PasHi</em> in the same directory.
 </p>
 
 <p>
-  You may see an error if <em>PasHi</em> is the wrong version. Make sure
-  <em>PasHi</em>'s file version is at least v1.0.1 and the product version is
-  at least v1.1.0. If you installed both programs from the same zip file you
-  won't have this problem.
+  The version of <em>PasHi</em> being used must be v2 or later. If you used the
+  installer <em>PasHi</em> will be the correct version.
 </p>
 
 <p class="gototop">
