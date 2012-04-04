@@ -51,10 +51,20 @@
 			<DCCReference Include="IO.Readers.UFiles.pas"/>
 			<DCCReference Include="IO.Writers.UFile.pas"/>
 			<DCCReference Include="IO.UHelper.pas"/>
-			<DCCReference Include="URenderers.pas"/>
+			<DCCReference Include="Renderers.UFactory.pas"/>
 			<DCCReference Include="UConfigFiles.pas"/>
 			<DCCReference Include="USpecialFolders.pas"/>
 			<DCCReference Include="USourceProcessor.pas"/>
+			<DCCReference Include="Renderers.UCharSetTag.pas"/>
+			<DCCReference Include="Renderers.UTypes.pas"/>
+			<DCCReference Include="Renderers.UDocType.pas"/>
+			<DCCReference Include="Renderers.UProcInst.pas"/>
+			<DCCReference Include="Renderers.URootTag.pas"/>
+			<DCCReference Include="Renderers.UBranding.pas"/>
+			<DCCReference Include="Renderers.USourceCode.pas"/>
+			<DCCReference Include="Renderers.UTitleTag.pas"/>
+			<DCCReference Include="Renderers.UStyles.pas"/>
+			<DCCReference Include="Renderers.UDocument.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

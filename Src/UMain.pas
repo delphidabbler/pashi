@@ -73,8 +73,9 @@ uses
   // Delphi
   SysUtils, Windows,
   // Project
-  IO.UTypes, IO.Readers.UFactory, IO.Writers.UFactory, IO.UHelper, UParams,
-  URenderers, USourceProcessor;
+  IO.UTypes, IO.Readers.UFactory, IO.Writers.UFactory, IO.UHelper,
+  Renderers.UTypes,
+  UParams, Renderers.UFactory, USourceProcessor;
 
 
 function GetProductVersionStr: string;

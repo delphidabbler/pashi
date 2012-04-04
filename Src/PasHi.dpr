@@ -64,10 +64,20 @@ uses
   IO.Readers.UFiles in 'IO.Readers.UFiles.pas',
   IO.Writers.UFile in 'IO.Writers.UFile.pas',
   IO.UHelper in 'IO.UHelper.pas',
-  URenderers in 'URenderers.pas',
+  Renderers.UFactory in 'Renderers.UFactory.pas',
   UConfigFiles in 'UConfigFiles.pas',
   USpecialFolders in 'USpecialFolders.pas',
-  USourceProcessor in 'USourceProcessor.pas';
+  USourceProcessor in 'USourceProcessor.pas',
+  Renderers.UCharSetTag in 'Renderers.UCharSetTag.pas',
+  Renderers.UTypes in 'Renderers.UTypes.pas',
+  Renderers.UDocType in 'Renderers.UDocType.pas',
+  Renderers.UProcInst in 'Renderers.UProcInst.pas',
+  Renderers.URootTag in 'Renderers.URootTag.pas',
+  Renderers.UBranding in 'Renderers.UBranding.pas',
+  Renderers.USourceCode in 'Renderers.USourceCode.pas',
+  Renderers.UTitleTag in 'Renderers.UTitleTag.pas',
+  Renderers.UStyles in 'Renderers.UStyles.pas',
+  Renderers.UDocument in 'Renderers.UDocument.pas';
 
 { Main program code }
 
