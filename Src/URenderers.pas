@@ -51,27 +51,46 @@ type
   end;
 
 type
-  TXHTMLDocumentParams = record
+  THTMLDocumentParams = record
   public
-    XMLDeclaration: IRenderer;
-    ContentTypeMetaTag: IRenderer;
+    ProcessInst: IRenderer;
+    CharSetTag: IRenderer;
     HTMLTag: IRenderer;
     TitleTag: IRenderer;
     StyleSheet: IRenderer;
     SourceCode: IRenderer;  // maybe not needed if not parameterised
   end;
 
+
 type
   TXHTMLDocumentRenderer = class(TInterfacedObject, IRenderer)
   strict private
-    fRenderers: TXHTMLDocumentParams;
+    fRenderers: THTMLDocumentParams;
   public
-    constructor Create(Renderers: TXHTMLDocumentParams);
+    constructor Create(Renderers: THTMLDocumentParams);
     function Render: string;
   end;
 
 type
-  TXMLDeclarationRenderer = class(TInterfacedObject, IRenderer)
+  THTML4DocumentRenderer = class(TInterfacedObject, IRenderer)
+  strict private
+    fRenderers: THTMLDocumentParams;
+  public
+    constructor Create(Renderers: THTMLDocumentParams);
+    function Render: string;
+  end;
+
+type
+  THTML5DocumentRenderer = class(TInterfacedObject, IRenderer)
+  strict private
+    fRenderers: THTMLDocumentParams;
+  public
+    constructor Create(Renderers: THTMLDocumentParams);
+    function Render: string;
+  end;
+
+type
+  TXMLProcessInstRenderer = class(TInterfacedObject, IRenderer)
   strict private
     fCharSet: string;
   public
@@ -80,7 +99,7 @@ type
   end;
 
 type
-  TContentTypeMetaTagRenderer = class(TInterfacedObject, IRenderer)
+  TXHTMLCharSetTagRenderer = class(TInterfacedObject, IRenderer)
   strict private
     fCharSet: string;
   public
@@ -89,7 +108,34 @@ type
   end;
 
 type
-  THTMLTagRenderer = class(TInterfacedObject, IRenderer)
+  THTML4CharSetTagRenderer = class(TInterfacedObject, IRenderer)
+  strict private
+    fCharSet: string;
+  public
+    constructor Create(const CharSet: string);
+    function Render: string;
+  end;
+
+type
+  THTML5CharSetTagRenderer = class(TInterfacedObject, IRenderer)
+  strict private
+    fCharSet: string;
+  public
+    constructor Create(const CharSet: string);
+    function Render: string;
+  end;
+
+type
+  TXHTMLRootTagRenderer = class(TInterfacedObject, IRenderer)
+  strict private
+    fLanguage: string;
+  public
+    constructor Create(const Language: string);
+    function Render: string;
+  end;
+
+type
+  THTMLRootTagRenderer = class(TInterfacedObject, IRenderer)
   strict private
     fLanguage: string;
   public
@@ -188,19 +234,30 @@ uses
 class function TRendererFactory.CreateRenderer(const SourceCode: string;
   const Config: TConfig): IRenderer;
 var
-  DocParams: TXHTMLDocumentParams;
+  DocParams: THTMLDocumentParams;
   FragParams: TXHTMLFragmentParams;
+  SourceCodeRenderer: IRenderer;
 begin
+  SourceCodeRenderer := TSourceCodeRenderer.Create(
+    SourceCode,
+    Config.LegacyCSSNames,
+    THiliteOptions.Create(
+      Config.UseLineNumbering,
+      Config.LineNumberWidth,
+      Config.LineNumberPadding,
+      Config.Striping
+    )
+  );
   case Config.DocType of
     dtXHTML:
     begin
-      DocParams.XMLDeclaration := TXMLDeclarationRenderer.Create(
+      DocParams.ProcessInst := TXMLProcessInstRenderer.Create(
         Config.OutputEncodingName)
       ;
-      DocParams.ContentTypeMetaTag := TContentTypeMetaTagRenderer.Create(
+      DocParams.CharSetTag := TXHTMLCharSetTagRenderer.Create(
         Config.OutputEncodingName
       );
-      DocParams.HTMLTag := THTMLTagRenderer.Create(Config.Language);
+      DocParams.HTMLTag := TXHTMLRootTagRenderer.Create(Config.Language);
       DocParams.TitleTag := TTitleTagRenderer.Create(Config.Title);
       case Config.CSSSource of
         csDefault:
@@ -216,19 +273,60 @@ begin
             Config.CSSLocation
           );
       end;
-      DocParams.SourceCode := TSourceCodeRenderer.Create(
-        SourceCode,
-        Config.LegacyCSSNames,
-        THiliteOptions.Create(
-          Config.UseLineNumbering,
-          Config.LineNumberWidth,
-          Config.LineNumberPadding,
-          Config.Striping
-        )
-      );
+      DocParams.SourceCode := SourceCodeRenderer;
       Result := TXHTMLDocumentRenderer.Create(DocParams);
     end;
-    dtXHTMLFragment:
+    dtHTML4:
+    begin
+      DocParams.ProcessInst := nil;
+      DocParams.CharSetTag := THTML4CharSetTagRenderer.Create(
+        Config.OutputEncodingName
+      );
+      DocParams.HTMLTag := THTMLRootTagRenderer.Create(Config.Language);
+      DocParams.TitleTag := TTitleTagRenderer.Create(Config.Title);
+      case Config.CSSSource of
+        csDefault:
+          DocParams.StyleSheet := TEmbeddedStyleSheetRenderer.Create(
+            TCSSResourceRenderer.Create, Config.HideCSS
+          );
+        csFile:
+          DocParams.StyleSheet := TEmbeddedStyleSheetRenderer.Create(
+            TCSSFileRenderer.Create(Config.CSSLocation), Config.HideCSS
+          );
+        csLink:
+          DocParams.StyleSheet := TLinkedStyleSheetRenderer.Create(
+            Config.CSSLocation
+          );
+      end;
+      DocParams.SourceCode := SourceCodeRenderer;
+      Result := THTML4DocumentRenderer.Create(DocParams);
+    end;
+    dtHTML5:
+    begin
+      DocParams.ProcessInst := nil;
+      DocParams.CharSetTag := THTML5CharSetTagRenderer.Create(
+        Config.OutputEncodingName
+      );
+      DocParams.HTMLTag := THTMLRootTagRenderer.Create(Config.Language);
+      DocParams.TitleTag := TTitleTagRenderer.Create(Config.Title);
+      case Config.CSSSource of
+        csDefault:
+          DocParams.StyleSheet := TEmbeddedStyleSheetRenderer.Create(
+            TCSSResourceRenderer.Create, Config.HideCSS
+          );
+        csFile:
+          DocParams.StyleSheet := TEmbeddedStyleSheetRenderer.Create(
+            TCSSFileRenderer.Create(Config.CSSLocation), Config.HideCSS
+          );
+        csLink:
+          DocParams.StyleSheet := TLinkedStyleSheetRenderer.Create(
+            Config.CSSLocation
+          );
+      end;
+      DocParams.SourceCode := SourceCodeRenderer;
+      Result := THTML5DocumentRenderer.Create(DocParams);
+    end;
+    dtFragment:
     begin
       FragParams.GeneratorComment := TGeneratorCommentRenderer.Create(
         Config.BrandingPermitted
@@ -266,7 +364,7 @@ end;
 
 { TXHTMLDocumentRenderer }
 
-constructor TXHTMLDocumentRenderer.Create(Renderers: TXHTMLDocumentParams);
+constructor TXHTMLDocumentRenderer.Create(Renderers: THTMLDocumentParams);
 begin
   inherited Create;
   fRenderers := Renderers;
@@ -278,7 +376,7 @@ var
 begin
   Writer := TStringBuilder.Create;
   try
-    Writer.AppendLine(fRenderers.XMLDeclaration.Render);  // <?xml?>
+    Writer.AppendLine(fRenderers.ProcessInst.Render);  // <?xml?>
     Writer.AppendLine(
       '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" '
       + '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'
@@ -286,7 +384,7 @@ begin
     Writer.AppendLine(fRenderers.HTMLTag.Render); // <html>
     // Write head section
     Writer.AppendLine('<head>');
-    Writer.AppendLine(fRenderers.ContentTypeMetaTag.Render); // <meta>
+    Writer.AppendLine(fRenderers.CharSetTag.Render); // <meta>
     Writer.AppendLine(
       '<meta name="generator" content="DelphiDabbler PasHi" />'
     );
@@ -306,15 +404,93 @@ begin
   end;
 end;
 
-{ TXMLDeclarationRenderer }
+{ THTML4DocumentRenderer }
 
-constructor TXMLDeclarationRenderer.Create(const CharSet: string);
+constructor THTML4DocumentRenderer.Create(Renderers: THTMLDocumentParams);
+begin
+  inherited Create;
+  fRenderers := Renderers;
+end;
+
+function THTML4DocumentRenderer.Render: string;
+var
+  Writer: TStringBuilder;
+begin
+  Writer := TStringBuilder.Create;
+  try
+    Writer.AppendLine('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" '
+      + '"http://www.w3.org/TR/html4/strict.dtd">');
+    Writer.AppendLine(fRenderers.HTMLTag.Render); // <html>
+    // Write head section
+    Writer.AppendLine('<head>');
+    Writer.AppendLine(fRenderers.CharSetTag.Render); // <meta>
+    Writer.AppendLine(
+      '<meta name="generator" content="DelphiDabbler PasHi">'
+    );
+    Writer.AppendLine(fRenderers.TitleTag.Render);  // <title>
+    // create style sheet
+    Writer.AppendLine(fRenderers.StyleSheet.Render);
+    Writer.AppendLine('</head>');
+    // Begin body
+    Writer.AppendLine('<body>');
+    // write opening <pre> tag that for source using any required class
+    Writer.AppendLine(fRenderers.SourceCode.Render);
+    Writer.AppendLine('</body>');
+    Writer.AppendLine('</html>');
+    Result := Writer.ToString;
+  finally
+    Writer.Free;
+  end;
+end;
+
+{ THTML5DocumentRenderer }
+
+constructor THTML5DocumentRenderer.Create(Renderers: THTMLDocumentParams);
+begin
+  inherited Create;
+  fRenderers := Renderers;
+end;
+
+function THTML5DocumentRenderer.Render: string;
+var
+  Writer: TStringBuilder;
+begin
+  Writer := TStringBuilder.Create;
+  try
+    Writer.AppendLine('<!DOCTYPE html>');
+    Writer.AppendLine(fRenderers.HTMLTag.Render); // <html>
+    // Write head section
+    Writer.AppendLine('<head>');
+    if fRenderers.CharSetTag.Render <> '' then
+      Writer.AppendLine(fRenderers.CharSetTag.Render); // <meta>
+    Writer.AppendLine(
+      '<meta name="generator" content="DelphiDabbler PasHi" />'
+    );
+    Writer.AppendLine(fRenderers.TitleTag.Render);  // <title>
+    // create style sheet
+    Writer.AppendLine(fRenderers.StyleSheet.Render);
+    Writer.AppendLine('</head>');
+    // Begin body
+    Writer.AppendLine('<body>');
+    // write opening <pre> tag that for source using any required class
+    Writer.AppendLine(fRenderers.SourceCode.Render);
+    Writer.AppendLine('</body>');
+    Writer.AppendLine('</html>');
+    Result := Writer.ToString;
+  finally
+    Writer.Free;
+  end;
+end;
+
+{ TXMLProcessInstRenderer }
+
+constructor TXMLProcessInstRenderer.Create(const CharSet: string);
 begin
   inherited Create;
   fCharSet := CharSet;
 end;
 
-function TXMLDeclarationRenderer.Render: string;
+function TXMLProcessInstRenderer.Render: string;
 begin
   Result := '<?xml version="1.0"';
   if fCharSet <> '' then
@@ -322,15 +498,15 @@ begin
   Result := Result + '?>';
 end;
 
-{ TContentTypeMetaTagRenderer }
+{ TXHTMLCharSetTagRenderer }
 
-constructor TContentTypeMetaTagRenderer.Create(const CharSet: string);
+constructor TXHTMLCharSetTagRenderer.Create(const CharSet: string);
 begin
   inherited Create;
   fCharSet := CharSet;
 end;
 
-function TContentTypeMetaTagRenderer.Render: string;
+function TXHTMLCharSetTagRenderer.Render: string;
 begin
   Result := '<meta http-equiv="Content-Type" content="text/html';
   if fCharSet <> '' then
@@ -338,19 +514,66 @@ begin
   Result := Result + '" />';
 end;
 
-{ THTMLTagRenderer }
+{ THTML4CharSetTagRenderer }
 
-constructor THTMLTagRenderer.Create(const Language: string);
+constructor THTML4CharSetTagRenderer.Create(const CharSet: string);
+begin
+  inherited Create;
+  fCharSet := CharSet;
+end;
+
+function THTML4CharSetTagRenderer.Render: string;
+begin
+  Result := '<meta http-equiv="Content-Type" content="text/html';
+  if fCharSet <> '' then
+    Result := Result + Format(';charset=%s', [fCharSet]);
+  Result := Result + '">';
+end;
+
+{ THTML5CharSetTagRenderer }
+
+constructor THTML5CharSetTagRenderer.Create(const CharSet: string);
+begin
+  inherited Create;
+  fCharSet := CharSet;
+end;
+
+function THTML5CharSetTagRenderer.Render: string;
+begin
+  if fCharSet = '' then
+    Exit('');
+  Result := Format('<meta charset="%s" />', [fCharSet]);
+end;
+
+{ TXHTMLRootTagRenderer }
+
+constructor TXHTMLRootTagRenderer.Create(const Language: string);
 begin
   inherited Create;
   fLanguage := Language;
 end;
 
-function THTMLTagRenderer.Render: string;
+function TXHTMLRootTagRenderer.Render: string;
 begin
   Result := '<html xmlns="http://www.w3.org/1999/xhtml"';
   if fLanguage <> '' then
     Result := Result + Format(' xml:lang="%0:s" lang="%0:s"', [fLanguage]);
+  Result := Result + '>';
+end;
+
+{ THTMLRootTagRenderer }
+
+constructor THTMLRootTagRenderer.Create(const Language: string);
+begin
+  inherited Create;
+  fLanguage := Language;
+end;
+
+function THTMLRootTagRenderer.Render: string;
+begin
+  Result := '<html';
+  if fLanguage <> '' then
+    Result := Result + Format(' lang="%0:s"', [fLanguage]);
   Result := Result + '>';
 end;
 

@@ -250,7 +250,9 @@ begin
   with fDocTypeLookup do
   begin
     Add('xhtml', dtXHTML);
-    Add('xhtml-fragment', dtXHTMLFragment);
+    Add('html4', dtHTML4);
+    Add('html5', dtHTML5);
+    Add('fragment', dtFragment);
   end;
   // lookup table for any command with boolean parameters
   fBooleanLookup := TDictionary<string, Boolean>.Create(
@@ -499,7 +501,7 @@ begin
       fParamQueue.Dequeue;
     end;
     siFragment:
-      fConfig.DocType := dtXHTMLFragment;
+      fConfig.DocType := dtFragment;
     siForceHideCSS:
       fConfig.HideCSS := True;
     siHideCSS:

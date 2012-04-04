@@ -63,7 +63,9 @@ type
   }
   TDocType = (
     dtXHTML,        // complete XHTML document
-    dtXHTMLFragment // a fragment of HTML code, with no embedded style sheet
+    dtHTML4,        // complete HTML 4 document
+    dtHTML5,        // complete HTML 5 document
+    dtFragment      // a fragment of HTML code, compatible with all HTML types
   );
 
   TVerbosity = (
