@@ -16,9 +16,10 @@ redirected. The default output encoding is UTF-8 with byte order mark.
 PasHi supports the following commands:
 
 --branding            -b    Determines if PasHi includes branding information
-                            as a comment in HTML fragments. --branding
-                            requires the next parameter to supply one of the
-                            following values:
+                            either as a comment in HTML fragments or as a
+                            <meta> generator tag in complete HTML documents. 
+                            --branding requires the next parameter to supply
+                            one of the following values:
                               yes - include branding [default]
                               no - no branding.
                             Alternatively use -b+ to include branding or -b- to
