@@ -222,7 +222,8 @@ begin
         THiliteOptions.Create(
           Config.UseLineNumbering,
           Config.LineNumberWidth,
-          Config.LineNumberPadding
+          Config.LineNumberPadding,
+          Config.Striping
         )
       );
       Result := TXHTMLDocumentRenderer.Create(DocParams);
@@ -238,7 +239,8 @@ begin
         THiliteOptions.Create(
           Config.UseLineNumbering,
           Config.LineNumberWidth,
-          Config.LineNumberPadding
+          Config.LineNumberPadding,
+          Config.Striping
         )
       );
       Result := TXHTMLFragmentRenderer.Create(FragParams);

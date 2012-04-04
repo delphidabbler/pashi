@@ -130,6 +130,7 @@ type
       {Called when a new line in output is started: writes new line where
       required.
       }
+    procedure EndLine; override;
     procedure BeforeElem(Elem: THiliteElement); override;
       {Called before a highlight element is output. Used to write <span> tag for
       required class if element is formatted.
@@ -307,21 +308,27 @@ end;
 procedure TXHTMLHiliter.BeginDoc;
 begin
   fIsFirstLine := True;
-  Writer.AppendFormat('<pre class="%s">', [fCSSClases.MainClass])
+  Writer.AppendFormat('<div class="%s">', [fCSSClases.MainClass]);
+  Writer.AppendLine;
 end;
 
 procedure TXHTMLHiliter.BeginLine;
+const
+  LineClasses: array[Boolean] of string = ('even-line', 'odd-line');
 begin
   // Note we don't emit CRLF before first line since it must be on same line as
   // any opening <pre> tag
   if fIsFirstLine then
-  begin
     fIsFirstLine := False
-  end
   else
   begin
-    Writer.AppendLine;
+//    if not Options.AlternateLines then
+//      Writer.AppendLine;
   end;
+  if Options.AlternateLines then
+    Writer.Append(Format('<pre class="%s">', [LineClasses[Odd(LineNumber)]]))
+  else
+    Writer.Append('<pre class="line">');
   if Options.UseLineNumbering then
     Writer.Append(
       Format('<span class="linenum">%s</span>', [LineNumberStr])
@@ -335,6 +342,11 @@ begin
 end;
 
 procedure TXHTMLHiliter.EndDoc;
+begin
+  Writer.AppendLine('</div>');
+end;
+
+procedure TXHTMLHiliter.EndLine;
 begin
   Writer.AppendLine('</pre>');
 end;

@@ -13,13 +13,27 @@
 
 
  /*
-  All classes have two names: the first name is that used by default in PasHi v2
-  and later while the second is the older class name used in PasHi v1.
+  Many classes have two names: the first name is that used by default in PasHi
+  v2 and later while the second is the older class name used in PasHi v1.
 */
 
 .code-pascal, .pas-source {
+}
+
+.code-pascal pre, .pas-source pre {
     font-family: "Courier New", monospace;
     font-size: 9pt;
+    margin: 0;
+}
+
+.code-pascal pre.line {
+}
+
+.code-pascal pre.odd-line {
+  background-color: #eee;
+}
+
+.code-pascal pre.even-line {
 }
 
 .code-pascal .linenum {

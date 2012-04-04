@@ -52,12 +52,14 @@ type
     fUseLineNumbering: Boolean;
     fWidth: Byte;
     fPadding: Char;
+    fAlternateLines: Boolean;
   public
     property UseLineNumbering: Boolean read fUseLineNumbering;
     property Width: Byte read fWidth;
     property Padding: Char read fPadding;
+    property AlternateLines: Boolean read fAlternateLines;
     constructor Create(AUseLineNumbering: Boolean; AWidth: Byte;
-      APadding: Char);
+      APadding: Char; AAlternateLines: Boolean);
   end;
 
   {
@@ -87,7 +89,7 @@ implementation
 { THiliteOptions }
 
 constructor THiliteOptions.Create(AUseLineNumbering: Boolean;
-  AWidth: Byte; APadding: Char);
+  AWidth: Byte; APadding: Char; AAlternateLines: Boolean);
 begin
   fUseLineNumbering := AUseLineNumbering;
   if fUseLineNumbering then
@@ -100,6 +102,7 @@ begin
     fWidth := 0;
     fPadding := #0;
   end;
+  fAlternateLines := AAlternateLines;
 end;
 
 end.

@@ -56,6 +56,7 @@ type
     siLineNumbering,    // determines if output file is to be line numbered
     siLineNumberWidth,  // specifies width of line numbers in characters
     siLineNumberPadding,// specifies character used to pad line number lines
+    siStriping,         // switches line striping on and off
     siQuiet             // don't display any output to console
   );
 
@@ -209,6 +210,7 @@ begin
     Add('--line-numbering', siLineNumbering);
     Add('--line-number-width', siLineNumberWidth);
     Add('--line-number-padding', siLineNumberPadding);
+    Add('--striping', siStriping);
     // commands kept for backwards compatibility with v1.x
     Add('-frag', siFragment);
     Add('-hidecss', siForceHideCSS);
@@ -593,6 +595,11 @@ begin
     siLineNumberPadding:
     begin
       fConfig.LineNumberPadding := GetPaddingParameter(Command);
+      fParamQueue.Dequeue;
+    end;
+    siStriping:
+    begin
+      fConfig.Striping := GetBooleanParameter(Command);
       fParamQueue.Dequeue;
     end;
     siHelp:

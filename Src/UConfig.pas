@@ -102,6 +102,7 @@ type
     fUseLineNumbering: Boolean;
     fLineNumberWidth: TLineNumberWidth;
     fLineNumberPadding: Char;
+    fStriping: Boolean;
     function GetInputFiles: TArray<string>;
   public
     constructor Create;
@@ -150,6 +151,7 @@ type
       read fLineNumberWidth write fLineNumberWidth default 3;
     property LineNumberPadding: Char
       read fLineNumberPadding write fLineNumberPadding default ' ';
+    property Striping: Boolean read fStriping write fStriping default False;
     procedure AddInputFile(const FN: string);
     function OutputEncoding: TEncoding;
     function OutputEncodingName: string;
@@ -190,6 +192,7 @@ begin
   fUseLineNumbering := False;
   fLineNumberWidth := 3;
   fLineNumberPadding := ' ';
+  fStriping := False;
 end;
 
 destructor TConfig.Destroy;
