@@ -278,17 +278,20 @@
   <em>PasHi</em> is a simple command line program that highlights Pascal
   source code. It reads the original source code from standard input or the
   clipboard and writes the highlighted code to standard output or the
-  clipboard. XHTML is used for the highlighted code and cascading style sheets
+  clipboard. HTML is used for the highlighted code and cascading style sheets
   are used to do the styling.
 </p>
 
 <p>
-  <em>PasHi</em> can either generate complete XHTML documents or just
-  fragments of XHTML code containing the highlighted source. Complete XHTML
-  documents contain an embedded CSS style sheet while code fragments require
-  the user to provide the required CSS classes. This last feature makes it
-  easy to embed code highlighted by <em>PasHi</em> into exiting web pages with
-  highlight colours defined by the web page author.
+  <em>PasHi</em> can generate complete HTML documents in HTML 4, XHTML or HTML 5
+  formats. Alternatively fragments of HTML code containing the highlighted
+  source can be generated. These fragments are compatible with all supported
+  HTML formats. Complete HTML documents contain an embedded or linked CSS style
+  sheet while code fragments require the user to provide the <a
+    href="#css"
+  >required CSS classes</a>. This last feature makes it easy to embed code
+  highlighted by <em>PasHi</em> into existing web pages with highlight colours
+  and other styling defined by the web page author.
 </p>
 
 <p>
@@ -320,7 +323,7 @@
     Cascading style sheets.
   </li>
   <li>
-    Valid XHTML.
+    Valid XHTML and, later, HTML 5.
   </li>
   <li>
     Full control over the appearance of the output code.
@@ -329,7 +332,7 @@
     Ability to highlight via the clipboard.
   </li>
   <li>
-    The option to generate XHTML fragments for inserting into existing
+    The option to generate HTML fragments for inserting into existing
     documents.
   </li>
 </ol>
@@ -339,19 +342,16 @@
   or didn't provide one of the features I wanted. I'd already written
   highlighter code for my <em>CodeSnip</em> program, so I extracted that,
   tweaked it and wrapped it up in a command line program. Having made it I
-  thought I'd release it in case anyone else finds it useful.
+  thought I'd release it in case anyone else finds it useful. Since then it's
+  been greatly enhanced.
 </p>
 
 <p>
-  Check these two sites for examples of <em>PasHi</em> in use:
-  <a
-    href="http://rvelthuis.de/"
-  >Rudy's Delphi Corner</a> and
-  <a
+  Check <a
     href="http://hallvards.blogspot.com/"
-  >Hallvard's Blog</a>. PasHi has also been used to highlight example source
-  code on the DelphiDabbler
-  <a
+  >Hallvard's Blog</a> for an example of a site using <em>PasHi</em>.
+  <em>PasHi</em> has also been used to highlight example source code on the
+  DelphiDabbler <a
     href="http://www.delphidabbler.com/tips"
   >Delphi Tips</a> and
   <a
@@ -525,7 +525,7 @@
     <td class="switch">-w</td>
     <td>
       Writes highlighted code to the clipboard. All output is stored as Unicode
-      and complete XHTML documents have no charset information recorded in the
+      and complete HTML documents have no charset information recorded in the
       file. Do not combine this command with either <code>--output-stdout</code>
       or <code>--output-file</code>.
     </td>
@@ -534,18 +534,25 @@
     <td class="switch">--doc-type</td>
     <td class="switch">-d</td>
     <td>
-      Determines the type of document to be output. The required document type
-      is specified in the following parameter which must be one of these values:
+      Determines the type of document to be output. This document contains the
+      highlighted source code. All but one document types are complete HTML
+      documents. The required document type is specified in the following
+      parameter which must be one of these values:
       <ul class="squashed">
         <li>
-          <code>xhtml</code>: Complete XHTML document containing highlighted
-          source code (the default).
+          <code>xhtml</code>: Complete XHTML document (the default).
         </li>
         <li>
-          <code>xhtml-fragment</code>: An XHTML code fragment containing only
-          the highlighted code wrapped in <code>&lt;pre&gt;</code> ...
-          <code>&lt;/pre&gt;</code> tags. Various commands that relate only to
-          complete XHTML documents are ignored when this option is used.
+          <code>html4</code>: Complete HTML 4 document,
+        </li>
+        <li>
+          <code>html5</code>: Complete HTML 5 document,
+        </li>
+        <li>
+          <code>fragment</code>: An HTML code fragment containing only the
+          highlighted code wrapped in <code>&lt;div&gt;</code> ...
+          <code>&lt;/div&gt;</code> tags. Various commands that relate only to
+          complete HTML documents are ignored when this option is used.
         </li>
     </td>
   </tr>
@@ -573,7 +580,7 @@
       <code>-b+</code> and <code>-b1</code> include branding while
       <code>-b-</code> and <code>-b0</code> exclude it.<br />
       This command only has any effect when used in combination with
-      <code>--doc-type&nbsp;xhtml-fragment</code>.
+      <code>--doc-type&nbsp;fragment</code>.
     </td>
   </tr>
   <tr>
@@ -584,7 +591,7 @@
       recognised by HTML must be provided in the parameter that immediately
       follows this command. The code is not checked. If this command is not
       supplied then no language information is included in the output file.
-      This command is ignored if the <code>--doc-type&nbsp;xhtml-fragment</code>
+      This command is ignored if the <code>--doc-type&nbsp;fragment</code>
       command is specifed.
     </td>
   </tr>
@@ -595,8 +602,8 @@
       Specifies that no language is to be specified in output document. Since
       this is the default behaviour this command is provided mainly to restore
       default behaviour if it has been overridden in the config file. This
-      command is ignored if the <code>--doc-type&nbsp;xhtml-fragment</code>
-      command is specifed.
+      command is ignored if the <code>--doc-type&nbsp;fragment</code> command is
+      specifed.
     </td>
   </tr>
   <tr>
@@ -606,8 +613,7 @@
       Specifies the title of the output document. The required title must be
       supplied in the parameter immediately follow the command. Titles
       containing spaces must be enclosed in double quotes. This command has no
-      effect if the <code>--doc-type&nbsp;xhtml-fragment</code> command is also
-      used.
+      effect if the <code>--doc-type&nbsp;fragment</code> command is also used.
     </td>
   </tr>
   <tr>
@@ -618,7 +624,7 @@
       Since this is the default behaviour this command is provided mainly to
       restore default behaviour if it has been overridden in the config file.
       This command has no effect if the
-      <code>--doc-type&nbsp;xhtml-fragment</code> command is also used.
+      <code>--doc-type&nbsp;fragment</code> command is also used.
     </td>
   </tr>
   <tr>
@@ -629,8 +635,7 @@
       read from the file whose name is specified by the parameter immediately
       following the command. The CSS must define the styles described
       <a href="#css">below</a>. This command is ignored if the
-      <code>--doc-type&nbsp;xhtml-fragment</code> command is also specified.
-      <br />
+      <code>--doc-type&nbsp;fragment</code> command is also specified.<br />
       If a file name is specified with no path information, e.g. delphi2006.css,
       then the file will be expected to be in %AppData%\DelphiDabbler\PasHi. To
       read a file from the working directory, prepend .\ to it, e.g.
@@ -642,10 +647,10 @@
     <td class="switch">-k</td>
     <td>
       Specifies the URL of an external CSS file to be linked from the generated
-      XHTML file. The URL must be given in the parameter immediately following
+      HTML file. The URL must be given in the parameter immediately following
       this command. The URL can be relative or absolute. The linked CSS file
       must define the styles described <a href="#css">below</a>. This command is
-      ignored if the <code>--doc-type&nbsp;xhtml-fragment</code> command is also
+      ignored if the <code>--doc-type&nbsp;fragment</code> command is also
       specified. Since no CSS is embedded in the output file the
       <code>--hide-css</code> command does nothing.
     </td>
@@ -659,7 +664,7 @@
       mainly to restore default behaviour if it has been overridden in the
       config file. The command negates both the <code>--embed-css</code> and
       <code>--link-css</code> commands. This command is ignored if the
-      <code>--doc-type&nbsp;xhtml-fragment</code> command is also specified.
+      <code>--doc-type&nbsp;fragment</code> command is also specified.
     </td>
   </tr>
   <tr>
@@ -689,16 +694,16 @@
       <code>-c+</code> and <code>-c1</code> hide the CSS in comments while
       <code>-c-</code> and <code>-c0</code> do not.<br />
       <code>--hide-css</code> is ignored when either the
-      <code>--doc-type&nbsp;xhtml-fragment</code> or <code>--link-css</code>
-      commands are used.
+      <code>--doc-type&nbsp;fragment</code> or <code>--link-css</code> commands
+      are used.
     </td>
   </tr>
   <tr>
     <td class="switch">--legacy-css</td>
     <td class="switch">&nbsp;</td>
     <td>
-      Determines whether CSS classes in generated XHTML documents revert to
-      those used in <em>PasHi</em> v1 (legacy) or whether the new class names
+      Determines whether CSS classes in generated HTML documents revert to those
+      used in <em>PasHi</em> v1 (legacy) or whether the new class names
       introduced in <em>PasHi</em> v2 are used. The next parameter must have one
       of the following values:
       <ul class="squashed">
@@ -725,7 +730,7 @@
     <td class="switch">-e</td>
     <td>
       Sets the character encoding used for output to the encoding specified in
-      next parameter. XHTML documents are marked with the chosen format and the
+      next parameter. HTML documents are marked with the chosen format and the
       resulting file may include byte order marks. This command is ignored if
       the <code>--output-clipboard</code> command is specified, because data is
       always written to the clipboard in Unicode. Valid encoding parameters are:
@@ -947,7 +952,7 @@
   <tr>
     <td class="switch">-frag</td>
     <td>
-      Alias for the <code>--doc-type&nbsp;xhtml-fragment</code> command.
+      Alias for the <code>--doc-type&nbsp;fragment</code> command.
     </td>
   </tr>
   <tr>
@@ -989,12 +994,12 @@
     <pre
       class="indent"
       style="margin-top:0;margin-bottom:0;"
-    >PasHi --input-clipboard --output-clipboard --doc-type xhtml-fragment</pre>
+    >PasHi --input-clipboard --output-clipboard --doc-type fragment</pre>
     Alternatively you can use short forms or v1 commands to shorten this:
     <pre
       class="indent"
       style="margin-top:0;margin-bottom:0;"
-    >PasHi -r -w -d xhtml-fragment</pre>
+    >PasHi -r -w -d fragment</pre>
     or
     <pre
       class="indent"
@@ -1083,14 +1088,14 @@
   As mentioned in <a
     href="#usage"
   >Using <em>PasHi</em></a>, a common use for <em>PasHi</em> is to highlight
-  source code from the clipboard as an XHTML fragment and place that back on the
+  source code from the clipboard as an HTML fragment and place that back on the
   clipboard. Instead of using the necessary commands each time you run
   <em>PasHi</em> you can add the following commands to the config file:
 </p>
 
 <pre class="indent">input-clipboard
 output-clipboard
-doc-type xhtml-fragment</pre>
+doc-type fragment</pre>
 
 <p>
   Now all you need to do is enter:
@@ -1102,7 +1107,7 @@ doc-type xhtml-fragment</pre>
   on its own on the command line and it will perform the required actions by
   default. Be warned that if you do this, you will need to use the
   <code>--input-stdin</code>, <code>--output-stdout</code> and
-  <code>--doc-type xhtml</code> commands to revert to normal behaviour.
+  <code>--doc-type xhtml</code> commands to revert to normal default behaviour.
 </p>
 
 <p>
@@ -1274,7 +1279,7 @@ doc-type xhtml-fragment</pre>
 
 <ul>
   <li>
-    Embed your own styles in the output XHTML document using the
+    Embed your own styles in the output HTML document using the
     <code>--embed-css</code> switch.
   </li>
   <li>
@@ -1283,7 +1288,7 @@ doc-type xhtml-fragment</pre>
   </li>
   <li>
     Include a code fragment generated by the
-    <code>--doc-type&nbsp;xhtml-fragment</code> command in another HTML file.
+    <code>--doc-type&nbsp;fragment</code> command in another HTML file.
   </li>
 </ul>
 
@@ -1421,7 +1426,7 @@ doc-type xhtml-fragment</pre>
     Edit | Copy
   </dt>
   <dd>
-    Copies highlighted code to the clipboard as XHTML in text format.
+    Copies highlighted code to the clipboard as HTML in text format.
   </dd>
   <dt>
     Edit | Paste
@@ -1435,8 +1440,8 @@ doc-type xhtml-fragment</pre>
   </dt>
   <dd>
     When this option is set an HTML fragment is generated instead of a
-    complete XHTML document. For more information see the documentation of
-    <em>PasHi</em>'s <code>--doc-type xhtml-fragment</code> command.
+    complete HTML document. For more information see the documentation of
+    <em>PasHi</em>'s <code>--doc-type fragment</code> command.
   </dd>
   <dt>
     Options | Show Hints
@@ -1489,7 +1494,7 @@ doc-type xhtml-fragment</pre>
     Display View
   </dt>
   <dd>
-    Renders the XHTML as it will appear in a browser. If the generated code
+    Renders the HTML as it will appear in a browser. If the generated code
     is a complete document it is displayed as-is. If it is a fragment the code
     is displayed in a yellow box.
   </dd>
@@ -1497,7 +1502,7 @@ doc-type xhtml-fragment</pre>
     HTML View
   </dt>
   <dd>
-    Displays the generated XHTML source code.
+    Displays the generated HTML source code.
   </dd>
 </dl>
 

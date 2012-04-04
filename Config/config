@@ -65,7 +65,7 @@
 # --- Output document type ---
 # Command:
 #   doc-type <param>
-#     where <param> is either "xhtml" or "xhtml-fragment"
+#     where <param> is on of "xhtml", "html4", "html5" or "fragment"
 # Default:
 #   doc-type xhtml
 

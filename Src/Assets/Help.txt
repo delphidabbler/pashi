@@ -16,7 +16,7 @@ redirected. The default output encoding is UTF-8 with byte order mark.
 PasHi supports the following commands:
 
 --branding            -b    Determines if PasHi includes branding information
-                            as a comment in XHTML fragments. --branding
+                            as a comment in HTML fragments. --branding
                             requires the next parameter to supply one of the
                             following values:
                               yes - include branding [default]
@@ -24,14 +24,17 @@ PasHi supports the following commands:
                             Alternatively use -b+ to include branding or -b- to
                             exclude it.
 --default-css               Embed the program's default CSS in a <style> tag in
-                            XHTML documents [default].
+                            HTML documents [default].
 --doc-type            -d    Specifies the output document type, which must be
                             supplied in the next parameter. Values are:
                               xhtml - output complete XHTML document [default]
-                              xhtml-fragment - output only a <pre> tag
-                                containing the highlighted code
+                              html4 - output complete HTML 4 document
+                              html5 - output complete HTML 5 document
+                              fragment - output only a <div> block containing
+                                the highlighted code, compatible with XHTML,
+                                HTML 4 and HTML 5.
 --embed-css           -s    Reads CSS from a file and embeds it in a <style>
-                            tag in the output XHTML document. The name of the
+                            tag in the output HTML document. The name of the
                             CSS file must be supplied in the next parameter.
                             File names containing no path information are read
                             from PasHi's application data directory.
@@ -60,7 +63,7 @@ PasHi supports the following commands:
                             "en-gb".
 --language-neutral          Outputs no language information [default].
 --legacy-css                Determines which CSS class names are used in the
-                            output XHTML document. These can either the current
+                            output HTML document. These can either the current
                             names or the same names used in PasHi v1. The next
                             parameter must supply one of the following values:
                               yes - use PasHi v1 CSS class names
@@ -84,7 +87,7 @@ PasHi supports the following commands:
                             by line numbers. Line numbers are padded to this
                             width if necessary. The next parameter specifies
                             a width in the range 1..6 [default 3].
---link-css            -k    Generates a <link> tag in the output XHTML document
+--link-css            -k    Generates a <link> tag in the output HTML document
                             that references an external CSS file. A full or
                             partial URL must be specified in the next
                             parameter.
