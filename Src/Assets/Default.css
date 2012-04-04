@@ -21,9 +21,9 @@
 }
 
 .code-pascal pre, .pas-source pre {
-    font-family: "Courier New", monospace;
-    font-size: 9pt;
-    margin: 0;
+  font-family: "Courier New", monospace;
+  font-size: 9pt;
+  margin: 0;
 }
 
 .code-pascal pre.line {
@@ -44,50 +44,50 @@
 }
 
 .code-pascal .comment, .pas-comment {
-    font-style: italic;
-    font-weight: normal;
-    text-decoration: none;
-    color: #000080;
+  font-style: italic;
+  font-weight: normal;
+  text-decoration: none;
+  color: #000080;
 }
 
 .code-pascal .kwd, .pas-kwd {
-    font-style: normal;
-    font-weight: bold;
-    text-decoration: none;
+  font-style: normal;
+  font-weight: bold;
+  text-decoration: none;
 }
 
 .code-pascal .str, .pas-str {
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: none;
-    color: #800080;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: none;
+  color: #800080;
 }
 
 .code-pascal .num, .pas-num,
 .code-pascal .float, .pas-float,
 .code-pascal .hex, .pas-hex {
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: none;
-    color: #800000;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: none;
+  color: #800000;
 }
 
 .code-pascal .preproc, .pas-preproc {
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: none;
-    color: #008000;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: none;
+  color: #008000;
 }
 
 .code-pascal .asm, .pas-asm {
-    font-style: italic;
-    font-weight: normal;
-    text-decoration: none;
+  font-style: italic;
+  font-weight: normal;
+  text-decoration: none;
 }
 
 .code-pascal .err, .pas-err {
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: none;
-    color: #FF0000;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: none;
+  color: #FF0000;
 }
