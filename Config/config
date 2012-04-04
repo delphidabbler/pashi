@@ -156,6 +156,14 @@
 #   line-number-padding space
 
 
+# -- Line styling
+# Command:
+#   striping <param>
+#     where <param> is either "on" or "off"
+# Default:
+#   striping off
+
+
 # --- Output verbosity ---
 # Commands:
 #   verbosity <param>

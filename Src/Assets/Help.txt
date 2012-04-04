@@ -98,6 +98,12 @@ PasHi supports the following commands:
                             separate source code from multiple input files. The
                             next parameter must specify the number of lines in
                             the range 0..16 [default 1].
+--striping                  Specifies whether alternate lines of source code
+                            in output are styled differently or are the same.
+                            The next parameter must supply one of the following
+                            values:
+                              on - style alternate lines differently
+                              off - all lines have same appearance [default].
 --title               -t    Sets the title used for the output document. The
                             next parameter must contain the required text. To
                             include spaces surround the text in double quotes.
