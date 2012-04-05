@@ -91,6 +91,16 @@ Source: {#SrcConfigPath}version; DestDir: {#AppDataDir}; Flags: ignoreversion
 Source: {#SrcConfigPath}config-template; DestDir: {#AppDataDir}; Flags: ignoreversion
 Source: {#SrcConfigPath}config-v1; DestDir: {#AppDataDir}; Flags: ignoreversion
 Source: {#SrcConfigPath}v1-default.css; DestDir: {#AppDataDir}; Flags: ignoreversion
+Source: {#SrcConfigPath}classic.css; DestDir: {#AppDataDir}; Flags: ignoreversion
+Source: {#SrcConfigPath}delphi4.css; DestDir: {#AppDataDir}; Flags: ignoreversion
+Source: {#SrcConfigPath}delphi7.css; DestDir: {#AppDataDir}; Flags: ignoreversion
+Source: {#SrcConfigPath}delphi2010.css; DestDir: {#AppDataDir}; Flags: ignoreversion
+Source: {#SrcConfigPath}ocean.css; DestDir: {#AppDataDir}; Flags: ignoreversion
+Source: {#SrcConfigPath}twilight.css; DestDir: {#AppDataDir}; Flags: ignoreversion
+Source: {#SrcConfigPath}visual-studio.css; DestDir: {#AppDataDir}; Flags: ignoreversion
+Source: {#SrcConfigPath}notebook.css; DestDir: {#AppDataDir}; Flags: ignoreversion
+Source: {#SrcConfigPath}null.css; DestDir: {#AppDataDir}; Flags: ignoreversion
+Source: {#SrcConfigPath}mono.css; DestDir: {#AppDataDir}; Flags: ignoreversion
 
 [Icons]
 Name: {group}\{#AppName}; Filename: {app}\{#ExeFile}
