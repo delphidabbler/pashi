@@ -16,6 +16,7 @@
 .code-pascal,
 .pas-source {
   background-color: black;
+  border: black 1px solid;
 }
 
 .code-pascal pre,
@@ -31,11 +32,11 @@
 
 .code-pascal pre.odd-line,
 .pas-source pre.odd-line {
-  background-color: rgb(80,80,80); /* Twilight's "Line Highlight" */
 }
 
 .code-pascal pre.even-line,
 .pas-source pre.even-line {
+  background-color: rgb(80,80,80); /* Twilight's "Line Highlight" */
 }
 
 .code-pascal .linenum,

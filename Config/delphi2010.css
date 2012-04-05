@@ -30,11 +30,11 @@
 
 .code-pascal pre.odd-line,
 .pas-source pre.odd-line {
-  background-color: #f0f0f0; /* Default's "Line Highlight" is too pale */
 }
 
 .code-pascal pre.even-line,
 .pas-source pre.even-line {
+  background-color: #f0f0f0; /* Default's "Line Highlight" is too pale */
 }
 
 .code-pascal .linenum,

@@ -15,6 +15,7 @@
 .code-pascal,
 .pas-source {
   background-color: navy;
+  border: navy 1px solid;
 }
 
 .code-pascal pre,
@@ -30,11 +31,11 @@
 
 .code-pascal pre.odd-line,
 .pas-source pre.odd-line {
-  background-color: rgb(0,0,159); /* Classic's "Line Highlight" */
 }
 
 .code-pascal pre.even-line,
 .pas-source pre.even-line {
+  background-color: rgb(0,0,159); /* Classic's "Line Highlight" */
 }
 
 .code-pascal .linenum,
