@@ -20,12 +20,14 @@
 */
 
 
-.code-pascal, .pas-source {
+.code-pascal,
+.pas-source {
   background-color: #ffc;
   border: 1px silver solid;
 }
 
-.code-pascal pre, .pas-source pre {
+.code-pascal pre,
+.pas-source pre {
   font-family: "Courier New", monospace;
   font-size: 9pt;
   margin: 0;
@@ -33,21 +35,29 @@
 
 .code-pascal pre.line,
 .code-pascal pre.odd-line,
-.code-pascal pre.even-line {
+.code-pascal pre.even-line,
+.pas-source pre.line,
+.pas-source pre.odd-line,
+.pas-source pre.even-line {
   border-bottom: 1px silver dotted;
 }
 
 .code-pascal pre.line:last-child,
 .code-pascal pre.odd-line:last-child,
-.code-pascal pre.even-line:last-child {
+.code-pascal pre.even-line:last-child,
+.pas-source pre.line:last-child,
+.pas-source pre.odd-line:last-child,
+.pas-source pre.even-line:last-child {
   border-bottom: none;
 }
 
-.code-pascal pre.even-line {
+.code-pascal pre.even-line,
+.pas-source pre.even-line {
   background-color: #ffe;
 }
 
-.code-pascal .linenum {
+.code-pascal .linenum,
+.pas-source .linenum {
   border-right: 1px silver dotted;
   padding: 1px 6px 1px 4px;
   margin-right: 0.75em;

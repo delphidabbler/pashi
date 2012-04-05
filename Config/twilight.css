@@ -13,27 +13,33 @@
 */
 
 
-.code-pascal, .pas-source {
+.code-pascal,
+.pas-source {
   background-color: black;
 }
 
-.code-pascal pre, .pas-source pre {
+.code-pascal pre,
+.pas-source pre {
   font-family: "Courier New", monospace;
   font-size: 9pt;
   margin: 0;
 }
 
-.code-pascal pre.line {
+.code-pascal pre.line,
+.pas-source pre.line {
 }
 
-.code-pascal pre.odd-line {
+.code-pascal pre.odd-line,
+.pas-source pre.odd-line {
   background-color: rgb(80,80,80); /* Twilight's "Line Highlight" */
 }
 
-.code-pascal pre.even-line {
+.code-pascal pre.even-line,
+.pas-source pre.even-line {
 }
 
-.code-pascal .linenum {
+.code-pascal .linenum,
+.pas-source .linenum {
   border-right: 1px lime solid;
   padding: 1px 4px 1px 0;
   margin-right: 0.75em;
