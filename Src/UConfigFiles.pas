@@ -37,6 +37,7 @@ type
       Boolean;
     class function ConfigFileName: string;
     class function CommonConfigDir: string;
+    class function IsNewConfigFiles: Boolean;
   public
     class constructor Create;
     class function ConfigFileReaderInstance: TConfigFileReader;
@@ -48,7 +49,7 @@ implementation
 
 uses
   SysUtils, StrUtils, Classes,
-  UComparers, USpecialFolders;
+  IO.UHelper, UComparers, USpecialFolders;
 
 procedure CopyFile(const Source, Dest: string);
 var
@@ -220,6 +221,8 @@ var
   UserCfgDir: string;           // user config directory
   UserCfgFile: string;          // full path of each file copied to UserCfgDir
 begin
+  if not IsNewConfigFiles then
+    Exit;
   CommonCfgDir := CommonConfigDir;
   UserCfgDir := UserConfigDir;
   ForceDirectories(UserCfgDir);
@@ -233,13 +236,37 @@ begin
         CfgFileName;
       CommonCfgFile := IncludeTrailingPathDelimiter(CommonCfgDir) +
         CfgFileName;
-      if FileExists(UserCfgFile) then
-        Continue;
       CopyFile(CommonCfgFile, UserCfgFile);
     end;
   finally
     CommonCfgFiles.Free;
   end;
+end;
+
+class function TConfigFiles.IsNewConfigFiles: Boolean;
+var
+  CommonVersionFile: string;
+  UserVersionFile: string;
+  CommonConfigVersion: Integer;
+  UserConfigVersion: Integer;
+begin
+  UserVersionFile := IncludeTrailingPathDelimiter(UserConfigDir)
+    + 'version';
+  if not FileExists(UserVersionFile) then
+    Exit(True);
+  CommonVersionFile := IncludeTrailingPathDelimiter(CommonConfigDir)
+    + 'version';
+  if not FileExists(CommonVersionFile) then
+    Exit(True);
+  CommonConfigVersion := StrToIntDef(
+    TIOHelper.FileToString(CommonVersionFile), 0
+  );
+  if CommonConfigVersion = 0 then
+    Exit(True);
+  UserConfigVersion := StrToIntDef(
+    TIOHelper.FileToString(UserVersionFile), 0
+  );
+  Result := CommonConfigVersion > UserConfigVersion;
 end;
 
 class function TConfigFiles.UserConfigDir: string;
