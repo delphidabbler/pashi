@@ -9,85 +9,123 @@
  * $Date$
  *
  * Contains default CSS applied to complete XHTML documents.
- */
-
-
- /*
-  Many classes have two names: the first name is that used by default in PasHi
-  v2 and later while the second is the older class name used in PasHi v1.
+ *
+ * Many classes have two names: the first name is that used by default in PasHi
+ * v2 and later while the second name is the older PasHi v1 class name that is
+ * used when PasHi is run in legacy CSS mode.
 */
 
-.code-pascal, .pas-source {
+.code-pascal,
+.pas-source {
+  background-color: transparent;
 }
 
-.code-pascal pre, .pas-source pre {
+.code-pascal pre,
+.pas-source pre {
   font-family: "Courier New", monospace;
   font-size: 9pt;
   margin: 0;
 }
 
-.code-pascal pre.line {
+.code-pascal pre.line,
+.pas-source pre.line {
 }
 
-.code-pascal pre.odd-line {
-  background-color: #eee;
+.code-pascal pre.odd-line,
+.pas-source pre.odd-line {
 }
 
-.code-pascal pre.even-line {
+.code-pascal pre.even-line,
+.pas-source pre.even-line {
+  background-color: #f0f0f0;
 }
 
-.code-pascal .linenum {
+.code-pascal .linenum,
+.pas-source .linenum {
   border-right: 1px silver solid;
-  padding: 1px 4px 1px 0;
+  padding: 1px 4px 1px 2px;
   margin-right: 0.75em;
   color: gray;
+  background-color: #f0f0f0;
 }
 
-.code-pascal .comment, .pas-comment {
-  font-style: italic;
+.code-pascal .comment,
+.pas-comment {
+  color: green;
   font-weight: normal;
+  font-style: italic;
   text-decoration: none;
-  color: #000080;
 }
 
-.code-pascal .kwd, .pas-kwd {
-  font-style: normal;
+.code-pascal .kwd,
+.pas-kwd {
+  color: navy;
   font-weight: bold;
-  text-decoration: none;
-}
-
-.code-pascal .str, .pas-str {
   font-style: normal;
-  font-weight: normal;
   text-decoration: none;
-  color: #800080;
 }
 
-.code-pascal .num, .pas-num,
-.code-pascal .float, .pas-float,
-.code-pascal .hex, .pas-hex {
+.code-pascal .ident,
+.pas-ident {
+  color: black;
+  font-weight: normal;
   font-style: normal;
-  font-weight: normal;
   text-decoration: none;
-  color: #800000;
 }
 
-.code-pascal .preproc, .pas-preproc {
+.code-pascal .sym,
+.pas-sym {
+  color: black;
+  font-weight: normal;
   font-style: normal;
-  font-weight: normal;
-  text-decoration: none;
-  color: #008000;
-}
-
-.code-pascal .asm, .pas-asm {
-  font-style: italic;
-  font-weight: normal;
   text-decoration: none;
 }
 
-.code-pascal .err, .pas-err {
+.code-pascal .str,
+.pas-str {
+  color: blue;
+  font-weight: normal;
   font-style: normal;
-  font-weight: normal;
   text-decoration: none;
-  color: #FF0000;
+}
+
+.code-pascal .num,
+.code-pascal .float,
+.code-pascal .hex,
+.pas-num,
+.pas-float,
+.pas-hex {
+  color: maroon;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+}
+
+.code-pascal .preproc,
+.pas-preproc {
+  color: teal;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+}
+
+.code-pascal .asm,
+.pas-asm {
+  color: black;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+}
+
+.code-pascal .space,
+.pas-space {
+}
+
+.code-pascal .err,
+.pas-err {
+  color: black;
+  background-color: yellow;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
 }
