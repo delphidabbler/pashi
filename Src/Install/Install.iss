@@ -89,6 +89,8 @@ Source: {#SrcDocsPath}{#LicenseFile}; DestDir: {app}; Flags: ignoreversion
 Source: {#SrcDocsPath}{#ReadmeFile}; DestDir: {app}; Flags: ignoreversion
 Source: {#SrcConfigPath}version; DestDir: {#AppDataDir}; Flags: ignoreversion
 Source: {#SrcConfigPath}config-template; DestDir: {#AppDataDir}; Flags: ignoreversion
+Source: {#SrcConfigPath}config-v1; DestDir: {#AppDataDir}; Flags: ignoreversion
+Source: {#SrcConfigPath}v1-default.css; DestDir: {#AppDataDir}; Flags: ignoreversion
 
 [Icons]
 Name: {group}\{#AppName}; Filename: {app}\{#ExeFile}
