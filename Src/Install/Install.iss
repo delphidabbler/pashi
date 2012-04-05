@@ -87,8 +87,7 @@ Source: {#SrcExePath}{#ExeFile}; DestDir: {app}; Flags: uninsrestartdelete repla
 Source: {#SrcExePath}PasHiGUI.exe; DestDir: {app}; Flags: uninsrestartdelete replacesameversion
 Source: {#SrcDocsPath}{#LicenseFile}; DestDir: {app}; Flags: ignoreversion
 Source: {#SrcDocsPath}{#ReadmeFile}; DestDir: {app}; Flags: ignoreversion
-Source: {#SrcConfigPath}config; DestDir: {#AppDataDir}; Flags: ignoreversion
-Source: {#SrcConfigPath}config; DestDir: {#AppDataDir}; DestName: config-default; Flags: ignoreversion
+Source: {#SrcConfigPath}config-template; DestDir: {#AppDataDir}; Flags: ignoreversion
 
 [Icons]
 Name: {group}\{#AppName}; Filename: {app}\{#ExeFile}
