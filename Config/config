@@ -1,28 +1,48 @@
-﻿# PasHi config file
-# -----------------
+﻿# PasHi config file template
+# --------------------------
 #
-# This file must be saved in UTF-8 encoding, with or without BOM (byte order
-# mark).
+# PURPOSE
+# -------
 #
-# This file configures PasHi and is used to set its default state. Any command
-# that is valid on the command line has an equivalent in this config file,
-# except that input file names cannot be specified.
+# PasHi looks for a file named config in the %AppData%\DelphiDabbler\PasHi when
+# it starts up. Any commands it finds in that file can be used to change the
+# program's default state. By default there is no config: the user must provide
+# one if needed.
 #
-# Commands have the same name as the long form commands used on the command line
-# except that they do not have the leading "--" characters. Commands that expect
-# a following parameter must be followed by the parameter value on the same
-# line.
-#
-# Command line commands override commands in this file.
-#
-# Blank lines are ignored as are lines beginning with # are ignored. Leading and
-# trailing spaces and tabs are also ignored.
-#
-# Errors in this file will crash PasHi. The program can usually work out if an
-# error was caused by this file and will report the fact in its error message.
+# This file is provided as a template for creating a config file. As provided,
+# it makes makes no changes to PasHi's default state. However it is fully
+# commented and lists every available configuration option.
 #
 # Possible commands are noted below. For an explanation of each command, and its
 # permitted parameters (if any) see the command reference in ReadMe.html.
+#
+# FILE FORMAT
+# -----------
+#
+# Each command must be placed on its own line. Any parameters required by the
+# command must follow the command and be separated from it by one or more
+# spaces. Parameters containing spaces must not be enclosed in quotes.
+#
+# Blank lines are ignored, as are lines beginning with #. Leading and trailing
+# spaces and tabs are also ignored.
+#
+# The file must be saved in UTF-8 encoding, with or without BOM (byte order
+# mark).
+#
+# WARNING: Errors in this file will crash PasHi. The program can usually work
+# out if an error was caused by this file and will report the fact in its error
+# message.
+#
+# USAGE
+# -----
+#
+# To use this file you must copy it as "config", over-writing any existing file.
+#
+# WARNING: Any changes to this file before renaming are likely to be overwritten
+# by PasHi, so do not run PasHi while editing the original file. Preferrably you
+# should make changes to a copy of the file.
+#
+# Commands entered on PasHi's command line override commands in this file.
 
 
 # --- Input source commands ---
