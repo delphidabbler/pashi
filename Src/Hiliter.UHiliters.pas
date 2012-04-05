@@ -119,6 +119,7 @@ type
   strict private
     fIsFirstLine: Boolean; // Record whether we are about to write first line
     fCSSClases: ICSSClassNames;  // provides name of CSS classes
+    fIsEmptyLine: Boolean;
   strict protected
     procedure BeginDoc; override;
       {Called just before document is parsed: writes opening <pre> tag.
@@ -330,9 +331,14 @@ begin
   else
     Writer.Append('<pre class="line">');
   if Options.UseLineNumbering then
+  begin
     Writer.Append(
       Format('<span class="linenum">%s</span>', [LineNumberStr])
     );
+    fIsEmptyLine := False;
+  end
+  else
+    fIsEmptyLine := True;
 end;
 
 constructor TXHTMLHiliter.Create(CSSClasses: ICSSClassNames);
@@ -348,13 +354,19 @@ end;
 
 procedure TXHTMLHiliter.EndLine;
 begin
+  if fIsEmptyLine then
+    Writer.Append(' ');
   Writer.AppendLine('</pre>');
 end;
 
 procedure TXHTMLHiliter.WriteElem(const ElemText: string);
 begin
   // Write element text with illegal characters converted to entities
-  Writer.Append(MakeSafeHTMLText(ElemText));
+  if ElemText <> '' then
+  begin
+    Writer.Append(MakeSafeHTMLText(ElemText));
+    fIsEmptyLine := False;
+  end;
 end;
 
 { TLegacyCSSNames }
