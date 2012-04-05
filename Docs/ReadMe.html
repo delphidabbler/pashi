@@ -374,51 +374,81 @@
   Installation
 </h2>
 
-<p>
-  <em>PasHi</em>'s simplicity means it that has no dependencies and creates no
-  config files or registry entries. So, I haven't provided an installer, just
-  a zip file containing a few files. They are:
+<p class="pullout">
+  Note: <em>PasHi</em> requires Windows 2000 or later to run. You need to have
+  administrative privileges to install it. Elevation may be required to install
+  on Windows Vista and later.
 </p>
 
-<ul class="spaced">
+<p>
+  <em>PasHi</em> is provided in a zip file that contains a setup program,
+  <code>PasHi-Setup-xxx.exe</code> (where xxx is the program's version number).
+  The zip file also contains this read-me file.
+</p>
+
+<p>
+  If you have <em>PasHi</em> v1.x or earlier you need to remove it manually.
+  Since these earlier versions of the program have no setup program, you must
+  uninstall manually. Simply find the program, <em>PasHiGUI</em> if you have it,
+  and delete them along with the support files.
+</p>
+
+<p>
+  Extract the setup program from the zip file and run it, following the
+  on-screen instructions. You will need to accept the license before configuring
+  and completing the installation.
+</p>
+
+<p>
+  When the installation completes you will have the chance display the read-me
+  file. You can't run <em>PasHi</em> from the installer, because it is a command
+  line program and needs a console open to run.
+</p>
+
+<p>
+  The installer makes the following changes to your system:
+</p>
+
+<ul>
   <li>
-    <code>PasHi.exe</code><br />
-    This is the program's executable file. Just copy it to a directory of
-    your choice. Then open a command console and run <em>PasHi</em>. See
-    <a
-      href="#usage">Using <em>PasHi</em></a> below for details of
-    <em>PasHi</em>'s command line switches. You'll find <em>PasHi</em>
-    more usable if you place it somewhere on your path or if you add
-    <em>PasHi</em>'s directory to the path.
+    The main program's executable files and documentation are installed into the
+    chosen install folder (<code>%ProgramFiles%\DelphiDabbler\PasHi</code> by
+    default).
   </li>
   <li>
-    <code>PasHiGUI</code><br />
-    The GUI front end for <em>PasHi</em>. If you want to use this program
-    just copy it to the <strong>same directory</strong> as <em>PasHi</em>.
+    Files required by the uninstaller are stored in the main installation's
+    <code>Uninst</code> sub-folder.
   </li>
   <li>
-    <code>License.txt</code><br />
-    Contains the program's license. Please read this and only use
-    <em>PasHi</em> (and <em>PasHiGUI</em> if you agree with it. OK, given
-    that you probably won't read I'll tell you now it's a pretty permissive
-    open source license. You can use and distribute <em>PasHi</em> freely
-    and get the source code and modify it. If you release your changes there
-    are two conditions: (1) you must make source code available (most code is
-    covered by the
-    <a
-      href="http://www.mozilla.org/MPL/2.0/"
-    >Mozilla Public License v2.0</a>) and (2) you must delete the program icons
-    or use your own.
+    The program's uninstall information is registered with the Add / Remove
+    Programs (aka Programs and Features) control panel applet.
   </li>
   <li>
-    <code>ReadMe.html</code><br />
-    This file. Nuff said.
+    A program group may be created in the start menu.
+  </li>
+  <li>
+    Sample .css and config files are installed in
+    <code>%ProgramData%\DelphiDabbler\PasHi</code>. The first time that
+    <em>PasHi</em> is run by each user, these files are also copied to that
+    users's <code>%AppData%\DelphiDabbler\PasHi</code> directory.
   </li>
 </ul>
 
+<h3>
+  Uninstallation
+</h3>
+
 <p>
-  To uninstall, just delete <code>Pashi.exe</code> and
-  <code>PasHiGUI.exe</code>. Neither program makes any changes to your system.
+  Open the Add / Remove Programs (Programs and Features) applet from the Control
+  Panel, navigate to the <em>DelphiDabbler PasHi</em> entry and click the
+  <em>Remove</em> or <em>Uninstall</em> button. You will be asked to confirm
+  removal of the program. Click <em>Yes</em> to proceed.
+</p>
+
+<p>
+  The directory <code>%ProgramData%\DelphiDabbler\PasHi</code> will be removed
+  but each user's <code>%AppData%\DelphiDabbler\PasHi</code> directory and all
+  its files will be left behind.
 </p>
 
 <p class="gototop">
