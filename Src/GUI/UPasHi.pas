@@ -128,7 +128,7 @@ begin
   else
     Result := Result + '--input-stdin ';
   if CreateFragment then
-    Result := Result + '--doc-type xhtml-fragment'
+    Result := Result + '--doc-type fragment'
   else
     Result := Result + '--doc-type xhtml';
 end;
