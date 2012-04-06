@@ -27,65 +27,89 @@
     .comments {
       margin:4px 0;
     }
-    .pas-source {
-      font-family: "Courier New", monospace;
-      font-size: 9pt;
+    .code-pascal {
       background-color :#ffc;
       margin-top: 8px;
       padding: 4px;
       border: 1px silver solid;
     }
-    .pas-comment {
-      font-style: italic;
-      font-weight: normal;
-      text-decoration: none;
-      color: #000080;
+    .code-pascal pre {
+      font-family: "Courier New", monospace;
+      font-size: 9pt;
+      margin: 0;
     }
-    .pas-kwd {
-      font-style: normal;
+    .code-pascal pre.line {
+    }
+    .code-pascal pre.odd-line {
+    }
+    .code-pascal pre.even-line {
+      background-color: #f0f0f0;
+    }
+    .code-pascal .linenum {
+      border-right: 1px silver solid;
+      padding: 1px 4px 1px 2px;
+      margin-right: 0.75em;
+      color: gray;
+      background-color: #f0f0f0;
+    }
+    .code-pascal .comment {
+      color: green;
+      font-weight: normal;
+      font-style: italic;
+      text-decoration: none;
+    }
+    .code-pascal .kwd {
+      color: navy;
       font-weight: bold;
-      text-decoration: none;
-    }
-    .pas-str {
       font-style: normal;
-      font-weight: normal;
       text-decoration: none;
-      color: #800080;
     }
-    .pas-num {
+    .code-pascal .ident {
+      color: black;
+      font-weight: normal;
       font-style: normal;
-      font-weight: normal;
       text-decoration: none;
-      color: #800000;
     }
-    .pas-float {
+    .code-pascal .sym {
+      color: black;
+      font-weight: normal;
       font-style: normal;
-      font-weight: normal;
       text-decoration: none;
-      color: #800000;
     }
-    .pas-hex {
+    .code-pascal .str {
+      color: blue;
+      font-weight: normal;
       font-style: normal;
-      font-weight: normal;
       text-decoration: none;
-      color: #800000;
     }
-    .pas-preproc {
+    .code-pascal .num,
+    .code-pascal .float,
+    .code-pascal .hex {
+      color: maroon;
+      font-weight: normal;
       font-style: normal;
-      font-weight: normal;
-      text-decoration: none;
-      color: #008000;
-    }
-    .pas-asm {
-      font-style: italic;
-      font-weight: normal;
       text-decoration: none;
     }
-    .pas-err {
+    .code-pascal .preproc {
+      color: teal;
+      font-weight: normal;
       font-style: normal;
-      font-weight: normal;
       text-decoration: none;
-      color: #FF0000;
+    }
+    .code-pascal .asm {
+      color: black;
+      font-weight: normal;
+      font-style: normal;
+      text-decoration: none;
+    }
+    .code-pascal .space {
+    }
+    .code-pascal .err {
+      color: black;
+      background-color: yellow;
+      font-weight: normal;
+      font-style: normal;
+      text-decoration: none;
     }
   </style>
 </head>
