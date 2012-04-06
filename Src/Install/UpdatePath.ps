@@ -1,0 +1,160 @@
+{
+ * This Source Code Form is subject to the terms of the Mozilla Public License,
+ * v. 2.0. If a copy of the MPL was not distributed with this file, You can
+ * obtain one at http://mozilla.org/MPL/2.0/
+ *
+ * Copyright (C) 2012, Peter Johnson (www.delphidabbler.com).
+ *
+ * $Rev$
+ * $Date$
+ *
+ * Scripts that add and remove a given directory to the system PATH.
+ *
+ * Requirements:
+ *   Windows NT.
+}
+
+
+const
+  // Registry key containing system wide environment variables on Windows NT.
+  PathRegKey = 'SYSTEM\CurrentControlSet\Control\Session Manager\Environment';
+  // Name of registry value containing PATH environment variable.
+  PathRegValue = 'Path';
+
+// Splits string S at first occurnce of given delimeter. Part before delimiter
+// is stored in S1 and part after delimiter in S2. S2 is blank if there is no
+// delimiter. Returns True if delimiter found, False if not.
+function SplitStr(const S, Delim: string; var S1, S2: string): Boolean;
+var
+  DelimPos: Integer;  // position of delimiter in source string
+begin
+  DelimPos := Pos(Delim, S);
+  if DelimPos > 0 then
+  begin
+    S1 := Copy(S, 1, DelimPos - 1);
+    S2 := Copy(S, DelimPos + Length(Delim), MaxInt);
+    Result := True;
+  end
+  else
+  begin
+    S1 := S;
+    S2 := '';
+    Result := False;
+  end;
+end;
+
+// Joins all strings in A, delimiting each string by the given delimiter.
+function Join(const A: TArrayOfString; Delim: string): string;
+var
+  Idx: Integer;
+begin
+  if GetArrayLength(A) = 0 then
+  begin
+    Result := '';
+    Exit;
+  end;
+  Result := A[0];
+  for Idx := 1 to GetArrayLength(A) - 1 do
+    Result := Result + Delim + A[Idx];
+end;
+
+// Exploses string S into a string array, splitting the string on the given
+// delimiter.
+function ExplodeStr(S: string; Delim: string): TArrayOfString;
+var
+  Item: string;       // each item read from string
+  Remainder: string;  // unprocessed remainder of string
+  Count: Integer;     // number of items read
+begin
+  SetArrayLength(Result, 0);
+  if S = '' then
+    Exit;
+  while SplitStr(S, Delim, Item, Remainder) do
+  begin
+    Count := Count + 1;
+    SetArrayLength(Result, Count);
+    Result[Count - 1] := Item;
+    S := Remainder;
+  end;
+  if Item <> '' then
+  begin
+    Count := Count + 1;
+    SetArrayLength(Result, Count);
+    Result[Count - 1] := Item;
+  end;
+end;
+
+// Gets index of S in string array A. Comparison is case insensitive. Returns -1
+// if S not in A.
+function ArrayIndex(S: string; A: TArrayOfString): Integer;
+var
+  Idx: Integer;
+begin
+  Result := -1;
+  for Idx := 0 to GetArrayLength(A) - 1 do
+  begin
+    if CompareText(S, A[Idx]) = 0 then
+    begin
+      Result := Idx;
+      Exit;
+    end;
+  end;
+end;
+
+// Gets system path (';' delimited).
+function GetPath: string;
+begin
+  // NOTE: suitable only for Windows NT platform
+  RegQueryStringValue(HKEY_LOCAL_MACHINE, PathRegKey, PathRegValue, Result);
+end;
+
+// Sets system path to given value.
+procedure SetPath(NewPath: string);
+begin
+  RegWriteStringValue(HKEY_LOCAL_MACHINE, PathRegKey, PathRegValue, NewPath);
+end;
+
+// Gets system path and splits into an array of directories.
+function SplitPath: TArrayOfString;
+begin
+  Result := ExplodeStr(GetPath, ';');
+end;
+
+// Adds given directory to system path. Does nothing if directory is already in
+// path.
+procedure AddToPath(ADir: string);
+var
+  PathDirs: TArrayOfstring; // array of directories on path
+  NewSize: Integer;         // size of path array after adding ADir
+  NewPath: string;          // new path after adding ADir
+begin
+  PathDirs := SplitPath;
+  if ArrayIndex(ADir, PathDirs) = -1 then
+  begin
+    NewSize := GetArrayLength(PathDirs) + 1;
+    SetArrayLength(PathDirs, NewSize);
+    PathDirs[NewSize - 1] := ADir;
+    NewPath := Join(PathDirs, ';');
+    SetPath(NewPath);
+  end;
+end;
+
+// Removes given directory from system path if present
+procedure RemoveFromPath(ADir: string);
+var
+  PathDirs: TArrayOfString; // array of directories on path
+  DelIdx: Integer;          // index of ADir in PathDirs
+  Idx: Integer;             // loops through PathDirs
+  NewPath: string;          // new path after deleting ADir
+begin
+  PathDirs := SplitPath;
+  DelIdx := ArrayIndex(ADir, PathDirs);
+  if DelIdx >= 0 then
+  begin
+    for Idx := DelIdx + 1 to GetArrayLength(PathDirs) - 1 do
+      PathDirs[Idx - 1] := PathDirs[Idx];
+    SetArrayLength(PathDirs, GetArrayLength(PathDirs) - 1);
+    NewPath := Join(PathDirs, ';');
+    SetPath(NewPath);
+  end;
+end;
