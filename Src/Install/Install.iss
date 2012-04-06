@@ -57,7 +57,7 @@ AppCopyright={#Copyright} ({#WebAddress})
 AppComments=
 AppContact=
 DefaultDirName={pf}\{#AppPublisher}\{#AppName}
-DefaultGroupName={#AppName}
+DefaultGroupName={#AppPublisher} {#AppName}
 AllowNoIcons=false
 LicenseFile={#SrcDocsPath}{#LicenseFile}
 Compression=lzma/ultra
@@ -81,6 +81,7 @@ UninstallDisplayIcon={app}\{#ExeFile}
 PrivilegesRequired=admin
 MergeDuplicateFiles=false
 UserInfoPage=false
+ChangesEnvironment=true
 
 [Files]
 Source: {#SrcExePath}{#ExeFile}; DestDir: {app}; Flags: uninsrestartdelete replacesameversion
@@ -89,22 +90,26 @@ Source: {#SrcDocsPath}{#LicenseFile}; DestDir: {app}; Flags: ignoreversion
 Source: {#SrcDocsPath}{#ReadmeFile}; DestDir: {app}; Flags: ignoreversion
 Source: {#SrcConfigPath}version; DestDir: {#AppDataDir}; Flags: ignoreversion
 Source: {#SrcConfigPath}config-template; DestDir: {#AppDataDir}; Flags: ignoreversion
-Source: {#SrcConfigPath}config-v1; DestDir: {#AppDataDir}; Flags: ignoreversion
-Source: {#SrcConfigPath}v1-default.css; DestDir: {#AppDataDir}; Flags: ignoreversion
-Source: {#SrcConfigPath}classic.css; DestDir: {#AppDataDir}; Flags: ignoreversion
-Source: {#SrcConfigPath}delphi4.css; DestDir: {#AppDataDir}; Flags: ignoreversion
-Source: {#SrcConfigPath}delphi7.css; DestDir: {#AppDataDir}; Flags: ignoreversion
-Source: {#SrcConfigPath}delphi2010.css; DestDir: {#AppDataDir}; Flags: ignoreversion
-Source: {#SrcConfigPath}ocean.css; DestDir: {#AppDataDir}; Flags: ignoreversion
-Source: {#SrcConfigPath}twilight.css; DestDir: {#AppDataDir}; Flags: ignoreversion
-Source: {#SrcConfigPath}visual-studio.css; DestDir: {#AppDataDir}; Flags: ignoreversion
-Source: {#SrcConfigPath}notebook.css; DestDir: {#AppDataDir}; Flags: ignoreversion
-Source: {#SrcConfigPath}null.css; DestDir: {#AppDataDir}; Flags: ignoreversion
-Source: {#SrcConfigPath}mono.css; DestDir: {#AppDataDir}; Flags: ignoreversion
+Source: {#SrcConfigPath}config-v1; DestDir: {#AppDataDir}; Tasks: samples; Flags: ignoreversion
+Source: {#SrcConfigPath}v1-default.css; DestDir: {#AppDataDir}; Tasks: samples; Flags: ignoreversion
+Source: {#SrcConfigPath}classic.css; DestDir: {#AppDataDir}; Tasks: samples; Flags: ignoreversion
+Source: {#SrcConfigPath}delphi4.css; DestDir: {#AppDataDir}; Tasks: samples; Flags: ignoreversion
+Source: {#SrcConfigPath}delphi7.css; DestDir: {#AppDataDir}; Tasks: samples; Flags: ignoreversion
+Source: {#SrcConfigPath}delphi2010.css; DestDir: {#AppDataDir}; Tasks: samples; Flags: ignoreversion
+Source: {#SrcConfigPath}ocean.css; DestDir: {#AppDataDir}; Tasks: samples; Flags: ignoreversion
+Source: {#SrcConfigPath}twilight.css; DestDir: {#AppDataDir}; Tasks: samples; Flags: ignoreversion
+Source: {#SrcConfigPath}visual-studio.css; DestDir: {#AppDataDir}; Tasks: samples; Flags: ignoreversion
+Source: {#SrcConfigPath}notebook.css; DestDir: {#AppDataDir}; Tasks: samples; Flags: ignoreversion
+Source: {#SrcConfigPath}null.css; DestDir: {#AppDataDir}; Tasks: samples; Flags: ignoreversion
+Source: {#SrcConfigPath}mono.css; DestDir: {#AppDataDir}; Tasks: samples; Flags: ignoreversion
 
 [Icons]
-Name: {group}\{#AppName}; Filename: {app}\{#ExeFile}
+Name: {group}\Read Me File; Filename: {app}\{#ReadmeFile}
 Name: {group}\{cm:UninstallProgram,{#AppName}}; Filename: {uninstallexe}
+
+[Tasks]
+Name: modifypath; Description: &Add PasHi's directory to the system path for all users;
+Name: samples; Description: Install &sample style sheets and config file templates;
 
 [Run]
 Filename: {app}\{#ReadMeFile}; Description: "View the README file"; Flags: nowait postinstall skipifsilent shellexec
@@ -120,3 +125,12 @@ BeveledLabel={#Company}
 ; Deletes common app config etc. directory & files
 ; (per-user directory & files are left in place)
 Type: filesandordirs; Name: {#AppDataDir}
+
+[Code]
+
+const
+  // Name of "add to path" task per [Tasks] section
+  ModifyPathTask = 'modifypath';
+
+#include "UpdatePath.ps"
+#include "Events.ps"
