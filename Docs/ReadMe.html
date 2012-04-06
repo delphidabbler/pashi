@@ -378,11 +378,21 @@
   Installation
 </h2>
 
-<p class="pullout">
-  Note: <em>PasHi</em> requires Windows 2000 or later to run. You need to have
-  administrative privileges to install it. Elevation may be required to install
-  on Windows Vista and later.
-</p>
+<div class="pullout">
+  <p>
+    <em>PasHi</em> requires Windows 2000 or later to run. You need to have
+    administrative privileges to install it. Elevation may be required to
+    install on Windows Vista and later.
+  </p>
+  <p>
+    If you have <em>PasHi</em> v1.x or earlier you need to remove it before
+    installing this version. These early versions of the program have no setup
+    setup program, so you must uninstall manually. Simply find the program (and
+    <em>PasHiGUI</em> if you have it) and delete the executable file(s) along
+    with any support files you installed. If you included the v1.x install
+    directory on the system path you should remove the path.
+  </p>
+</div>
 
 <p>
   <em>PasHi</em> is provided in a zip file that contains a setup program,
@@ -391,22 +401,64 @@
 </p>
 
 <p>
-  If you have <em>PasHi</em> v1.x or earlier you need to remove it manually.
-  Since these earlier versions of the program have no setup program, you must
-  uninstall manually. Simply find the program, <em>PasHiGUI</em> if you have it,
-  and delete them along with the support files.
-</p>
-
-<p>
   Extract the setup program from the zip file and run it, following the
-  on-screen instructions. You will need to accept the license before configuring
-  and completing the installation.
+  on-screen instructions.
 </p>
 
 <p>
-  When the installation completes you will have the chance display the read-me
-  file. You can't run <em>PasHi</em> from the installer, because it is a command
-  line program and needs a console open to run.
+  You will need to accept the license before configuring and completing the
+  installation. The license is permissive and lets you copy and share
+  <em>PasHi</em> freely. You can also modify it providing you make the source
+  code of your changes freely available.
+</p>
+
+<p>
+  After agreeing to license the installer you choose the installation directory
+  followed by the name of the start menu program group. Following that you have
+  three options, all of which are selected by default:
+</p>
+
+<ol class="spaced">
+  </li>
+  <li>
+    <em>Add PasHi's directory to the system path for all users</em>:<br />
+    This lets
+    you run <em>PasHi</em> simply by typing its name on the command line,
+    without specifying the path to the program. The installer modifies the
+    system PATH environment variable. This option is recommended for everyone.
+  </li>
+  <li>
+    <em>Install sample style sheets and config file templates</em>:<br />
+    This option installs various <a
+      href="#css-samples"
+    >CSS style sheets</a> and <a
+      href="#config-samples"
+    >config templates</a>. These files will appear in your
+    <code>%AppData%\DelphiDabbler\PasHi</code> directly immediately after you
+    first run <em>PasHi</em>. These files take up very little disk space and so
+    this option is recommended unless you are sure you will never need to use
+    the files.
+  </li>
+  <li>
+    <em>Install beta version of GUI front end program, PasHiGUI</em>:<br />
+    This installs the <a
+      href="#pashigui"
+    ><em>PasHiGUI</em></a> program alongside <em>PasHi</em>. This program can
+    help if you just a graphical way on running <em>PasHi</em>. GUI provides
+    very little control over <em>PasHi</em> at present and getting the most out
+    of it really needs you to create a suitable config file. It is worthwhile
+    installing if you would like to try it out and perhaps send feedback about
+    possible new features.
+  </li>
+</ol>
+
+<p>
+  Following this page you can review your choices and either go back and change
+  your choices or commit to installing. Once installation is complete then the
+  last page is displayed. If gives an option to display the ReadMe file, which
+  you are strongly recommened to read to learn how to get the best out of
+  <em>PasHi</em>. If you have installed <em>PasHiGUI</em> you are given the
+  option to run it.
 </p>
 
 <p>
@@ -417,7 +469,8 @@
   <li>
     The main program's executable files and documentation are installed into the
     chosen install folder (<code>%ProgramFiles%\DelphiDabbler\PasHi</code> by
-    default).
+    default). If you chose to install it, <em>PasHiGUI</em> will also be placed
+    in this directory.
   </li>
   <li>
     Files required by the uninstaller are stored in the main installation's
@@ -426,6 +479,9 @@
   <li>
     The program's uninstall information is registered with the Add / Remove
     Programs (aka Programs and Features) control panel applet.
+  </li>
+  <li>
+    The system path may be updated if you chose the relevant option.
   </li>
   <li>
     A program group may be created in the start menu.
@@ -450,9 +506,19 @@
 </p>
 
 <p>
+  <em>PasHi</em>, <em>PasHiGUI</em> (if installed) and all documentation will
+  be removed.
+</p>
+
+<p>
   The directory <code>%ProgramData%\DelphiDabbler\PasHi</code> will be removed
   but each user's <code>%AppData%\DelphiDabbler\PasHi</code> directory and all
   its files will be left behind.
+</p>
+
+<p>
+  If you chose to add <em>PasHi</em>'s install directory to the system path it
+  will be removed by the uninstaller.
 </p>
 
 <p class="gototop">
@@ -514,7 +580,7 @@
   </tr>
   <tr>
     <th>
-      Long form<!--<sup><span style="font-size:smaller;">&dagger;</span></sup>-->
+      Long form
     </th>
     <th>
       Short form
@@ -1116,7 +1182,7 @@
   and all will be well.
 </p>
 
-<h3>
+<h3 id="config-samples">
   Sample config scripts
 </h3>
 
@@ -1518,7 +1584,7 @@ doc-type fragment</pre>
   </p>
 </div>
 
-<h3>
+<h3 id="css-samples">
   Predefined style sheets
 </h3>
 
