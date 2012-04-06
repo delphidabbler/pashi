@@ -85,7 +85,7 @@ ChangesEnvironment=true
 
 [Files]
 Source: {#SrcExePath}{#ExeFile}; DestDir: {app}; Flags: uninsrestartdelete replacesameversion
-Source: {#SrcExePath}PasHiGUI.exe; DestDir: {app}; Flags: uninsrestartdelete replacesameversion
+Source: {#SrcExePath}PasHiGUI.exe; DestDir: {app}; Tasks: gui; Flags: uninsrestartdelete replacesameversion
 Source: {#SrcDocsPath}{#LicenseFile}; DestDir: {app}; Flags: ignoreversion
 Source: {#SrcDocsPath}{#ReadmeFile}; DestDir: {app}; Flags: ignoreversion
 Source: {#SrcConfigPath}version; DestDir: {#AppDataDir}; Flags: ignoreversion
@@ -110,9 +110,11 @@ Name: {group}\{cm:UninstallProgram,{#AppName}}; Filename: {uninstallexe}
 [Tasks]
 Name: modifypath; Description: &Add PasHi's directory to the system path for all users;
 Name: samples; Description: Install &sample style sheets and config file templates;
+Name: gui; Description: Install beta version of &GUI front end program, PasHiGUI; 
 
 [Run]
 Filename: {app}\{#ReadMeFile}; Description: "View the README file"; Flags: nowait postinstall skipifsilent shellexec
+Filename: {app}\PasHiGUI.exe; Description: "Run PasHiGUI"; Tasks: gui; Flags: nowait postinstall skipifsilent unchecked
 
 [Dirs]
 Name: {#AppDataDir};
