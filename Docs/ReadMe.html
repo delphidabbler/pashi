@@ -251,7 +251,7 @@
     <a href="#why">Why another Pascal highlighter?</a>
   </li>
   <li>
-    <a href="#install">Installing <em>PasHi</em></a>
+    <a href="#install">Installation</em></a>
   </li>
   <li>
     <a href="#usage">Using <em>PasHi</em></a>
@@ -282,23 +282,27 @@
 </h2>
 
 <p>
-  <em>PasHi</em> is a simple command line program that highlights Pascal
-  source code. It reads the original source code from standard input or the
-  clipboard and writes the highlighted code to standard output or the
-  clipboard. HTML is used for the highlighted code and cascading style sheets
-  are used to do the styling.
+  <em>PasHi</em> is a fully featured command line program that highlights Pascal
+  source code. It reads the original source code from standard input, files or
+  the clipboard and writes the highlighted code as HTML to standard output, a
+  file, or the clipboard.
 </p>
 
 <p>
-  <em>PasHi</em> can generate complete HTML documents in HTML 4, XHTML or HTML 5
-  formats. Alternatively fragments of HTML code containing the highlighted
-  source can be generated. These fragments are compatible with all supported
-  HTML formats. Complete HTML documents contain an embedded or linked CSS style
-  sheet while code fragments require the user to provide the <a
+  HTML 4, XHTML and HTML 5 are all supported. CSS is used for styling. Style
+  sheets may be external or can be embedded in the HTML document. Several
+  predefined style sheets are installed with the program. You can also create <a
     href="#css"
-  >required CSS classes</a>. This last feature makes it easy to embed code
-  highlighted by <em>PasHi</em> into existing web pages with highlight colours
-  and other styling defined by the web page author.
+  >your own</a>.
+</p>
+
+<p>
+  <em>PasHi</em> can either generate complete HTML documents or just fragments
+  of HTML code. HTML fragments make it easy to embed highlighted code in
+  existing web pages. Web page authors simply need to ensure that the <a
+    href="#css"
+  >necessary CSS classes</a> are available. The easiest way to do this is to use
+  an external style sheet.
 </p>
 
 <p>
@@ -307,7 +311,16 @@
 </p>
 
 <p>
-  Up until and including v1.0.0, <em>PasHi</em> was known as <em>PasH</em>.
+  Check <a
+    href="http://hallvards.blogspot.com/"
+  >Hallvard's Blog</a> for an example of a site using <em>PasHi</em>.
+  <em>PasHi</em> has also been used to highlight example source code on the
+  DelphiDabbler <a
+    href="http://www.delphidabbler.com/tips"
+  >Delphi Tips</a> and
+  <a
+    href="http://www.delphidabbler.com/articles"
+  >Articles</a> pages.
 </p>
 
 <p class="gototop">
@@ -327,10 +340,10 @@
 
 <ol>
   <li>
-    Cascading style sheets.
+    Conformant XHTML and later HTML 5.
   </li>
   <li>
-    Valid XHTML and, later, HTML 5.
+    Styling by means of cascading style sheets.
   </li>
   <li>
     Full control over the appearance of the output code.
@@ -345,25 +358,16 @@
 </ol>
 
 <p>
-  On checking the available free tools I've found they were either too complex
-  or didn't provide one of the features I wanted. I'd already written
-  highlighter code for my <em>CodeSnip</em> program, so I extracted that,
-  tweaked it and wrapped it up in a command line program. Having made it I
-  thought I'd release it in case anyone else finds it useful. Since then it's
-  been greatly enhanced.
+  On checking the available free tools I found that they were either too complex
+  or they didn't provide one or more of the features I wanted.
 </p>
 
 <p>
-  Check <a
-    href="http://hallvards.blogspot.com/"
-  >Hallvard's Blog</a> for an example of a site using <em>PasHi</em>.
-  <em>PasHi</em> has also been used to highlight example source code on the
-  DelphiDabbler <a
-    href="http://www.delphidabbler.com/tips"
-  >Delphi Tips</a> and
-  <a
-    href="http://www.delphidabbler.com/articles"
-  >Articles</a> pages.
+  I had already written highlighter code for my <em><a
+    href="http://www.delphidabbler.com/software/codesnip"
+  >CodeSnip</a></em> program, so I extracted that, tweaked it and wrapped it up
+  in a command line program. Having made it I thought I'd release it in case
+  anyone else found it useful. Since then it's been greatly enhanced.
 </p>
 
 <p class="gototop">
