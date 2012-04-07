@@ -33,15 +33,17 @@ type
 
   TConfigFiles = class(TObject)
   strict private
-    class function ConfigFileName: string;
     class function CommonConfigDir: string;
     class function IsNewConfigFiles: Boolean;
-  strict protected
     class function FindConfigFile(const BaseName: string; out FullPath: string):
       Boolean;
+  strict protected
+    class function ConfigFileReaderInstance(const CfgFileName: string):
+      TConfigFileReader; overload;
   public
     class constructor Create;
-    class function ConfigFileReaderInstance: TConfigFileReader; virtual;
+    class function ConfigFileReaderInstance: TConfigFileReader; overload;
+      virtual;
     class procedure Initialise;
     class function UserConfigDir: string;
   end;
@@ -186,15 +188,19 @@ begin
     + 'DelphiDabbler\PasHi';
 end;
 
-class function TConfigFiles.ConfigFileName: string;
+class function TConfigFiles.ConfigFileReaderInstance(
+  const CfgFileName: string): TConfigFileReader;
+var
+  CfgFilePath: string;
 begin
-  FindConfigFile('config', Result);   // Result = '' if file doesn't exist
+  Result := TConfigFileReader.Create;
+  if FindConfigFile(CfgFileName, CfgFilePath) then
+    Result.LoadData(CfgFilePath);
 end;
 
 class function TConfigFiles.ConfigFileReaderInstance: TConfigFileReader;
 begin
-  Result := TConfigFileReader.Create;
-  Result.LoadData(ConfigFileName);
+  Result := ConfigFileReaderInstance('config');
 end;
 
 class constructor TConfigFiles.Create;
