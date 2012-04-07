@@ -22,7 +22,7 @@ type
     procedure Update(const Option: string; const Value: string = '');
     procedure Delete(const Option: string);
     function GetParam(const Option: string): string;
-    function IsDefault(const Option: string): Boolean;
+    function IsSet(const Option: string): Boolean;
     function GetEnumerator: TEnumerator<TOption>;
   end;
 
@@ -82,9 +82,9 @@ begin
   end;
 end;
 
-function TOptions.IsDefault(const Option: string): Boolean;
+function TOptions.IsSet(const Option: string): Boolean;
 begin
-  Result := not fOptions.ContainsKey(Option);
+  Result := fOptions.ContainsKey(Option);
 end;
 
 procedure TOptions.Save;
