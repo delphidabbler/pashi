@@ -38,7 +38,7 @@ type
     class function FindConfigFile(const BaseName: string; out FullPath: string):
       Boolean;
   strict protected
-    class function ConfigFileReaderInstance(const CfgFileName: string):
+    class function ConfigFileReaderInstance(const Files: array of string):
       TConfigFileReader; overload;
   public
     class constructor Create;
@@ -189,18 +189,20 @@ begin
 end;
 
 class function TConfigFiles.ConfigFileReaderInstance(
-  const CfgFileName: string): TConfigFileReader;
+  const Files: array of string): TConfigFileReader;
 var
   CfgFilePath: string;
+  CfgFileName: string;
 begin
   Result := TConfigFileReader.Create;
-  if FindConfigFile(CfgFileName, CfgFilePath) then
-    Result.LoadData(CfgFilePath);
+  for CfgFileName in Files do
+    if FindConfigFile(CfgFileName, CfgFilePath) then
+      Result.LoadData(CfgFilePath);
 end;
 
 class function TConfigFiles.ConfigFileReaderInstance: TConfigFileReader;
 begin
-  Result := ConfigFileReaderInstance('config');
+  Result := ConfigFileReaderInstance(['config']);
 end;
 
 class constructor TConfigFiles.Create;

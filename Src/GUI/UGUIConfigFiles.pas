@@ -31,11 +31,14 @@ uses
 { TGUIConfigFiles }
 
 const
+  CmdCfgFileName = 'config';
   GUICfgFileName = 'gui-config';
 
 class function TGUIConfigFiles.ConfigFileReaderInstance: TConfigFileReader;
 begin
-  Result := inherited ConfigFileReaderInstance(GUICfgFileName);
+  Result := inherited ConfigFileReaderInstance(
+    [CmdCfgFileName, GUICfgFileName]
+  );
 end;
 
 class function TGUIConfigFiles.ConfigFileWriterInstance: TConfigFileWriter;
