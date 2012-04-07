@@ -24,23 +24,24 @@ type
   strict private
     var
       fMap: TList<TPair<string,string>>;
-    procedure LoadData(const FileName: string);
   public
-    constructor Create(const FileName: string);
+    constructor Create;
+    procedure LoadData(const FileName: string);
     destructor Destroy; override;
     function GetEnumerator: TEnumerator<TPair<string,string>>;
   end;
 
   TConfigFiles = class(TObject)
   strict private
-    class function FindConfigFile(const BaseName: string; out FullPath: string):
-      Boolean;
     class function ConfigFileName: string;
     class function CommonConfigDir: string;
     class function IsNewConfigFiles: Boolean;
+  strict protected
+    class function FindConfigFile(const BaseName: string; out FullPath: string):
+      Boolean;
   public
     class constructor Create;
-    class function ConfigFileReaderInstance: TConfigFileReader;
+    class function ConfigFileReaderInstance: TConfigFileReader; virtual;
     class procedure Initialise;
     class function UserConfigDir: string;
   end;
@@ -124,12 +125,10 @@ end;
 
 { TConfigFileReader }
 
-constructor TConfigFileReader.Create(const FileName: string);
+constructor TConfigFileReader.Create;
 begin
   inherited Create;
   fMap := TList<TPair<string,string>>.Create;
-  if (FileName <> '') and FileExists(FileName) then
-    LoadData(FileName);
 end;
 
 destructor TConfigFileReader.Destroy;
@@ -194,7 +193,8 @@ end;
 
 class function TConfigFiles.ConfigFileReaderInstance: TConfigFileReader;
 begin
-  Result := TConfigFileReader.Create(ConfigFileName);
+  Result := TConfigFileReader.Create;
+  Result.LoadData(ConfigFileName);
 end;
 
 class constructor TConfigFiles.Create;
@@ -276,3 +276,4 @@ begin
 end;
 
 end.
+
