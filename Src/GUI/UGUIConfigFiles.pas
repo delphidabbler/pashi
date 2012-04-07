@@ -19,7 +19,7 @@ implementation
 
 class function TGUIConfigFiles.ConfigFileReaderInstance: TConfigFileReader;
 begin
-  Result := inherited ConfigFileReaderInstance;
+  Result := TConfigFileReader.Create;
   Result.LoadData(GUIConfigFileName);
 end;
 
