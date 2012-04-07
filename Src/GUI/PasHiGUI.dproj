@@ -44,6 +44,11 @@
 			<DCCReference Include="UPipe.pas"/>
 			<DCCReference Include="UUtils.pas"/>
 			<DCCReference Include="UWBContainer.pas"/>
+			<DCCReference Include="..\UConfigFiles.pas"/>
+			<DCCReference Include="UGUIConfigFiles.pas"/>
+			<DCCReference Include="..\IO.UHelper.pas"/>
+			<DCCReference Include="..\UComparers.pas"/>
+			<DCCReference Include="..\USpecialFolders.pas"/>
 			<None Include="PasHiGUI.todo"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>

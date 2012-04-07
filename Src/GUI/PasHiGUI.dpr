@@ -48,7 +48,12 @@ uses
   UPasHi in 'UPasHi.pas',
   UPipe in 'UPipe.pas',
   UUtils in 'UUtils.pas',
-  UWBContainer in 'UWBContainer.pas';
+  UWBContainer in 'UWBContainer.pas',
+  UConfigFiles in '..\UConfigFiles.pas',
+  UGUIConfigFiles in 'UGUIConfigFiles.pas',
+  IO.UHelper in '..\IO.UHelper.pas',
+  UComparers in '..\UComparers.pas',
+  USpecialFolders in '..\USpecialFolders.pas';
 
 {$R Resources.res}      // main program resources, including icon
 {$R VersionInfo.res}    // version information resource
