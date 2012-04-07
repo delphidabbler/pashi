@@ -49,6 +49,7 @@
 			<DCCReference Include="..\IO.UHelper.pas"/>
 			<DCCReference Include="..\UComparers.pas"/>
 			<DCCReference Include="..\USpecialFolders.pas"/>
+			<DCCReference Include="UOptions.pas"/>
 			<None Include="PasHiGUI.todo"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
