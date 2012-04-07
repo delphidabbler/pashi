@@ -23,7 +23,7 @@ uses
   // Delphi
   Classes,
   // Project
-  UPasHi, UInputData, UOutputData;
+  UPasHi, UInputData, UOutputData, UOptions;
 
 
 type
@@ -80,7 +80,7 @@ type
     destructor Destroy; override;
       {Class destructor. Tears down object.
       }
-    procedure Highlight;
+    procedure Highlight(const Options: TOptions);
     procedure Save(const OutputData: IOutputData);
       {Saves document via output data object.
         @param OutputData [in] Object used to write the highlighted document's
@@ -146,7 +146,7 @@ begin
   Result := StringFromStream(fHilitedStream);
 end;
 
-procedure TDocument.Highlight;
+procedure TDocument.Highlight(const Options: TOptions);
 var
   SourceStm: TStream;
 begin
@@ -160,7 +160,7 @@ begin
       try
         fInputData.ReadData(SourceStm);
         SourceStm.Position := 0;
-        fPasHi.Hilite(SourceStm, fHilitedStream, fOutputType = doXHTMLFragment);
+        fPasHi.Hilite(SourceStm, fHilitedStream, Options);
       finally
         SourceStm.Free;
       end;
@@ -169,7 +169,7 @@ begin
     begin
       if Length(fInputFiles) = 0 then
         Exit;
-      fPasHi.Hilite(fInputFiles, fHilitedStream, fOutputType = doXHTMLFragment);
+      fPasHi.Hilite(fInputFiles, fHilitedStream, Options);
     end;
   end;
 end;

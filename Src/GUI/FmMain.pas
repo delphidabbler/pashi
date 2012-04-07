@@ -22,7 +22,7 @@ uses
   ImgList, Controls, ActnList, StdActns, Classes, Menus, StdCtrls, OleCtrls,
   SHDocVw, ExtCtrls, ComCtrls, ToolWin, Forms, ActiveX, Windows, SysUtils,
   // Project
-  IntfDropDataHandler, UDocument, UWBContainer, UInputData;
+  IntfDropDataHandler, UOptions, UDocument, UWBContainer, UInputData;
 
 
 type
@@ -91,6 +91,7 @@ type
       Y: Integer);
     procedure sbMainHint(Sender: TObject);
   private
+    fOptions: TOptions;
     fDocLoaded: Boolean;
     fDocument: TDocument;
       {Currently loaded document}
@@ -255,13 +256,19 @@ begin
   Busy(True);
   try
     if actFrag.Checked then
+    begin
+      fOptions.Update('doc-type', 'fragment');
       fDocument.OutputType := doXHTMLFragment
+    end
     else
+    begin
+      fOptions.Update('doc-type', 'xhtml');
       fDocument.OutputType := doXHTML;
+    end;
     UpdateStatusBar;
     if not fDocLoaded then
       Exit;
-    fDocument.Highlight;
+    fDocument.Highlight(fOptions);
     UpdateDisplay;
     fDocLoaded := True;
   finally
@@ -419,7 +426,7 @@ begin
   Busy(True);
   try
     fDocument.InputFiles := Files;
-    fDocument.Highlight;
+    fDocument.Highlight(fOptions);
     UpdateDisplay;
     fDocLoaded := True;
   finally
@@ -435,7 +442,7 @@ begin
   Busy(True);
   try
     fDocument.InputData := InputData;
-    fDocument.Highlight;
+    fDocument.Highlight(fOptions);
     UpdateDisplay;
     fDocLoaded := True;
   finally
@@ -500,6 +507,8 @@ begin
   fWBContainer.CSS := cBodyCSS;
   fWBContainer.DropTarget := fDropTarget;
   fWBContainer.OnTranslateAccel := TranslateAccelHandler;
+  // Create commands object and load defaults
+  fOptions := TOptions.Create;
   // Initialise status bar
   UpdateStatusBar;
 end;
@@ -513,6 +522,7 @@ begin
   RevokeDragDrop(Handle);
   fDropTarget := nil;
   // Free owned objects
+  fOptions.Free;
   FreeAndNil(fWBContainer);
   FreeAndNil(fDocument);
   // Finalise OLE

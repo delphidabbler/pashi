@@ -22,7 +22,7 @@ uses
   // Delphi
   Classes,
   // Project
-  UPipe;
+  UOptions, UPipe;
 
 
 type
@@ -49,7 +49,7 @@ type
         @param Sender [in] Not used.
       }
     function BuildCommandLine(const Files: TArray<string>;
-      const CreateFragment: Boolean): string;
+      const Options: TOptions): string;
       {Creates command line needed to execute PasHi.exe with required switches.
         @param CreateFragment [in] Flag indicating if code fragment (true) or
           complete HTML document to be generated.
@@ -62,7 +62,7 @@ type
       }
   public
     function Hilite(const SourceStream, HilitedStream: TStream;
-      const CreateFragment: Boolean): Boolean; overload;
+      const Options: TOptions): Boolean; overload;
       {Highlights source code by executing PasHi.exe with appropriate
       parameters.
         @param SourceStream [in] Stream containing raw source code (input to
@@ -74,7 +74,7 @@ type
         @return True if program completed normally, false on error.
       }
     function Hilite(const Files: TArray<string>; const HilitedStream: TStream;
-      const CreateFragment: Boolean): Boolean; overload;
+      const Options: TOptions): Boolean; overload;
     function ConsoleOutput: string;
       {Returns any text written by PasHi to console stderr}
   end;
@@ -93,25 +93,26 @@ uses
 { TPasHi }
 
 function TPasHi.BuildCommandLine(const Files: TArray<string>;
-  const CreateFragment: Boolean): string;
+  const Options: TOptions): string;
   {Creates command line needed to execute PasHi.exe with required switches.
     @param CreateFragment [in] Flag indicating if code fragment (true) or
       complete HTML document to be generated.
     @return Required command line.
   }
 
-  function NormaliseFileName(const FileName: string): string;
+  function NormaliseParam(const Param: string): string;
   begin
-    if FindDelimiter(' '#9, FileName) = 0 then
-      Exit(FileName);
-    Result := '"' + FileName + '"';
+    if FindDelimiter(' '#9, Param) = 0 then
+      Exit(Param);
+    Result := '"' + Param + '"';
   end;
 
 var
-  FileName: string;
+  Param: string;
+  Command: TOptions.TOption;
 begin
   // ** do not localise anything in this method
-  // any commands not specified here use program defaults or values in PasHi's
+  // any Options not specified here use program defaults or values in PasHi's
   // config file
   Result := 'PasHi '
     + '--output-stdout '
@@ -122,15 +123,17 @@ begin
   ;
   if Assigned(Files) then
   begin
-    for FileName in Files do
-      Result := Result + NormaliseFileName(FileName) + ' ';
+    for Param in Files do
+      Result := Result + NormaliseParam(Param) + ' ';
   end
   else
     Result := Result + '--input-stdin ';
-  if CreateFragment then
-    Result := Result + '--doc-type fragment'
-  else
-    Result := Result + '--doc-type xhtml';
+  for Command in Options do
+  begin
+    Result := Result + ' --' + Command.Key;
+    if Command.Value <> '' then
+      Result := Result + ' ' + NormaliseParam(Command.Value);
+  end;
 end;
 
 function TPasHi.ConsoleOutput: string;
@@ -150,7 +153,7 @@ end;
 
 // TODO: refactor Hilite methods using extract method passing fInPipe as param
 function TPasHi.Hilite(const Files: TArray<string>;
-  const HilitedStream: TStream; const CreateFragment: Boolean): Boolean;
+  const HilitedStream: TStream; const Options: TOptions): Boolean;
 begin
   Assert(Assigned(Files));
   Assert(Length(Files) > 0);
@@ -167,7 +170,7 @@ begin
     fConsoleOutputStream := TStringStream.Create('', TEncoding.Default);
     fOutStream := HilitedStream;
     // Run program and check for success
-    RunPasHi(BuildCommandLine(Files, CreateFragment));
+    RunPasHi(BuildCommandLine(Files, Options));
     Result := AnsiPos('Error:', ConsoleOutput) = 0;
   finally
     FreeAndNil(fConsoleOutputStream);
@@ -177,7 +180,7 @@ begin
 end;
 
 function TPasHi.Hilite(const SourceStream, HilitedStream: TStream;
-  const CreateFragment: Boolean): Boolean;
+  const Options: TOptions): Boolean;
   {Highlights source code by executing PasHi.exe with appropriate parameters.
     @param SourceStream [in] Stream containing raw source code (input to PasHi).
     @param HilitedStream [in] Stream that receives highlighted source code
@@ -203,7 +206,7 @@ begin
     fConsoleOutputStream := TStringStream.Create('', TEncoding.Default);
     fOutStream := HilitedStream;
     // Run program and check for success
-    RunPasHi(BuildCommandLine(nil, CreateFragment));
+    RunPasHi(BuildCommandLine(nil, Options));
     Result := AnsiPos('Error:', ConsoleOutput) = 0;
   finally
     FreeAndNil(fConsoleOutputStream);
