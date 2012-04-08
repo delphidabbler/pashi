@@ -112,13 +112,10 @@ var
   Command: TOptions.TOption;
 begin
   // ** do not localise anything in this method
-  // any Options not specified here use program defaults or values in PasHi's
-  // config file
   Result := 'PasHi '
     + '--output-stdout '
     + '--encoding utf-8 '
     + '--default-css '
-    + '--hide-css no '
     + '--verbosity normal '
   ;
   if Assigned(Files) then
