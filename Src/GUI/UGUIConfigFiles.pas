@@ -21,12 +21,13 @@ type
   public
     class function ConfigFileReaderInstance: TConfigFileReader; override;
     class function ConfigFileWriterInstance: TConfigFileWriter;
+    class procedure DeleteGUICfgFile;
   end;
 
 implementation
 
 uses
-  SysUtils;
+  SysUtils, Windows {for inlining};
 
 { TGUIConfigFiles }
 
@@ -47,6 +48,15 @@ var
 begin
   CfgFilePath := IncludeTrailingPathDelimiter(UserConfigDir) + GUICfgFileName;
   Result := TConfigFileWriter.Create(CfgFilePath);
+end;
+
+class procedure TGUIConfigFiles.DeleteGUICfgFile;
+var
+  CfgFileName: string;
+begin
+  CfgFileName := IncludeTrailingPathDelimiter(UserConfigDir) + GUICfgFileName;
+  if FileExists(CfgFileName) then
+    SysUtils.DeleteFile(CfgFileName);
 end;
 
 { TConfigFileWriter }
