@@ -3,7 +3,7 @@ object MainForm: TMainForm
   Top = 328
   Caption = 'MainForm'
   ClientHeight = 473
-  ClientWidth = 562
+  ClientWidth = 648
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -22,7 +22,7 @@ object MainForm: TMainForm
   object sbMain: TStatusBar
     Left = 0
     Top = 454
-    Width = 562
+    Width = 648
     Height = 19
     Panels = <
       item
@@ -40,7 +40,7 @@ object MainForm: TMainForm
     AlignWithMargins = True
     Left = 3
     Top = 3
-    Width = 556
+    Width = 642
     Height = 23
     Caption = 'tbMain'
     Images = ilMain
@@ -91,11 +91,16 @@ object MainForm: TMainForm
     end
   end
   object pcMain: TPageControl
-    Left = 0
+    AlignWithMargins = True
+    Left = 2
     Top = 29
-    Width = 562
+    Width = 412
     Height = 425
-    ActivePage = tsRendered
+    Margins.Left = 2
+    Margins.Top = 0
+    Margins.Right = 0
+    Margins.Bottom = 0
+    ActivePage = tsHTML
     Align = alClient
     TabOrder = 2
     OnMouseLeave = pcMainMouseLeave
@@ -106,24 +111,25 @@ object MainForm: TMainForm
       object pnlRendered: TPanel
         Left = 0
         Top = 0
-        Width = 554
+        Width = 404
         Height = 397
         Align = alClient
-        BevelEdges = [beLeft, beTop]
-        BevelKind = bkTile
+        BevelEdges = []
         BevelOuter = bvNone
         Caption = 'pnlRendered'
         TabOrder = 0
         object wbRendered: TWebBrowser
           Left = 0
           Top = 0
-          Width = 552
-          Height = 395
+          Width = 404
+          Height = 397
           Align = alClient
           TabOrder = 0
           ExplicitLeft = -4
+          ExplicitWidth = 552
+          ExplicitHeight = 395
           ControlData = {
-            4C0000000D390000D32800000000000000000000000000000000000000000000
+            4C000000C1290000082900000000000000000000000000000000000000000000
             000000004C000000000000000000000001000000E0D057007335CF11AE690800
             2B2E126208000000000000004C0000000114020000000000C000000000000046
             8000000000000000000000000000000000000000000000000000000000000000
@@ -138,7 +144,7 @@ object MainForm: TMainForm
       object pnlHTML: TPanel
         Left = 0
         Top = 0
-        Width = 554
+        Width = 404
         Height = 397
         Margins.Right = 6
         Margins.Bottom = 6
@@ -151,7 +157,7 @@ object MainForm: TMainForm
         object edHTML: TMemo
           Left = 0
           Top = 0
-          Width = 552
+          Width = 402
           Height = 395
           Align = alClient
           BevelOuter = bvNone
@@ -166,6 +172,149 @@ object MainForm: TMainForm
           ScrollBars = ssBoth
           TabOrder = 0
           WordWrap = False
+        end
+      end
+    end
+  end
+  object pnlOptions: TPanel
+    AlignWithMargins = True
+    Left = 416
+    Top = 29
+    Width = 230
+    Height = 425
+    Margins.Left = 2
+    Margins.Top = 0
+    Margins.Right = 2
+    Margins.Bottom = 0
+    Align = alRight
+    BevelKind = bkTile
+    BevelOuter = bvNone
+    TabOrder = 3
+    object lblOptionsTitle: TLabel
+      Left = 0
+      Top = 0
+      Width = 226
+      Height = 13
+      Align = alTop
+      Alignment = taCenter
+      Caption = 'Options'
+      ExplicitWidth = 37
+    end
+    object btnApplyOptions: TButton
+      Left = 14
+      Top = 391
+      Width = 75
+      Height = 25
+      Action = actApply
+      Caption = '&Apply'
+      TabOrder = 0
+    end
+    object btnRestoreDefaults: TButton
+      Left = 104
+      Top = 391
+      Width = 107
+      Height = 25
+      Action = actRestoreDefaults
+      TabOrder = 1
+    end
+    object cpgrpOptions: TCategoryPanelGroup
+      Left = 1
+      Top = 18
+      Width = 223
+      Height = 366
+      VertScrollBar.Tracking = True
+      Align = alNone
+      HeaderFont.Charset = DEFAULT_CHARSET
+      HeaderFont.Color = clWindowText
+      HeaderFont.Height = -11
+      HeaderFont.Name = 'Tahoma'
+      HeaderFont.Style = []
+      ParentColor = True
+      TabOrder = 2
+      object cpnlMisc: TCategoryPanel
+        Top = 90
+        Height = 30
+        Caption = 'Miscellaneous'
+        Color = clWindow
+        Collapsed = True
+        TabOrder = 0
+        ExplicitTop = 190
+        ExplicitWidth = 204
+        ExpandedHeight = 217
+        inline frmMisc: TMiscOptionsFrame
+          Left = 0
+          Top = 0
+          Width = 202
+          Height = 191
+          Align = alClient
+          TabOrder = 0
+          ExplicitWidth = 202
+          ExplicitHeight = 191
+        end
+      end
+      object cpnlLines: TCategoryPanel
+        Top = 60
+        Height = 30
+        Caption = 'Line Numbering && Striping'
+        Color = clWindow
+        Collapsed = True
+        TabOrder = 1
+        ExplicitTop = 160
+        ExplicitWidth = 204
+        ExpandedHeight = 167
+        inline frmLines: TLineStyleOptionsFrame
+          Left = 0
+          Top = 0
+          Width = 202
+          Height = 141
+          Align = alClient
+          TabOrder = 0
+          ExplicitWidth = 202
+          ExplicitHeight = 141
+        end
+      end
+      object cpnlCSS: TCategoryPanel
+        Top = 30
+        Height = 30
+        Caption = 'Style Sheets'
+        Color = clWindow
+        Collapsed = True
+        TabOrder = 2
+        ExplicitTop = 130
+        ExplicitWidth = 204
+        ExpandedHeight = 248
+        inline frmCSS: TCSSOptionsFrame
+          Left = 0
+          Top = 0
+          Width = 202
+          Height = 222
+          Align = alClient
+          TabOrder = 0
+          ExplicitWidth = 202
+          ExplicitHeight = 222
+          inherited lblCSSFile: TLabel
+            Width = 146
+            ExplicitWidth = 146
+          end
+        end
+      end
+      object cpnlDocType: TCategoryPanel
+        Top = 0
+        Height = 30
+        Caption = 'Document Type'
+        Color = clWindow
+        Collapsed = True
+        TabOrder = 3
+        ExpandedHeight = 130
+        inline frmDocType: TDocTypeOptionsFrame
+          Left = 0
+          Top = 0
+          Width = 202
+          Height = 104
+          Align = alClient
+          TabOrder = 0
+          ExplicitWidth = 202
+          ExplicitHeight = 104
         end
       end
     end
@@ -291,6 +440,18 @@ object MainForm: TMainForm
         'Show Hints|Shows hints in popup windows and status bar when sele' +
         'cted'
       OnExecute = actHintsExecute
+    end
+    object actRestoreDefaults: TAction
+      Category = 'Options'
+      Caption = '&Restore Defaults'
+      Hint = '|Restore default values from PasHi config file'
+      OnExecute = actRestoreDefaultsExecute
+    end
+    object actApply: TAction
+      Category = 'Options'
+      Caption = 'Apply'
+      Hint = '|Apply options to any current document'
+      OnExecute = actApplyExecute
     end
   end
   object ilMain: TImageList

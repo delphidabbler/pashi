@@ -22,10 +22,14 @@ uses
   ImgList, Controls, ActnList, StdActns, Classes, Menus, StdCtrls, OleCtrls,
   SHDocVw, ExtCtrls, ComCtrls, ToolWin, Forms, ActiveX, Windows, SysUtils,
   // Project
-  IntfDropDataHandler, UOptions, UDocument, UWBContainer, UInputData;
+  IntfDropDataHandler, UOptions, UDocument, UWBContainer, UInputData,
+  FrOptions.UBase, FrOptions.UDocType, FrOptions.ULineStyle, FrOptions.UCSS,
+  FrOptions.UMisc;
 
 
 type
+
+  TOptionFrameCallback = reference to procedure(Frame: TBaseOptionsFrame);
 
   {
   TMainForm:
@@ -72,6 +76,21 @@ type
     tsHTML: TTabSheet;
     tsRendered: TTabSheet;
     wbRendered: TWebBrowser;
+    pnlOptions: TPanel;
+    btnApplyOptions: TButton;
+    btnRestoreDefaults: TButton;
+    actRestoreDefaults: TAction;
+    actApply: TAction;
+    lblOptionsTitle: TLabel;
+    cpgrpOptions: TCategoryPanelGroup;
+    cpnlDocType: TCategoryPanel;
+    cpnlLines: TCategoryPanel;
+    frmDocType: TDocTypeOptionsFrame;
+    frmLines: TLineStyleOptionsFrame;
+    cpnlCSS: TCategoryPanel;
+    frmCSS: TCSSOptionsFrame;
+    cpnlMisc: TCategoryPanel;
+    frmMisc: TMiscOptionsFrame;
     procedure actAboutExecute(Sender: TObject);
     procedure actCopyExecute(Sender: TObject);
     procedure actCopyUpdate(Sender: TObject);
@@ -90,6 +109,8 @@ type
     procedure pcMainMouseMove(Sender: TObject; Shift: TShiftState; X,
       Y: Integer);
     procedure sbMainHint(Sender: TObject);
+    procedure actRestoreDefaultsExecute(Sender: TObject);
+    procedure actApplyExecute(Sender: TObject);
   private
     fOptions: TOptions;
     fDocLoaded: Boolean;
@@ -145,6 +166,8 @@ type
       {Checks if document has content, i.e. is not empty.
         @return True if document has content.
       }
+    procedure EnumOptionFrames(const Callback: TOptionFrameCallback);
+    procedure DisplayOptions;
   protected
     { IDropDataHandler methods }
     function CanAccept(const DataObj: IDataObject): Boolean;
@@ -227,6 +250,31 @@ begin
     'About',
     MB_OK
   );
+end;
+
+procedure TMainForm.actApplyExecute(Sender: TObject);
+begin
+  EnumOptionFrames(
+    procedure(Frame: TBaseOptionsFrame)
+    begin
+      Frame.UpdateOptions(fOptions);
+    end
+  );
+  Busy(True);
+  try
+    if fOptions.GetParam('doc-type') = 'fragment' then
+      // todo: change this output type to doFragment
+      fDocument.OutputType := doXHTMLFragment
+    else
+      // todo: change this output type to doComplete
+      fDocument.OutputType := doXHTML;
+    UpdateStatusBar;
+    fDocument.Highlight(fOptions);
+    UpdateDisplay;
+    fDocLoaded := True;
+  finally
+    Busy(False);
+  end;
 end;
 
 procedure TMainForm.actCopyExecute(Sender: TObject);
@@ -326,6 +374,12 @@ begin
     and IsValidDataObj(CBData);
 end;
 
+procedure TMainForm.actRestoreDefaultsExecute(Sender: TObject);
+begin
+  fOptions.RestoreDefaults;
+  DisplayOptions;
+end;
+
 procedure TMainForm.actSaveAsAccept(Sender: TObject);
   {Saves document as file selected in save dialog.
     @param Sender [in] Not used.
@@ -401,6 +455,16 @@ function TMainForm.CanAccept(const DataObj: IDataObject): Boolean;
   }
 begin
   Result := IsValidDataObj(DataObj);
+end;
+
+procedure TMainForm.DisplayOptions;
+begin
+  EnumOptionFrames(
+    procedure(Frame: TBaseOptionsFrame)
+    begin
+      Frame.Initialise(fOptions);
+    end
+  );
 end;
 
 function TMainForm.DocHasContent: Boolean;
@@ -486,6 +550,19 @@ begin
   end;
 end;
 
+procedure TMainForm.EnumOptionFrames(const Callback: TOptionFrameCallback);
+var
+  Idx: Integer;
+  Cmp: TComponent;
+begin
+  for Idx := 0 to Pred(ComponentCount) do
+  begin
+    Cmp := Components[Idx];
+    if Cmp is TBaseOptionsFrame then
+      Callback(Cmp as TBaseOptionsFrame);
+  end;
+end;
+
 procedure TMainForm.FormCreate(Sender: TObject);
   {Initialises program.
     @param Sender [in] Not used.
@@ -509,6 +586,7 @@ begin
   fWBContainer.OnTranslateAccel := TranslateAccelHandler;
   // Create commands object and load defaults
   fOptions := TOptions.Create;
+  DisplayOptions;
   // Initialise status bar
   UpdateStatusBar;
 end;
