@@ -39,6 +39,8 @@ function TaskAllocWideString(const S: string): PWChar;
 
 function StringFromStream(const Stm: TStream): string;
 
+function ListFiles(const Dir, Wildcard: string; const List: TStrings): Boolean;
+
 implementation
 
 
@@ -99,6 +101,41 @@ begin
   finally
     if not TEncoding.IsStandardEncoding(Encoding) then
       Encoding.Free;
+  end;
+end;
+
+function ListFiles(const Dir, Wildcard: string; const List: TStrings): Boolean;
+var
+  FileSpec: string;         // search file specification
+  SR: SysUtils.TSearchRec;  // file search result
+  Success: Integer;         // success code for FindXXX routines
+begin
+  Assert(Assigned(List));
+  // Check if true directory and exit if not
+  Result := IsDirectory(Dir);
+  if not Result then
+    Exit;
+  // Build file spec from directory and wildcard
+  FileSpec := IncludeTrailingPathDelimiter(Dir);
+  if Wildcard = '' then
+    FileSpec := FileSpec + '*.*'
+  else
+    FileSpec := FileSpec + Wildcard;
+  // Initialise search for matching files
+  Success := FindFirst(FileSpec, faAnyFile, SR);
+  try
+    // Loop for all files in directory
+    while Success = 0 do
+    begin
+      // only add true files or directories to list
+      if (SR.Name <> '.') and (SR.Name <> '..') then
+        List.Add(SR.Name);
+      // get next file
+      Success := FindNext(SR);
+    end;
+  finally
+    // Tidy up
+    FindClose(SR);
   end;
 end;
 
