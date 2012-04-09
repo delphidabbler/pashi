@@ -54,7 +54,13 @@ uses
   IO.UHelper in '..\IO.UHelper.pas',
   UComparers in '..\UComparers.pas',
   USpecialFolders in '..\USpecialFolders.pas',
-  UOptions in 'UOptions.pas';
+  UOptions in 'UOptions.pas',
+  FrOptions.UBase in 'FrOptions.UBase.pas' {BaseOptionsFrame: TFrame},
+  FrOptions.UDocType in 'FrOptions.UDocType.pas' {DocTypeOptionsFrame: TFrame},
+  FrOptions.UHelper in 'FrOptions.UHelper.pas',
+  FrOptions.ULineStyle in 'FrOptions.ULineStyle.pas' {LineStyleOptionsFrame: TFrame},
+  FrOptions.UCSS in 'FrOptions.UCSS.pas' {CSSOptionsFrame: TFrame},
+  FrOptions.UMisc in 'FrOptions.UMisc.pas' {MiscOptionsFrame: TFrame};
 
 {$R Resources.res}      // main program resources, including icon
 {$R VersionInfo.res}    // version information resource

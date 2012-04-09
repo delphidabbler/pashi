@@ -50,6 +50,27 @@
 			<DCCReference Include="..\UComparers.pas"/>
 			<DCCReference Include="..\USpecialFolders.pas"/>
 			<DCCReference Include="UOptions.pas"/>
+			<DCCReference Include="FrOptions.UBase.pas">
+				<Form>BaseOptionsFrame</Form>
+				<DesignClass>TFrame</DesignClass>
+			</DCCReference>
+			<DCCReference Include="FrOptions.UDocType.pas">
+				<Form>DocTypeOptionsFrame</Form>
+				<DesignClass>TFrame</DesignClass>
+			</DCCReference>
+			<DCCReference Include="FrOptions.UHelper.pas"/>
+			<DCCReference Include="FrOptions.ULineStyle.pas">
+				<Form>LineStyleOptionsFrame</Form>
+				<DesignClass>TFrame</DesignClass>
+			</DCCReference>
+			<DCCReference Include="FrOptions.UCSS.pas">
+				<Form>CSSOptionsFrame</Form>
+				<DesignClass>TFrame</DesignClass>
+			</DCCReference>
+			<DCCReference Include="FrOptions.UMisc.pas">
+				<Form>MiscOptionsFrame</Form>
+				<DesignClass>TFrame</DesignClass>
+			</DCCReference>
 			<None Include="PasHiGUI.todo"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
