@@ -39,7 +39,6 @@ type
     actAbout: TAction;
     actCopy: TAction;
     actExit: TFileExit;
-    actFrag: TAction;
     actHints: TAction;
     actOpen: TFileOpen;
     actPaste: TAction;
@@ -52,7 +51,6 @@ type
     miEdit: TMenuItem;
     miExit: TMenuItem;
     miFile: TMenuItem;
-    miFrag: TMenuItem;
     miHelp: TMenuItem;
     miHints: TMenuItem;
     miOpen: TMenuItem;
@@ -66,7 +64,6 @@ type
     pnlRendered: TPanel;
     sbMain: TStatusBar;
     tbCopy: TToolButton;
-    tbFrag: TToolButton;
     tbMain: TToolBar;
     tbOpen: TToolButton;
     tbSaveAs: TToolButton;
@@ -94,7 +91,6 @@ type
     procedure actAboutExecute(Sender: TObject);
     procedure actCopyExecute(Sender: TObject);
     procedure actCopyUpdate(Sender: TObject);
-    procedure actFragExecute(Sender: TObject);
     procedure actHintsExecute(Sender: TObject);
     procedure actOpenAccept(Sender: TObject);
     procedure actPasteExecute(Sender: TObject);
@@ -292,36 +288,6 @@ procedure TMainForm.actCopyUpdate(Sender: TObject);
   }
 begin
   actCopy.Enabled := DocHasContent;
-end;
-
-procedure TMainForm.actFragExecute(Sender: TObject);
-  {Toggles between generating complete HTML documents and HTML fragments and
-  re-hilites current document. Program is flagged as busy during this process.
-    @param Sender [in] Not used.
-  }
-begin
-  actFrag.Checked := not actFrag.Checked;
-  Busy(True);
-  try
-    if actFrag.Checked then
-    begin
-      fOptions.Store('doc-type', 'fragment');
-      fDocument.OutputType := doXHTMLFragment
-    end
-    else
-    begin
-      fOptions.Store('doc-type', 'xhtml');
-      fDocument.OutputType := doXHTML;
-    end;
-    UpdateStatusBar;
-    if not fDocLoaded then
-      Exit;
-    fDocument.Highlight(fOptions);
-    UpdateDisplay;
-    fDocLoaded := True;
-  finally
-    Busy(False);
-  end;
 end;
 
 procedure TMainForm.actHintsExecute(Sender: TObject);
@@ -856,7 +822,7 @@ procedure TMainForm.UpdateStatusBar;
   }
 begin
   // Display kind of output begin generated
-  if actFrag.Checked then
+  if fOptions.GetParamAsStr('doc-type') = 'fragment' then
     sbMain.Panels[0].Text := sSBGenHTMLFrag
   else
     sbMain.Panels[0].Text := sSBGenHTMLDoc;
