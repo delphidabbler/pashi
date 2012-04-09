@@ -19,18 +19,6 @@ type
     function ValueByIndex(const Idx: Integer): string;
   end;
 
-type
-  TBooleanLookup = class(TObject)
-  strict private
-    class var
-      fFalseStrValues: TList<string>;
-  public
-    class constructor Create;
-    class destructor Destroy;
-    class function ToBoolean(const Value: string): Boolean;
-    class function ToString(const Value: Boolean): string; reintroduce;
-  end;
-
 implementation
 
 uses
@@ -91,35 +79,6 @@ end;
 function TValueMap.ValueByIndex(const Idx: Integer): string;
 begin
   Result := fValues[Idx].Value;
-end;
-
-{ TBooleanLookup }
-
-class constructor TBooleanLookup.Create;
-begin
-  fFalseStrValues := TList<string>.Create;
-  fFalseStrValues.Add('off');
-  fFalseStrValues.Add('0');
-  fFalseStrValues.Add('false');
-  fFalseStrValues.Add('no');
-  fFalseStrValues.Add('n');
-end;
-
-class destructor TBooleanLookup.Destroy;
-begin
-  fFalseStrValues.Free;
-end;
-
-class function TBooleanLookup.ToBoolean(const Value: string): Boolean;
-begin
-  Result := not fFalseStrValues.Contains(LowerCase(Value));
-end;
-
-class function TBooleanLookup.ToString(const Value: Boolean): string;
-const
-  BoolStrings: array[Boolean] of string = ('off', 'on');
-begin
-  Result := BoolStrings[Value];
 end;
 
 end.
