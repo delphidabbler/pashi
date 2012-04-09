@@ -22,12 +22,14 @@ type
     class function ConfigFileReaderInstance: TConfigFileReader; override;
     class function ConfigFileWriterInstance: TConfigFileWriter;
     class procedure DeleteGUICfgFile;
+    class function CSSFiles: TArray<string>;
   end;
 
 implementation
 
 uses
-  SysUtils, Windows {for inlining};
+  SysUtils, Windows {for inlining},
+  UUtils;
 
 { TGUIConfigFiles }
 
@@ -48,6 +50,26 @@ var
 begin
   CfgFilePath := IncludeTrailingPathDelimiter(UserConfigDir) + GUICfgFileName;
   Result := TConfigFileWriter.Create(CfgFilePath);
+end;
+
+class function TGUIConfigFiles.CSSFiles: TArray<string>;
+var
+  Files: TStringList;
+  Count: Integer;
+  Idx: Integer;
+begin
+  Files := TStringList.Create;
+  try
+    if ListFiles(UserConfigDir, '*.css', Files) then
+      Count := Files.Count
+    else
+      Count := 0;
+    SetLength(Result, Count);
+    for Idx := 0 to Pred(Count) do
+      Result[Idx] := Files[Idx];
+  finally
+    Files.Free;
+  end;
 end;
 
 class procedure TGUIConfigFiles.DeleteGUICfgFile;
