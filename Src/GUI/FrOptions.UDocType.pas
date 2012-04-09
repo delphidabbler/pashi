@@ -57,7 +57,7 @@ procedure TDocTypeOptionsFrame.Initialise(const Options: TOptions);
 var
   DocType: string;
 begin
-  DocType := Options.GetParam('doc-type');
+  DocType := Options.GetParamAsStr('doc-type');
   if DocType = 'fragment' then
   begin
     rbDocTypeFragment.Checked := True;
@@ -85,9 +85,9 @@ end;
 procedure TDocTypeOptionsFrame.UpdateOptions(const Options: TOptions);
 begin
   if rbDocTypeFragment.Checked then
-    Options.Update('doc-type', 'fragment')
+    Options.Store('doc-type', 'fragment')
   else if rbDocTypeComplete.Checked then
-    Options.Update(
+    Options.Store(
       'doc-type', fDocTypeMap.ValueByIndex(cbCompleteDocType.ItemIndex)
     );
 end;

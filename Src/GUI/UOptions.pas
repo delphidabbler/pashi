@@ -3,7 +3,7 @@ unit UOptions;
 interface
 
 uses
-  Generics.Collections;
+  Classes, Generics.Collections;
 
 
 type
@@ -14,16 +14,26 @@ type
   strict private
     var
       fOptions: TDictionary<string,string>;
+    class var
+      fFalseValues: TStringList;
+      fTrueValues: TStringList;
     procedure Initialise;
     procedure Load;
     procedure SetDefaults;
     procedure Save;
+    class function StrToBool(const Value: string): Boolean;
   public
+    class constructor Create;
+    class destructor Destroy;
     constructor Create;
     destructor Destroy; override;
-    procedure Update(const Option: string; const Value: string = '');
+    procedure Store(const Option: string; const Value: string = ''); overload;
+    procedure Store(const Option: string; const Value: Integer); overload;
+    procedure Store(const Option: string; const Value: Boolean); overload;
     procedure Delete(const Option: string);
-    function GetParam(const Option: string): string;
+    function GetParamAsStr(const Option: string): string;
+    function GetParamAsInt(const Option: string): Integer;
+    function GetParamAsBool(const Option: string): Boolean;
     function IsSet(const Option: string): Boolean;
     function GetEnumerator: TEnumerator<TOption>;
     procedure RestoreDefaults;
@@ -46,10 +56,34 @@ begin
   Initialise;
 end;
 
+class constructor TOptions.Create;
+begin
+  fFalseValues := TStringList.Create;
+  fFalseValues.CaseSensitive := False;
+  fFalseValues.Add('0');
+  fFalseValues.Add('off');
+  fFalseValues.Add('n');
+  fFalseValues.Add('no');
+  fFalseValues.Add('false');
+  fTrueValues := TStringList.Create;
+  fTrueValues.CaseSensitive := False;
+  fTrueValues.Add('1');
+  fTrueValues.Add('on');
+  fTrueValues.Add('y');
+  fTrueValues.Add('yes');
+  fTrueValues.Add('true');
+end;
+
 procedure TOptions.Delete(const Option: string);
 begin
   if fOptions.ContainsKey(Option) then
     fOptions.Remove(Option);
+end;
+
+class destructor TOptions.Destroy;
+begin
+  fTrueValues.Free;
+  fFalseValues.Free;
 end;
 
 destructor TOptions.Destroy;
@@ -64,10 +98,20 @@ begin
   Result := fOptions.GetEnumerator;
 end;
 
-function TOptions.GetParam(const Option: string): string;
+function TOptions.GetParamAsBool(const Option: string): Boolean;
+begin
+  Result := StrToBool(GetParamAsStr(Option));
+end;
+
+function TOptions.GetParamAsInt(const Option: string): Integer;
+begin
+  Result := StrToInt(GetParamAsStr(Option));
+end;
+
+function TOptions.GetParamAsStr(const Option: string): string;
 begin
   if not fOptions.ContainsKey(Option) then
-    Exit('');
+    raise EListError.CreateFmt('No such option as "%s"', [Option]);
   Result := fOptions[Option];
 end;
 
@@ -115,7 +159,7 @@ begin
         Delete('title-default');
       if Option.Key = 'title-default' then
         Delete('title');
-      Update(Option.Key, Option.Value);
+      Store(Option.Key, Option.Value);
     end;
   finally
     ConfigReader.Free;
@@ -162,40 +206,62 @@ begin
   // Set defaults for user-editable values if not present in config files
   // these defaults are same as PasHi defaults per its documentation
   if not IsSet('doc-type') then
-    Update('doc-type', 'xhtml');
+    Store('doc-type', 'xhtml');
   if not IsSet('line-numbering') then
-    Update('line-numbering', 'off');
+    Store('line-numbering', False);
   if not IsSet('line-number-width') then
-    Update('line-number-width', '3');
+    Store('line-number-width', 3);
   if not IsSet('line-number-padding') then
-    Update('line-number-padding', 'space');
+    Store('line-number-padding', 'space');
   if not IsSet('striping') then
-    Update('striping', 'off');
+    Store('striping', False);
   if not IsSet('embed-css') and not IsSet('link-css')
     and not IsSet('default-css') then
-    Update('default-css');
+    Store('default-css');
   if not IsSet('legacy-css') then
-    Update('legacy-css', 'off');
+    Store('legacy-css', False);
   if not IsSet('hide-css') then
-    Update('hide-css', 'off');
+    Store('hide-css', False);
   if not IsSet('trim') then
-    Update('trim', 'on');
+    Store('trim', True);
   if not IsSet('separator-lines') then
-    Update('separator-lines', '1');
+    Store('separator-lines', 1);
   if not IsSet('language') and not IsSet('language-neutral') then
-    Update('language-neutral');
+    Store('language-neutral');
   if not IsSet('title') and not IsSet('title-default') then
-    Update('title-default');
+    Store('title-default');
   if not IsSet('branding') then
-    Update('branding', 'on');
+    Store('branding', True);
 end;
 
-procedure TOptions.Update(const Option, Value: string);
+procedure TOptions.Store(const Option, Value: string);
 begin
   if fOptions.ContainsKey(Option) then
     fOptions[Option] := Value
   else
     fOptions.Add(Option, Value);
+end;
+
+procedure TOptions.Store(const Option: string; const Value: Integer);
+begin
+  Store(Option, IntToStr(Value));
+end;
+
+procedure TOptions.Store(const Option: string; const Value: Boolean);
+begin
+  case Value of
+    False: Store(Option, 'off');
+    True: Store(Option, 'on');
+  end;
+end;
+
+class function TOptions.StrToBool(const Value: string): Boolean;
+begin
+  if fFalseValues.IndexOf(Value) >= 0 then
+    Exit(False);
+  if fTrueValues.IndexOf(Value) >= 0 then
+    Exit(True);
+  raise EConvertError.CreateFmt('"%s" is not a valid Boolean value', [Value]);
 end;
 
 end.

@@ -43,44 +43,44 @@ end;
 
 procedure TMiscOptionsFrame.Initialise(const Options: TOptions);
 begin
-  chkTrim.Checked := TBooleanLookup.ToBoolean(Options.GetParam('trim'));
+  chkTrim.Checked := Options.GetParamAsBool('trim');
 
-  seSeparatorLines.Value := StrToInt(Options.GetParam('separator-lines'));
+  seSeparatorLines.Value := Options.GetParamAsInt('separator-lines');
 
   if Options.IsSet('language') then
-    edLanguage.Text := Options.GetParam('language')
+    edLanguage.Text := Options.GetParamAsStr('language')
   else // 'language-neutral' must be set
     edLanguage.Text := '';
 
   if Options.IsSet('title') then
-    edTitle.Text := Options.GetParam('title')
+    edTitle.Text := Options.GetParamAsStr('title')
   else // 'title-default' must be set
     edTitle.Text := '';
 
-  chkBranding.Checked := TBooleanLookup.ToBoolean(Options.GetParam('branding'));
+  chkBranding.Checked := Options.GetParamAsBool('branding');
 end;
 
 procedure TMiscOptionsFrame.UpdateOptions(const Options: TOptions);
 begin
-  Options.Update('trim', TBooleanLookup.ToString(chkTrim.Checked));
+  Options.Store('trim', chkTrim.Checked);
 
-  Options.Update('separator-lines', IntToStr(seSeparatorLines.Value));
+  Options.Store('separator-lines', seSeparatorLines.Value);
 
   Options.Delete('language');
   Options.Delete('language-neutral');
   if Trim(edLanguage.Text) <> '' then
-    Options.Update('language', Trim(edLanguage.Text))
+    Options.Store('language', Trim(edLanguage.Text))
   else
-    Options.Update('language-neutral');
+    Options.Store('language-neutral');
 
   Options.Delete('title');
   Options.Delete('title-default');
   if Trim(edTitle.Text) <> '' then
-    Options.Update('title', Trim(edTitle.Text))
+    Options.Store('title', Trim(edTitle.Text))
   else
-    Options.Update('title-default');
+    Options.Store('title-default');
 
-  Options.Update('branding', TBooleanLookup.ToString(chkBranding.Checked));
+  Options.Store('branding', chkBranding.Checked);
 end;
 
 end.

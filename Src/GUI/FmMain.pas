@@ -262,7 +262,7 @@ begin
   );
   Busy(True);
   try
-    if fOptions.GetParam('doc-type') = 'fragment' then
+    if fOptions.GetParamAsStr('doc-type') = 'fragment' then
       // todo: change this output type to doFragment
       fDocument.OutputType := doXHTMLFragment
     else
@@ -305,12 +305,12 @@ begin
   try
     if actFrag.Checked then
     begin
-      fOptions.Update('doc-type', 'fragment');
+      fOptions.Store('doc-type', 'fragment');
       fDocument.OutputType := doXHTMLFragment
     end
     else
     begin
-      fOptions.Update('doc-type', 'xhtml');
+      fOptions.Store('doc-type', 'xhtml');
       fDocument.OutputType := doXHTML;
     end;
     UpdateStatusBar;

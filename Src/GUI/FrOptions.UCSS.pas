@@ -72,14 +72,12 @@ begin
   rbDefaultCSS.Checked := Options.IsSet('default-css');
   rbEmbedCSS.Checked := Options.IsSet('embed-css');
   if Options.IsSet('embed-css') then
-    cbCSSFile.Text := Options.GetParam('embed-css');
-  chkHideCSS.Checked := TBooleanLookup.ToBoolean(Options.GetParam('hide-css'));
+    cbCSSFile.Text := Options.GetParamAsStr('embed-css');
+  chkHideCSS.Checked := Options.GetParamAsBool('hide-css');
   rbLinkCSS.Checked := Options.IsSet('link-css');
   if Options.IsSet('link-css') then
-    edCSSURL.Text := Options.GetParam('link-css');
-  chkLegacyCSS.Checked := TBooleanLookup.ToBoolean(
-    Options.GetParam('legacy-css')
-  );
+    edCSSURL.Text := Options.GetParamAsStr('link-css');
+  chkLegacyCSS.Checked := Options.GetParamAsBool('legacy-css');
   UpdateControls;
 end;
 
@@ -104,21 +102,21 @@ begin
   Options.Delete('embed-ccc');
   Options.Delete('link-css');
   if rbDefaultCSS.Checked then
-    Options.Update('default-css')
+    Options.Store('default-css')
   else if rbEmbedCSS.Checked then
   begin
     if Trim(cbCSSFile.Text) = '' then
       raise Exception.Create('You must enter a CSS file to be embedded');
-    Options.Update('embed-css', cbCSSFile.Text);
+    Options.Store('embed-css', cbCSSFile.Text);
   end
   else if rbLinkCSS.Checked then
   begin
     if Trim(edCSSURL.Text) = '' then
       raise Exception.Create('You must enter URL of CSS file to be linked');
-    Options.Update('link-css', edCSSURL.Text);
+    Options.Store('link-css', edCSSURL.Text);
   end;
-  Options.Update('legacy-css', TBooleanLookup.ToString(chkLegacyCSS.Checked));
-  Options.Update('hide-css', TBooleanLookup.ToString(chkHideCSS.Checked));
+  Options.Store('legacy-css', chkLegacyCSS.Checked);
+  Options.Store('hide-css', chkHideCSS.Checked);
 end;
 
 end.

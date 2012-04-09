@@ -61,29 +61,23 @@ end;
 
 procedure TLineStyleOptionsFrame.Initialise(const Options: TOptions);
 begin
-  chkLineNumbering.Checked := TBooleanLookup.ToBoolean(
-    Options.GetParam('line-numbering')
-  );
-  seNumberWidth.Value := StrToInt(Options.GetParam('line-number-width'));
+  chkLineNumbering.Checked := Options.GetParamAsBool('line-numbering');
+  seNumberWidth.Value := Options.GetParamAsInt('line-number-width');
   cbPadding.ItemIndex := fPaddingMap.IndexOfValue(
-    Options.GetParam('line-number-padding')
+    Options.GetParamAsStr('line-number-padding')
   );
-  chkStriping.Checked := TBooleanLookup.ToBoolean(
-    Options.GetParam('striping')
-  );
+  chkStriping.Checked := Options.GetParamAsBool('striping');
   UpdateControls;
 end;
 
 procedure TLineStyleOptionsFrame.UpdateOptions(const Options: TOptions);
 begin
-  Options.Update(
-    'line-numbering', TBooleanLookup.ToString(chkLineNumbering.Checked)
-  );
-  Options.Update('line-number-width', IntToStr(seNumberWidth.Value));
-  Options.Update(
+  Options.Store('line-numbering', chkLineNumbering.Checked);
+  Options.Store('line-number-width', seNumberWidth.Value);
+  Options.Store(
     'line-number-padding', fPaddingMap.ValueByIndex(cbPadding.ItemIndex)
   );
-  Options.Update('striping', TBooleanLookup.ToString(chkStriping.Checked));
+  Options.Store('striping', chkStriping.Checked);
 end;
 
 procedure TLineStyleOptionsFrame.UpdateControls;
