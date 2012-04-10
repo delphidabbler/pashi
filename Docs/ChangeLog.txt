@@ -10,28 +10,37 @@ PasHi v??? build 9
     - Understands Delphi 2010 keywords and directives.
     - Support added for context sensitive directives which are now highlighted only within property, exports and external statements.
     - Keywords prefixed with '&' are now treated as identifiers, not reserved words.
-    - Fixes some bugs that caused parser to crash when unexpected characters encountered. 
+    - Fixes some bugs that caused parser to crash when unexpected characters encountered.
     - Major refactoring of code.
   + Unicode now supported throughout program:
     - UTF-8 is now default encoding instead of default ANSI code page, except for messages written to stderr which remain ANSI.
     - UTF-16 little endian & big endian, UTF-8 and default ANSI code page input now supported: auto-detected using byte order marks.
     - Clipboard is always read and written in Unicode.
   + Input can now be read directly from files passed on command line. Where more than one file is specified, files are concatenated before highlighting.
+  + Number of blank lines separating files can be specified.
+  + Input source code can optionally have leading and trailing blank lines removed.
+  + Source code can now be preceeded by line numbers.
+  + Alterate source code lines can now be styled differently.
   + Changes to generated XHTML files:
     - Output file encoding can now be specified (default changed to UTF-8). Files have correct byte order mark and encoding is added to XHTML document in <?xml?> processing instruction and content type meta tag.
+    - Layout of generated HTML changed: a <div> surrounds all code and a <pre> is used for each line.
     - Language used for output files can now be specified by user and is included in <html> tags.
     - Custom style sheets can now be either embedded in generated documents or be linked via <link> tags.
     - Document title can be specified by user.
-    - "Branding" (HTML comment declaring PasHi as generator) can be inhibited in XHTML fragments.
+    - "Branding" (comments or meta tags declaring PasHi as generator) can be inhibited.
+    - Generated HTML files can now be in HTML 4 and HTML 5 in addition to XHTML and HTML fragments.
+    - New CSS class names now used but backwards compatibilty retained.
   + Output file name can now be specified on command line as an alternative to using shell redirection.
-  + Commands were standardised with both an long and short form for each command, with some non-conformant commands used in v1.x retained as aliases. Some existing commands were modified to be more flexible. These are documented in the ReadMe file.
-  + Recompiled with Delphi 2010
-  + Significant refactoring, especially in syntax highlighter, input/output and command line parsing.
-  + Updated documentation
-  + Changed source code to Mozilla Public License v2.0.
+  + Commands were standardised with both an long and short form for each command, with some non-conformant commands used in v1.x retained as aliases. Some existing commands were modified to be more flexible. Many new commands. These are documented in the ReadMe file.
+  + Default behaviour can now be specified using a config file in user application data directory. Some new commands provided to override config file and return some options to original default behaviour.
+  + Help screen greatly expanded to cover all new options.
+  + Clipboard related bug fixed.
+  + Significant refactoring, especially in syntax highlighter, input/output, HTML document rendering and command line parsing.
+  + Updated documentation.
 PasHiGUI v??? build 3
   + Input source code no longer displayed: "Source Code" tab removed from display.
   + Input files are now passed directly to the PasHi command line rather than being opened and sent to PasHi via a pipe.
+  + Some commands passed to PasHi to override its config file and ensure behaviour expected by PasHiGUI.
   + Multiple file names can now be passed to PasHi:
     - Open file dialogue box permits multiple file selection.
     - Multiple files can be dragged and dropped or copied and pasted from Explorer.
@@ -43,10 +52,26 @@ PasHiGUI v??? build 3
     - Clipboard is always written to in Unicode.
     - Code that displays HTML in browser control now handles Unicode correctly.
     - Unicode file names now supported, including in drag-drop or copy/paste.
-  + Command line passed to PasHi modified to use new PasHi commands.
+  + New configuration options:
+    - New "Options Side Bar" added where all relevant PasHi options can be configured. This is displayed at right hand edge of screen and contains a collapsible list of option categories.
+    - New config file for PasHiGUI where options entered in Options Side Bar are recorded.
+    - "Fragment" tool button and menu item removed.
+    - New "Show / Hide Option" tool button and menu item added.
+    - Can restore PasHi default options (per its config file).
+  + Removed Options | Show Hints menu option and facility to display hints in status bar.
+  + Removed status bar.
+  + Changed code that handles calling PasHi to work with, and take advantage of new PasHi command line options.
+  + Changed styling used to display code fragments. Now uses new CSS class names supported by PasHi.
   + Some refactoring.
+Miscellaneous
+  + New installer program:
+    - Installs PasHi and, optionally PasHiGUI.
+    - Optionally installs sample CSS files and config file templates.
+    - Optionally adds PasHi's install directory to all-user system path *uninstaller removes).
+    - Creates start menu program group.
   + Recompiled with Delphi 2010
   + Changed source code to Mozilla Public License v2.0.
+
 
 Release 1.1.0 - 15 February 2010
 PasHi v1.0.1 build 8
