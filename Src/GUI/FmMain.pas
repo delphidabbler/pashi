@@ -19,8 +19,8 @@ interface
 
 uses
   // Delphi
-  ImgList, Controls, ActnList, StdActns, Classes, Menus, StdCtrls, OleCtrls,
-  SHDocVw, ExtCtrls, ComCtrls, ToolWin, Forms, ActiveX, Windows, SysUtils,
+  ExtActns, ImgList, Controls, ActnList, StdActns, Classes, Menus, Forms,
+  ExtCtrls, StdCtrls, OleCtrls, SHDocVw, ComCtrls, ToolWin, ActiveX, Windows,
   // Project
   IntfDropDataHandler, UOptions, UDocument, UWBContainer, UInputData,
   FrOptions.UBase, FrOptions.UDocType, FrOptions.ULineStyle, FrOptions.UCSS,
@@ -89,6 +89,8 @@ type
     miOptionsBar: TMenuItem;
     actOptionsBar: TAction;
     lblOptionsHide: TLabel;
+    actPasHiGUIWiki: TBrowseURL;
+    miPasHiGUIWiki: TMenuItem;
     procedure actAboutExecute(Sender: TObject);
     procedure actCopyExecute(Sender: TObject);
     procedure actCopyUpdate(Sender: TObject);
@@ -203,7 +205,7 @@ implementation
 
 uses
   // Delphi
-  ComObj, Messages,
+  SysUtils, ComObj, Messages,
   // Project
   UClipFmt, UDataObjectAdapter, UOutputData, UUtils, UDropTarget;
 

@@ -191,7 +191,7 @@ object MainForm: TMainForm
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
-      ExplicitLeft = -1
+      ExplicitWidth = 43
     end
     object lblOptionsHide: TLabel
       Left = 209
@@ -363,6 +363,9 @@ object MainForm: TMainForm
     end
     object miHelp: TMenuItem
       Caption = 'Help'
+      object miPasHiGUIWiki: TMenuItem
+        Action = actPasHiGUIWiki
+      end
       object miAbout: TMenuItem
         Action = actAbout
       end
@@ -448,6 +451,12 @@ object MainForm: TMainForm
       ImageIndex = 4
       OnExecute = actOptionsBarExecute
       OnUpdate = actOptionsBarUpdate
+    end
+    object actPasHiGUIWiki: TBrowseURL
+      Category = 'Help'
+      Caption = 'Online Docs'
+      Hint = 'Browse URL'
+      URL = 'www.delphidabbler.com/view/url/pashigui-wiki'
     end
   end
   object ilMain: TImageList
