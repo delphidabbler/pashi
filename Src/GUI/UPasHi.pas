@@ -116,7 +116,7 @@ begin
     + '--output-stdout '
     + '--encoding utf-8 '
     + '--default-css '
-    + '--verbosity normal '
+    + '--verbosity quiet '
   ;
   if Assigned(Files) then
   begin
@@ -231,7 +231,11 @@ begin
       ConsoleApp.StdIn := fInPipe.ReadHandle;
     if not ConsoleApp.Execute(CmdLine, '') then
       raise Exception.Create(
-        'Error executing PasHi:'#13#10 + ConsoleApp.ErrorMessage
+        'Error executing PasHi:'#13#10#13#10 + ConsoleApp.ErrorMessage
+      );
+    if ConsoleApp.ExitCode > 0 then
+      raise Exception.Create(
+        'PasHi returned an error. Output was:'#13#10#13#10 + ConsoleOutput
       );
   finally
     FreeAndNil(ConsoleApp);
