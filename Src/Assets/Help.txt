@@ -17,7 +17,7 @@ PasHi supports the following commands:
 
 --branding            -b    Determines if PasHi includes branding information
                             either as a comment in HTML fragments or as a
-                            <meta> generator tag in complete HTML documents. 
+                            <meta> generator tag in complete HTML documents.
                             --branding requires the next parameter to supply
                             one of the following values:
                               yes - include branding [default]
@@ -64,9 +64,10 @@ PasHi supports the following commands:
                             "en-gb".
 --language-neutral          Outputs no language information [default].
 --legacy-css                Determines which CSS class names are used in the
-                            output HTML document. These can either the current
-                            names or the same names used in PasHi v1. The next
-                            parameter must supply one of the following values:
+                            output HTML document. These can either be the
+                            current class names or the class names used in
+                            PasHi v1. The next parameter must supply one of the
+                            following values:
                               yes - use PasHi v1 CSS class names
                               no - use current CSS class names [default].
 --line-numbering      -n    Switches line numebring on or off. --line-numbering
@@ -77,9 +78,9 @@ PasHi supports the following commands:
                             Alternatively use -n+ to enable line numbering or
                             -n- to disable it.
 --line-number-padding -p    Determines type of padding character to use when
-                            a line number is less than the available width. The
-                            next parameter specifies the character to use and
-                            must be one of:
+                            a line number requires less than the available
+                            width to display. The next parameter specifies the
+                            character to use and must be one of:
                               space - pad with space characters [default]
                               zero - pad with zeros
                               dash - pad with dashes (-)
@@ -102,10 +103,9 @@ PasHi supports the following commands:
                             separate source code from multiple input files. The
                             next parameter must specify the number of lines in
                             the range 0..16 [default 1].
---striping                  Specifies whether alternate lines of source code
-                            in output are styled differently or are the same.
-                            The next parameter must supply one of the following
-                            values:
+--striping                  Determines whether alternate lines of source code
+                            in output are styled differently. The next
+                            parameter must supply one of the following values:
                               on - style alternate lines differently
                               off - all lines have same appearance [default].
 --title               -t    Sets the title used for the output document. The
@@ -122,12 +122,12 @@ PasHi supports the following commands:
                             Alternatively use -m+ to trim or -m- to prevent
                             trimming.
 --verbosity                 Specifies the amount of output from the program.
-                            The next parameter must specify one of:
+                            The next parameter must be one of:
                               normal - sign-on, error and completion messages
                                 [default]
                               quiet - error messages only
 
-Default commands can be changed by editing the "config" file stored in PasHi's
+Default commands can be changed by creating a "config" file in PasHi's
 application data directory. Commands are listed one per line and have the same
 names as the long form commands above, but without the leading "--". If a
 command takes a parameter it must be entered on the same line as the command
