@@ -306,8 +306,10 @@
 </p>
 
 <p>
-  A beta version of <em>PasHiGUI</em>, a GUI front end for <em>PasHi</em>, is
-  included in the release.
+  <em>PasHiGUI</em>, a GUI front end for <em>PasHi</em>, is included in the
+  release. This provides a point and click way of using <em>PasHi</em>. Most,
+  but not all, command line options are supported. Files and text can be dragged
+  and dropped onto the window to highlight them.
 </p>
 
 <p>
@@ -387,10 +389,10 @@
   <p>
     If you have <em>PasHi</em> v1.x or earlier you need to remove it before
     installing this version. These early versions of the program have no setup
-    setup program, so you must uninstall manually. Simply find the program (and
+    program, so you must uninstall manually. Simply find the program (and
     <em>PasHiGUI</em> if you have it) and delete the executable file(s) along
     with any support files you installed. If you included the v1.x install
-    directory on the system path you should remove the path.
+    directory on the system path you should remove it.
   </p>
 </div>
 
@@ -413,9 +415,9 @@
 </p>
 
 <p>
-  After agreeing to license the installer you choose the installation directory
-  followed by the name of the start menu program group. Following that you have
-  three options, all of which are selected by default:
+  After agreeing to the license the installer you choose the installation
+  directory followed by the name of the start menu program group. Following that
+  you have three options, all of which are selected by default:
 </p>
 
 <ol class="spaced">
@@ -433,32 +435,28 @@
       href="#css-samples"
     >CSS style sheets</a> and <a
       href="#config-samples"
-    >config templates</a>. These files will appear in your
+    >config file templates</a>. These files will appear in your
     <code>%AppData%\DelphiDabbler\PasHi</code> directly immediately after you
-    first run <em>PasHi</em>. These files take up very little disk space and so
-    this option is recommended unless you are sure you will never need to use
-    the files.
+    first run <em>PasHi</em>. The files take up very little disk space so this
+    option is recommended unless you are sure you will never need to use the
+    files.
   </li>
   <li>
-    <em>Install beta version of GUI front end program, PasHiGUI</em>:<br />
+    <em>Install GUI front end program, PasHiGUI</em>:<br />
     This installs the <a
       href="#pashigui"
-    ><em>PasHiGUI</em></a> program alongside <em>PasHi</em>. This program can
-    help if you just a graphical way on running <em>PasHi</em>. GUI provides
-    very little control over <em>PasHi</em> at present and getting the most out
-    of it really needs you to create a suitable config file. It is worthwhile
-    installing if you would like to try it out and perhaps send feedback about
-    possible new features.
+    ><em>PasHiGUI</em></a> program alongside <em>PasHi</em>. This program is
+    worth installing if you prefer to use <em>PasHi</em> from a GUI rather than
+    mastering the command line. Most, but not all, of <em>PasHi</em>'s options
+    are available from <em>PasHiGUI</em>.
   </li>
 </ol>
 
 <p>
-  Following this page you can review your choices and either go back and change
-  your choices or commit to installing. Once installation is complete then the
-  last page is displayed. If gives an option to display the ReadMe file, which
-  you are strongly recommened to read to learn how to get the best out of
-  <em>PasHi</em>. If you have installed <em>PasHiGUI</em> you are given the
-  option to run it.
+  Once you have made your choices, you can review them then either go back to
+  make changes or commit to installing. Once installation is complete then the
+  last page is displayed. It gives an option to display this ReadMe file. If you
+  have installed <em>PasHiGUI</em> you are given the option to run it.
 </p>
 
 <p>
@@ -484,7 +482,7 @@
     The system path may be updated if you chose the relevant option.
   </li>
   <li>
-    A program group may be created in the start menu.
+    A program group will be created in the start menu.
   </li>
   <li>
     Sample .css and config files are installed in
@@ -517,8 +515,8 @@
 </p>
 
 <p>
-  If you chose to add <em>PasHi</em>'s install directory to the system path it
-  will be removed by the uninstaller.
+  <em>PasHi</em>'s install directory will be removed from the system path if
+  present.
 </p>
 
 <p class="gototop">
@@ -529,6 +527,10 @@
   Using <em>PasHi</em>
 </h2>
 
+<h3>
+  Default behaviour
+</h3>
+
 <p>
   By default <em>PashHi</em> reads input from standard input and writes
   highlighted output to standard output. You can process a single file and write
@@ -538,17 +540,28 @@
 
 <pre class="indent">PasHi &lt;source.pas &gt;source.html</pre>
 
-<p class="pullout">
-  Note that if you do not redirect output the resulting HTML is displayed on the
-  console. If you don't redirect input then you must enter the source code
-  manually on the command line, a line at a time. When you have finished you
-  must signal end-of-file by pressing <span class="smallcaps">Ctrl+Z</span> on a
-  line on its own, followed by <span class="smallcaps">Return</span>.
+<p>
+  If you do not redirect output the resulting HTML is displayed on the console.
+  If you don't redirect input then you must enter the source code manually on
+  the command line, a line at a time. When you have finished you must signal
+  end-of-file by pressing <span class="smallcaps">Ctrl+Z</span> on a line on its
+  own, followed by <span class="smallcaps">Return</span>.
 </p>
+
+<p class="pullout">
+  Note that <em>PasHi</em>'s default behaviour can be altered by using a
+  configuration file. See <a
+    href="#config"
+  >Configuring PasHi</a> for full details.
+</p>
+
+<h3>
+  Command line
+</h3>
 
 <p>
   <em>PashHi</em>'s behaviour can be modified by specifying one or more file
-  names and command on the command line. File names and commands can be
+  names and / or commands on the command line. File names and commands can be
   intermixed.
 </p>
 
@@ -563,13 +576,12 @@
 <p class="pullout">
   If you specify file names on the command line you should not also use the
   <code>--input-stdin</code> or <code>--input-clipboard</code> commands. No
-  error will be reported if you do so, but the behaviour is not defined and may
-  not be as expected.
+  error will be reported if you do so, but the behaviour may not be as expected.
 </p>
 
 <p>
-  Most commands have both a long and a short form, although some commands have a
-  long form only. All are explained in the following table.
+  Many commands have both a long and a short form, but some commands have only a
+  long form. They are explained in the following table.
 </p>
 
 <table>
@@ -592,18 +604,18 @@
     <td>
       Reads source code from standard input. Since standard input is the default
       input source, this command is provided mainly to restore the default
-      behaviour if it has been overridden in the config file. This command
-      should not be combined with <code>--input-clipboard</code> or if file
-      names are specified on the command line.
+      behaviour if it has been overridden in the config file.<br />
+      This command should not be combined with <code>--input-clipboard</code> or
+      used if file names are specified on the command line.
     </td>
   </tr>
   <tr>
     <td class="switch">--input-clipboard</td>
     <td class="switch">-r</td>
     <td>
-      Reads source code in Unicode from the clipboard. This command should not
-      be combined with <code>--input-stdin</code> or if file names are specified
-      on the command line.
+      Reads source code from the clipboard.<br />
+      This command should not be combined with <code>--input-stdin</code> or
+      used if file names are specified on the command line.
     </td>
   </tr>
   <tr>
@@ -612,9 +624,9 @@
     <td>
       Writes highlighted code to standard output. Since standard output is the
       default output destination, this command is provided mainly to restore the
-      default behaviour if it has been overridden in the config file. This
-      command should not be combined with either <code>--output-file</code> or
-      <code>--output-clipboard</code>.
+      default behaviour if it has been overridden in the config file.<br />
+      This command should not be combined with either <code>--output-file</code>
+      or <code>--output-clipboard</code>.
     </td>
   </tr>
   <tr>
@@ -623,7 +635,8 @@
     <td>
       Writes highlighted code to the file specified by the following parameter.
       Using this command has exactly the same effect as redirecting standard
-      output to a file. This command should not be combined with either
+      output to a file.<br />
+      This command should not be combined with either
       <code>--output-stdout</code> or <code>--output-clipboard</code>.
     </td>
   </tr>
@@ -632,8 +645,9 @@
     <td class="switch">-w</td>
     <td>
       Writes highlighted code to the clipboard. All output is stored as Unicode
-      and complete HTML documents have no charset information recorded in the
-      file. Do not combine this command with either <code>--output-stdout</code>
+      text. Character set information is excluded from complete HTML documents.
+      <br />
+      Do not combine this command with either <code>--output-stdout</code>
       or <code>--output-file</code>.
     </td>
   </tr>
@@ -641,10 +655,9 @@
     <td class="switch">--doc-type</td>
     <td class="switch">-d</td>
     <td>
-      Determines the type of document to be output. This document contains the
-      highlighted source code. All but one document types are complete HTML
-      documents. The required document type is specified in the following
-      parameter which must be one of these values:
+      Determines the type of document to be output. All but one of the document
+      types are complete HTML documents. The required document type is specified
+      in the following parameter which must be one of:
       <ul class="squashed">
         <li>
           <code>xhtml</code>: Complete XHTML document (the default).
@@ -658,8 +671,9 @@
         <li>
           <code>fragment</code>: An HTML code fragment containing only the
           highlighted code wrapped in <code>&lt;div&gt;</code> ...
-          <code>&lt;/div&gt;</code> tags. Various commands that relate only to
-          complete HTML documents are ignored when this option is used.
+          <code>&lt;/div&gt;</code> tags.<br />
+          Various commands that relate only to complete HTML documents are
+          ignored when this option is used.
         </li>
     </td>
   </tr>
@@ -667,10 +681,9 @@
     <td class="switch">--branding</td>
     <td class="switch">-b</td>
     <td>
-      Switches on or off the inclusion branding information in output documents
-      that informs that the document was generated by <em>PasHi</em>. Branding
-      takes the form of an HTML &lt;meta&gt; &quot;generator&quot; tag in
-      complete HTML documents or an HTML comment code fragments.<br />
+      Switches on or off the inclusion of &quot;branding&quot; information in
+      output documents. Branding means that the document contains code
+      indicating that the document was generated by <em>PasHi</em>.<br />
       In the case of <code>--branding</code>, the following parameter determines
       whether branding is switched on or off. The parameter must be one of:
       <ul class="squashed">
@@ -698,38 +711,40 @@
       recognised by HTML must be provided in the parameter that immediately
       follows this command. The code is not checked. If this command is not
       supplied then no language information is included in the output file.
-      This command is ignored if the <code>--doc-type&nbsp;fragment</code>
-      command is specifed.
+      <br />
+      This command has no effect if the <code>--doc-type&nbsp;fragment</code>
+      command is used.
     </td>
   </tr>
   <tr>
     <td class="switch">--language-neutral</td>
     <td class="switch">&nbsp;</td>
     <td>
-      Specifies that no language is to be specified in output document. Since
-      this is the default behaviour this command is provided mainly to restore
-      default behaviour if it has been overridden in the config file. This
-      command is ignored if the <code>--doc-type&nbsp;fragment</code> command is
-      specifed.
+      Indicates that no language information is to be included in output
+      documents. Since this is the default behaviour this command is provided
+      mainly to restore that behaviour if it has been overridden in the config
+      file.
     </td>
   </tr>
   <tr>
     <td class="switch">--title</td>
     <td class="switch">-t</td>
     <td>
-      Specifies the title of the output document. The required title must be
-      supplied in the parameter immediately follow the command. Titles
-      containing spaces must be enclosed in double quotes. This command has no
-      effect if the <code>--doc-type&nbsp;fragment</code> command is also used.
+      Sets the title of the output document. The title text must be supplied in
+      the parameter immediately follow the command. Titles containing spaces
+      must be enclosed in double quotes.<br />
+      This command has no effect if the <code>--doc-type&nbsp;fragment</code>
+      command is also used.
     </td>
   </tr>
   <tr>
     <td class="switch">--title-default</td>
     <td class="switch">&nbsp;</td>
     <td>
-      Specifies that the default title is to be used in the output document.
+      Indicates that the default title is to be used in the output document.
       Since this is the default behaviour this command is provided mainly to
-      restore default behaviour if it has been overridden in the config file.
+      restore that behaviour if it has been overridden in the config file.
+
       This command has no effect if the
       <code>--doc-type&nbsp;fragment</code> command is also used.
     </td>
@@ -741,12 +756,16 @@
       Creates an embedded CSS style sheet in the output document. The CSS is
       read from the file whose name is specified by the parameter immediately
       following the command. The CSS must define the styles described
-      <a href="#css">below</a>. This command is ignored if the
-      <code>--doc-type&nbsp;fragment</code> command is also specified.<br />
-      If a file name is specified with no path information, e.g. delphi2006.css,
-      then the file will be expected to be in %AppData%\DelphiDabbler\PasHi. To
-      read a file from the working directory, prepend .\ to it, e.g.
-      .\delphi2006.css.
+      <a href="#css">below</a>.<br />
+      If the file name includes no path information, e.g.
+      <code>delphi2006.css</code>, then the file will be expected to be found in
+      <code>%AppData%\DelphiDabbler\PasHi</code>. To read a file from the
+      working directory, prepend <code>.\</code> to it, e.g.
+      <code>.\delphi2006.css</code>.<br />
+      Do not combine this command with <code>--link-css</code> or
+      <code>default-css</code> because the commands are mutually exclusive.
+      <code>--embed-css</code> is ignored if the
+      <code>--doc-type&nbsp;fragment</code> command is also used.
     </td>
   </tr>
   <tr>
@@ -756,22 +775,26 @@
       Specifies the URL of an external CSS file to be linked from the generated
       HTML file. The URL must be given in the parameter immediately following
       this command. The URL can be relative or absolute. The linked CSS file
-      must define the styles described <a href="#css">below</a>. This command is
-      ignored if the <code>--doc-type&nbsp;fragment</code> command is also
-      specified. Since no CSS is embedded in the output file the
-      <code>--hide-css</code> command does nothing.
+      must define the styles described <a href="#css">below</a>.<br />
+      This command is ignored if <code>--doc-type&nbsp;fragment</code> is also
+      used. Since no CSS is embedded in the output file the
+      <code>--hide-css</code> command does nothing if used with this command.
+      Do not combine <code>-link-css</code> with <code>--embed-css</code> or
+      <code>default-css</code> because the commands are mutually exclusive.
     </td>
   </tr>
   <tr>
     <td class="switch">--default-css</td>
     <td class="switch">&nbsp;</td>
     <td>
-      Specifies that the default style sheet is to be embedded in the output
+      Inidicates that the default style sheet is to be embedded in the output
       document. Since this is the default behaviour, this command is provided
-      mainly to restore default behaviour if it has been overridden in the
-      config file. The command negates both the <code>--embed-css</code> and
-      <code>--link-css</code> commands. This command is ignored if the
-      <code>--doc-type&nbsp;fragment</code> command is also specified.
+      mainly to restore that behaviour if it has been overridden in the config
+      file.<br .>
+      This command negates both the <code>--embed-css</code> and
+      <code>--link-css</code> commands and should not be combined with them.
+      <code>--default-css</code> is ignored if the
+      <code>--doc-type&nbsp;fragment</code> command is also used.
     </td>
   </tr>
   <tr>
@@ -780,7 +803,7 @@
     <td>
       Determines if the CSS code embedded in a <code>&lt;style&gt;</code> tag is
       wrapped in HTML comment tags (<code>&lt;!--</code> ...
-      <code>--&gt;</code>). This command is provided because some older browsers
+      <code>--&gt;</code>). This command is provided because some old browsers
       will render the CSS as text unless it is enclosed in comment tags.<br />
       In the case of <code>--hide-css</code> the parameter following the command
       determines whether the CSS is hidden in comments or not. This parameter
@@ -870,7 +893,7 @@
       before highlighting. Multiple source files are trimmed individually before
       concatenation.<br />
       In the case of <code>--trim</code> the following parameter is used to
-      turn trimming on or off as follows:
+      turn trimming on or off:
       <ul class="squashed">
         <li>
           <code>True</code>, <code>1</code>, <code>Y</code>, <code>yes</code> or
@@ -892,11 +915,11 @@
     <td class="switch">--separator-lines</td>
     <td class="switch">&nbsp;</td>
     <td>
-      Specifies the number of blank lines to leave between source code coming
-      from each source file. This command is ignored unless more than file is
-      specified on the command line. The required number of lines is given in
-      the following parameter and must be in the range 0..16. The default value
-      is 1.
+      Specifies the number of blank lines to insert between the contents of each
+      source file. The required number of lines is given in the following
+      parameter and must be in the range 0..16. The default value is 1.<br />
+      This command is ignored unless more than file is specified on the command
+      line.
     </td>
   </tr>
   <tr>
@@ -906,22 +929,22 @@
       Determines whether line numbers are prepended to each line of source code
       in the output document.<br />
       In the case of <code>--line-numbering</code> the following parameter is
-      used to switch line numbering on or off as follows:
+      used to switch line numbering on or off:
       <ul class="squashed">
         <li>
           <code>True</code>, <code>1</code>, <code>Y</code>, <code>yes</code> or
           <code>on</code>:
-          Line numbers are included.
+          Line numbers are enabled.
         </li>
         <li>
           <code>False</code>, <code>0</code>, <code>N</code>, <code>no</code> or
           <code>off</code>:
-          Line numbers are excluded (the default).
+          Line numbers are disabled (the default).
         </li>
       </ul>
       The short form of the command, <code>-n</code>, acts as a switch:
-      <code>-n+</code> and <code>-n1</code> switch line numbering on while
-      <code>-n-</code> and <code>-n0</code> switch line numbering on.
+      <code>-n+</code> and <code>-n1</code> enable line numbering on while
+      <code>-n-</code> and <code>-n0</code> disable it.
     </td>
   </tr>
   <tr>
@@ -931,8 +954,8 @@
       Determines the minimum width, in characters, occupied by line numbers.
       Line numbers are padded to this width if necessary (but longer line
       numbers are not truncated). The required width is given in the following
-      parameter and must be in the range 1..6. The default value is 3. The
-      command is ignored if line numbering is not enabled.
+      parameter and must be in the range 1..6. The default value is 3.<br />
+      The command is ignored if line numbering is not enabled.
     </td>
   </tr>
   <tr>
@@ -963,8 +986,8 @@
     <td class="switch">--striping</td>
     <td class="switch">&nbsp;</td>
     <td>
-      Specifies whether alternate lines of source code in the output document
-      are styled differently or are the same. The next parameter must have one
+      Determines whether alternate lines of source code in the output document
+      are styled differently or appear the same. The next parameter must be one
       of the following values:
       <ul class="squashed">
         <li>
@@ -975,7 +998,7 @@
         <li>
           <code>False</code>, <code>0</code>, <code>N</code>, <code>no</code> or
           <code>off</code>:
-          All lines have same appearance (the default).
+          All lines have the same appearance (the default).
         </li>
       </ul>
       Each line of output is enclosed in its own <code>&lt;pre&gt;</code> tag.
@@ -984,16 +1007,16 @@
       line. When striping is enabled the <code>line</code> class is replaced by
       <code>odd-line</code> and <code>even-line</code> on alternate lines.
       These classes must be defined differently in CSS otherwise no difference
-      between lines will be visible.
+      between alternate lines will be visible.
     </td>
   </tr>
   <tr>
     <td class="switch">--verbosity</td>
     <td class="switch">&nbsp;</td>
     <td>
-      Determines that amount of output PasHi writes to standard error while
-      executing. What is output depends on the value of the following parameter,
-      which must be one of:
+      Determines the amount of output PasHi writes to standard error while
+      executing. The amount of output depends on the value of the next
+      parameter, which must be one of:
       <ul class="squashed">
         <li>
           <code>normal</code>: Normal screen output (the default). This causes
@@ -1071,20 +1094,52 @@
   </tr>
 </table>
 
+<h3>
+  Input encoding
+</h3>
+
 <p>
-  <em>PasHi</em> takes text files as input. It checks any byte order mark (BOM)
-  to check for any Unicode encoding used for the file. Supported encodings are:
-  UTF-8, UTF-16 little endian and UTF-16 big endian. If there is no BOM then the
-  file is assumed to be encoded in the user's default code page. UCS-4 can in
-  theory be output by Delphi, but this format is not supported. If the
-  <code>--input-clipboard</code> command is used then the input format is
-  Unicode.
+  Normally <em>PasHi</em> takes text files as input, either via redirection to
+  standard input or from files.
 </p>
 
 <p>
-  If <em>PasHi</em> exits normally then 0 is returned to the OS as an exit
-  code. In case of error the exit code is 1.
+  Byte order marks (BOM) are checked to determine the encoding of Unicode files.
+  Supported encodings are: UTF-8, UTF-16 little endian and UTF-16 big endian. If
+  there is no BOM then the file is assumed to be encoded in the user's default
+  code page.
 </p>
+
+<p>
+  The exception to the above is when the <code>--input-clipboard</code> command
+  is used. The source code is then expected to be in Unicode.
+</p>
+
+<h3>
+  Exit codes
+</h3>
+
+<p>
+  <em>PasHi</em> uses the following exit code:
+</p>
+
+<ul>
+  <li>
+    <code>0</code>: The program completed successfully.
+  </li>
+  <li>
+    <code>1</code>: The program encountered an error and terminated. Examine the
+    error message written to standard error for details.
+  </li>
+</ul>
+
+<p>
+  When <em>PasHi</em> exits normally then the exit code is 0.
+</p>
+
+<h3>
+  Usage example
+</h3>
 
 <p>
   Perhaps the most common usage of <em>PasHi</em> is to read source code from
@@ -1121,9 +1176,9 @@
 
 <p>
   If you mainly use <em>PasHi</em> in this way you can configure <em>PasHi</em>
-  to use those parameters by default. See <a
-    href="#config"
-  >Configuring <em>PasHi</em></a> for details.
+  to use those parameters by default. See the <a
+    href="#config-egs"
+  >example below</a> for details.
 </p>
 
 <p class="gototop">
@@ -1145,6 +1200,7 @@
   <em>PasHi</em> does not install a <code>config</code> file, so if you need one
   you must create your own. You can do this either by creating a new file or by
   copying and editing one of the sample scripts provided with <em>PasHi</em>
+  (providing you installed them).
 </p>
 
 <p>
@@ -1161,7 +1217,7 @@
     containing spaces should not be quoted (unlike on the command line).
   </li>
   <li>
-    All the long form command listed in <a
+    All the long form commands listed in <a
       href="#usage"
     >Using <em>PasHi</em></a> have an equivalent in the config file. Config
     commands have the same name as the long form version except that the leading
@@ -1182,14 +1238,22 @@
   and all will be well.
 </p>
 
+<p class="pullout">
+  Warning: Although <em>PasHi</em> accepts the <code>help</code> command in a
+  config file you should <strong>never</strong> use it or the program will do
+  nothing except display the help screen, no matter what commands you pass on
+  the command line.
+</p>
+
 <h3 id="config-samples">
   Sample config scripts
 </h3>
 
 <p>
-  Some example config scripts are installed in
-  <code>%AppData%\DelphiDabbler\PasHi</code>. (You may need to run
-  <em>PasHi</em> once for the files to appear). The sample scripts are:
+  Some example config scripts are optionally installed in
+  <code>%AppData%\DelphiDabbler\PasHi</code>. (If you installed them you may
+  need to run <em>PasHi</em> once for the files to appear). The sample scripts
+  are:
 </p>
 
 <dl>
@@ -1201,8 +1265,8 @@
     commands. It is a good starting point for your own config script.
   </dd>
   <dt class="file">
-  </dt>
     config-v1
+  </dt>
   <dd>
     Emulates, as far as possible the actions of <em>PasHi</em>. This script
     requires that the file <code>v1-default.css</code> (provided) is present in
@@ -1210,7 +1274,7 @@
   </dd>
 </dl>
 
-<h3>
+<h3 id="config-egs">
   Examples
 </h3>
 
@@ -1218,9 +1282,9 @@
   As mentioned in <a
     href="#usage"
   >Using <em>PasHi</em></a>, a common use for <em>PasHi</em> is to highlight
-  source code from the clipboard as an HTML fragment and place that back on the
-  clipboard. Instead of using the necessary commands each time you run
-  <em>PasHi</em> you can add the following commands to the config file:
+  source code from the clipboard as an HTML fragment and place the HTML back on
+  the clipboard. Instead of using the necessary commands each time you run
+  <em>PasHi</em> you can add the following to the config file:
 </p>
 
 <pre class="indent">input-clipboard
@@ -1244,23 +1308,24 @@ doc-type fragment</pre>
   Another useful example is if you provide your own CSS file containing your
   desired highlighting style that you always want to use. To save you having
   to specify this file on the command line each time, simply put a suitable
-  command in <code>config</code>, for example, to embed CSS use:
+  command in <code>config</code>. For example, to embed CSS use something like:
 </p>
 
-<pre class="indent">embed-css C:\CSS\pascal-hilite.css</pre>
+<pre class="indent">embed-css C:\CSS\my-style.css</pre>
 
 <p>
-  Or, in the special case of the CSS files provided with <em>PasHi</em> in the
-  <code>%AppData%\DelphiDabbler\PasHi</code> omit the path information and use:
+  Or, in the special case of the CSS files provided with <em>PasHi</em> in
+  <code>%AppData%\DelphiDabbler\PasHi</code>, omit the path information and use,
+  for example:
 </p>
 
 <pre class="indent">embed-css twilight.css</pre>
 
 <p>
-  You can also link to your CSS file:
+  You can also link to your CSS file. For example:
 </p>
 
-<pre class="indent">link-css http://example.com/css/pascal-hilite.css</pre>
+<pre class="indent">link-css http://example.com/css/my-style.css</pre>
 
 <h2 id="css">
   CSS styles used by <em>PasHi</em>
