@@ -4,8 +4,8 @@
 ; $Date$
 ; ------------------------------------------------------------------------------
 
-Release ???
-PasHi v??? build 9
+Release 2.0 beta 1
+PasHi v1.99.1 build 9
   + Improved Pascal syntax highlighter:
     - Understands Delphi 2010 keywords and directives.
     - Support added for context sensitive directives which are now highlighted only within property, exports and external statements.
@@ -37,40 +37,30 @@ PasHi v??? build 9
   + Clipboard related bug fixed.
   + Significant refactoring, especially in syntax highlighter, input/output, HTML document rendering and command line parsing.
   + Updated documentation.
-PasHiGUI v??? build 3
-  + Input source code no longer displayed: "Source Code" tab removed from display.
+PasHiGUI v0.99.1 build 3
+  + Now requires PasHi v2 beta or later.
+  + UI changes:
+    - "Source Code" tab removed from display: input source code is no longer displayed.
+    - Options to be passed to PasHi can now be set in new "Options Side Bar" displayed at the right of the main window. The side bar can be hidden or displayed when required.
+    - "Fragments" tool button removed: this option is now set in Options side bar.
+    - Status bar removed: hints and document type are no longer displayed.
+    - A new styling is used to display HTML code fragments using new CSS class names supported by PasHi.
+    - Menus and toolbar revised re program changes.
+    - Main window now constrained to a minimum size.
+  + Multiple file names can now be passed to PasHi via multiple selection in file open dialog box or by dragging and dropping from Explorer.
   + Input files are now passed directly to the PasHi command line rather than being opened and sent to PasHi via a pipe.
-  + Some commands passed to PasHi to override its config file and ensure behaviour expected by PasHiGUI.
-  + Multiple file names can now be passed to PasHi:
-    - Open file dialogue box permits multiple file selection.
-    - Multiple files can be dragged and dropped or copied and pasted from Explorer.
-  + Program now has full Unicode support:
-    - Detects and correctly handles Unicode or ANSI output from PasHi on stdout. (PasHi continues to use ANSI on stderr).
-    - Any source code piped to PasHi is in UTF-8 format.
-    - Code fragment template now uses UTF-8 encoding.
-    - Both ANSI and Unicode source code can be read from clipboard or dragged & dropped text, with preference for Unicode.
-    - Clipboard is always written to in Unicode.
-    - Code that displays HTML in browser control now handles Unicode correctly.
-    - Unicode file names now supported, including in drag-drop or copy/paste.
-  + New configuration options:
-    - New "Options Side Bar" added where all relevant PasHi options can be configured. This is displayed at right hand edge of screen and contains a collapsible list of option categories.
-    - New config file for PasHiGUI where options entered in Options Side Bar are recorded.
-    - "Fragment" tool button and menu item removed.
-    - New "Show / Hide Option" tool button and menu item added.
-    - Can restore PasHi default options (per its config file).
-  + Removed Options | Show Hints menu option and facility to display hints in status bar.
-  + Removed status bar.
-  + Changed code that handles calling PasHi to work with, and take advantage of new PasHi command line options.
-  + Changed styling used to display code fragments. Now uses new CSS class names supported by PasHi.
+  + Interaction with PasHi changed to permit PasHiGUI defaults and user defined options to be passed on command line.
+  + New config file for storing options entered in Options Side Bar.
+  + Online documentation can now be accessed from Help menu.
   + Some refactoring.
-Miscellaneous
+_
   + New installer program:
     - Installs PasHi and, optionally PasHiGUI.
     - Optionally installs sample CSS files and config file templates.
     - Optionally adds PasHi's install directory to all-user system path *uninstaller removes).
     - Creates start menu program group.
-  + Recompiled with Delphi 2010
-  + Changed source code to Mozilla Public License v2.0.
+  + Recompiled PasHi and PasHiGUI with Delphi 2010
+  + Changed most source code files to use Mozilla Public License v2.0.
 
 
 Release 1.1.0 - 15 February 2010
