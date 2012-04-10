@@ -88,6 +88,9 @@ type
     frmCSS: TCSSOptionsFrame;
     cpnlMisc: TCategoryPanel;
     frmMisc: TMiscOptionsFrame;
+    tbOptions: TToolButton;
+    miOptionsBar: TMenuItem;
+    actOptionsBar: TAction;
     procedure actAboutExecute(Sender: TObject);
     procedure actCopyExecute(Sender: TObject);
     procedure actCopyUpdate(Sender: TObject);
@@ -107,6 +110,8 @@ type
     procedure sbMainHint(Sender: TObject);
     procedure actRestoreDefaultsExecute(Sender: TObject);
     procedure actApplyExecute(Sender: TObject);
+    procedure actOptionsBarExecute(Sender: TObject);
+    procedure actOptionsBarUpdate(Sender: TObject);
   private
     fOptions: TOptions;
     fDocLoaded: Boolean;
@@ -314,6 +319,21 @@ begin
   if Length(Files) = 0 then
     Exit;
   DoLoad(Files);
+end;
+
+procedure TMainForm.actOptionsBarExecute(Sender: TObject);
+begin
+  pnlOptions.Visible := actOptionsBar.Checked;
+end;
+
+procedure TMainForm.actOptionsBarUpdate(Sender: TObject);
+resourcestring
+  sShow = 'Show Options Bar';
+  sHide = 'Hide Options Bar';
+const
+  Captions: array[Boolean] of string = (sShow, sHide);
+begin
+  actOptionsBar.Caption := Captions[actOptionsBar.Checked]
 end;
 
 procedure TMainForm.actPasteExecute(Sender: TObject);
