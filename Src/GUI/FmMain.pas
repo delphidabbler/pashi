@@ -223,7 +223,7 @@ procedure TMainForm.actAboutExecute(Sender: TObject);
   }
 begin
   Application.MessageBox(
-      'PasHiGUI v0.2.0 beta.'#13#10#13#10
+      'PasHiGUI v0.99.1 beta.'#13#10#13#10
       + 'A GUI front end for the PasHi Syntax Highlighter v2.'#13#10#13#10
       + 'Copyright (c) 2006-2012 by Peter D Johnson (www.delphidabbler.com).',
     'About',

@@ -68,7 +68,7 @@ OutputBaseFilename={#AppName}-Setup-{#AppVersion}
 ; Special VersionInfoVersion defined for pre-release versions only
 ; revert to commened out line in release version
 ;VersionInfoVersion={#AppVersion}
-VersionInfoVersion=1.98.1
+VersionInfoVersion=1.99.1
 VersionInfoCompany={#Company}
 VersionInfoDescription=Installer for {#AppName}
 VersionInfoTextVersion={#AppVersion}
@@ -110,7 +110,7 @@ Name: {group}\{cm:UninstallProgram,{#AppName}}; Filename: {uninstallexe}
 [Tasks]
 Name: modifypath; Description: &Add PasHi's directory to the system path for all users;
 Name: samples; Description: Install &sample style sheets and config file templates;
-Name: gui; Description: Install beta version of &GUI front end program, PasHiGUI; 
+Name: gui; Description: Install &GUI front end program, PasHiGUI; 
 
 [Run]
 Filename: {app}\{#ReadMeFile}; Description: "View the README file"; Flags: nowait postinstall skipifsilent shellexec
