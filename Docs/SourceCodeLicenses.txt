@@ -14,6 +14,7 @@ The source code includes:
 + Original Source Code written by Peter Johnson.
 + Documentation.
 + Image files.
++ Sample files.
 
 Please refer to the relevant section below fo details of licensing.
 
@@ -22,7 +23,7 @@ project. Explicitly it doesn't include:
 
 + Source files from the Delphi 2010 VCL. You must have Delphi in order to access
   these files.
-  
+
 --------------------------------------------------------------------------------
 Original Source Code
 --------------------------------------------------------------------------------
@@ -38,7 +39,8 @@ Any original source code file that is governed by a license has a comment to
 that effect in the source file.
 
 Any other source code files that contain no copyright or license information can
-be used without restriction.
+be used without restriction. The exception is .dfm files which are licensed
+under then same terms as .pas files with the same name.
 
 Many source code files are licensed under the Mozilla Public License v2. A full
 copy of this license can be found in MPL-2.txt in the Docs directory.
@@ -58,8 +60,8 @@ Documentation files are maintained in the Docs directory. In addition the
 Build.html file is maintained in the root directory.
 
 Terms and conditions apply to the following files. For other files please refer
-to the document, including its source code for HTML files. Where no licensing or
-restrictions apply the files can be used freely.
+to the document, or, in the case of HTML files, the source code. Where no
+licensing or restrictions apply the files can be used freely.
 
 ChangeLog.txt
 -------------
@@ -72,7 +74,8 @@ May not be changed.
 
 MPL-2.txt
 ---------
-This file may not be modified and must be distributed with any derivative work.
+This file may not be modified and should be distributed with any derivative
+work.
 
 ReadMe.html
 -----------
@@ -98,6 +101,13 @@ unless explicit permission is given by the author.
 
 This means that if you modify the source and publish your changes then you must
 remove the icon or replace it with you own.
+
+--------------------------------------------------------------------------------
+Sample Files
+--------------------------------------------------------------------------------
+
+Sample files are found in the Config and Test directories. These files may be
+used freely, without warranty of any kind.
 
 --------------------------------------------------------------------------------
 $Rev$
