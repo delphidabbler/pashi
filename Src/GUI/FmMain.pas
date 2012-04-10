@@ -39,7 +39,6 @@ type
     actAbout: TAction;
     actCopy: TAction;
     actExit: TFileExit;
-    actHints: TAction;
     actOpen: TFileOpen;
     actPaste: TAction;
     actSaveAs: TFileSaveAs;
@@ -52,7 +51,6 @@ type
     miExit: TMenuItem;
     miFile: TMenuItem;
     miHelp: TMenuItem;
-    miHints: TMenuItem;
     miOpen: TMenuItem;
     miOptions: TMenuItem;
     miPaste: TMenuItem;
@@ -62,7 +60,6 @@ type
     pcMain: TPageControl;
     pnlHTML: TPanel;
     pnlRendered: TPanel;
-    sbMain: TStatusBar;
     tbCopy: TToolButton;
     tbMain: TToolBar;
     tbOpen: TToolButton;
@@ -94,7 +91,6 @@ type
     procedure actAboutExecute(Sender: TObject);
     procedure actCopyExecute(Sender: TObject);
     procedure actCopyUpdate(Sender: TObject);
-    procedure actHintsExecute(Sender: TObject);
     procedure actOpenAccept(Sender: TObject);
     procedure actPasteExecute(Sender: TObject);
     procedure actPasteUpdate(Sender: TObject);
@@ -107,7 +103,6 @@ type
     procedure pcMainMouseLeave(Sender: TObject);
     procedure pcMainMouseMove(Sender: TObject; Shift: TShiftState; X,
       Y: Integer);
-    procedure sbMainHint(Sender: TObject);
     procedure actRestoreDefaultsExecute(Sender: TObject);
     procedure actApplyExecute(Sender: TObject);
     procedure actOptionsBarExecute(Sender: TObject);
@@ -128,9 +123,6 @@ type
       {Flag true when program forces actions to update. Used to prevent flicker
       when toolbar actions repeatedly set true then false on idle in
       alMainUpdate event handler}
-    procedure UpdateStatusBar;
-      {Updates information displayed in status bar.
-      }
     procedure UpdateDisplay;
       {Updates main display with contents of document.
       }
@@ -269,7 +261,6 @@ begin
     else
       // todo: change this output type to doComplete
       fDocument.OutputType := doXHTML;
-    UpdateStatusBar;
     fDocument.Highlight(fOptions);
     UpdateDisplay;
     fDocLoaded := True;
@@ -293,16 +284,6 @@ procedure TMainForm.actCopyUpdate(Sender: TObject);
   }
 begin
   actCopy.Enabled := DocHasContent;
-end;
-
-procedure TMainForm.actHintsExecute(Sender: TObject);
-  {Toggles whether hints are displayed or not.
-    @param Sender [in] Not used.
-  }
-begin
-  actHints.Checked := not actHints.Checked;
-  sbMain.AutoHint := actHints.Checked;
-  ShowHint := actHints.Checked;
 end;
 
 procedure TMainForm.actOpenAccept(Sender: TObject);
@@ -573,8 +554,6 @@ begin
   // Create commands object and load defaults
   fOptions := TOptions.Create;
   DisplayOptions;
-  // Initialise status bar
-  UpdateStatusBar;
 end;
 
 procedure TMainForm.FormDestroy(Sender: TObject);
@@ -731,25 +710,6 @@ begin
     pcMain.Hint := '';
 end;
 
-procedure TMainForm.sbMainHint(Sender: TObject);
-  {Displays current hint in status bar or restores status bar if there is no
-  hint.
-    @param Sender [in] Not used.
-  }
-begin
-  if Application.Hint <> '' then
-  begin
-    sbMain.SimplePanel := True;
-    sbMain.SimpleText := Application.Hint;
-  end
-  else
-  begin
-    sbMain.SimplePanel := False;
-    sbMain.SimpleText := '';
-    sbMain.Refresh;
-  end;
-end;
-
 procedure TMainForm.TranslateAccelHandler(Sender: TObject; const Msg: TMSG;
   const CmdID: DWORD; var Handled: Boolean);
   {Handles event triggered by web browser controller when a key is pressed in
@@ -835,17 +795,6 @@ procedure TMainForm.UpdateDisplay;
 begin
   fWBContainer.LoadFromString(fDocument.DisplayHTML, TEncoding.UTF8);
   edHTML.Text := fDocument.HilitedCode;
-end;
-
-procedure TMainForm.UpdateStatusBar;
-  {Updates information displayed in status bar.
-  }
-begin
-  // Display kind of output begin generated
-  if fOptions.GetParamAsStr('doc-type') = 'fragment' then
-    sbMain.Panels[0].Text := sSBGenHTMLFrag
-  else
-    sbMain.Panels[0].Text := sSBGenHTMLDoc;
 end;
 
 end.

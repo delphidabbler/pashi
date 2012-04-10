@@ -19,23 +19,6 @@ object MainForm: TMainForm
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object sbMain: TStatusBar
-    Left = 0
-    Top = 454
-    Width = 648
-    Height = 19
-    Panels = <
-      item
-        Width = 200
-      end
-      item
-        Width = 50
-      end
-      item
-        Width = 50
-      end>
-    OnHint = sbMainHint
-  end
   object tbMain: TToolBar
     AlignWithMargins = True
     Left = 3
@@ -44,7 +27,7 @@ object MainForm: TMainForm
     Height = 23
     Caption = 'tbMain'
     Images = ilMain
-    TabOrder = 1
+    TabOrder = 0
     object tbOpen: TToolButton
       Left = 0
       Top = 0
@@ -92,41 +75,44 @@ object MainForm: TMainForm
     Left = 2
     Top = 29
     Width = 412
-    Height = 425
+    Height = 444
     Margins.Left = 2
     Margins.Top = 0
     Margins.Right = 0
     Margins.Bottom = 0
     ActivePage = tsHTML
     Align = alClient
-    TabOrder = 2
+    TabOrder = 1
     OnMouseLeave = pcMainMouseLeave
     OnMouseMove = pcMainMouseMove
+    ExplicitHeight = 425
     object tsRendered: TTabSheet
       Caption = 'Display View'
       ImageIndex = 1
+      ExplicitHeight = 397
       object pnlRendered: TPanel
         Left = 0
         Top = 0
         Width = 404
-        Height = 397
+        Height = 416
         Align = alClient
         BevelEdges = []
         BevelOuter = bvNone
         Caption = 'pnlRendered'
         TabOrder = 0
+        ExplicitHeight = 397
         object wbRendered: TWebBrowser
           Left = 0
           Top = 0
           Width = 404
-          Height = 397
+          Height = 416
           Align = alClient
           TabOrder = 0
           ExplicitLeft = -4
           ExplicitWidth = 552
           ExplicitHeight = 395
           ControlData = {
-            4C000000C1290000082900000000000000000000000000000000000000000000
+            4C000000C1290000FF2A00000000000000000000000000000000000000000000
             000000004C000000000000000000000001000000E0D057007335CF11AE690800
             2B2E126208000000000000004C0000000114020000000000C000000000000046
             8000000000000000000000000000000000000000000000000000000000000000
@@ -138,11 +124,12 @@ object MainForm: TMainForm
       Tag = 2
       Caption = 'HTML View'
       ImageIndex = 2
+      ExplicitHeight = 397
       object pnlHTML: TPanel
         Left = 0
         Top = 0
         Width = 404
-        Height = 397
+        Height = 416
         Margins.Right = 6
         Margins.Bottom = 6
         Align = alClient
@@ -151,11 +138,12 @@ object MainForm: TMainForm
         BevelOuter = bvNone
         Caption = 'pnlHTML'
         TabOrder = 0
+        ExplicitHeight = 397
         object edHTML: TMemo
           Left = 0
           Top = 0
           Width = 402
-          Height = 395
+          Height = 414
           Align = alClient
           BevelOuter = bvNone
           BorderStyle = bsNone
@@ -169,6 +157,7 @@ object MainForm: TMainForm
           ScrollBars = ssBoth
           TabOrder = 0
           WordWrap = False
+          ExplicitHeight = 395
         end
       end
     end
@@ -178,7 +167,7 @@ object MainForm: TMainForm
     Left = 416
     Top = 29
     Width = 230
-    Height = 425
+    Height = 444
     Margins.Left = 2
     Margins.Top = 0
     Margins.Right = 2
@@ -186,7 +175,8 @@ object MainForm: TMainForm
     Align = alRight
     BevelKind = bkTile
     BevelOuter = bvNone
-    TabOrder = 3
+    TabOrder = 2
+    ExplicitHeight = 425
     object lblOptionsTitle: TLabel
       Left = 0
       Top = 0
@@ -340,10 +330,6 @@ object MainForm: TMainForm
         Action = actOptionsBar
         AutoCheck = True
       end
-      object miHints: TMenuItem
-        Action = actHints
-        GroupIndex = 1
-      end
     end
     object miHelp: TMenuItem
       Caption = 'Help'
@@ -387,7 +373,6 @@ object MainForm: TMainForm
       Category = 'File'
       Caption = 'E&xit'
       Hint = 'Exit|Quits the application'
-      ImageIndex = 43
     end
     object actCopy: TAction
       Category = 'Edit'
@@ -413,14 +398,6 @@ object MainForm: TMainForm
       Hint = 'About|Displays About dialog'
       OnExecute = actAboutExecute
     end
-    object actHints: TAction
-      Category = 'Options'
-      Caption = 'Show Hints'
-      Hint = 
-        'Show Hints|Shows hints in popup windows and status bar when sele' +
-        'cted'
-      OnExecute = actHintsExecute
-    end
     object actRestoreDefaults: TAction
       Category = 'Options'
       Caption = '&Restore Defaults'
@@ -438,7 +415,7 @@ object MainForm: TMainForm
       AutoCheck = True
       Caption = 'actOptionsBar'
       Checked = True
-      ImageIndex = 5
+      ImageIndex = 4
       OnExecute = actOptionsBarExecute
       OnUpdate = actOptionsBarUpdate
     end
@@ -448,10 +425,8 @@ object MainForm: TMainForm
     Left = 336
     Top = 152
     Bitmap = {
-      494C010106000900040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010105000900040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -566,6 +541,8 @@ object MainForm: TMainForm
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000ABABAB00ABABAB0000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -708,11 +685,11 @@ object MainForm: TMainForm
       0000000000000000000000000000000000000000000000000000000000000000
       000000000000000000000000000000000000424D3E000000000000003E000000
       2800000040000000200000000100010000000000000100000000000000000000
-      000000000000000000000000FFFFFF00FFFFFFFF00000000FFFFFE7F00000000
-      FFFFF42F00000000FFFFE00700000000FFFFC00300000000FFFFE00700000000
-      FFFFC00300000000FFFF818100000000FFFF818100000000FFFFC00300000000
-      FFFFE00700000000FFFFC00300000000FFFFE00700000000FFFFF42F00000000
-      FFFFFE7F00000000FFFFFFFF00000000FFFFFFFFFF7EFFFFFFFFFFFFBFFFFC00
+      000000000000000000000000FFFFFF00FFFF000000000000FE7F000000000000
+      F42F000000000000E007000000000000C003000000000000E007000000000000
+      C00300000000000081810000000000008181000000000000C003000000000000
+      E007000000000000C003000000000000E007000000000000F42F000000000000
+      FE7F000000000000FFFF000000000000FFFFFFFFFF7EFFFFFFFFFFFFBFFFFC00
       001FFE00F00381FE000FFEFEE00301020007FE82E00301FE400380FEE0030110
       2001BE82E00301F55000A0FE200301F32A9FBE90E0020003555FA0F5E0030003
       201FBEF3E00300038FF1A407E0030FC3FFF9BD7FE0030003FF75BCFFFFFF8007
