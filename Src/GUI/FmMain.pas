@@ -88,6 +88,7 @@ type
     tbOptions: TToolButton;
     miOptionsBar: TMenuItem;
     actOptionsBar: TAction;
+    lblOptionsHide: TLabel;
     procedure actAboutExecute(Sender: TObject);
     procedure actCopyExecute(Sender: TObject);
     procedure actCopyUpdate(Sender: TObject);
@@ -107,6 +108,9 @@ type
     procedure actApplyExecute(Sender: TObject);
     procedure actOptionsBarExecute(Sender: TObject);
     procedure actOptionsBarUpdate(Sender: TObject);
+    procedure lblOptionsHideClick(Sender: TObject);
+    procedure lblOptionsHideMouseEnter(Sender: TObject);
+    procedure lblOptionsHideMouseLeave(Sender: TObject);
   private
     fOptions: TOptions;
     fDocLoaded: Boolean;
@@ -535,23 +539,24 @@ procedure TMainForm.FormCreate(Sender: TObject);
     @param Sender [in] Not used.
   }
 begin
-  // Ensure window title is same as application
   Caption := Application.Title;
-  // Set up OLE
+
+  lblOptionsHide.Font.Color := cpgrpOptions.ChevronColor;
+
   OleInitialize(nil);
-  // Create document object
+
   fDocument := TDocument.Create;
-  // Create OLE drop target object and register it for this window
+
   fDropTarget := TDropTarget.Create(Self);
   OleCheck(RegisterDragDrop(Handle, fDropTarget));
-  // Create web browser controller object
+
   fWBContainer := TWBContainer.Create(wbRendered);
   fWBContainer.Show3DBorder := False;
   fWBContainer.UseCustomCtxMenu := True;
   fWBContainer.CSS := cBodyCSS;
   fWBContainer.DropTarget := fDropTarget;
   fWBContainer.OnTranslateAccel := TranslateAccelHandler;
-  // Create commands object and load defaults
+
   fOptions := TOptions.Create;
   DisplayOptions;
 end;
@@ -673,6 +678,21 @@ begin
   finally
     FreeAndNil(DOAdapter);
   end;
+end;
+
+procedure TMainForm.lblOptionsHideClick(Sender: TObject);
+begin
+  actOptionsBar.Execute;
+end;
+
+procedure TMainForm.lblOptionsHideMouseEnter(Sender: TObject);
+begin
+  lblOptionsHide.Font.Color := cpgrpOptions.ChevronHotColor;
+end;
+
+procedure TMainForm.lblOptionsHideMouseLeave(Sender: TObject);
+begin
+  lblOptionsHide.Font.Color := cpgrpOptions.ChevronColor;
 end;
 
 procedure TMainForm.pcMainMouseLeave(Sender: TObject);

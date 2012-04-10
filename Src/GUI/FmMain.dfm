@@ -30,7 +30,6 @@ object MainForm: TMainForm
     Caption = 'tbMain'
     Images = ilMain
     TabOrder = 0
-    ExplicitWidth = 642
     object tbOpen: TToolButton
       Left = 0
       Top = 0
@@ -88,13 +87,9 @@ object MainForm: TMainForm
     TabOrder = 1
     OnMouseLeave = pcMainMouseLeave
     OnMouseMove = pcMainMouseMove
-    ExplicitWidth = 412
-    ExplicitHeight = 444
     object tsRendered: TTabSheet
       Caption = 'Display View'
       ImageIndex = 1
-      ExplicitWidth = 404
-      ExplicitHeight = 416
       object pnlRendered: TPanel
         Left = 0
         Top = 0
@@ -105,8 +100,6 @@ object MainForm: TMainForm
         BevelOuter = bvNone
         Caption = 'pnlRendered'
         TabOrder = 0
-        ExplicitWidth = 404
-        ExplicitHeight = 416
         object wbRendered: TWebBrowser
           Left = 0
           Top = 0
@@ -130,8 +123,6 @@ object MainForm: TMainForm
       Tag = 2
       Caption = 'HTML View'
       ImageIndex = 2
-      ExplicitWidth = 404
-      ExplicitHeight = 416
       object pnlHTML: TPanel
         Left = 0
         Top = 0
@@ -145,8 +136,6 @@ object MainForm: TMainForm
         BevelOuter = bvNone
         Caption = 'pnlHTML'
         TabOrder = 0
-        ExplicitWidth = 404
-        ExplicitHeight = 416
         object edHTML: TMemo
           Left = 0
           Top = 0
@@ -165,8 +154,6 @@ object MainForm: TMainForm
           ScrollBars = ssBoth
           TabOrder = 0
           WordWrap = False
-          ExplicitWidth = 402
-          ExplicitHeight = 414
         end
       end
     end
@@ -187,8 +174,6 @@ object MainForm: TMainForm
     Color = clWindow
     ParentBackground = False
     TabOrder = 2
-    ExplicitLeft = 416
-    ExplicitHeight = 444
     DesignSize = (
       226
       414)
@@ -206,7 +191,27 @@ object MainForm: TMainForm
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
-      ExplicitWidth = 43
+      ExplicitLeft = -1
+    end
+    object lblOptionsHide: TLabel
+      Left = 209
+      Top = 1
+      Width = 15
+      Height = 15
+      Alignment = taRightJustify
+      AutoSize = False
+      Caption = 'r'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Marlett'
+      Font.Style = []
+      GlowSize = 16
+      ParentFont = False
+      ShowAccelChar = False
+      OnClick = lblOptionsHideClick
+      OnMouseEnter = lblOptionsHideMouseEnter
+      OnMouseLeave = lblOptionsHideMouseLeave
     end
     object btnApplyOptions: TButton
       Left = 14
@@ -217,7 +222,6 @@ object MainForm: TMainForm
       Anchors = [akLeft, akBottom]
       Caption = '&Apply'
       TabOrder = 0
-      ExplicitTop = 412
     end
     object btnRestoreDefaults: TButton
       Left = 104
@@ -227,7 +231,6 @@ object MainForm: TMainForm
       Action = actRestoreDefaults
       Anchors = [akLeft, akBottom]
       TabOrder = 1
-      ExplicitTop = 412
     end
     object cpgrpOptions: TCategoryPanelGroup
       Left = 1
@@ -237,6 +240,7 @@ object MainForm: TMainForm
       VertScrollBar.Tracking = True
       Align = alNone
       Anchors = [akLeft, akTop, akBottom]
+      ChevronHotColor = clHotLight
       HeaderFont.Charset = DEFAULT_CHARSET
       HeaderFont.Color = clWindowText
       HeaderFont.Height = -11
@@ -244,7 +248,6 @@ object MainForm: TMainForm
       HeaderFont.Style = []
       ParentColor = True
       TabOrder = 2
-      ExplicitHeight = 383
       object cpnlMisc: TCategoryPanel
         Top = 90
         Height = 30
