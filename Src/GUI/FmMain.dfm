@@ -2,9 +2,11 @@ object MainForm: TMainForm
   Left = 480
   Top = 328
   Caption = 'MainForm'
-  ClientHeight = 473
-  ClientWidth = 648
+  ClientHeight = 447
+  ClientWidth = 641
   Color = clBtnFace
+  Constraints.MinHeight = 400
+  Constraints.MinWidth = 500
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -13,7 +15,7 @@ object MainForm: TMainForm
   KeyPreview = True
   Menu = mnuMain
   OldCreateOrder = False
-  Position = poDesktopCenter
+  Position = poDesigned
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
@@ -23,11 +25,12 @@ object MainForm: TMainForm
     AlignWithMargins = True
     Left = 3
     Top = 3
-    Width = 642
+    Width = 635
     Height = 23
     Caption = 'tbMain'
     Images = ilMain
     TabOrder = 0
+    ExplicitWidth = 642
     object tbOpen: TToolButton
       Left = 0
       Top = 0
@@ -74,8 +77,8 @@ object MainForm: TMainForm
     AlignWithMargins = True
     Left = 2
     Top = 29
-    Width = 412
-    Height = 444
+    Width = 405
+    Height = 418
     Margins.Left = 2
     Margins.Top = 0
     Margins.Right = 0
@@ -85,34 +88,37 @@ object MainForm: TMainForm
     TabOrder = 1
     OnMouseLeave = pcMainMouseLeave
     OnMouseMove = pcMainMouseMove
-    ExplicitHeight = 425
+    ExplicitWidth = 412
+    ExplicitHeight = 444
     object tsRendered: TTabSheet
       Caption = 'Display View'
       ImageIndex = 1
-      ExplicitHeight = 397
+      ExplicitWidth = 404
+      ExplicitHeight = 416
       object pnlRendered: TPanel
         Left = 0
         Top = 0
-        Width = 404
-        Height = 416
+        Width = 397
+        Height = 390
         Align = alClient
         BevelEdges = []
         BevelOuter = bvNone
         Caption = 'pnlRendered'
         TabOrder = 0
-        ExplicitHeight = 397
+        ExplicitWidth = 404
+        ExplicitHeight = 416
         object wbRendered: TWebBrowser
           Left = 0
           Top = 0
-          Width = 404
-          Height = 416
+          Width = 397
+          Height = 390
           Align = alClient
           TabOrder = 0
           ExplicitLeft = -4
           ExplicitWidth = 552
           ExplicitHeight = 395
           ControlData = {
-            4C000000C1290000FF2A00000000000000000000000000000000000000000000
+            4C000000082900004F2800000000000000000000000000000000000000000000
             000000004C000000000000000000000001000000E0D057007335CF11AE690800
             2B2E126208000000000000004C0000000114020000000000C000000000000046
             8000000000000000000000000000000000000000000000000000000000000000
@@ -124,12 +130,13 @@ object MainForm: TMainForm
       Tag = 2
       Caption = 'HTML View'
       ImageIndex = 2
-      ExplicitHeight = 397
+      ExplicitWidth = 404
+      ExplicitHeight = 416
       object pnlHTML: TPanel
         Left = 0
         Top = 0
-        Width = 404
-        Height = 416
+        Width = 397
+        Height = 390
         Margins.Right = 6
         Margins.Bottom = 6
         Align = alClient
@@ -138,12 +145,13 @@ object MainForm: TMainForm
         BevelOuter = bvNone
         Caption = 'pnlHTML'
         TabOrder = 0
-        ExplicitHeight = 397
+        ExplicitWidth = 404
+        ExplicitHeight = 416
         object edHTML: TMemo
           Left = 0
           Top = 0
-          Width = 402
-          Height = 414
+          Width = 395
+          Height = 388
           Align = alClient
           BevelOuter = bvNone
           BorderStyle = bsNone
@@ -157,17 +165,18 @@ object MainForm: TMainForm
           ScrollBars = ssBoth
           TabOrder = 0
           WordWrap = False
-          ExplicitHeight = 395
+          ExplicitWidth = 402
+          ExplicitHeight = 414
         end
       end
     end
   end
   object pnlOptions: TPanel
     AlignWithMargins = True
-    Left = 416
+    Left = 409
     Top = 29
     Width = 230
-    Height = 444
+    Height = 418
     Margins.Left = 2
     Margins.Top = 0
     Margins.Right = 2
@@ -175,8 +184,14 @@ object MainForm: TMainForm
     Align = alRight
     BevelKind = bkTile
     BevelOuter = bvNone
+    Color = clWindow
+    ParentBackground = False
     TabOrder = 2
-    ExplicitHeight = 425
+    ExplicitLeft = 416
+    ExplicitHeight = 444
+    DesignSize = (
+      226
+      414)
     object lblOptionsTitle: TLabel
       Left = 0
       Top = 0
@@ -185,32 +200,43 @@ object MainForm: TMainForm
       Align = alTop
       Alignment = taCenter
       Caption = 'Options'
-      ExplicitWidth = 37
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      ExplicitWidth = 43
     end
     object btnApplyOptions: TButton
       Left = 14
-      Top = 391
+      Top = 386
       Width = 75
       Height = 25
       Action = actApply
+      Anchors = [akLeft, akBottom]
       Caption = '&Apply'
       TabOrder = 0
+      ExplicitTop = 412
     end
     object btnRestoreDefaults: TButton
       Left = 104
-      Top = 391
+      Top = 386
       Width = 107
       Height = 25
       Action = actRestoreDefaults
+      Anchors = [akLeft, akBottom]
       TabOrder = 1
+      ExplicitTop = 412
     end
     object cpgrpOptions: TCategoryPanelGroup
       Left = 1
       Top = 18
       Width = 223
-      Height = 366
+      Height = 357
       VertScrollBar.Tracking = True
       Align = alNone
+      Anchors = [akLeft, akTop, akBottom]
       HeaderFont.Charset = DEFAULT_CHARSET
       HeaderFont.Color = clWindowText
       HeaderFont.Height = -11
@@ -218,6 +244,7 @@ object MainForm: TMainForm
       HeaderFont.Style = []
       ParentColor = True
       TabOrder = 2
+      ExplicitHeight = 383
       object cpnlMisc: TCategoryPanel
         Top = 90
         Height = 30
