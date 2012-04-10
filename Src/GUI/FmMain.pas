@@ -104,8 +104,6 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure pcMainMouseLeave(Sender: TObject);
-    procedure pcMainMouseMove(Sender: TObject; Shift: TShiftState; X,
-      Y: Integer);
     procedure actRestoreDefaultsExecute(Sender: TObject);
     procedure actApplyExecute(Sender: TObject);
     procedure actOptionsBarExecute(Sender: TObject);
@@ -213,29 +211,11 @@ uses
 {$R *.dfm}
 
 
-resourcestring
-  // Hints
-  sDisplayTabHint = 'Displays highlighted source code as it appears in '
-    + 'browsers';
-  sSourceTabHint = 'Displays source code without highlighting';
-  sHTMLTabHint = 'Displays raw XHTML of the highlighted source code';
-  // Status messages
-  sSBGenHTMLFrag = 'Generating HTML code fragments';
-  sSBGenHTMLDoc = 'Generating complete HTML documents';
-
 const
   // Default style sheet for HTML documents
   cBodyCSS = 'body {margin:0;font-size:9pt;font-family:"Arial";}';
 
-  // Maps tab sheets to long hints associated with their tabs. We can't store
-  // long hints in tab sheets' Hint property since this is displayed when cursor
-  // is over tab content as well as label. We map an index number in tab sheets'
-  // Tag property to hint text. We don't use tabsheets' indexes in page control
-  // in case tabs get re-ordered.
-  cTabSheetHints: array[0..2] of string = (
-    sDisplayTabHint, sSourceTabHint, sHTMLTabHint
-  );
-
+{ TMainForm }
 
 procedure TMainForm.actAboutExecute(Sender: TObject);
   {Displays about box.
@@ -703,33 +683,6 @@ procedure TMainForm.pcMainMouseLeave(Sender: TObject);
   }
 begin
   pcMain.Hint := '';
-end;
-
-procedure TMainForm.pcMainMouseMove(Sender: TObject; Shift: TShiftState; X,
-  Y: Integer);
-  {Sets hint describing a tab if mouse is over one and clears hint if not.
-    @param Sender [in] Not used.
-    @param Shift [in] Not used.
-    @param X [in] X coordinate of mouse.
-    @param Y [in] Y coordinate of mouse.
-  }
-var
-  TabIdx: Integer;      // index of tab under mouse or -1 if none
-  TabSheet: TTabSheet;  // reference of tab sheet under mouse
-begin
-  if htOnItem in pcMain.GetHitTestInfoAt(X, Y) then
-  begin
-    TabIdx := pcMain.IndexOfTabAt(X, Y);
-    if (0 <= TabIdx) and (TabIdx < pcMain.PageCount) then
-    begin
-      TabSheet := pcMain.Pages[TabIdx];
-      pcMain.Hint := '|' + cTabSheetHints[TabSheet.Tag];  // long hint only
-    end
-    else
-      pcMain.Hint := '';
-  end
-  else
-    pcMain.Hint := '';
 end;
 
 procedure TMainForm.TranslateAccelHandler(Sender: TObject; const Msg: TMSG;
