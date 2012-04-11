@@ -231,7 +231,7 @@
 
 <p>
 	This is the make tool that ships with Delphi. You can use any version that
-	works. 
+	works.
 </p>
 
 <h3>
@@ -369,7 +369,7 @@
 		Download a suitable source zip file from <a
 			href="http://code.google.com/p/pas-hi/downloads/list?can=2&q=type=source&sort=filename&colspec=Filename%20Summary%20Type%20Uploaded%20Size%20DownloadCount"
 		>Google Code</a>.
-	</li> 
+	</li>
 	<li>
 		Grab the source code of the latest release from <a
 			href="http://www.delphidabbler.com/software/pash/download"
@@ -410,14 +410,14 @@
   |   +-- GUI               - source code of the GUI application, PasHiGUI
   |       |
   |       +-- Resources     - assets required to build PasHiGUI's resources
-  |     
+  |
   +-- Test                  - contains test file</pre>
-  
+
 <p>
-	If, by chance, you also have a <code>Bin</code>, <code>Exe</code> and
-	<code>Release</code> directory don't worry - all will become clear. 
+	If, by chance, you also have <code>Bin</code>, <code>Exe</code> and
+	<code>Release</code> directories don't worry - all will become clear.
 	Subversion users may also see the usual <code>.svn</code> &quot;hidden&quot;
-	directories or directory. If you have done some editing you may also see
+	directories or directory. If you have done some editing you may also have
   occasional &quot;hidden&quot; <code>__history</code> folders.
 </p>
 
@@ -440,7 +440,7 @@
 <p>
 	or
 </p>
-  
+
 <pre class="cmd"><span class="prompt">Src&gt;</span> %DELPHI2010%\Bin\Make config</pre>
 
 <p>
@@ -448,7 +448,7 @@
 </p>
 
 <p>
-	Once <code>Make config</code> has completed your folder structure should
+	Once <code>Make config</code> has completed, your folder structure should
 	have acquired the following new folders:
 </p>
 
@@ -472,13 +472,13 @@
   |   +-- GUI               - source code of the GUI application, PasHiGUI
   |       |
   |       +-- Resources     - assets required to build PasHiGUI's resources
-  |     
+  |
   +-- Test                  - contains test file</span></pre>
 
 <p>
 	<code>Make</code> will have created a <code>.cfg</code> file from the template
   in the <code>Src</code> folder. <code>.cfg</code> files are needed for DCC32
-  to run correctly This new file will be ignored by Subversion.
+  to run correctly. This new file will be ignored by Subversion.
 </p>
 
 <p>
@@ -498,7 +498,7 @@
 <pre>./
   <span class="disabled">+-- Bin                   - receives object files and .res files for PasHi</span>
   |   |
-  |   +-- GUI
+  |   +-- GUI               - receives object files and .res files for PasHiGUI
   <span class="disabled">|
   +-- Config                - config files to be installed with PasHi
   |
@@ -517,7 +517,7 @@
   |   +-- GUI               - source code of the GUI application, PasHiGUI
   |       |
   |       +-- Resources     - assets required to build PasHiGUI's resources
-  |     
+  |
   +-- Test                  - contains test file</span></pre>
 
 
@@ -625,7 +625,7 @@
   you can create the setup program. This is done from the main makefile with:
 </p>
 
-<pre class="cmd"><span class="prompt">Src&gt;</span> Make pashigui</pre>
+<pre class="cmd"><span class="prompt">Src&gt;</span> Make setup</pre>
 
 <h3>
 	Creating the Release zip file
@@ -664,8 +664,8 @@
 </h3>
 
 <p>
-  When you are ready to created a release there is a shortcut you can you to
-  configure the source tree, build the executables then the setup program and
+  When you are ready to create a release there is a shortcut you can use to
+  configure the source tree, build the executables and the setup program, and
   finally package the release zip file. Use the following command:
 </p>
 
@@ -696,20 +696,20 @@
 </p>
 
 <p>
-	Be warned that this command removes any <code>__history</code> folders that
-	some Delphi uses to record earlier versions of files. 
+	Be warned that this command removes the <code>__history</code> folders that
+	Delphi uses to record earlier versions of files.
 </p>
 
 <p>
 	<code>Make clean</code> leaves behind the files and directories created by
-	<code>Make config</code>. To delete these files and folders in addition to
+	<code>Make config</code>. To delete these files and directories in addition to
 	performing a normal clean run:
 </p>
 
 <pre class="cmd"><span class="prompt">Src&gt;</span> Make deepclean</pre>
 
 <p>
-	Once again this command deep cleans both the <code>Src</code> and
+	Once again this command deep operates on both the <code>Src</code> and
 	<code>Src\GUI</code> directories.
 </p>
 
