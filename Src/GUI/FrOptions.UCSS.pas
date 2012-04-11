@@ -114,7 +114,7 @@ end;
 procedure TCSSOptionsFrame.UpdateOptions(const Options: TOptions);
 begin
   Options.Delete('default-css');
-  Options.Delete('embed-ccc');
+  Options.Delete('embed-css');
   Options.Delete('link-css');
   if rbDefaultCSS.Checked then
     Options.Store('default-css')
