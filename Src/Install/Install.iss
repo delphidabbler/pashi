@@ -106,6 +106,7 @@ Source: {#SrcConfigPath}mono.css; DestDir: {#AppDataDir}; Tasks: samples; Flags:
 
 [Icons]
 Name: {group}\Read Me File; Filename: {app}\{#ReadmeFile}
+Name: {group}\Run PasHiGUI; Tasks: gui; Filename: {app}\PasHiGUI.exe
 Name: {group}\{cm:UninstallProgram,{#AppName}}; Filename: {uninstallexe}
 
 [Tasks]
