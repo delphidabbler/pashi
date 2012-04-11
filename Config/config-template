@@ -1,0 +1,199 @@
+﻿# PasHi config file template
+# --------------------------
+#
+# PURPOSE
+# -------
+#
+# PasHi looks for a file named config in the %AppData%\DelphiDabbler\PasHi when
+# it starts up. Any commands it finds in that file can be used to change the
+# program's default state. By default there is no config: the user must provide
+# one if needed.
+#
+# This file is provided as a template for creating a config file. As provided,
+# it makes makes no changes to PasHi's default state. However it is fully
+# commented and lists every available configuration option.
+#
+# Possible commands are noted below. For an explanation of each command, and its
+# permitted parameters (if any) see the command reference in ReadMe.html.
+#
+# FILE FORMAT
+# -----------
+#
+# Each command must be placed on its own line. Any parameters required by the
+# command must follow the command and be separated from it by one or more
+# spaces. Parameters containing spaces must not be enclosed in quotes.
+#
+# Blank lines are ignored, as are lines beginning with #. Leading and trailing
+# spaces and tabs are also ignored.
+#
+# The file must be saved in UTF-8 encoding, with or without BOM (byte order
+# mark).
+#
+# WARNING: Errors in this file will crash PasHi. The program can usually work
+# out if an error was caused by this file and will report the fact in its error
+# message.
+#
+# USAGE
+# -----
+#
+# To use this file you must copy it as "config", over-writing any existing file.
+#
+# WARNING: Any changes to this file before renaming are likely to be overwritten
+# by PasHi, so do not run PasHi while editing the original file. Preferrably you
+# should make changes to a copy of the file.
+#
+# Commands entered on PasHi's command line override commands in this file.
+
+
+# --- Input source commands ---
+# Commands:
+#   input-stdin
+#   input-clipboard
+# Default:
+#   input-stdin
+
+
+# --- Input source trimming ---
+# Commands
+#   trim <param>
+#     where <param> ie either "yes" or "no"
+# Default:
+#   trim yes
+
+
+# --- Multiple input file separation ---
+# Command:
+#   separator-lines <param>
+#     where <param> is a number in range 0..16
+# Default:
+#   separator-lines 1
+
+
+# --- Output sink commands ---
+# Commands:
+#   output-stdout
+#   output-file <param>
+#     where <param> is the required file name
+#   output-clipboard
+# Examples:
+#   output-file C:\MyDocs\MyFile.html
+#   output-file MyFile.html
+# Default:
+#   output-stdout
+
+
+# --- Output document type ---
+# Command:
+#   doc-type <param>
+#     where <param> is on of "xhtml", "html4", "html5" or "fragment"
+# Default:
+#   doc-type xhtml
+
+
+# --- Output file branding ---
+# Command:
+#   branding <param>
+#     where <param> is either "on" or "off"
+# Default:
+#   branding on
+
+
+# --- Output file language ---
+# Command:
+#   language <param>
+#     where <param> is either a valid language code recognised by HTML
+#   language-neutral
+# Examples:
+#   language en
+#   language en-gb
+# Default:
+#   language-neutral
+
+
+# --- Output document title ---
+# Command:
+#   title <param>
+#     where <param> is the required title text
+#   title-default
+# Example
+#   title Highlighted Pascal Source Code
+# Default:
+#   title-default
+
+
+# -- Output document encoding ---
+# Command:
+#   encoding <param>
+#     where <param> is one of "utf-8", "utf-16", "windows-1252" or "iso-8859-1"
+# Default:
+#   encoding utf-8
+
+
+# --- Style sheets ---
+# Commands:
+#   embed-css <param>
+#     where <param> is the name of a CSS file
+#   default-css
+#   link-css <param>
+#     where <param> is the name of a CSS file
+# Examples:
+#   embed-css C:\CSS\style.css
+#   embed-css .\style.css
+#   embed-css delphi7.css
+#   link-css http://example.com/css/example.css
+#   link-css example.css
+# Default:
+#   default-css
+
+
+# --- Comment out embedded style sheets ---
+# Command:
+#   hide-css <param>
+#     where <param> is either "yes" or "no"
+# Default:
+#   hide-css no
+
+
+# --- CSS class naming convention ---
+# Command:
+#   legacy-css <param>
+#     where <param> is either "yes" of "no"
+# Default:
+#   legacy-css no
+
+
+# -- Line numbering
+# Commands:
+#   line-numbering <param>
+#     where <param> is either "on" or "off"
+#   line-number-width <param>
+#     where <param> is a number in range 1..6
+#   line-number-padding <param>
+#     where <param> is one of "space", "zero", "dot" or "dash"
+# Defaults:
+#   line-numbering off
+#   line-number-width 3
+#   line-number-padding space
+
+
+# -- Line styling
+# Command:
+#   striping <param>
+#     where <param> is either "on" or "off"
+# Default:
+#   striping off
+
+
+# --- Output verbosity ---
+# Commands:
+#   verbosity <param>
+#     where <param> is either "quiet" or "normal"
+#   quiet
+# Default:
+#   verbosity normal
+
+
+# --- Help ---
+# While it is possible to specify the help command in this file, you definately
+# should not. If you do then PasHi will only ever display help and will ignore
+# any other commands in this file or on the command line. You have been warned!

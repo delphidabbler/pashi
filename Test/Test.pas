@@ -80,13 +80,17 @@ const
   cNSet = (.7..12.) + (. 8, 12..14 .);
   cXSet = [23..23];
   Override =  'harry';
+  Index = 42;
+  Name = 'Foo';
+  &type = 2;
 var
   S, T: string;
   C1, C2, C3: Char;
   N1, N2, N3: Integer;
-  F1, F2, F3, F4: Double;
+  F1, F2, F3, F4, F5: Double;
   A: set of Char;
   H: Integer;
+  message: Char;
 begin
   (*.12.*)
   OutputDebugString(cBert);
@@ -103,6 +107,7 @@ begin
   F1 := 0.23 * 10.e+45 + 0e3;
   F2 := 0.34567e-78;
   F3 := 124e72 / -34E-42;F4 := 1.
+  F5 := 12e + 12e-; // <= errors
   ;
   T := 'String ending with EOL containing floats %f, %f, %f'#13#$0A
     + 'and numbers %d, %d, %d';

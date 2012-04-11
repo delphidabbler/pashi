@@ -1,49 +1,27 @@
 {
- * UWBContainer.pas
+ * This Source Code Form is subject to the terms of the Mozilla Public License,
+ * v. 2.0. If a copy of the MPL was not distributed with this file, You can
+ * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Class that hosts the IE web browser control and enables both direct loading
- * of browser's HTML and customisation of the user interface.
+ * Copyright (C) 2006-2012, Peter Johnson (www.delphidabbler.com).
  *
  * $Rev$
  * $Date$
  *
- * ***** BEGIN LICENSE BLOCK *****
- *
- * Version: MPL 1.1
- *
- * The contents of this file are subject to the Mozilla Public License Version
- * 1.1 (the "License"); you may not use this file except in compliance with the
- * License. You may obtain a copy of the License at http://www.mozilla.org/MPL/
- *
- * Software distributed under the License is distributed on an "AS IS" basis,
- * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for
- * the specific language governing rights and limitations under the License.
- *
- * The Original Code is UWBContainer.pas
- *
- * The Initial Developer of the Original Code is Peter Johnson
- * (http://www.delphidabbler.com/).
- *
- * Portions created by the Initial Developer are Copyright (C) 2006-2010 Peter
- * Johnson. All Rights Reserved.
- *
- * Contributor(s):
- *   NONE
- *
- * ***** END LICENSE BLOCK *****
+ * Class that hosts the IE web browser control and enables both direct loading
+ * of browser's HTML and customisation of the user interface.
 }
 
 
 unit UWBContainer;
 
-{$WARN UNSAFE_CODE OFF}
 
 interface
 
 
 uses
   // Delphi
-  Classes, Windows, ActiveX, ShDocVw,
+  SysUtils, Classes, Windows, ActiveX, ShDocVw,
   // Project
   UNulWBContainer, IntfUIHandlers;
 
@@ -155,9 +133,10 @@ type
       {Class constructor. Creates object that hosts a web browser control.
         @param HostedBrowser [in] Browser control this object is to host.
       }
-    procedure LoadFromString(const HTML: string);
+    procedure LoadFromString(const HTML: string; const Encoding: TEncoding);
       {Loads and displays valid HTML source from a string.
         @param HTML [in] String containing the HTML source.
+        @param Encoding [in] Document encoding.
       }
     procedure EmptyDocument;
       {Creates an empty document. This method guarantees that the browser
@@ -204,7 +183,7 @@ implementation
 
 uses
   // Delphi
-  SysUtils, StrUtils, Themes, Forms,
+  StrUtils, Themes, Forms,
   // Project
   UUtils;
 
@@ -323,14 +302,16 @@ begin
   LoadDocumentFromStream(Stm);
 end;
 
-procedure TWBContainer.LoadFromString(const HTML: string);
+procedure TWBContainer.LoadFromString(const HTML: string;
+  const Encoding: TEncoding);
   {Loads and displays valid HTML source from a string.
     @param HTML [in] String containing the HTML source.
+    @param Encoding [in] Document encoding.
   }
 var
   StringStream: TStringStream;  // stream onto string
 begin
-  StringStream := TStringStream.Create(HTML);
+  StringStream := TStringStream.Create(HTML, Encoding);
   try
     LoadFromStream(StringStream);
   finally

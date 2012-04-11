@@ -1,8 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <!--
- * Copyright (C) 2005-2010 Peter Johnson (www.delphidabbler.com)
+ * Copyright (C) 2005-2012 Peter Johnson (www.delphidabbler.com)
  *
  * This document may be re-distributed or re-published only with the
  * DelphiDabbler PasHi Pascal Highlighter program available from
@@ -20,840 +20,1968 @@
 
 <head>
 
-	<title>
-		DelphiDabbler || PasHi Pascal Highlighter
-	</title>
+  <title>
+    DelphiDabbler || PasHi Pascal Highlighter
+  </title>
 
-	<meta
-		http-equiv="Content-Type"
-		content="text/html; charset=UTF-8"
-	/>
-	<meta
-		http-equiv="Content-Language"
-		content="en"
-	/>
-	<meta
-		name="author"
-		content="Peter Johnson (www.delphidabbler.com)"
-	/>
-	<meta
-		name="copyright"
-		content="(C) 2005-2010 Peter Johnson (www.delphidabbler.com)"
-	/>
-	<meta
-		name="description"
-		content="Readme for DelphiDabbler PasHi Pascal Highlighter"
-	/>
+  <meta
+    http-equiv="Content-Type"
+    content="text/html; charset=Windows-1252"
+  />
+  <meta
+    http-equiv="Content-Language"
+    content="en"
+  />
+  <meta
+    name="author"
+    content="Peter Johnson (www.delphidabbler.com)"
+  />
+  <meta
+    name="copyright"
+    content="(C) 2005-2012 Peter Johnson (www.delphidabbler.com)"
+  />
+  <meta
+    name="description"
+    content="Readme for DelphiDabbler PasHi Pascal Highlighter"
+  />
 
-	<style>
-		body {
-			margin: 1em;
-			padding: 0;
-			font-family: Verdana, Arial, sans-serif;
-			font-size: 9pt;
-			line-height: 150%;
-		}
-		table {
-			font-size: 9pt;
-			margin: 0.5em 0 0 0;
-			padding: 0;
-		}
-		h1 {
-			margin: 0 0 1em 0;
-			padding: 0.5em;
-			border: 1px silver solid;
-			background-color: #eee;
-			font-size: 13pt;
-			font-weight: bold;
-			text-align: center;
-		}
-		h1 .subtitle {
-			font-style: italic;
-			color: #336;
-		}
-		h2 {
-			margin: 1em 0 0 0;
-			padding: 0;
-			padding-bottom: 6px;
-			border-bottom: 1px silver solid;
-			font-size: 11pt;
-			font-weight: bold;
-		}
-		h3 {
-			margin: 0.5em 0 0 0;
-			padding: 0;
-			font-size: 9pt;
-			font-weight: bold;
-		}
-		p {
-			margin: 0.5em 0 0 0;
-			padding: 0;
-		}
-		pre {
-			font-family: "Courier New", Courier, monospace;
-			margin: 0.5em 0 0 0;
-			padding: 0;
-		}
-		pre.block {
-			background-color: #eef;
-			border: 1px #ccd solid;
-			padding: 0.5em;
-		}
-		ul, ol {
-			margin: 0.5em 0 0 3em;
-			padding: 0;
-		}
-		ul {
-			list-style-type: square;
-		}
-		ul.spaced li,
-		ol.spaced li {
-			margin-top: 0.5em;
-		}
-		ul.spaced li,
-		ol.spaced li,
-		dl.spaced dt {
-			margin-top: 0.5em;
-		}
-		ul.unspaced li,
-		ol.unspaced li {
-			margin-top: 0;
-		}
-		ul.unspaced li.first,
-		ol.unspaced li.first {
-			margin-top: 0.5em;
-		}
-		code {
-			font-family: "Courier New", Courier, monospace;
-		}
-		a:link {
-			color: #336;
-			text-decoration: underline;
-		}
-		a:visited {
-			color: #669;
-			text-decoration: underline;
-		}
-		a:active {
-			color: #336;
-			text-decoration: underline;
-		}
-		a:hover {
-			text-decoration: underline;
-		}
-		.gototop {
-			margin: 1em 0 0 0;
-			padding: 0.3em 0 0 0;
-			text-align: center;
-			position: relative;
-			float: right;
-			font-weight: bold;
-		}
-		.pullout {
-			border-left: 8px silver solid;
-			xborder-bottom: 2px silver solid;
-			xborder-top: 2px silver solid;
-			background-color: #eee;
-			margin: 0.5em 0 0 0;
-			padding: 0.25em 0.5em;
-			font-style: italic;
-		}
-		.indent {
-			margin-left: 3em;
-		}
-		.hilite {
-			color: #336;
-			font-style: italic;
-			font-weight: bold;
-		}
-		.endnotes {
-			margin: 1.5em 0 0 0;
-			padding: 1em 0 0 0;
-			border-top: 1px silver solid;
-		}
-		.comments {
-			font-style: italic;
-		}
-		.copyright,
-		.copyright a:link,
-		.copyright a:visited,
-		.copyright a:active {
-			margin: 1em 0 0 0;
-			color: gray;
-			font-size: 8pt;
-			text-align: right;
-		}
-		td.pad-left, th.pad-left {
-			padding-left: 2em;
-		}
-		th.left-align {
-			text-align: left;
-		}
-	</style>
+  <style type="text/css">
+    body {
+      margin: 1em;
+      padding: 0;
+      font-family: Verdana, Arial, sans-serif;
+      font-size: 9pt;
+      line-height: 150%;
+    }
+    table {
+      font-size: 9pt;
+      margin: 0.5em 0 0 0;
+      padding: 0;
+    }
+    h1 {
+      margin: 0 0 1em 0;
+      padding: 0.5em;
+      border: 1px silver solid;
+      background-color: #eee;
+      font-size: 13pt;
+      font-weight: bold;
+      text-align: center;
+    }
+    h1 .subtitle {
+      font-style: italic;
+      color: #336;
+    }
+    h2 {
+      margin: 1em 0 0 0;
+      padding: 0;
+      padding-bottom: 6px;
+      border-bottom: 1px silver solid;
+      font-size: 11pt;
+      font-weight: bold;
+    }
+    h3 {
+      margin: 0.5em 0 0 0;
+      padding: 0;
+      font-size: 9pt;
+      font-weight: bold;
+    }
+    p {
+      margin: 0.5em 0 0 0;
+      padding: 0;
+    }
+    pre,
+    code,
+    .file,
+    .switch,
+    .css {
+      font-family: "Courier New", Courier, monospace;
+    }
+
+    pre {
+      margin: 0.5em 0 0 0;
+      padding: 0;
+    }
+    pre.block {
+      background-color: #eef;
+      border: 1px #ccd solid;
+      padding: 0.5em;
+    }
+    ul, ol {
+      margin: 0.5em 0 0 3em;
+      padding: 0;
+    }
+    ul {
+      list-style-type: square;
+    }
+    ul.squashed,
+    ol.squashed {
+      margin-top: 0;
+    }
+    ul.spaced li,
+    ol.spaced li {
+      margin-top: 0.5em;
+    }
+    ul.spaced li,
+    ol.spaced li,
+    dl.spaced dt {
+      margin-top: 0.5em;
+    }
+    ul.squashed li,
+    ol.squashed li,
+    ul.unspaced li,
+    ol.unspaced li {
+      margin-top: 0;
+    }
+    ul.unspaced li.first,
+    ol.unspaced li.first {
+      margin-top: 0.5em;
+    }
+    code {
+      font-family: "Courier New", Courier, monospace;
+    }
+    a:link {
+      color: #336;
+      text-decoration: underline;
+    }
+    a:visited {
+      color: #669;
+      text-decoration: underline;
+    }
+    a:active {
+      color: #336;
+      text-decoration: underline;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .gototop {
+      margin: 1em 0 0 0;
+      padding: 0.3em 0 0 0;
+      text-align: center;
+      position: relative;
+      float: right;
+      font-weight: bold;
+    }
+    .pullout {
+      border-left: 8px silver solid;
+      xborder-bottom: 2px silver solid;
+      xborder-top: 2px silver solid;
+      background-color: #eee;
+      margin: 0.5em 0 0 0;
+      padding: 0.25em 0.5em;
+      font-style: italic;
+    }
+    .pullout p {
+      margin: 0 0 0.25em;
+    }
+    .pullout p:last-child {
+      margin: 0;
+    }
+    .indent {
+      margin-left: 3em;
+    }
+    .hilite {
+      color: #336;
+      font-style: italic;
+      font-weight: bold;
+    }
+    .endnotes {
+      margin: 1.5em 0 0 0;
+      padding: 1em 0 0 0;
+      border-top: 1px silver solid;
+    }
+    .comments {
+      font-style: italic;
+    }
+    .copyright,
+    .copyright a:link,
+    .copyright a:visited,
+    .copyright a:active {
+      margin: 1em 0 0 0;
+      color: gray;
+      font-size: 8pt;
+      text-align: right;
+    }
+    .switch {
+      font-family: "Courier New", Courier, monospace;
+    }
+    .smallcaps {
+      font-variant: small-caps;
+    }
+    td.pad-left, th.pad-left {
+      padding-left: 2em;
+    }
+    th.left-align {
+      text-align: left;
+    }
+    table {
+      margins: 0;
+      padding: 0;
+    }
+    td {
+      vertical-align: top;
+    }
+    th {
+      vertical-align: middle;
+    }
+    td, th {
+      border: 1px silver solid;
+      padding: 2px 6px;
+    }
+  </style>
 
 </head>
 
 <body>
 
 <h1>
-	<div><em>PasHi</em> Pascal Highlighter</div>
-	<div class="subtitle">Read Me Document</div>
+  <div><em>PasHi</em> Pascal Highlighter</div>
+  <div class="subtitle">Read Me Document</div>
 </h1>
 
 <h2 id="contents">
-	Contents
+  Contents
 </h2>
 
 <ul>
-	<li>
-		<a href="#introduction">Introduction</a>
-	</li>
-	<li>
-		<a href="#why">Why another Pascal highlighter?</a>
-	</li>
-	<li>
-		<a href="#install">Installing <em>PasHi</em></a>
-	</li>
-	<li>
-		<a href="#usage">Using <em>PasHi</em></a>
-	</li>
-	<li>
-		<a href="#css">CSS styles used by <em>PasHi</em></a>
-	</li>
-	<li>
-		<a href="#pashigui">Using <em>PasHiGUI</em></a>
-	</li>
-	<li>
-		<a href="#bugs">Bugs &amp; Feature Requests</em>
-	</li>
-	<li>
-		<a href="#source">Source code</a>
-	</li>
+  <li>
+    <a href="#introduction">Introduction</a>
+  </li>
+  <li>
+    <a href="#why">Why another Pascal highlighter?</a>
+  </li>
+  <li>
+    <a href="#install">Installation</em></a>
+  </li>
+  <li>
+    <a href="#usage">Using <em>PasHi</em></a>
+  </li>
+  <li>
+    <a href="#config">Configuring <em>PasHi</em></a>
+  </li>
+  <li>
+    <a href="#css">CSS styles used by <em>PasHi</em></a>
+  </li>
+  <li>
+    <a href="#pashigui">Using <em>PasHiGUI</em></a>
+  </li>
+  <li>
+    <a href="#bugs">Bugs &amp; Feature Requests</em>
+  </li>
+  <li>
+    <a href="#source">Source code</a>
+  </li>
 </ul>
 
 <p class="gototop">
-	&raquo; <a href="#contents">Contents</a>
+  &raquo; <a href="#contents">Contents</a>
 </p>
 
 <h2 id="introduction">
-	Introduction
+  Introduction
 </h2>
 
 <p>
-	<em>PasHi</em> is a simple command line program that highlights Pascal
-	source code. It reads the original source code from standard input or the
-	clipboard and writes the highlighted code to standard output or the
-	clipboard. XHTML is used for the highlighted code and cascading style sheets
-	are used to do the styling.
+  <em>PasHi</em> is a fully featured command line program that highlights Pascal
+  source code. It reads the original source code from standard input, files or
+  the clipboard and writes the highlighted code as HTML to standard output, a
+  file, or the clipboard.
 </p>
 
 <p>
-	<em>PasHi</em> can either generate complete XHTML documents or just
-	fragments of XHTML code containing the highlighted source. Complete XHTML
-	documents contain an embedded CSS style sheet while code fragments require
-	the user to provide the required CSS classes. This last feature makes it
-	easy to embed code highlighted by <em>PasHi</em> into exiting web pages with
-	highlight colours defined by the web page author.
+  HTML 4, XHTML and HTML 5 are all supported. CSS is used for styling. Style
+  sheets may be external or can be embedded in the HTML document. Several
+  predefined style sheets are installed with the program. You can also create <a
+    href="#css"
+  >your own</a>.
 </p>
 
 <p>
-	A beta version of <em>PasHiGUI</em>, a GUI front end for <em>PasHi</em>, is
-	included in the release.
+  <em>PasHi</em> can either generate complete HTML documents or just fragments
+  of HTML code. HTML fragments make it easy to embed highlighted code in
+  existing web pages. Web page authors simply need to ensure that the <a
+    href="#css"
+  >necessary CSS classes</a> are available. The easiest way to do this is to use
+  an external style sheet.
 </p>
 
 <p>
-	Up until and including v1.0.0, <em>PasHi</em> was known as <em>PasH</em>.
+  <em>PasHiGUI</em>, a GUI front end for <em>PasHi</em>, is included in the
+  release. This provides a point and click way of using <em>PasHi</em>. Most,
+  but not all, command line options are supported. Files and text can be dragged
+  and dropped onto the window to highlight them.
+</p>
+
+<p>
+  Check <a
+    href="http://hallvards.blogspot.com/"
+  >Hallvard's Blog</a> for an example of a site using <em>PasHi</em>.
+  <em>PasHi</em> has also been used to highlight example source code on the
+  DelphiDabbler <a
+    href="http://www.delphidabbler.com/tips"
+  >Delphi Tips</a> and
+  <a
+    href="http://www.delphidabbler.com/articles"
+  >Articles</a> pages.
 </p>
 
 <p class="gototop">
-	&raquo; <a href="#contents">Contents</a>
+  &raquo; <a href="#contents">Contents</a>
 </p>
 
 <h2 id="why">
-	Why another Pascal highlighter?
+  Why another Pascal highlighter?
 </h2>
 
 <p>
-	Simple, I wanted an easy to use tool to format Pascal code for the
-	<a
-		href="http://www.delphidabbler.com/"
-	>DelphiDabbler website</a>. I wanted the following:
+  Simple, I wanted an easy to use tool to format Pascal code for the
+  <a
+    href="http://www.delphidabbler.com/"
+  >DelphiDabbler website</a>. I wanted the following:
 </p>
 
 <ol>
-	<li>
-		Cascading style sheets.
-	</li>
-	<li>
-		Valid XHTML.
-	</li>
-	<li>
-		Full control over the appearance of the output code.
-	</li>
-	<li>
-		Ability to highlight via the clipboard.
-	</li>
-	<li>
-		The option to generate XHTML fragments for inserting into existing
-		documents.
-	</li>
+  <li>
+    Conformant XHTML and later HTML 5.
+  </li>
+  <li>
+    Styling by means of cascading style sheets.
+  </li>
+  <li>
+    Full control over the appearance of the output code.
+  </li>
+  <li>
+    Ability to highlight via the clipboard.
+  </li>
+  <li>
+    The option to generate HTML fragments for inserting into existing
+    documents.
+  </li>
 </ol>
 
 <p>
-	On checking the available free tools I've found they were either too complex
-	or didn't provide one of the features I wanted. I'd already written
-	highlighter code for my <em>CodeSnip</em> program, so I extracted that,
-	tweaked it and wrapped it up in a command line program. Having made it I
-	thought I'd release it in case anyone else finds it useful.
+  On checking the available free tools I found that they were either too complex
+  or they didn't provide one or more of the features I wanted.
 </p>
 
 <p>
-	Check these two sites for examples of <em>PasHi</em> in use:
-	<a
-		href="http://rvelthuis.de/"
-	>Rudy's Delphi Corner</a> and
-	<a
-		href="http://hallvards.blogspot.com/"
-	>Hallvard's Blog</a>. PasHi has also been used to highlight example source
-	code on the DelphiDabbler
-	<a
-		href="http://www.delphidabbler.com/tips"
-	>Delphi Tips</a> and
-	<a
-		href="http://www.delphidabbler.com/articles"
-	>Articles</a> pages.
+  I had already written highlighter code for my <em><a
+    href="http://www.delphidabbler.com/software/codesnip"
+  >CodeSnip</a></em> program, so I extracted that, tweaked it and wrapped it up
+  in a command line program. Having made it I thought I'd release it in case
+  anyone else found it useful. Since then it's been greatly enhanced.
 </p>
 
 <p class="gototop">
-	&raquo; <a href="#contents">Contents</a>
+  &raquo; <a href="#contents">Contents</a>
 </p>
 
 <h2 id="install">
-	Installation
+  Installation
 </h2>
 
+<div class="pullout">
+  <p>
+    <em>PasHi</em> requires Windows 2000 or later to run. You need to have
+    administrative privileges to install it. Elevation may be required to
+    install on Windows Vista and later.
+  </p>
+  <p>
+    If you have <em>PasHi</em> v1.x or earlier you need to remove it before
+    installing this version. These early versions of the program have no setup
+    program, so you must uninstall manually. Simply find the program (and
+    <em>PasHiGUI</em> if you have it) and delete the executable file(s) along
+    with any support files you installed. If you included the v1.x install
+    directory on the system path you should remove it.
+  </p>
+</div>
+
 <p>
-	<em>PasHi</em>'s simplicity means it that has no dependencies and creates no
-	config files or registry entries. So, I haven't provided an installer, just
-	a zip file containing a few files. They are:
+  <em>PasHi</em> is provided in a zip file that contains a setup program,
+  <code>PasHi-Setup-xxx.exe</code> (where xxx is the program's version number).
+  The zip file also contains this read-me file.
 </p>
 
-<ul class="spaced">
-	<li>
-		<code>PasHi.exe</code><br />
-		This is the program's executable file. Just copy it to a directory of
-		your choice. Then open a command console and run <em>PasHi</em>. See
-		<a
-			href="#usage">Using <em>PasHi</em></a> below for details of
-		<em>PasHi</em>'s command line switches. You'll find <em>PasHi</em>
-		more usable if you place it somewhere on your path or if you add
-		<em>PasHi</em>'s directory to the path.
-	</li>
-	<li>
-		<code>PasHiGUI</code><br />
-		The GUI front end for <em>PasHi</em>. If you want to use this program
-		just copy it to the <strong>same directory</strong> as <em>PasHi</em>.
-	</li>
-	<li>
-		<code>License.txt</code><br />
-		Contains the program's license. Please read this and only use
-		<em>PasHi</em> (and <em>PasHiGUI</em> if you agree with it. OK, given
-		that you probably won't read I'll tell you now it's a pretty permissive
-		open source license. You can use and distribute <em>PasHi</em> freely
-		and get the source code and modify it. If you release your changes there
-		are two conditions: (1) you must make the source available under the
-		<a
-			href="http://www.mozilla.org/MPL/"
-		>Mozilla Public License</a> and (2) you must delete the program icons or
-		use your own.
-	</li>
-	<li>
-		<code>ReadMe.html</code><br />
-		This file. Nuff said.
-	</li>
-</ul>
+<p>
+  Extract the setup program from the zip file and run it, following the
+  on-screen instructions.
+</p>
 
 <p>
-	To uninstall, just delete <code>Pashi.exe</code> and
-	<code>PasHiGUI.exe</code>. Neither program makes any changes to your system.
+  You will need to accept the license before configuring and completing the
+  installation. The license is permissive and lets you copy and share
+  <em>PasHi</em> freely. You can also modify it providing you make the source
+  code of your changes freely available.
+</p>
+
+<p>
+  After agreeing to the license the installer you choose the installation
+  directory followed by the name of the start menu program group. Following that
+  you have three options, all of which are selected by default:
+</p>
+
+<ol class="spaced">
+  </li>
+  <li>
+    <em>Add PasHi's directory to the system path for all users</em>:<br />
+    This lets
+    you run <em>PasHi</em> simply by typing its name on the command line,
+    without specifying the path to the program. The installer modifies the
+    system PATH environment variable. This option is recommended for everyone.
+  </li>
+  <li>
+    <em>Install sample style sheets and config file templates</em>:<br />
+    This option installs various <a
+      href="#css-samples"
+    >CSS style sheets</a> and <a
+      href="#config-samples"
+    >config file templates</a>. These files will appear in your
+    <code>%AppData%\DelphiDabbler\PasHi</code> directly immediately after you
+    first run <em>PasHi</em>. The files take up very little disk space so this
+    option is recommended unless you are sure you will never need to use the
+    files.
+  </li>
+  <li>
+    <em>Install GUI front end program, PasHiGUI</em>:<br />
+    This installs the <a
+      href="#pashigui"
+    ><em>PasHiGUI</em></a> program alongside <em>PasHi</em>. This program is
+    worth installing if you prefer to use <em>PasHi</em> from a GUI rather than
+    mastering the command line. Most, but not all, of <em>PasHi</em>'s options
+    are available from <em>PasHiGUI</em>.
+  </li>
+</ol>
+
+<p>
+  Once you have made your choices, you can review them then either go back to
+  make changes or commit to installing. Once installation is complete then the
+  last page is displayed. It gives an option to display this ReadMe file. If you
+  have installed <em>PasHiGUI</em> you are given the option to run it.
+</p>
+
+<p>
+  The installer makes the following changes to your system:
+</p>
+
+<ul>
+  <li>
+    The main program's executable files and documentation are installed into the
+    chosen install folder (<code>%ProgramFiles%\DelphiDabbler\PasHi</code> by
+    default). If you chose to install it, <em>PasHiGUI</em> will also be placed
+    in this directory.
+  </li>
+  <li>
+    Files required by the uninstaller are stored in the main installation's
+    <code>Uninst</code> sub-folder.
+  </li>
+  <li>
+    The program's uninstall information is registered with the Add / Remove
+    Programs (aka Programs and Features) control panel applet.
+  </li>
+  <li>
+    The system path may be updated if you chose the relevant option.
+  </li>
+  <li>
+    A program group will be created in the start menu.
+  </li>
+  <li>
+    Sample .css and config files are installed in
+    <code>%ProgramData%\DelphiDabbler\PasHi</code>. The first time that
+    <em>PasHi</em> is run by each user, these files are also copied to that
+    users's <code>%AppData%\DelphiDabbler\PasHi</code> directory.
+  </li>
+</ul>
+
+<h3>
+  Uninstallation
+</h3>
+
+<p>
+  Open the Add / Remove Programs (Programs and Features) applet from the Control
+  Panel, navigate to the <em>DelphiDabbler PasHi</em> entry and click the
+  <em>Remove</em> or <em>Uninstall</em> button. You will be asked to confirm
+  removal of the program. Click <em>Yes</em> to proceed.
+</p>
+
+<p>
+  <em>PasHi</em>, <em>PasHiGUI</em> (if installed) and all documentation will
+  be removed.
+</p>
+
+<p>
+  The directory <code>%ProgramData%\DelphiDabbler\PasHi</code> will be removed
+  but each user's <code>%AppData%\DelphiDabbler\PasHi</code> directory and all
+  its files will be left behind.
+</p>
+
+<p>
+  <em>PasHi</em>'s install directory will be removed from the system path if
+  present.
 </p>
 
 <p class="gototop">
-	&raquo; <a href="#contents">Contents</a>
+  &raquo; <a href="#contents">Contents</a>
 </p>
 
 <h2 id="usage">
-	Using <em>PasHi</em>
+  Using <em>PasHi</em>
 </h2>
 
-<p>
-	<em>PasHi</em>'s usage is:
-</p>
-
-<pre class="indent">PasHi ([-rc] [-wc] [-frag | -hidecss] [-q] | -h</pre>
+<h3>
+  Default behaviour
+</h3>
 
 <p>
-	By default <em>PasHi</em> reads the unformatted source text from standard
-	input and writes a complete XHTML document containing the highlighted code
-	to standard output. To read source from a file and output to another file
-	use shell redirection. E.g. to highlight <code>source.pas</code> and output
-	to <code>source.html</code> use:
+  By default <em>PashHi</em> reads input from standard input and writes
+  highlighted output to standard output. You can process a single file and write
+  output to another file using shell redirection. For example, to highlight
+  <code>source.pas</code> and output to <code>source.html</code> use:
 </p>
 
 <pre class="indent">PasHi &lt;source.pas &gt;source.html</pre>
 
 <p>
-	You can modify <em>PasHi</em>'s behaviour by using the following command line
-	switches.
+  If you do not redirect output the resulting HTML is displayed on the console.
+  If you don't redirect input then you must enter the source code manually on
+  the command line, a line at a time. When you have finished you must signal
+  end-of-file by pressing <span class="smallcaps">Ctrl+Z</span> on a line on its
+  own, followed by <span class="smallcaps">Return</span>.
 </p>
 
-<dl>
-	<dt>
-		<code>-rc</code>
-	</dt>
-	<dd>
-		Reads source code from the clipboard instead of standard input.
-	</dd>
-	<dt>
-		<code>-wc</code>
-	</dt>
-	<dd>
-		Writes highlighted code to the clipboard instead of standard output.
-	</dd>
-	<dt>
-		<code>-frag</code>
-	</dt>
-	<dd>
-		Outputs a XHTML code fragment containing just the highlighted code
-		contained in a <code>&lt;pre&gt;</code> ... <code>&lt;/pre&gt;</code>
-		tag pair. This option is designed for pasting code fragment into an
-		exiting XHTML document. This is a common requirement when adding
-		highlighted code to a web page. The web page will need to provide
-		suitable CSS code to style the fragment &ndash; see below for details of
-		the required CSS classes. <em>You should not combine this switch with
-		<code>-hidecss</code>.</em>
-	</dd>
-	<dt>
-		<code>-hidecss</code>
-	</dt>
-	<dd>
-		Complete XHTML documents output by <em>PasHi</em> have the necessary CSS
-		classes contained in a <code>&lt;style&gt;</code> section in the
-		document header. The CSS is <em>not</em> protected by HTML comment tags
-		(<code>&lt;!--</code> ... <code>--&gt;</code> by default. This may cause
-		problems for older browsers which may render the CSS as text. If you
-		have this problem use this switch to enclose the CSS in HTML comments.
-		<em>The switch is not valid for HTML fragments, so it shouldn't be
-		combined with <code>-frag</code>.</em>
-	</dd>
-	<dt>
-		<code>-q</code>
-	</dt>
-	<dd>
-		Specifies &quot;quiet mode&quot;. <em>PasHi</em> does not write output
-		to the console. Note that <em>PasHi</em> writes console output to
-		standard error since standard output can be used to output the
-		highlighted source code. The switch is ignored when the <code>-h</code>
-		switch is used or if <em>PasHi</em> detects command line errors.
-	</dd>
-	<dt>
-		<code>-h</code>
-	</dt>
-	<dd>
-		Displays the help screen. All other switches are ignored.
-	</dd>
-</dl>
+<p class="pullout">
+  Note that <em>PasHi</em>'s default behaviour can be altered by using a
+  configuration file. See <a
+    href="#config"
+  >Configuring PasHi</a> for full details.
+</p>
+
+<h3>
+  Command line
+</h3>
 
 <p>
-	If <em>PasHi</em> exits normally then 0 is returned to the OS as an exit
-	code. In case of error the exit code is 1.
+  <em>PashHi</em>'s behaviour can be modified by specifying one or more file
+  names and / or commands on the command line. File names and commands can be
+  intermixed.
 </p>
 
 <p>
-	Perhaps the most common usage of <em>PasHi</em> is to read source code from
-	the clipboard and replace it with a highlighted fragment. Here's what I do
-	when pasting highlighted source into a web page:
+  If one or more file names are entered on the command line then input is taken
+  from the files. Source code is read from each named file in turn and
+  concatenated before being highlighted. Standard input is ignored. Specifying
+  one file name has the same effect as redirecting standard input from that
+  file.
+</p>
+
+<p class="pullout">
+  If you specify file names on the command line you should not also use the
+  <code>--input-stdin</code> or <code>--input-clipboard</code> commands. No
+  error will be reported if you do so, but the behaviour may not be as expected.
+</p>
+
+<p>
+  Many commands have both a long and a short form, but some commands have only a
+  long form. They are explained in the following table.
+</p>
+
+<table>
+  <colgroup style="width:14em;"></colgroup>
+  <tr>
+    <th colspan="2">Command</th>
+    <th rowspan="2">Description</th>
+  </tr>
+  <tr>
+    <th>
+      Long form
+    </th>
+    <th>
+      Short form
+    </th>
+  <tr>
+  <tr>
+    <td class="switch">--input-stdin</td>
+    <td class="switch">&nbsp;</td>
+    <td>
+      Reads source code from standard input. Since standard input is the default
+      input source, this command is provided mainly to restore the default
+      behaviour if it has been overridden in the config file.<br />
+      This command should not be combined with <code>--input-clipboard</code> or
+      used if file names are specified on the command line.
+    </td>
+  </tr>
+  <tr>
+    <td class="switch">--input-clipboard</td>
+    <td class="switch">-r</td>
+    <td>
+      Reads source code from the clipboard.<br />
+      This command should not be combined with <code>--input-stdin</code> or
+      used if file names are specified on the command line.
+    </td>
+  </tr>
+  <tr>
+    <td class="switch">--output-stdout</td>
+    <td class="switch">&nbsp;</td>
+    <td>
+      Writes highlighted code to standard output. Since standard output is the
+      default output destination, this command is provided mainly to restore the
+      default behaviour if it has been overridden in the config file.<br />
+      This command should not be combined with either <code>--output-file</code>
+      or <code>--output-clipboard</code>.
+    </td>
+  </tr>
+  <tr>
+    <td class="switch">--output-file</td>
+    <td class="switch">-o</td>
+    <td>
+      Writes highlighted code to the file specified by the following parameter.
+      Using this command has exactly the same effect as redirecting standard
+      output to a file.<br />
+      This command should not be combined with either
+      <code>--output-stdout</code> or <code>--output-clipboard</code>.
+    </td>
+  </tr>
+  <tr>
+    <td class="switch">--output-clipboard</td>
+    <td class="switch">-w</td>
+    <td>
+      Writes highlighted code to the clipboard. All output is stored as Unicode
+      text. Character set information is excluded from complete HTML documents.
+      <br />
+      Do not combine this command with either <code>--output-stdout</code>
+      or <code>--output-file</code>.
+    </td>
+  </tr>
+  <tr>
+    <td class="switch">--doc-type</td>
+    <td class="switch">-d</td>
+    <td>
+      Determines the type of document to be output. All but one of the document
+      types are complete HTML documents. The required document type is specified
+      in the following parameter which must be one of:
+      <ul class="squashed">
+        <li>
+          <code>xhtml</code>: Complete XHTML document (the default).
+        </li>
+        <li>
+          <code>html4</code>: Complete HTML 4 document.
+        </li>
+        <li>
+          <code>html5</code>: Complete HTML 5 document.
+        </li>
+        <li>
+          <code>fragment</code>: An HTML code fragment containing only the
+          highlighted code wrapped in <code>&lt;div&gt;</code> ...
+          <code>&lt;/div&gt;</code> tags.<br />
+          Various commands that relate only to complete HTML documents are
+          ignored when this option is used.
+        </li>
+    </td>
+  </tr>
+  <tr>
+    <td class="switch">--branding</td>
+    <td class="switch">-b</td>
+    <td>
+      Switches on or off the inclusion of &quot;branding&quot; information in
+      output documents. Branding means that the document contains code
+      indicating that the document was generated by <em>PasHi</em>.<br />
+      In the case of <code>--branding</code>, the following parameter determines
+      whether branding is switched on or off. The parameter must be one of:
+      <ul class="squashed">
+        <li>
+          <code>True</code>, <code>1</code>, <code>Y</code>, <code>yes</code> or
+          <code>on</code>:
+          Include branding (the default).
+        </li>
+        <li>
+          <code>False</code>, <code>0</code>, <code>N</code>, <code>no</code> or
+          <code>off</code>:
+          Exclude branding.
+        </li>
+      </ul>
+      The short form of the command, <code>-b</code>, acts as a switch:
+      <code>-b+</code> and <code>-b1</code> include branding while
+      <code>-b-</code> and <code>-b0</code> exclude it.
+    </td>
+  </tr>
+  <tr>
+    <td class="switch">--language</td>
+    <td class="switch">-l</td>
+    <td>
+      Specifies the language used in the output document. A language code
+      recognised by HTML must be provided in the parameter that immediately
+      follows this command. The code is not checked. If this command is not
+      supplied then no language information is included in the output file.
+      <br />
+      This command has no effect if the <code>--doc-type&nbsp;fragment</code>
+      command is used.
+    </td>
+  </tr>
+  <tr>
+    <td class="switch">--language-neutral</td>
+    <td class="switch">&nbsp;</td>
+    <td>
+      Indicates that no language information is to be included in output
+      documents. Since this is the default behaviour this command is provided
+      mainly to restore that behaviour if it has been overridden in the config
+      file.
+    </td>
+  </tr>
+  <tr>
+    <td class="switch">--title</td>
+    <td class="switch">-t</td>
+    <td>
+      Sets the title of the output document. The title text must be supplied in
+      the parameter immediately follow the command. Titles containing spaces
+      must be enclosed in double quotes.<br />
+      This command has no effect if the <code>--doc-type&nbsp;fragment</code>
+      command is also used.
+    </td>
+  </tr>
+  <tr>
+    <td class="switch">--title-default</td>
+    <td class="switch">&nbsp;</td>
+    <td>
+      Indicates that the default title is to be used in the output document.
+      Since this is the default behaviour this command is provided mainly to
+      restore that behaviour if it has been overridden in the config file.
+
+      This command has no effect if the
+      <code>--doc-type&nbsp;fragment</code> command is also used.
+    </td>
+  </tr>
+  <tr>
+    <td class="switch">--embed-css</td>
+    <td class="switch">-s</td>
+    <td>
+      Creates an embedded CSS style sheet in the output document. The CSS is
+      read from the file whose name is specified by the parameter immediately
+      following the command. The CSS must define the styles described
+      <a href="#css">below</a>.<br />
+      If the file name includes no path information, e.g.
+      <code>delphi2006.css</code>, then the file will be expected to be found in
+      <code>%AppData%\DelphiDabbler\PasHi</code>. To read a file from the
+      working directory, prepend <code>.\</code> to it, e.g.
+      <code>.\delphi2006.css</code>.<br />
+      Do not combine this command with <code>--link-css</code> or
+      <code>default-css</code> because the commands are mutually exclusive.
+      <code>--embed-css</code> is ignored if the
+      <code>--doc-type&nbsp;fragment</code> command is also used.
+    </td>
+  </tr>
+  <tr>
+    <td class="switch">--link-css</td>
+    <td class="switch">-k</td>
+    <td>
+      Specifies the URL of an external CSS file to be linked from the generated
+      HTML file. The URL must be given in the parameter immediately following
+      this command. The URL can be relative or absolute. The linked CSS file
+      must define the styles described <a href="#css">below</a>.<br />
+      This command is ignored if <code>--doc-type&nbsp;fragment</code> is also
+      used. Since no CSS is embedded in the output file the
+      <code>--hide-css</code> command does nothing if used with this command.
+      Do not combine <code>-link-css</code> with <code>--embed-css</code> or
+      <code>default-css</code> because the commands are mutually exclusive.
+    </td>
+  </tr>
+  <tr>
+    <td class="switch">--default-css</td>
+    <td class="switch">&nbsp;</td>
+    <td>
+      Inidicates that the default style sheet is to be embedded in the output
+      document. Since this is the default behaviour, this command is provided
+      mainly to restore that behaviour if it has been overridden in the config
+      file.<br .>
+      This command negates both the <code>--embed-css</code> and
+      <code>--link-css</code> commands and should not be combined with them.
+      <code>--default-css</code> is ignored if the
+      <code>--doc-type&nbsp;fragment</code> command is also used.
+    </td>
+  </tr>
+  <tr>
+    <td class="switch">--hide-css</td>
+    <td class="switch">-c</td>
+    <td>
+      Determines if the CSS code embedded in a <code>&lt;style&gt;</code> tag is
+      wrapped in HTML comment tags (<code>&lt;!--</code> ...
+      <code>--&gt;</code>). This command is provided because some old browsers
+      will render the CSS as text unless it is enclosed in comment tags.<br />
+      In the case of <code>--hide-css</code> the parameter following the command
+      determines whether the CSS is hidden in comments or not. This parameter
+      must be one of the following:
+      <ul class="squashed">
+        <li>
+          <code>True</code>, <code>1</code>, <code>Y</code>, <code>yes</code> or
+          <code>on</code>:
+          Hide the CSS in comments.
+        </li>
+        <li>
+          <code>False</code>, <code>0</code>, <code>N</code>, <code>no</code> or
+          <code>off</code>:
+          Do not use comments (the default).
+        </li>
+      </ul>
+      The short form of the command, <code>-c</code>, acts as a switch.
+      <code>-c+</code> and <code>-c1</code> hide the CSS in comments while
+      <code>-c-</code> and <code>-c0</code> do not.<br />
+      <code>--hide-css</code> is ignored when either the
+      <code>--doc-type&nbsp;fragment</code> or <code>--link-css</code> commands
+      are used.
+    </td>
+  </tr>
+  <tr>
+    <td class="switch">--legacy-css</td>
+    <td class="switch">&nbsp;</td>
+    <td>
+      Determines whether CSS classes in generated HTML documents revert to those
+      used in <em>PasHi</em> v1 (legacy) or whether the new class names
+      introduced in <em>PasHi</em> v2 are used. The next parameter must have one
+      of the following values:
+      <ul class="squashed">
+        <li>
+          <code>True</code>, <code>1</code>, <code>Y</code>, <code>yes</code> or
+          <code>on</code>:
+          Use legacy (<em>PasHi</em> v1 style class names.
+        </li>
+        <li>
+          <code>False</code>, <code>0</code>, <code>N</code>, <code>no</code> or
+          <code>off</code>:
+          Use new CSS class names (the default).
+        </li>
+      </ul>
+      When using the <code>--embed-css</code> or <code>--link-css</code> you
+      should be careful to ensure that the class names in the CSS file you are
+      embedding or linking provides the correct class names.<br />
+      This command is provided mainly when you are committed to using the old
+      CSS style names.
+    </td>
+  </tr>
+  <tr>
+    <td class="switch">--encoding</td>
+    <td class="switch">-e</td>
+    <td>
+      Sets the character encoding used for output to the encoding specified in
+      next parameter. HTML documents are marked with the chosen format and the
+      resulting file may include byte order marks. This command is ignored if
+      the <code>--output-clipboard</code> command is specified, because data is
+      always written to the clipboard in Unicode. Valid encoding parameters are:
+      <ul class="squashed">
+        <li>
+          <code>utf-8</code> or <code>utf8</code>: Encodes in Unicode using
+          UTF-8 format with byte order mark (the default).
+        </li>
+        <li>
+          <code>utf-16</code>, <code>utf16</code> or <code>unicode</code>:
+          Encodes in Unicode using UTF-16, little endian format with byte order
+          mark.
+        </li>
+        <li>
+          <code>windows-1252</code>, <code>windows1252</code>,
+          <code>latin-1</code> or <code>latin1</code>: Encodes in Windows-1252
+          format.
+        </li>
+        <li>
+          <code>iso-8859-1</code>: Encodes in ISO-8859-1 format.
+        </li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td class="switch">--trim</td>
+    <td class="switch">-m</td>
+    <td>
+      Determines if source code is trimmed of leading and trailing blank lines
+      before highlighting. Multiple source files are trimmed individually before
+      concatenation.<br />
+      In the case of <code>--trim</code> the following parameter is used to
+      turn trimming on or off:
+      <ul class="squashed">
+        <li>
+          <code>True</code>, <code>1</code>, <code>Y</code>, <code>yes</code> or
+          <code>on</code>:
+          Source code is trimmed (the default).
+        </li>
+        <li>
+          <code>False</code>, <code>0</code>, <code>N</code>, <code>no</code> or
+          <code>off</code>:
+          Source code is not trimmed.
+        </li>
+      </ul>
+      The short form of the command, <code>-m</code>, acts as a switch:
+      <code>-m+</code> and <code>-m1</code> switch trimming on while
+      <code>-m-</code> and <code>-m0</code> switch it off.
+    </td>
+  </tr>
+  <tr>
+    <td class="switch">--separator-lines</td>
+    <td class="switch">&nbsp;</td>
+    <td>
+      Specifies the number of blank lines to insert between the contents of each
+      source file. The required number of lines is given in the following
+      parameter and must be in the range 0..16. The default value is 1.<br />
+      This command is ignored unless more than file is specified on the command
+      line.
+    </td>
+  </tr>
+  <tr>
+    <td class="switch">--line-numbering</td>
+    <td class="switch">-n</td>
+    <td>
+      Determines whether line numbers are prepended to each line of source code
+      in the output document.<br />
+      In the case of <code>--line-numbering</code> the following parameter is
+      used to switch line numbering on or off:
+      <ul class="squashed">
+        <li>
+          <code>True</code>, <code>1</code>, <code>Y</code>, <code>yes</code> or
+          <code>on</code>:
+          Line numbers are enabled.
+        </li>
+        <li>
+          <code>False</code>, <code>0</code>, <code>N</code>, <code>no</code> or
+          <code>off</code>:
+          Line numbers are disabled (the default).
+        </li>
+      </ul>
+      The short form of the command, <code>-n</code>, acts as a switch:
+      <code>-n+</code> and <code>-n1</code> enable line numbering on while
+      <code>-n-</code> and <code>-n0</code> disable it.
+    </td>
+  </tr>
+  <tr>
+    <td class="switch">--line-number-width</td>
+    <td class="switch">-i</td>
+    <td>
+      Determines the minimum width, in characters, occupied by line numbers.
+      Line numbers are padded to this width if necessary (but longer line
+      numbers are not truncated). The required width is given in the following
+      parameter and must be in the range 1..6. The default value is 3.<br />
+      The command is ignored if line numbering is not enabled.
+    </td>
+  </tr>
+  <tr>
+    <td class="switch">--line-number-padding</td>
+    <td class="switch">-p</td>
+    <td>
+      Determines the padding character to be used when the number of characters
+      in a line number is less than the available width. The required character
+      is specified in the following parameter, which must be one of:
+      <ul class="squashed">
+        <li>
+          <code>space</code>: Pads with space characters (the default).
+        </li>
+        <li>
+          <code>zero</code> or <code>0</code>: Pads with zeros.
+        </li>
+        <li>
+          <code>dash</code>: Pads with dashes (-).
+        </li>
+        <li>
+          <code>dot</code>: Pads with dots (.).
+        </li>
+      </ul>
+      This command is ignored if line numbering is not enabled.
+    </td>
+  </tr>
+  <tr>
+    <td class="switch">--striping</td>
+    <td class="switch">&nbsp;</td>
+    <td>
+      Determines whether alternate lines of source code in the output document
+      are styled differently or appear the same. The next parameter must be one
+      of the following values:
+      <ul class="squashed">
+        <li>
+          <code>True</code>, <code>1</code>, <code>Y</code>, <code>yes</code> or
+          <code>on</code>:
+          Styles alternate lines differently.
+        </li>
+        <li>
+          <code>False</code>, <code>0</code>, <code>N</code>, <code>no</code> or
+          <code>off</code>:
+          All lines have the same appearance (the default).
+        </li>
+      </ul>
+      Each line of output is enclosed in its own <code>&lt;pre&gt;</code> tag.
+      When striping is disabled each <code>&lt;pre&gt;</code> tag has class
+      <code>line</code> which can optionally be defined in CSS to style the
+      line. When striping is enabled the <code>line</code> class is replaced by
+      <code>odd-line</code> and <code>even-line</code> on alternate lines.
+      These classes must be defined differently in CSS otherwise no difference
+      between alternate lines will be visible.
+    </td>
+  </tr>
+  <tr>
+    <td class="switch">--verbosity</td>
+    <td class="switch">&nbsp;</td>
+    <td>
+      Determines the amount of output PasHi writes to standard error while
+      executing. The amount of output depends on the value of the next
+      parameter, which must be one of:
+      <ul class="squashed">
+        <li>
+          <code>normal</code>: Normal screen output (the default). This causes
+          the program to display sign-on information and to display a message
+          when the program completes. All output goes to standard error so that
+          it does not affect highlighted source code written to standard output.
+          Any error messages are also written to standard error.
+        </li>
+        <li>
+          <code>quiet</code>: Quiet mode. Displays no sign on or completion
+          message. If the program detects errors or if the <code>--help</code>
+          command is used then this option is ignored and the program acts as
+          if the <code>normal</code> parameter had been specified.
+        </li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td class="switch">--quiet</td>
+    <td class="switch">-q</td>
+    <td>
+      Alias for the <code>--verbosity&nbsp;quiet</code> command.
+    </td>
+  </tr>
+  <tr>
+    <td class="switch">--help</td>
+    <td class="switch">-h</td>
+    <td>
+      Displays a help screen. The remainder of the command line is ignored.
+    </td>
+  </tr>
+</table>
+
+<p>
+  There are some commands inherited from <em>PasHi</em> v1 that are not listed
+  above. They have now been superceded by other commands. They are:
+</p>
+
+<table>
+  <cols>
+    <col style="width:10em;" />
+  </cols>
+  <tr>
+    <th>
+      Old command
+    </th>
+    <th>
+      Purpose
+    </th>
+  <tr>
+  <tr>
+    <td class="switch">-rc</td>
+    <td>
+      Alias for the <code>--input-clipboard</code> command.
+    </td>
+  </tr>
+  <tr>
+    <td class="switch">-wc</td>
+    <td>
+      Alias for the <code>--output-clipboard</code> command.
+    </td>
+  </tr>
+  <tr>
+    <td class="switch">-frag</td>
+    <td>
+      Alias for the <code>--doc-type&nbsp;fragment</code> command.
+    </td>
+  </tr>
+  <tr>
+    <td class="switch">-hidecss</td>
+    <td>
+      Alias for <code>-c+</code> or the <code>--hide-css&nbsp;yes</code>
+      command.
+    </td>
+  </tr>
+</table>
+
+<h3>
+  Input encoding
+</h3>
+
+<p>
+  Normally <em>PasHi</em> takes text files as input, either via redirection to
+  standard input or from files.
+</p>
+
+<p>
+  Byte order marks (BOM) are checked to determine the encoding of Unicode files.
+  Supported encodings are: UTF-8, UTF-16 little endian and UTF-16 big endian. If
+  there is no BOM then the file is assumed to be encoded in the user's default
+  code page.
+</p>
+
+<p>
+  The exception to the above is when the <code>--input-clipboard</code> command
+  is used. The source code is then expected to be in Unicode.
+</p>
+
+<h3>
+  Exit codes
+</h3>
+
+<p>
+  <em>PasHi</em> uses the following exit code:
+</p>
+
+<ul>
+  <li>
+    <code>0</code>: The program completed successfully.
+  </li>
+  <li>
+    <code>1</code>: The program encountered an error and terminated. Examine the
+    error message written to standard error for details.
+  </li>
+</ul>
+
+<p>
+  When <em>PasHi</em> exits normally then the exit code is 0.
+</p>
+
+<h3>
+  Usage example
+</h3>
+
+<p>
+  Perhaps the most common usage of <em>PasHi</em> is to read source code from
+  the clipboard and replace it with a highlighted fragment. Here's what I do
+  when pasting highlighted source into a web page:
 </p>
 
 <ol>
-	<li>
-		Select the unformatted source in an editor and copy it to the clipboard.
-	</li>
-	<li>
-		Switch to a command window and do
-		<pre style="display:inline">PasHi -rc -wc -frag</pre>.
-	</li>
-	<li>
-		Switch to the editor containing the web page and paste in the
-		highlighted code.
-	</li>
+  <li>
+    Select the unformatted source in an editor and copy it to the clipboard.
+  </li>
+  <li>
+    Switch to a command window and do
+    <pre
+      class="indent"
+      style="margin-top:0;margin-bottom:0;"
+    >PasHi --input-clipboard --output-clipboard --doc-type fragment</pre>
+    Alternatively you can use short forms or v1 commands to shorten this:
+    <pre
+      class="indent"
+      style="margin-top:0;margin-bottom:0;"
+    >PasHi -r -w -d fragment</pre>
+    or
+    <pre
+      class="indent"
+      style="margin-top:0;margin-bottom:0;"
+    >PasHi -rc -wc -frag</pre>
+  </li>
+  <li>
+    Switch to the editor containing the web page and paste in the
+    highlighted code.
+  </li>
 </ol>
 
-<p class="gototop">
-	&raquo; <a href="#contents">Contents</a>
+<p>
+  If you mainly use <em>PasHi</em> in this way you can configure <em>PasHi</em>
+  to use those parameters by default. See the <a
+    href="#config-egs"
+  >example below</a> for details.
 </p>
 
-<h2 id="css">
-	CSS styles used by <em>PasHi</em>
+<p class="gototop">
+  &raquo; <a href="#contents">Contents</a>
+</p>
+
+<h2 id="config">
+  Configuring <em>PasHi</em>
 </h2>
 
 <p>
-	The HTML produced by <em>PasHi</em> uses the following CSS classes:
+  <em>PasHi</em> reads any <code>config</code> file that is present in the
+  <code>%AppData%\DelphiDabbler\PasHi</code> directory when it starts up. Any
+  commands it finds in that file can be used to change the program's default
+  state.
+</p>
+
+<p>
+  <em>PasHi</em> does not install a <code>config</code> file, so if you need one
+  you must create your own. You can do this either by creating a new file or by
+  copying and editing one of the sample scripts provided with <em>PasHi</em>
+  (providing you installed them).
+</p>
+
+<p>
+  The format of the config file is as follows:
+</p>
+
+<ul class="spaced">
+  <li>
+    Each command is listed on its own line.
+  </li>
+  <li>
+    Where a command takes a parameter the parameter should be placed on the same
+    line as the command, separated from it by one or more spaces. Parameters
+    containing spaces should not be quoted (unlike on the command line).
+  </li>
+  <li>
+    All the long form commands listed in <a
+      href="#usage"
+    >Using <em>PasHi</em></a> have an equivalent in the config file. Config
+    commands have the same name as the long form version except that the leading
+    &quot;--&quot; characters are omitted.
+  </li>
+  <li>
+    Lines begining with &quot;#&quot; are treated as comments and ignored.
+  </li>
+  <li>
+    Leading and trailing spaces are ignored.
+  </li>
+</ul>
+
+<p>
+  PasHi expects <code>config</code> to be a UTF-8 encoded text file. The UTF-8
+  byte order mark may be omitted from the start of the file if required. If your
+  text editor does not support UTF-8, confine yourself to valid ASCII characters
+  and all will be well.
+</p>
+
+<p class="pullout">
+  Warning: Although <em>PasHi</em> accepts the <code>help</code> command in a
+  config file you should <strong>never</strong> use it or the program will do
+  nothing except display the help screen, no matter what commands you pass on
+  the command line.
+</p>
+
+<h3 id="config-samples">
+  Sample config scripts
+</h3>
+
+<p>
+  Some example config scripts are optionally installed in
+  <code>%AppData%\DelphiDabbler\PasHi</code>. (If you installed them you may
+  need to run <em>PasHi</em> once for the files to appear). The sample scripts
+  are:
 </p>
 
 <dl>
-    <dt>
-    	.pas-source
+  <dt class="file">
+    config-template
+  </dt>
+  <dd>
+    This script does nothing, but is copiously commented with all possible
+    commands. It is a good starting point for your own config script.
+  </dd>
+  <dt class="file">
+    config-v1
+  </dt>
+  <dd>
+    Emulates, as far as possible the actions of <em>PasHi</em>. This script
+    requires that the file <code>v1-default.css</code> (provided) is present in
+    the same directory.
+  </dd>
+</dl>
+
+<h3 id="config-egs">
+  Examples
+</h3>
+
+<p>
+  As mentioned in <a
+    href="#usage"
+  >Using <em>PasHi</em></a>, a common use for <em>PasHi</em> is to highlight
+  source code from the clipboard as an HTML fragment and place the HTML back on
+  the clipboard. Instead of using the necessary commands each time you run
+  <em>PasHi</em> you can add the following to the config file:
+</p>
+
+<pre class="indent">input-clipboard
+output-clipboard
+doc-type fragment</pre>
+
+<p>
+  Now all you need to do is enter:
+</p>
+
+<pre class="indent">PasHi</pre>
+
+<p>
+  on its own on the command line and it will perform the required actions by
+  default. Be warned that if you do this, you will need to use the
+  <code>--input-stdin</code>, <code>--output-stdout</code> and
+  <code>--doc-type xhtml</code> commands to revert to normal default behaviour.
+</p>
+
+<p>
+  Another useful example is if you provide your own CSS file containing your
+  desired highlighting style that you always want to use. To save you having
+  to specify this file on the command line each time, simply put a suitable
+  command in <code>config</code>. For example, to embed CSS use something like:
+</p>
+
+<pre class="indent">embed-css C:\CSS\my-style.css</pre>
+
+<p>
+  Or, in the special case of the CSS files provided with <em>PasHi</em> in
+  <code>%AppData%\DelphiDabbler\PasHi</code>, omit the path information and use,
+  for example:
+</p>
+
+<pre class="indent">embed-css twilight.css</pre>
+
+<p>
+  You can also link to your CSS file. For example:
+</p>
+
+<pre class="indent">link-css http://example.com/css/my-style.css</pre>
+
+<h2 id="css">
+  CSS styles used by <em>PasHi</em>
+</h2>
+
+<h3>
+  Styles defined
+</h3>
+
+<p>
+  All the highlighted HTML generated by <em>PasHi</em> is enclosed in a
+  <code>&lt;div&gt;</code> block that is given the class
+  <code>.code-pascal</code>. CSS may be defined for this class to provide any
+  required background, padding, margin or border for the entire code listing.
+</p>
+
+<p>
+  Each line of source code is enclosed in its own <code>&lt;pre&gt;</code>
+  block. This tag should have CSS associated with it to set the required (mono
+  spaced) font family and size. It is also used to set the spacing between lines
+  using the <code>margin</code> CSS property - usually set to 0.
+</p>
+
+<p>
+  There are further CSS classes that can be associated with each line. They are:
+</p>
+
+<dl>
+  <dt class="css">
+    .line
+  </dt>
+  <dd>
+    Applied to each <code>&lt;pre&gt;</code> tag when all lines are to be
+    rendered the same, i.e. when code striping is switched off (see the
+    <code>--striping</code> command above). Provide CSS for this class if you
+    want to style the line, for example to draw a border.
+  </dd>
+  <dt class="css">
+    .even-line<br />
+    .odd-line
+  </dt>
+  <dd>
+    These classes are applied to <code>&lt;pre&gt;</code> tags in even and odd
+    numbered lines respectively when code striping is switched on (see the
+    <code>--striping</code> command above). <code>.even-line</code> and
+    <code>.odd-line</code> must be styled differently otherwise striping will
+    have no visible effect. The usual use is to provide a different background
+    colour for alternate lines &ndash; hence the name &quot;striping&quot;.
+  </dd>
+  <dt class="css">
+    .linenum
+  </dt>
+  <dd>
+    This class is applied to any line numbers that may be prepended to the start
+    of a line (see <code>--line-numbering</code> and related commands).
+    <code>.linenum</code> can be used to set line number font style and colour
+    along with the margin between the line number and source code, and any
+    separating border, for example. The font used should be mono spaced
+    otherwise the numbers may not line up correctly.
+  </dd>
+</dl>
+
+<p>
+  <em>PasHi</em> encloses every syntactic element within each line's
+  <code>&lt;pre&gt;</code> block in <code>&lt;span&gt;</code> tags. Each of
+  these tags is given a class name relating to the type of the element. CSS
+  defining the font style &amp; weight, text decoration and colour for each
+  class should be provided. These classes are:
+</p>
+
+<dl>
+    <dt class="css">
+      .comment
     </dt>
     <dd>
-    	Used to provide the name and size of font for the whole source code.
-    	You could also specify a background colour here. Alternatively use a
-    	containing <code>&lt;div&gt;</code> to supply the background.
+      Style for comments.
     </dd>
-    <dt>
-    	.pas-comment
+    <dt class="css">
+      .kwd
     </dt>
     <dd>
-    	Style for comments.
+      Style for keywords and reserved words.
     </dd>
-    <dt>
-    	.pas-kwd
+    <dt class="css">
+      .ident
     </dt>
     <dd>
-    	Style for keywords and reserved words.
+      Style for non-keyword identifiers.
     </dd>
-    <dt>
-    	.pas-ident
+    <dt class="css">
+      .sym
     </dt>
     <dd>
-    	Style for non-keyword identifiers.
+      Style for symbols (e.g <code>:=</code> and <code>&gt;</code>).
     </dd>
-    <dt>
-    	.pas-sym
+    <dt class="css">
+      .str
     </dt>
     <dd>
-    	Style for symbols (e.g <code>:=</code> and <code>&gt;</code>).
+      Style for string literals.
     </dd>
-    <dt>
-    	.pas-str
+    <dt class="css">
+      .num
     </dt>
     <dd>
-    	Style for string literals.
+      Style for whole numbers (integers).
     </dd>
-    <dt>
-    	.pas-num
+    <dt class="css">
+      .float
     </dt>
     <dd>
-    	Style for whole numbers (integers).
+      Style for floating point numbers.
     </dd>
-    <dt>
-    	.pas-float
+    <dt class="css">
+      .hex
     </dt>
     <dd>
-    	Style for floating point numbers.
+      Style for hexadecimal numbers.
     </dd>
-    <dt>
-    	.pas-hex
+    <dt class="css">
+      .preproc
     </dt>
     <dd>
-    	Style for hexadecimal numbers.
+      Style for preprocessor directives.
     </dd>
-    <dt>
-    	.pas-preproc
+    <dt class="css">
+      .asm
     </dt>
     <dd>
-    	Style for preprocessor directives.
+      Style for assembler.
     </dd>
-    <dt>
-    	.pas-asm
+    <dt class="css">
+      .space
     </dt>
     <dd>
-    	Style for assembler.
+      Style for whitespace.
     </dd>
-    <dt>
-    	.pas-space
+    <dt class="css">
+      .err
     </dt>
     <dd>
-    	Style for whitespace.
-    </dd>
-    <dt>
-    	.pas-err
-    </dt>
-    <dd>
-    	Style for any errors detected.
+      Style for any errors detected.
     </dd>
 </dl>
 
 <p>
-	All classes excpet <em>.pas-source</em> just define text colour, style and
-	weight.
+  These CSS classes should be defined as children of <code>.code-pascal</code>
+  to avoid potential clashes with other similarly named styles in an HTML
+  document.
 </p>
 
 <p>
-	When you use <em>PasHi</em> to create complete HTML documents the style
-	definitions of the above styles are included in the document header (and
-	can't be changed). However, when you produce HTML fragments using the
-	<code>-frag</code> switch no style definitions are included in the output
-	&ndash; You must provide the definitions yourself.
+  Whenever you need to define your own CSS style sheets to use with files
+  generated by <em>PasHi</em> you must provide definitions for all the above
+  styles. You will need your own CSS if you:
 </p>
+
+<ul>
+  <li>
+    Embed your own styles in the output HTML document using the
+    <code>--embed-css</code> switch.
+  </li>
+  <li>
+    Link to your own external style sheet from the output document using the
+    <code>--link-css</code> switch.
+  </li>
+  <li>
+    Include a code fragment generated by the
+    <code>--doc-type&nbsp;fragment</code> command in another HTML file.
+  </li>
+</ul>
+
+<h3>
+  Default style
+</h3>
 
 <p>
-	To help with this, here are the default definitions for the classes that are
-	used by <em>PasHi</em>:
+  To help you get started in defining your own classes, here are the default
+  definitions that are used by <em>PasHi</em>:
 </p>
 
-<pre class="block">.pas-source {
-    font-family: "Courier New", monospace;
-    font-size: 9pt;
+<pre class="block">.code-pascal,
+.pas-source {
+  background-color: transparent;
 }
+
+.code-pascal pre,
+.pas-source pre {
+  font-family: "Courier New", monospace;
+  font-size: 9pt;
+  margin: 0;
+}
+
+.code-pascal pre.line,
+.pas-source pre.line {
+}
+
+.code-pascal pre.odd-line,
+.pas-source pre.odd-line {
+}
+
+.code-pascal pre.even-line,
+.pas-source pre.even-line {
+  background-color: #f0f0f0;
+}
+
+.code-pascal .linenum,
+.pas-source .linenum {
+  border-right: 1px silver solid;
+  padding: 1px 4px 1px 2px;
+  margin-right: 0.75em;
+  color: gray;
+  background-color: #f0f0f0;
+}
+
+.code-pascal .comment,
 .pas-comment {
-    font-style: italic;
-    font-weight: normal;
-    text-decoration: none;
-    color: #000080;
+  color: green;
+  font-weight: normal;
+  font-style: italic;
+  text-decoration: none;
 }
+
+.code-pascal .kwd,
 .pas-kwd {
-    font-style: normal;
-    font-weight: bold;
-    text-decoration: none;
+  color: navy;
+  font-weight: bold;
+  font-style: normal;
+  text-decoration: none;
 }
+
+.code-pascal .ident,
+.pas-ident {
+  color: black;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+}
+
+.code-pascal .sym,
+.pas-sym {
+  color: black;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+}
+
+.code-pascal .str,
 .pas-str {
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: none;
-    color: #800080;
+  color: blue;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
 }
-.pas-num, .pas-float, .pas-hex {
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: none;
-    color: #800000;
+
+.code-pascal .num,
+.code-pascal .float,
+.code-pascal .hex,
+.pas-num,
+.pas-float,
+.pas-hex {
+  color: maroon;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
 }
+
+.code-pascal .preproc,
 .pas-preproc {
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: none;
-    color: #008000;
+  color: teal;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
 }
+
+.code-pascal .asm,
 .pas-asm {
-    font-style: italic;
-    font-weight: normal;
-    text-decoration: none;
+  color: black;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
 }
+
+.code-pascal .space,
+.pas-space {
+}
+
+.code-pascal .err,
 .pas-err {
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: none;
-    color: #FF0000;
-}
-.pas-sym, .pas-space, .pas-ident {
+  color: black;
+  background-color: yellow;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
 }</pre>
 
 <p>
-	You can include these classes in a &lt;style&gt; tag in your document's
-	&lt;head&gt; section, or place them in a <code>.css</code> file that your
-	HTML document links to. Change the styles to suit your needs.
+  Change the styles to suit your needs.
+</p>
+
+<div class="pullout">
+  <p>
+    Note that <em>PasHi</em> v1.x and earlier used different CSS class names.
+    <code>code-pascal</code> was named <code>pas-source</code> while the
+    remaining classes had <code>pas-</code> prepended to the class name, for
+    example <code>.kwd</code> was <code>.pas-kwd</code>. If you want
+    <em>PasHi</em> to revert to using the old style names pass
+    &quot;<code>--legacy-css&nbsp;on</code>&quot; on the command line or place
+    &quot;<code>legacy-css&nbsp;on</code>&quot; in the <code>config</code> file
+    if you want to use the old style names by default.
+  </p>
+</div>
+
+<h3 id="css-samples">
+  Predefined style sheets
+</h3>
+
+<p>
+  <em>PasHi</em> provides several .css files that can be used to change the
+  style of highlighted code. They are (optionally) installed into the
+  <code>%AppData%\DelphiDabbler\PasHi</code> directory when <em>PasHi</em> is
+  first run after installation. The files are:
+</p>
+
+<dl>
+  <dt class="file">
+    delphi4.css
+  </dt>
+  <dd>
+    Emulates the default syntax highlighting used by Delphi 4.
+  </dd>
+  <dt class="file">
+    delphi7.css
+  </dt>
+  <dd>
+    Emulates the default syntax highlighting used by Delphi 7.
+  </dd>
+  <dt class="file">
+    delphi2010.css
+  </dt>
+  <dd>
+    Emulates the default syntax highlighting used by Delphi
+    2010.<sup><span style="font-size:smaller;">&dagger;</span></sup>
+  </dd>
+  <dt class="file">
+    classic.css
+  </dt>
+  <dd>
+    Emulates the &quot;Classic&quot; highlighting style provided by Delphi
+    2010.<sup><span style="font-size:smaller;">&dagger;</span></sup>
+  </dd>
+  </dd>
+  <dt class="file">
+    ocean.css
+  </dt>
+  <dd>
+    Emulates the &quot;Ocean&quot; highlighting style provided by Delphi
+    2010.<sup><span style="font-size:smaller;">&dagger;</span></sup>
+  </dd>
+  <dt class="file">
+    twilight.css
+  </dt>
+  <dd>
+    Emulates the &quot;Twilight&quot; highlighting style provided by Delphi
+    2010.<sup><span style="font-size:smaller;">&dagger;</span></sup>
+  </dd>
+  <dt class="file">
+    visual-studio.css
+  </dt>
+  <dd>
+    Emulates the &quot;Visual Studio&trade;&quot; highlighting style provided by
+    Delphi 2010.<sup><span style="font-size:smaller;">&dagger;</span></sup>
+  </dd>
+  <dt class="file">
+    mono.css
+  </dt>
+  <dd>
+    A monochrome highlighter.
+  </dd>
+  <dt class="file">
+    null.css
+  </dt>
+  <dd>
+    Renders all elements in plain text: no highlighting.
+  </dd>
+  <dt class="file">
+    notebook.css
+  </dt>
+  <dd>
+    Adopts the appearance of lined pale yellow notepaper with monochrome
+    highlighting.
+  </dd>
+  <dt class="file">
+    v1-default.css
+  </dt>
+  <dd>
+    Replicates the highlighting style used by <em>PasHi</em> v1. There is also
+    a custom config script that replicates v1 as far as possible, and that
+    script requires this CSS file.
+  </dd>
+</dl>
+
+<p>
+  &dagger; All the Delphi 2010 related files attempt to emulate the IDE code
+  editor's left hand gutter when line numbers are displayed.
 </p>
 
 <p>
-	Future versions of <em>PasHi</em> may include the facility to use external
-	style sheets or read custom style information from style sheets. If you want
-	this feature please ask me &ndash; contact details below.
+  You can embed these files using the <code>--embed-css</code> command, followed
+  by the file name on its own with no path information. You can also configure
+  <em>PasHi</em> to always use one of the files by including a suitable
+  <code>embed-css</code> command in the <code>config</code> file. You may copy
+  and edit these files freely, and may use them on any website.
+</p>
+
+<p>
+  All the sample files support both legacy and new CSS class names.
 </p>
 
 <p class="gototop">
-	&raquo; <a href="#contents">Contents</a>
+  &raquo; <a href="#contents">Contents</a>
 </p>
 
 <h2 id="pashigui">
-	Using <em>PasHiGUI</em>
+  Using <em>PasHiGUI</em>
 </h2>
 
 <p>
-	<em>PasHiGUI</em> is very simple and pretty straightforward. A brief
-	explanation of the commands and main display should suffice.
+  <em>PasHiGUI</em> provides a GUI for <em>PasHi</em> and permits many of
+  <em>PasHi</em> features to be accessed graphically.
 </p>
 
 <h3>
-	Commands
-</h3>
-
-<dl class="spaced">
-	<dt>
-		File | Open
-	</dt>
-	<dd>
-		Opens a source file for highlighting.
-	</dd>
-	<dt>
-		File | Save
-	</dt>
-	<dd>
-		Saves highlighted code as XTHML to a file. The file can be saved with
-		either an html or txt extension.
-	</dd>
-	<dt>
-		File | Exit
-	</dt>
-	<dd>
-		Quits the program.
-	</dd>
-	<dt>
-		Edit | Copy
-	</dt>
-	<dd>
-		Copies highlighted code to the clipboard as XHTML in text format.
-	</dd>
-	<dt>
-		Edit | Paste
-	</dt>
-	<dd>
-		Attempts to highlight any text on the clipboard: it assumes it is source
-		code.
-	</dd>
-	<dt>
-		Options | Generate Fragment
-	</dt>
-	<dd>
-		When this option is set an HTML fragment is generated instead of a
-		complete XHTML document. For more information see details of
-		<em>PasHi</em>'s <code>-frag</code> switch.
-	</dd>
-	<dt>
-		Options | Show Hints
-	</dt>
-	<dd>
-		Determines whether help hints are displayed in the status bar as the
-		mouse moves over menus and other parts of the interface. Turn this on
-		if you want to be reminded of a command etc.
-	</dd>
-	<dt>
-		Help | About
-	</dt>
-	<dd>
-		Displays the About Box. Useful to find the version number of the
-		program.
-	</dd>
-</dl>
-
-<h3>
-	Main Display
+  Main display
 </h3>
 
 <p>
-	There are three display tabs each of which render the generated XHTML in a
-	different way:
+  <em>PasHiGUI</em>'s main window displays two tabs: <em>Display View</em> and
+  <em>HTML view</em>. These tabs provide different views of the generated HTML,
+  as follows:
 </p>
 
 <dl class="spaced">
-	<dt>
-		Display View
-	</dt>
-	<dd>
-		Renders the XHTML as it will appear in a browser. If the generated code
-		is a complete document it is display as-is. If it is a fragment the code
-		is displayed in a yellow box.
-	</dd>
-	<dt>
-		HTML View
-	</dt>
-	<dd>
-		Displays the generated XHTML code.
-	</dd>
-	<dt>
-		Source Code View
-	</dt>
-	<dd>
-		Displays the original source code in plain text.
-	</dd>
+  <dt>
+    Display View
+  </dt>
+  <dd>
+    Renders the HTML as it will appear in a browser. If the generated code
+    is a complete document it is displayed as-is. If it is a fragment the code
+    is displayed using <em>PasHiGUI</em>'s built in style sheet.
+  </dd>
+  <dt>
+    HTML View
+  </dt>
+  <dd>
+    Displays the generated HTML source code.
+  </dd>
 </dl>
 
 <h3>
-	Errors
+  Options side bar
 </h3>
 
 <p>
-	If you see an error telling you that there is an error executing
-	<em>PasHi</em> because &quot;the system cannot find the file specified&quot;
-	this means that <em>PasHiGUI</em> can't find <em>PasHi</em>. Make sure that
-	<em>PasHiGUI</em> is placed in the same directory as <em>PasHi</em>.
+  <em>PasHi</em>'s behaviour is customised using the <em>Options Side Bar</em>.
+  This can be displayed on the right hand side of the main window when required.
+  It is toggled on and off using the <em>Options | Show / Hide Options Bar</em>
+  menu option or the &quot;cog&quot; button on the toolbar.
 </p>
 
 <p>
-	You may see an error if <em>PasHi</em> is the wrong version. Make sure
-	<em>PasHi</em>'s file version is at least v1.0.1 and the product version is
-	at least v1.1.0. If you installed both programs from the same zip file you
-	won't have this problem.
+  All <em>PasHi</em> options supported by <em>PasHiGUI</em> can be set from this
+  side bar. Options are grouped under various collapsible sections. Each group
+  relates to one or more <em>PasHi</em> commands. Select the required options
+  and click the <em>Apply</em> button when ready. Any currently displayed
+  document will then be regenerated using the new settings.
+</p>
+
+<p>
+  You can revert to <em>PasHi</em>'s default settings, as modified by any config
+  file. Click the <em>Restore Defaults</em> to do this. Clicking this button
+  updates the options in the side bar but does not regenerate the current
+  document. You need to click the <em>Apply</em> button to do this.
+</p>
+
+<p>
+  The options set in the side bar are recorded in a file when <em>PasHiGUI</em>
+  closes. They are reloaded the next time the program is started. This means
+  that you can keep a different set of &quot;defaults&quot; for
+  <em>PasHiGUI</em> to those used for <em>PasHi</em>.
+</p>
+
+<h3>
+  Main menu
+</h3>
+
+<p>
+  <em>PasHiGUI</em> is controlled by a main menu along with a toolbar that
+  replicates some of the functions accessed via the menus. The menus are
+  described below:
+</p>
+
+<dl class="spaced">
+  <dt>
+    File | Open
+  </dt>
+  <dd>
+    Opens one or more source files for highlighting.
+  </dd>
+  <dt>
+    File | Save
+  </dt>
+  <dd>
+    Saves highlighted code as HTML to a file. The file can be saved with either
+    .html or .txt extensions.
+  </dd>
+  <dt>
+    File | Exit
+  </dt>
+  <dd>
+    Quits the program.
+  </dd>
+  <dt>
+    Edit | Copy
+  </dt>
+  <dd>
+    Copies highlighted code to the clipboard as HTML, in text format.
+  </dd>
+  <dt>
+    Edit | Paste
+  </dt>
+  <dd>
+    Attempts to highlight any text on the clipboard. The text is assumed to be
+    source code.
+  </dd>
+  <dt>
+    Options | Show Options Bar<br />
+    Options | Hide Options Bar
+  </dt>
+  <dd>
+    Displays or hides the <em>Options Side Bar</em>.
+  </dd>
+  <dt>
+    Help | Online Docs
+  </dt>
+  <dd>
+    Displays the online documentation for <em>PasHiGUI</em> in the default web
+    browser.
+  </dd>
+  <dt>
+    Help | About
+  </dt>
+  <dd>
+    Displays the program's About Box.
+  </dd>
+</dl>
+
+<h3>
+  Drag and drop
+</h3>
+
+<p>
+  <em>PasHiGUI</em> supports the following drag and drop operations as a means
+  of inputing source code to be highlighted:
+</p>
+
+<ul class="spaced">
+  <li>
+    Drag and drop one or more file names from Windows Explorer: this opens the
+    dropped file(s). Folders are ignored.
+  </li>
+  <li>
+    Drag and drop selected text from a suitable text editor: the selected text
+    is syntax highlighted and is assumed to be valid Pascal source code.
+  </li>
+</ul>
+
+<h3>
+  Dependencies
+</h3>
+
+<p>
+  <em>PasHiGUI</em> will not work unless a suitable version of <em>PasHi</em> is
+  installed in the same directory and is the correct version. Using the
+  installer to install both programs is the best means of ensuring that
+  everything is set up correctly.
 </p>
 
 <p class="gototop">
-	&raquo; <a href="#contents">Contents</a>
+  &raquo; <a href="#contents">Contents</a>
 </p>
 
 <h2 id="bugs">
-	Bugs &amp; Feature Requests
+  Bugs &amp; Feature Requests
 </h2>
 
 <p>
-	Please do report bugs and request new features. To do this please use the <a
-		href="http://www.delphidabbler.com/url/pashi-issues"
-	>issue tracker</a>. Do review any existing reports before raising a new
-	issue.
+  Please do report bugs and request new features. To do this please use the <a
+    href="http://www.delphidabbler.com/url/pashi-issues"
+  >issue tracker</a>. Do review any existing reports before raising a new
+  issue.
 </p>
 
 <p class="gototop">
-	&raquo; <a href="#contents">Contents</a>
+  &raquo; <a href="#contents">Contents</a>
 </p>
 
 <h2 id="source">
-	Source code
+  Source code
 </h2>
 
 <p>
-	The source code for <em>PasHi</em> and <em>PasHiGUI</em> is hosted in
-	Subversion repository on GoogleCode. The repository can be viewed at <a
-		href="http://code.google.com/p/pas-hi/source/browse/"
-	>http://code.google.com/p/pas-hi/source/browse/</a>.
+  The source code for <em>PasHi</em> and <em>PasHiGUI</em> is hosted in
+  Subversion repository on GoogleCode. The repository can be viewed at <a
+    href="http://code.google.com/p/pas-hi/source/browse/"
+  >http://code.google.com/p/pas-hi/source/browse/</a>.
 </p>
 
 <p>
-	Zip files containing source code is hosted on the project's GoogleCode <a
-		href="http://code.google.com/p/pas-hi/downloads/list"
-	>download tab</a>.
+  Zip files containing source code are hosted on the project's GoogleCode <a
+    href="http://code.google.com/p/pas-hi/downloads/list"
+  >download tab</a>.
 </p>
 
 <p>
-	Finally, the latest release of the source code is always available via the
-	<a
-		href="http://www.delphidabbler.com/software/pash"
-	><em>PasHi</em> home page</a>.
+  Finally, the latest release of the source code is always available via the
+  <a
+    href="http://www.delphidabbler.com/software/pash"
+  ><em>PasHi</em> home page</a>.
 </p>
 
 <p>
-	You will find a file named <code>Build.html</code> in the root directory of
-	each source code distribution that explains how to build the programs.
+  You will find a file named <code>Build.html</code> in the root directory of
+  each source code distribution that explains how to build the programs.
 </p>
 
 <div class="endnotes">
 
-	<div class="comments">
-		If you have any comments about this program please get in touch via my
-		<a
-			href="http://www.delphidabbler.com/contact"
-		>website</a>. But do please use the <strong>issue tracker</strong>
-		mentioned above to report bugs rather than contacting me direct.
-	</div>
+  <div class="comments">
+    If you have any comments about this program please get in touch via my
+    <a
+      href="http://www.delphidabbler.com/contact"
+    >website</a>. But do please use the <strong>issue tracker</strong>
+    mentioned above to report bugs rather than contacting me direct.
+  </div>
 
-	<div class="copyright">
-		<em>PasHi</em>'s license is available
-		<a
-			href="http://www.delphidabbler.com/software/pash/license"
-		>here</a>.<br />
-		This document is copyright &copy; 2005-2010, P D Johnson,
-		<a
-			href="http://www.delphidabbler.com/"
-		>www.delphidabbler.com</a>
-	</div>
+  <div class="copyright">
+    <em>PasHi</em>'s license is available
+    <a
+      href="http://www.delphidabbler.com/software/pash/license"
+    >here</a>.<br />
+    This document is copyright &copy; 2005-2012, P D Johnson,
+    <a
+      href="http://www.delphidabbler.com/"
+    >www.delphidabbler.com</a>
+  </div>
 
 </div>
 

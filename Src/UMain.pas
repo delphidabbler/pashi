@@ -1,36 +1,14 @@
 {
- * UMain.pas
+ * This Source Code Form is subject to the terms of the Mozilla Public License,
+ * v. 2.0. If a copy of the MPL was not distributed with this file, You can
+ * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Implements class that executes program.
+ * Copyright (C) 2007-2012, Peter Johnson (www.delphidabbler.com).
  *
  * $Rev$
  * $Date$
  *
- *
- * ***** BEGIN LICENSE BLOCK *****
- *
- * Version: MPL 1.1
- *
- * The contents of this file are subject to the Mozilla Public License Version
- * 1.1 (the "License"); you may not use this file except in compliance with the
- * License. You may obtain a copy of the License at http://www.mozilla.org/MPL/
- *
- * Software distributed under the License is distributed on an "AS IS" basis,
- * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for
- * the specific language governing rights and limitations under the License.
- *
- * The Original Code is UMain.pas.
- *
- * The Initial Developer of the Original Code is Peter Johnson
- * (http://www.delphidabbler.com/).
- *
- * Portions created by the Initial Developer are Copyright (C) 2007-2009 Peter
- * Johnson. All Rights Reserved.
- *
- * Contributor(s):
- *   NONE
- *
- * ***** END LICENSE BLOCK *****
+ * Implements top level class that executes program.
 }
 
 
@@ -44,7 +22,7 @@ uses
   // Delphi
   Classes,
   // Project
-  IntfHiliter, UConfig, UConsole;
+  Hiliter.UGlobals, UConfig, UConsole;
 
 
 type
@@ -67,17 +45,13 @@ type
     procedure ShowHelp;
       {Writes help text to console.
       }
-    function CreateInputStream: TStream;
-      {Creates stream that reads program input.
-        @return Required input stream.
+    function GetInputSourceCode: string;
+      {Reads program input as a string.
+        @return Required input string.
       }
-    function CreateOutputStream: TStream;
-      {Creates stream that receives program output.
-        @return Required output stream.
-      }
-    function CreateHiliter: ISyntaxHiliter;
-      {Creates required syntax highlighter, depending on document type.
-        @return Required highlighter object.
+    procedure WriteOutput(const S: string);
+      {Writes program output.
+        @param S [in] String containing output.
       }
   public
     constructor Create;
@@ -99,11 +73,11 @@ uses
   // Delphi
   SysUtils, Windows,
   // Project
-  UClipboardStreams, UParams, UStdIOStreams, USyntaxHiliters;
+  IO.UTypes, IO.Readers.UFactory, IO.Writers.UFactory, IO.UHelper,
+  Renderers.UTypes,
+  UParams, Renderers.UFactory, USourceProcessor;
 
 
-{$WARN UNSAFE_TYPE OFF}
-{$WARN UNSAFE_CODE OFF}
 function GetProductVersionStr: string;
   {Gets the program's product version number from version information.
     @return Version number as a dot delimited string.
@@ -148,8 +122,6 @@ begin
     end;
   end;
 end;
-{$WARN UNSAFE_CODE ON}
-{$WARN UNSAFE_TYPE OFF}
 
 
 resourcestring
@@ -157,30 +129,6 @@ resourcestring
   sCompleted = 'Completed';
   sError = 'Error: %s';
   sUsage = 'Usage: PasHi ([-rc] [-wc] [-frag | -hidecss] [-q] ) | -h';
-  sHelp =
-      '  -rc      | Takes input from clipboard instead of standard input.'#13#10
-    + '  -wc      | Writes HTML output to clipboard (CF_TEXT format) instead '
-    + 'of '#13#10
-    + '           | standard output.'#13#10
-    + '  -frag    | Writes HTML fragment rather than complete XHTML '
-    + 'document'#13#10
-    + '           | contains only <pre> tag containing source - user must '
-    + 'provide a'#13#10
-    + '           | style sheet with required names. Do not use with '
-    + '-hidecss'#13#10
-    + '  -hidecss | Protects embedded CSS style in HTML comments (required '
-    + 'for some'#13#10
-    + '           | old browsers). Do not use with -frag.'#13#10
-    + '  -q       | Quiet mode - does not write to console.'#13#10
-    + '  -h       | Displays help screen (quiet mode ignored).'#13#10
-    + #13#10
-    + 'Input is read from standard input and highlighted HTML code is written '
-    + 'to'#13#10
-    + 'standard output unless -rc or -wc switches are used.'#13#10
-    + 'If -frag and -hidecss are used together, last one used takes '
-    + 'precedence.';
-
-
 
 { TMain }
 
@@ -207,49 +155,6 @@ begin
   inherited;
 end;
 
-function TMain.CreateHiliter: ISyntaxHiliter;
-  {Creates required syntax highlighter, depending on document type.
-    @return Required highlighter object.
-  }
-begin
-  Result := nil;
-  case fConfig.DocType of
-    dtXHTML:
-      Result := TSyntaxHiliterFactory.CreateHiliter(hkXHTML);
-    dtXHTMLHideCSS:
-      Result := TSyntaxHiliterFactory.CreateHiliter(hkXHTMLHideCSS);
-    dtXHTMLFragment:
-      Result := TSyntaxHiliterFactory.CreateHiliter(hkHTMLFragment)
-  end;
-  Assert(Assigned(Result), 'TMain.CreateHiliter: Invalid document format');
-end;
-
-function TMain.CreateInputStream: TStream;
-  {Creates stream that reads program input.
-    @return Required input stream.
-  }
-begin
-  Result := nil;
-  case fConfig.InputSource of
-    isStdIn: Result := TStdInStream.Create;
-    isClipboard: Result := TClipboardReadStream.Create(CF_TEXT);
-  end;
-  Assert(Assigned(Result), 'TMain.CreateInputStream: Unknown input format');
-end;
-
-function TMain.CreateOutputStream: TStream;
-  {Creates stream that receives program output.
-    @return Required output stream.
-  }
-begin
-  Result := nil;
-  case fConfig.OutputSink of
-    osStdOut: Result := TStdOutStream.Create;
-    osClipboard: Result := TClipboardWriteStream.Create(CF_TEXT);
-  end;
-  Assert(Assigned(Result), 'TMain.CreateOutputStream: Unknown output format');
-end;
-
 destructor TMain.Destroy;
   {Class destructor. Tears down object.
   }
@@ -263,16 +168,16 @@ procedure TMain.Execute;
   {Executes program.
   }
 var
-  InStm: TStream;           // stream onto input Pascal source
-  OutStm: TStream;          // stream onto output highlighted source
-  Hiliter: ISyntaxHiliter;  // highlighter object
+  SourceCode: string;   // input Pascal source code
+  XHTML: string;        // highlighted XHTML output
+  Renderer: IRenderer;  // render customised output document
 begin
   ExitCode := 0;
   try
     // Configure program
     Configure;
     // Decide if program is to write to console
-    fConsole.Silent := fConfig.Quiet and not fConfig.ShowHelp;
+    fConsole.Silent := (fConfig.Verbosity = vbQuiet) and not fConfig.ShowHelp;
     if fConfig.ShowHelp then
       // Want help so show it
       ShowHelp
@@ -280,19 +185,10 @@ begin
     begin
       // Sign on and initialise program
       SignOn;
-      InStm := nil;
-      OutStm := nil;
-      try
-        InStm := CreateInputStream;
-        OutStm := CreateOutputStream;
-        Hiliter := CreateHiliter;
-        // Analyse Pascal code on input stream, highlight it, then write output
-        Hiliter.Hilite(InStm, OutStm);
-      finally
-        // Close input and output streams
-        FreeAndNil(OutStm);
-        FreeAndNil(InStm);
-      end;
+      SourceCode := GetInputSourceCode;
+      Renderer := TRendererFactory.CreateRenderer(SourceCode, fConfig);
+      XHTML := Renderer.Render;
+      WriteOutput(XHTML);
       // Sign off
       fConsole.WriteLn(sCompleted);
     end;
@@ -308,15 +204,45 @@ begin
   end;
 end;
 
+function TMain.GetInputSourceCode: string;
+var
+  Reader: IInputReader;
+  SourceProcessor: TSourceProcessor;
+begin
+  case fConfig.InputSource of
+    isStdIn: Reader := TInputReaderFactory.StdInReaderInstance;
+    isFiles: Reader := TInputReaderFactory.FilesReaderInstance(
+      fConfig.InputFiles
+    );
+    isClipboard: Reader := TInputReaderFactory.ClipboardReaderInstance;
+  else
+    Reader := nil;
+  end;
+  Assert(Assigned(Reader), 'TMain.GetInputSourceCode: Reader is nil');
+  SourceProcessor := TSourceProcessor.Create(fConfig);
+  try
+    Result := SourceProcessor.Process(Reader.Read)
+  finally
+    SourceProcessor.Free;
+  end;
+end;
+
 procedure TMain.ShowHelp;
   {Writes help text to console.
   }
+var
+  RS: TResourceStream;
 begin
   SignOn;
   fConsole.WriteLn;
-  fConsole.WriteLn(sUsage);
-  fConsole.WriteLn;
-  fConsole.WriteLn(sHelp);
+  RS := TResourceStream.Create(HInstance, 'HELP', RT_RCDATA);
+  try
+    fConsole.WriteLn(
+      TIOHelper.BytesToString(TIOHelper.StreamToBytes(RS))
+    );
+  finally
+    RS.Free;
+  end;
 end;
 
 procedure TMain.SignOn;
@@ -335,6 +261,31 @@ begin
   fConsole.WriteLn(StringOfChar('-', Length(Msg)));
   // record that we've signed on
   fSignedOn := True;
+end;
+
+procedure TMain.WriteOutput(const S: string);
+var
+  Writer: IOutputWriter;
+  Encoding: TEncoding;
+begin
+  case fCOnfig.OutputSink of
+    osStdOut:
+      Writer := TOutputWriterFactory.StdOutWriterInstance;
+    osFile:
+      Writer := TOutputWriterFactory.FileWriterInstance(fConfig.OutputFile);
+    osClipboard:
+      Writer := TOutputWriterFactory.ClipboardWriterInstance;
+  else
+    Writer := nil;
+  end;
+  Assert(Assigned(Writer), 'TMain.WriteOutput: Writer is nil');
+  Encoding := fConfig.OutputEncoding;
+  try
+    Writer.Write(S, Encoding);
+  finally
+    if Assigned(Encoding) and not TEncoding.IsStandardEncoding(Encoding) then
+      Encoding.Free;
+  end;
 end;
 
 end.

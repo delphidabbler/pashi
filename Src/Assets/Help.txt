@@ -1,0 +1,137 @@
+Usage:
+  PasHi { <filename> | <command> }
+
+PasHi takes any number of file names and commands as parameters, in any order.
+
+By default Pascal source code is read from standard input, which may be
+redirected. If one or more file names is entered on the command line then input
+is taken from the file(s). Multiple files are concatenated before highlighting.
+Supported input file encodings are ANSI, UTF-8, UTF-16LE, UTF-16BE. The last
+three file types must have appropriate byte order marks at the beginning of the
+file.
+
+Unless changed using the options below, output is sent to stdout, which may be
+redirected. The default output encoding is UTF-8 with byte order mark.
+
+PasHi supports the following commands:
+
+--branding            -b    Determines if PasHi includes branding information
+                            either as a comment in HTML fragments or as a
+                            <meta> generator tag in complete HTML documents.
+                            --branding requires the next parameter to supply
+                            one of the following values:
+                              yes - include branding [default]
+                              no - no branding.
+                            Alternatively use -b+ to include branding or -b- to
+                            exclude it.
+--default-css               Embed the program's default CSS in a <style> tag in
+                            HTML documents [default].
+--doc-type            -d    Specifies the output document type, which must be
+                            supplied in the next parameter. Values are:
+                              xhtml - output complete XHTML document [default]
+                              html4 - output complete HTML 4 document
+                              html5 - output complete HTML 5 document
+                              fragment - output only a <div> block containing
+                                the highlighted code, compatible with XHTML,
+                                HTML 4 and HTML 5.
+--embed-css           -s    Reads CSS from a file and embeds it in a <style>
+                            tag in the output HTML document. The name of the
+                            CSS file must be supplied in the next parameter.
+                            File names containing no path information are read
+                            from PasHi's application data directory.
+--encoding            -e    Specifies the output encoding. The next
+                            parameter must provide one of the following values:
+                              utf-8 [default]
+                              utf-16 (or unicode)
+                              windows-1252 (or latin-1)
+                              iso-8859-1.
+--help                -h    Displays this help screen. Do not use with other
+                            commands.
+--hide-css            -c    Determines whether any embedded CSS is enclosed in
+                            HTML comments to prevent older browsers from
+                            displaying it. --hide-css requires the next
+                            parameter to supply one of the following values:
+                              yes - enclose CSS in comments
+                              no - do not enclose CSS [default]
+                            Alternatively use -c+ to enclose CSS in comments or
+                            -c- not to do so.
+--input-clipboard     -r    Read source code from the clipboard instead of
+                            stdin or file(s).
+--input-stdin               Read source code from stdin [default].
+--language            -l    Specifies the language used for the output
+                            document. The following parameter must contain a
+                            language code that HTML recognises. E.g. "en" or
+                            "en-gb".
+--language-neutral          Outputs no language information [default].
+--legacy-css                Determines which CSS class names are used in the
+                            output HTML document. These can either be the
+                            current class names or the class names used in
+                            PasHi v1. The next parameter must supply one of the
+                            following values:
+                              yes - use PasHi v1 CSS class names
+                              no - use current CSS class names [default].
+--line-numbering      -n    Switches line numebring on or off. --line-numbering
+                            requires the next parameter to supply one of the
+                            following values:
+                              on - number each line of source code
+                              off - do not number source code lines [default].
+                            Alternatively use -n+ to enable line numbering or
+                            -n- to disable it.
+--line-number-padding -p    Determines type of padding character to use when
+                            a line number requires less than the available
+                            width to display. The next parameter specifies the
+                            character to use and must be one of:
+                              space - pad with space characters [default]
+                              zero - pad with zeros
+                              dash - pad with dashes (-)
+                              dot - pad with dots (.).
+--line-number-width   -i    Determines minimum width, in characters, occupied
+                            by line numbers. Line numbers are padded to this
+                            width if necessary. The next parameter specifies
+                            a width in the range 1..6 [default 3].
+--link-css            -k    Generates a <link> tag in the output HTML document
+                            that references an external CSS file. A full or
+                            partial URL must be specified in the next
+                            parameter.
+--output-clipboard    -w    Writes output to the clipboard as Unicode text.
+                            Ignores the --encoding command.
+--output-file         -o    Writes output to the file that is named in the
+                            following parameter.
+--output-stdout             Writes output to stdout [default].
+--quiet               -q    Sets quiet mode. Alias for "--verbosity quiet".
+--separator-lines           Specifies the number of blank lines to be used to
+                            separate source code from multiple input files. The
+                            next parameter must specify the number of lines in
+                            the range 0..16 [default 1].
+--striping                  Determines whether alternate lines of source code
+                            in output are styled differently. The next
+                            parameter must supply one of the following values:
+                              on - style alternate lines differently
+                              off - all lines have same appearance [default].
+--title               -t    Sets the title used for the output document. The
+                            next parameter must contain the required text. To
+                            include spaces surround the text in double quotes.
+--title-default             Uses the program's default title for the output
+                            document [default].
+--trim                -m    Determines whether input documents are trimmed of
+                            leading and trailing blank lines. --trim requires
+                            the next parameter to supply one of the following
+                            values:
+                              yes - trim [default]
+                              no - do not trim
+                            Alternatively use -m+ to trim or -m- to prevent
+                            trimming.
+--verbosity                 Specifies the amount of output from the program.
+                            The next parameter must be one of:
+                              normal - sign-on, error and completion messages
+                                [default]
+                              quiet - error messages only
+
+Default commands can be changed by creating a "config" file in PasHi's
+application data directory. Commands are listed one per line and have the same
+names as the long form commands above, but without the leading "--". If a
+command takes a parameter it must be entered on the same line as the command
+and separated from it by one or more spaces. Parameters containing spaces must
+not be enclosed in quotes.
+
+PasHi's application data directory is %AppData%\DelphiDabbler\PasHi.

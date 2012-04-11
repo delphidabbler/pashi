@@ -1,35 +1,14 @@
 {
- * UUtils.pas
+ * This Source Code Form is subject to the terms of the Mozilla Public License,
+ * v. 2.0. If a copy of the MPL was not distributed with this file, You can
+ * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Various utility routines.
+ * Copyright (C) 2006-2012, Peter Johnson (www.delphidabbler.com).
  *
  * $Rev$
  * $Date$
  *
- * ***** BEGIN LICENSE BLOCK *****
- *
- * Version: MPL 1.1
- *
- * The contents of this file are subject to the Mozilla Public License Version
- * 1.1 (the "License"); you may not use this file except in compliance with the
- * License. You may obtain a copy of the License at http://www.mozilla.org/MPL/
- *
- * Software distributed under the License is distributed on an "AS IS" basis,
- * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for
- * the specific language governing rights and limitations under the License.
- *
- * The Original Code is UUtils.pas
- *
- * The Initial Developer of the Original Code is Peter Johnson
- * (http://www.delphidabbler.com/).
- *
- * Portions created by the Initial Developer are Copyright (C) 2006-2010 Peter
- * Johnson. All Rights Reserved.
- *
- * Contributor(s):
- *   NONE
- *
- * ***** END LICENSE BLOCK *****
+ * Various utility routines.
 }
 
 
@@ -38,11 +17,10 @@ unit UUtils;
 
 interface
 
-{$WARN SYMBOL_PLATFORM OFF}
 
 uses
   // Delphi
-  Windows;
+  Classes, Windows;
 
 
 function IsDirectory(const DirName: string): Boolean;
@@ -59,6 +37,9 @@ function TaskAllocWideString(const S: string): PWChar;
     @return Pointer to buffer containing wide string.
   }
 
+function StringFromStream(const Stm: TStream): string;
+
+function ListFiles(const Dir, Wildcard: string; const List: TStrings): Boolean;
 
 implementation
 
@@ -98,6 +79,64 @@ begin
   if Assigned(Result) then
     // Convert string to wide string and store in buffer
     StringToWideChar(S, Result, StrLen);
+end;
+
+function StringFromStream(const Stm: TStream): string;
+var
+  Bytes: TBytes;
+  Encoding: TEncoding;
+  PreambleSize: Integer;
+begin
+  SetLength(Bytes, Stm.Size);
+  if Length(Bytes) = 0 then
+    Exit('');
+  Stm.Position := 0;
+  Stm.ReadBuffer(Pointer(Bytes)^, Length(Bytes));
+  Encoding := nil;
+  PreambleSize := TEncoding.GetBufferEncoding(Bytes, Encoding);
+  try
+    Result := Encoding.GetString(
+      Bytes, PreambleSize, Length(Bytes) - PreambleSize
+    );
+  finally
+    if not TEncoding.IsStandardEncoding(Encoding) then
+      Encoding.Free;
+  end;
+end;
+
+function ListFiles(const Dir, Wildcard: string; const List: TStrings): Boolean;
+var
+  FileSpec: string;         // search file specification
+  SR: SysUtils.TSearchRec;  // file search result
+  Success: Integer;         // success code for FindXXX routines
+begin
+  Assert(Assigned(List));
+  // Check if true directory and exit if not
+  Result := IsDirectory(Dir);
+  if not Result then
+    Exit;
+  // Build file spec from directory and wildcard
+  FileSpec := IncludeTrailingPathDelimiter(Dir);
+  if Wildcard = '' then
+    FileSpec := FileSpec + '*.*'
+  else
+    FileSpec := FileSpec + Wildcard;
+  // Initialise search for matching files
+  Success := FindFirst(FileSpec, faAnyFile, SR);
+  try
+    // Loop for all files in directory
+    while Success = 0 do
+    begin
+      // only add true files or directories to list
+      if (SR.Name <> '.') and (SR.Name <> '..') then
+        List.Add(SR.Name);
+      // get next file
+      Success := FindNext(SR);
+    end;
+  finally
+    // Tidy up
+    FindClose(SR);
+  end;
 end;
 
 end.

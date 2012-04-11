@@ -1,35 +1,14 @@
 {
- * PasHiGUI.dpr
+ * This Source Code Form is subject to the terms of the Mozilla Public License,
+ * v. 2.0. If a copy of the MPL was not distributed with this file, You can
+ * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Main project file
+ * Copyright (C) 2006-2012, Peter Johnson (www.delphidabbler.com).
  *
  * $Rev$
  * $Date$
  *
- * ***** BEGIN LICENSE BLOCK *****
- *
- * Version: MPL 1.1
- *
- * The contents of this file are subject to the Mozilla Public License Version
- * 1.1 (the "License"); you may not use this file except in compliance with the
- * License. You may obtain a copy of the License at http://www.mozilla.org/MPL/
- *
- * Software distributed under the License is distributed on an "AS IS" basis,
- * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for
- * the specific language governing rights and limitations under the License.
- *
- * The Original Code is PasHiGUI.dpr
- *
- * The Initial Developer of the Original Code is Peter Johnson
- * (http://www.delphidabbler.com/).
- *
- * Portions created by the Initial Developer are Copyright (C) 2006-2010 Peter
- * Johnson. All Rights Reserved.
- *
- * Contributor(s):
- *   NONE
- *
- * ***** END LICENSE BLOCK *****
+ * Main project file
 }
 
 
@@ -53,14 +32,11 @@ program PasHiGUI;
 {$WRITEABLECONST OFF}
 
 
-{%ToDo 'PasHiGUI.todo'}
-
 uses
   Forms,
   FmMain in 'FmMain.pas' {MainForm},
   IntfDropDataHandler in 'IntfDropDataHandler.pas',
   IntfUIHandlers in 'IntfUIHandlers.pas',
-  UClipboardWriteStream in 'UClipboardWriteStream.pas',
   UClipFmt in 'UClipFmt.pas',
   UConsoleApp in 'UConsoleApp.pas',
   UDataObjectAdapter in 'UDataObjectAdapter.pas',
@@ -72,7 +48,19 @@ uses
   UPasHi in 'UPasHi.pas',
   UPipe in 'UPipe.pas',
   UUtils in 'UUtils.pas',
-  UWBContainer in 'UWBContainer.pas';
+  UWBContainer in 'UWBContainer.pas',
+  UConfigFiles in '..\UConfigFiles.pas',
+  UGUIConfigFiles in 'UGUIConfigFiles.pas',
+  IO.UHelper in '..\IO.UHelper.pas',
+  UComparers in '..\UComparers.pas',
+  USpecialFolders in '..\USpecialFolders.pas',
+  UOptions in 'UOptions.pas',
+  FrOptions.UBase in 'FrOptions.UBase.pas' {BaseOptionsFrame: TFrame},
+  FrOptions.UDocType in 'FrOptions.UDocType.pas' {DocTypeOptionsFrame: TFrame},
+  FrOptions.UHelper in 'FrOptions.UHelper.pas',
+  FrOptions.ULineStyle in 'FrOptions.ULineStyle.pas' {LineStyleOptionsFrame: TFrame},
+  FrOptions.UCSS in 'FrOptions.UCSS.pas' {CSSOptionsFrame: TFrame},
+  FrOptions.UMisc in 'FrOptions.UMisc.pas' {MiscOptionsFrame: TFrame};
 
 {$R Resources.res}      // main program resources, including icon
 {$R VersionInfo.res}    // version information resource

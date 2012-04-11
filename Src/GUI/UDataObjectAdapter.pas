@@ -1,36 +1,15 @@
 {
- * UDataObjectAdapter.pas
+ * This Source Code Form is subject to the terms of the Mozilla Public License,
+ * v. 2.0. If a copy of the MPL was not distributed with this file, You can
+ * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Class that interacts with and provides an alternate interface to a
- * IDataObject.
+ * Copyright (C) 2012, Peter Johnson (www.delphidabbler.com).
  *
  * $Rev$
  * $Date$
  *
- * ***** BEGIN LICENSE BLOCK *****
- *
- * Version: MPL 1.1
- *
- * The contents of this file are subject to the Mozilla Public License Version
- * 1.1 (the "License"); you may not use this file except in compliance with the
- * License. You may obtain a copy of the License at http://www.mozilla.org/MPL/
- *
- * Software distributed under the License is distributed on an "AS IS" basis,
- * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for
- * the specific language governing rights and limitations under the License.
- *
- * The Original Code is UDataObjectAdapter.pas
- *
- * The Initial Developer of the Original Code is Peter Johnson
- * (http://www.delphidabbler.com/).
- *
- * Portions created by the Initial Developer are Copyright (C) 2006-2010 Peter
- * Johnson. All Rights Reserved.
- *
- * Contributor(s):
- *   NONE
- *
- * ***** END LICENSE BLOCK *****
+ * Class that interacts with and provides an alternate interface to a
+ * IDataObject.
 }
 
 
@@ -79,6 +58,9 @@ type
         @except EOleSysError raised if can't extract data from data object or
           data object does not support required format.
       }
+    function ReadDataAsAnsiText(const Fmt: TClipFormat): string;
+    function ReadDataAsUnicodeText(const Fmt: TClipFormat): string;
+    function GetHDROPFileNames: TArray<string>;
   end;
 
 
@@ -87,7 +69,7 @@ implementation
 
 uses
   // Delphi
-  Windows, ComObj;
+  SysUtils, Windows, ComObj, ShellAPI;
 
 
 { TDataObjectAdapter }
@@ -127,6 +109,37 @@ begin
   end;
 end;
 
+function TDataObjectAdapter.GetHDROPFileNames: TArray<string>;
+var
+  Medium: TStgMedium;
+  HDrop: THandle;
+  FileCount: Integer;
+  NameLen: Integer;
+  Idx: Integer;
+  FileName: string;
+begin
+  Assert(HasFormat(CF_HDROP));
+  SetLength(Result, 0);
+  OleCheck(fDataObject.GetData(MakeFormatEtc(CF_HDROP), Medium));
+  HDrop := Medium.hGlobal;
+  if HDrop = 0 then
+    Exit;
+  // Scan through files specified by HDROP handle, adding to lists
+  FileCount := DragQueryFile(HDrop, Cardinal(-1), nil, 0);
+  SetLength(Result, FileCount);
+  try
+    for Idx := 0 to Pred(FileCount) do
+    begin
+      NameLen := DragQueryFile(HDrop, Idx, nil, 0);
+      SetLength(FileName, NameLen);
+      DragQueryFile(HDrop, Idx, PChar(FileName), NameLen + 1);
+      Result[Idx] := FileName;
+    end;
+  finally
+    DragFinish(HDrop);
+  end;
+end;
+
 function TDataObjectAdapter.HasFormat(const Fmt: TClipFormat): Boolean;
   {Checks if data object supports a data format.
     @param Fmt [in] Format to check.
@@ -147,6 +160,45 @@ begin
   Result.dwAspect := DVASPECT_CONTENT;  // display representation
   Result.lindex := -1;                  // get all of data
   Result.tymed := TYMED_HGLOBAL;        // pass data in global memory
+end;
+
+function TDataObjectAdapter.ReadDataAsAnsiText(const Fmt: TClipFormat): string;
+var
+  Medium: TStgMedium;   // handle to storage medium
+  PText: PAnsiChar;
+begin
+  Result := '';
+  OleCheck(fDataObject.GetData(MakeFormatEtc(Fmt), Medium));
+  try
+    PText := GlobalLock(Medium.hGlobal);
+    try
+      Result := string(AnsiString(PText));
+    finally
+      GlobalUnlock(Medium.hGlobal);
+    end;
+  finally
+    ReleaseStgMedium(Medium);
+  end;
+end;
+
+function TDataObjectAdapter.ReadDataAsUnicodeText(const Fmt: TClipFormat):
+  string;
+var
+  Medium: TStgMedium;   // handle to storage medium
+  PText: PChar;         // pointer to text
+begin
+  Result := '';
+  OleCheck(fDataObject.GetData(MakeFormatEtc(Fmt), Medium));
+  try
+    PText := GlobalLock(Medium.hGlobal);
+    try
+      Result := PText;
+    finally
+      GlobalUnlock(Medium.hGlobal);
+    end;
+  finally
+    ReleaseStgMedium(Medium);
+  end;
 end;
 
 end.

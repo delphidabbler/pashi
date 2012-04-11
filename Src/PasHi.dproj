@@ -1,0 +1,126 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{67B6515E-38DE-40FB-AC9B-660DCB172855}</ProjectGuid>
+			<MainSource>PasHi.dpr</MainSource>
+			<Config Condition="'$(Config)'==''">Base</Config>
+			<DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+			<ProjectVersion>12.0</ProjectVersion>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Base)'!=''">
+			<DCC_SYMBOL_PLATFORM>false</DCC_SYMBOL_PLATFORM>
+			<DCC_UnitSearchPath>..\Bin;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+			<DCC_DependencyCheckOutputName>..\Exe\PasHi.exe</DCC_DependencyCheckOutputName>
+			<DCC_UnitAlias>WinTypes=Windows;WinProcs=Windows;$(DCC_UnitAlias)</DCC_UnitAlias>
+			<DCC_ExeOutput>..\Exe</DCC_ExeOutput>
+			<DCC_ImageBase>00400000</DCC_ImageBase>
+			<DCC_CVT_WIDENING_STRING_LOST>true</DCC_CVT_WIDENING_STRING_LOST>
+			<DCC_CVT_ACHAR_TO_WCHAR>true</DCC_CVT_ACHAR_TO_WCHAR>
+			<DCC_EXPLICIT_STRING_CAST_LOSS>true</DCC_EXPLICIT_STRING_CAST_LOSS>
+			<DCC_Platform>x86</DCC_Platform>
+			<DCC_DcuOutput>..\Bin</DCC_DcuOutput>
+			<DCC_SymbolReferenceInfo>1</DCC_SymbolReferenceInfo>
+		</PropertyGroup>
+		<ItemGroup>
+			<DelphiCompile Include="PasHi.dpr">
+				<MainSource>MainSource</MainSource>
+			</DelphiCompile>
+			<DCCReference Include="Hiliter.UGlobals.pas"/>
+			<DCCReference Include="UClipboardMgr.pas"/>
+			<DCCReference Include="UConfig.pas"/>
+			<DCCReference Include="UConsole.pas"/>
+			<DCCReference Include="Hiliter.UPasLexer.pas"/>
+			<DCCReference Include="Hiliter.UPasParser.pas"/>
+			<DCCReference Include="UHTMLUtils.pas"/>
+			<DCCReference Include="UMain.pas"/>
+			<DCCReference Include="UParams.pas"/>
+			<DCCReference Include="UStdIO.pas"/>
+			<DCCReference Include="Hiliter.UHiliters.pas"/>
+			<DCCReference Include="UStringReader.pas"/>
+			<DCCReference Include="UConsts.pas"/>
+			<DCCReference Include="UComparers.pas"/>
+			<DCCReference Include="IO.UTypes.pas"/>
+			<DCCReference Include="IO.Readers.UStdIn.pas"/>
+			<DCCReference Include="IO.Readers.UClipboard.pas"/>
+			<DCCReference Include="IO.Readers.UFactory.pas"/>
+			<DCCReference Include="IO.Writers.UStdOut.pas"/>
+			<DCCReference Include="IO.Writers.UClipboard.pas"/>
+			<DCCReference Include="IO.Writers.UFactory.pas"/>
+			<DCCReference Include="IO.Readers.UFiles.pas"/>
+			<DCCReference Include="IO.Writers.UFile.pas"/>
+			<DCCReference Include="IO.UHelper.pas"/>
+			<DCCReference Include="Renderers.UFactory.pas"/>
+			<DCCReference Include="UConfigFiles.pas"/>
+			<DCCReference Include="USpecialFolders.pas"/>
+			<DCCReference Include="USourceProcessor.pas"/>
+			<DCCReference Include="Renderers.UCharSetTag.pas"/>
+			<DCCReference Include="Renderers.UTypes.pas"/>
+			<DCCReference Include="Renderers.UDocType.pas"/>
+			<DCCReference Include="Renderers.UProcInst.pas"/>
+			<DCCReference Include="Renderers.URootTag.pas"/>
+			<DCCReference Include="Renderers.UBranding.pas"/>
+			<DCCReference Include="Renderers.USourceCode.pas"/>
+			<DCCReference Include="Renderers.UTitleTag.pas"/>
+			<DCCReference Include="Renderers.UStyles.pas"/>
+			<DCCReference Include="Renderers.UDocument.pas"/>
+			<BuildConfiguration Include="Base">
+				<Key>Base</Key>
+			</BuildConfiguration>
+		</ItemGroup>
+		<Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
+		<ProjectExtensions>
+			<Borland.Personality>Delphi.Personality.12</Borland.Personality>
+			<Borland.ProjectType>VCLApplication</Borland.ProjectType>
+			<BorlandProject>
+				<Delphi.Personality>
+					<Source>
+						<Source Name="MainSource">PasHi.dpr</Source>
+					</Source>
+					<Parameters>
+						<Parameters Name="RunParams">-localhost</Parameters>
+						<Parameters Name="UseLauncher">False</Parameters>
+						<Parameters Name="LoadAllSymbols">True</Parameters>
+						<Parameters Name="LoadUnspecifiedSymbols">False</Parameters>
+					</Parameters>
+					<VersionInfo>
+						<VersionInfo Name="IncludeVerInfo">False</VersionInfo>
+						<VersionInfo Name="AutoIncBuild">False</VersionInfo>
+						<VersionInfo Name="MajorVer">1</VersionInfo>
+						<VersionInfo Name="MinorVer">0</VersionInfo>
+						<VersionInfo Name="Release">0</VersionInfo>
+						<VersionInfo Name="Build">0</VersionInfo>
+						<VersionInfo Name="Debug">False</VersionInfo>
+						<VersionInfo Name="PreRelease">False</VersionInfo>
+						<VersionInfo Name="Special">False</VersionInfo>
+						<VersionInfo Name="Private">False</VersionInfo>
+						<VersionInfo Name="DLL">False</VersionInfo>
+						<VersionInfo Name="Locale">2057</VersionInfo>
+						<VersionInfo Name="CodePage">1252</VersionInfo>
+					</VersionInfo>
+					<VersionInfoKeys>
+						<VersionInfoKeys Name="CompanyName"/>
+						<VersionInfoKeys Name="FileDescription"/>
+						<VersionInfoKeys Name="FileVersion">1.0.0.0</VersionInfoKeys>
+						<VersionInfoKeys Name="InternalName"/>
+						<VersionInfoKeys Name="LegalCopyright"/>
+						<VersionInfoKeys Name="LegalTrademarks"/>
+						<VersionInfoKeys Name="OriginalFilename"/>
+						<VersionInfoKeys Name="ProductName"/>
+						<VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys>
+						<VersionInfoKeys Name="Comments"/>
+					</VersionInfoKeys>
+					<Excluded_Packages>
+						<Excluded_Packages Name="$(BDS)\Bin\dclib140.bpl">Embarcadero InterBase Express Components</Excluded_Packages>
+						<Excluded_Packages Name="$(BDS)\bin\dclado140.bpl">Embarcadero ADO DB Components</Excluded_Packages>
+						<Excluded_Packages Name="$(BDS)\bin\dclwebsnap140.bpl">Embarcadero WebSnap Components</Excluded_Packages>
+						<Excluded_Packages Name="$(BDS)\bin\dclwbm140.bpl">Embarcadero InternetExpress Components</Excluded_Packages>
+						<Excluded_Packages Name="$(BDS)\bin\dcloffice2k140.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+						<Excluded_Packages Name="$(BDS)\bin\dclofficexp140.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+					</Excluded_Packages>
+				</Delphi.Personality>
+			</BorlandProject>
+			<ProjectFileVersion>12</ProjectFileVersion>
+		</ProjectExtensions>
+	</Project>

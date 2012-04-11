@@ -1,36 +1,14 @@
 {
- * UConfig.pas
+ * This Source Code Form is subject to the terms of the Mozilla Public License,
+ * v. 2.0. If a copy of the MPL was not distributed with this file, You can
+ * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Implements class that stores program's configuration information.
+ * Copyright (C) 2007-2012, Peter Johnson (www.delphidabbler.com).
  *
  * $Rev$
  * $Date$
  *
- *
- * ***** BEGIN LICENSE BLOCK *****
- *
- * Version: MPL 1.1
- *
- * The contents of this file are subject to the Mozilla Public License Version
- * 1.1 (the "License"); you may not use this file except in compliance with the
- * License. You may obtain a copy of the License at http://www.mozilla.org/MPL/
- *
- * Software distributed under the License is distributed on an "AS IS" basis,
- * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for
- * the specific language governing rights and limitations under the License.
- *
- * The Original Code is UConfig.pas.
- *
- * The Initial Developer of the Original Code is Peter Johnson
- * (http://www.delphidabbler.com/).
- *
- * Portions created by the Initial Developer are Copyright (C) 2007-2009 Peter
- * Johnson. All Rights Reserved.
- *
- * Contributor(s):
- *   NONE
- *
- * ***** END LICENSE BLOCK *****
+ * Implements class that stores program's configuration information.
 }
 
 
@@ -39,6 +17,8 @@ unit UConfig;
 
 interface
 
+uses
+  SysUtils, Classes;
 
 type
 
@@ -48,6 +28,7 @@ type
   }
   TInputSource = (
     isStdIn,        // standard input
+    isFiles,        // files from command line
     isClipboard     // clipboard
   );
 
@@ -57,7 +38,23 @@ type
   }
   TOutputSink = (
     osStdOut,       // standard output
+    osFile,         // file from output file switch
     osClipboard     // clipboard
+  );
+
+  // Enumerates ids of supported output encodings
+  TOutputEncodingId = (
+    oeUTF8,         // UTF-8 encoding with BOM
+    oeUTF16,        // Unicode little endian encoding with BOM
+    oeWindows1252,  // Windows-1252 aka Latin 1 encoding
+    oeISO88591      // ISO-8859-1 encoding
+  );
+
+  // Enumerates possible sources of style sheets
+  TCSSSource = (
+    csDefault,      // use default style sheet
+    csFile,         // get CSS from file
+    csLink          // link to external style sheet
   );
 
   {
@@ -66,9 +63,19 @@ type
   }
   TDocType = (
     dtXHTML,        // complete XHTML document
-    dtXHTMLHideCSS, // complete XHTML document with CSS hidden in comments
-    dtXHTMLFragment // a fragment of HTML code, with no embedded style sheet
+    dtHTML4,        // complete HTML 4 document
+    dtHTML5,        // complete HTML 5 document
+    dtFragment      // a fragment of HTML code, compatible with all HTML types
   );
+
+  TVerbosity = (
+    vbQuiet,
+    vbNormal
+  );
+
+  TSeparatorLines = 0..16;
+
+  TLineNumberWidth = 1..6;
 
   {
   TConfig:
@@ -77,15 +84,33 @@ type
   }
   TConfig = class(TObject)
   private
-    fQuiet: Boolean;              // Value of Quiet property
     fDocType: TDocType;           // Value of DocType property
     fInputSource: TInputSource;   // Value of InputSource property
     fOutputSink: TOutputSink;     // Value of OutputSink property
     fShowHelp: Boolean;           // Values of ShowHelp property
+    fVerbosity: TVerbosity;
+    fHideCSS: Boolean;
+    fOutputFile: string;
+    fLanguage: string;
+    fTitle: string;
+    fBrandingPermitted: Boolean;
+    fCSSSource: TCSSSource;
+    fCSSLocation: string;
+    fOutputEncodingId: TOutputEncodingId;
+    fTrimSource: Boolean;
+    fInFiles: TStringList;
+    fSeparatorLines: TSeparatorLines;
+    fLegacyCSSNames: Boolean;
+    fUseLineNumbering: Boolean;
+    fLineNumberWidth: TLineNumberWidth;
+    fLineNumberPadding: Char;
+    fStriping: Boolean;
+    function GetInputFiles: TArray<string>;
   public
     constructor Create;
       {Class constructor. Initialises object's default property values.
       }
+    destructor Destroy; override;
     property InputSource: TInputSource
       read fInputSource write fInputSource default isStdIn;
       {Describes source to be used for program's input}
@@ -95,31 +120,121 @@ type
     property DocType: TDocType
       read fDocType write fDocType default dtXHTML;
       {Type of document to be generated}
-    property Quiet: Boolean
-      read fQuiet write fQuiet default False;
+    property Verbosity: TVerbosity
+      read fVerbosity write fVerbosity default vbNormal;
+
       {Whether program is to display project progress on console. Setting Quiet
       to true inhibits visual output}
     property ShowHelp: Boolean
       read fShowHelp write fShowHelp default False;
       {Whether program is to display help}
+    property HideCSS: Boolean read fHideCSS write fHideCSS;
+    property CSSSource: TCSSSource read fCSSSource write fCSSSource;
+    property CSSLocation: string read fCSSLocation write fCSSLocation;
+      {Location of CSS file to embed or URL to link}
+    property OutputFile: string
+      read fOutputFile write fOutputFile;
+    property OutputEncodingId: TOutputEncodingId
+      read fOutputEncodingId write fOutputEncodingId default oeUTF8;
+    property Language: string read fLanguage write fLanguage;
+    property Title: string read fTitle write fTitle;
+    property InputFiles: TArray<string> read GetInputFiles;
+    property BrandingPermitted: Boolean
+      read fBrandingPermitted write fBrandingPermitted default True;
+    property TrimSource: Boolean
+      read fTrimSource write fTrimSource default True;
+    property SeparatorLines: TSeparatorLines
+      read fSeparatorLines write fSeparatorLines default 1;
+    property LegacyCSSNames: Boolean
+      read fLegacyCSSNames write fLegacyCSSNames default False;
+    property UseLineNumbering: Boolean
+      read fUseLineNumbering write fUseLineNumbering default False;
+    property LineNumberWidth: TLineNumberWidth
+      read fLineNumberWidth write fLineNumberWidth default 3;
+    property LineNumberPadding: Char
+      read fLineNumberPadding write fLineNumberPadding default ' ';
+    property Striping: Boolean read fStriping write fStriping default False;
+    procedure AddInputFile(const FN: string);
+    function OutputEncoding: TEncoding;
+    function OutputEncodingName: string;
   end;
 
 
 implementation
 
+uses
+  Windows;
+
 
 { TConfig }
+
+procedure TConfig.AddInputFile(const FN: string);
+begin
+  fInFiles.Add(FN);
+end;
 
 constructor TConfig.Create;
   {Class constructor. Initialises object's default property values.
   }
 begin
   inherited;
+  fInFiles := TStringList.Create;
   fInputSource := isStdIn;
   fOutputSink := osStdOut;
   fDocType := dtXHTML;
-  fQuiet := False;
   fShowHelp := False;
+  fHideCSS := False;
+  fOutputEncodingId := oeUTF8;
+  fBrandingPermitted := True;
+  fLanguage := '';
+  fVerbosity := vbNormal;
+  fTrimSource := True;
+  fSeparatorLines := 1;
+  fLegacyCSSNames := False;
+  fUseLineNumbering := False;
+  fLineNumberWidth := 3;
+  fLineNumberPadding := ' ';
+  fStriping := False;
+end;
+
+destructor TConfig.Destroy;
+begin
+  fInFiles.Free;
+  inherited;
+end;
+
+function TConfig.GetInputFiles: TArray<string>;
+var
+  Idx: Integer;
+begin
+  SetLength(Result, fInFiles.Count);
+  for Idx := 0 to Pred(fInFiles.Count) do
+    Result[Idx] := fInFiles[Idx];
+end;
+
+function TConfig.OutputEncoding: TEncoding;
+begin
+  Result := nil;
+  if not (fOutputSink in [osStdOut, osFile]) then
+    Exit;
+  case fOutputEncodingId of
+    oeUTF8: Result := TEncoding.UTF8;
+    oeUTF16: Result := TEncoding.Unicode;
+    oeWindows1252: Result := TMBCSEncoding.Create(1252);
+    oeISO88591: Result := TMBCSEncoding.Create(28591);
+  end;
+  Assert(Assigned(Result), 'TConfig.OutputEncoding: Encoding not created');
+end;
+
+function TConfig.OutputEncodingName: string;
+const
+  Map: array[TOutputEncodingId] of string = (
+    'UTF-8', 'UTF-16', 'Windows-1252', 'ISO-8859-1'
+  );
+begin
+  if not (fOutputSink in [osStdOut, osFile]) then
+    Exit('');
+  Result := Map[fOutputEncodingId];
 end;
 
 end.

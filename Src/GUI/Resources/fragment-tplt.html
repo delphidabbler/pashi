@@ -1,128 +1,148 @@
-<!DOCTYPE html
+﻿<!DOCTYPE html
   PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <!--
- * fragment-tplt.html
+ * This Source Code Form is subject to the terms of the Mozilla Public License,
+ * v. 2.0. If a copy of the MPL was not distributed with this file, You can
+ * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Page used as template for highlighted code fragments.
+ * Copyright (C) 2006-2012, Peter Johnson (www.delphidabbler.com).
  *
  * $Rev$
  * $Date$
  *
- * ***** BEGIN LICENSE BLOCK *****
- *
- * Version: MPL 1.1
- *
- * The contents of this file are subject to the Mozilla Public License Version
- * 1.1 (the "License"); you may not use this file except in compliance with the
- * License. You may obtain a copy of the License at http://www.mozilla.org/MPL/
- *
- * Software distributed under the License is distributed on an "AS IS" basis,
- * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for
- * the specific language governing rights and limitations under the License.
- *
- * The Original Code is fragment-tplt.html
- *
- * The Initial Developer of the Original Code is Peter Johnson
- * (http://www.delphidabbler.com/).
- *
- * Portions created by the Initial Developer are Copyright (C) 2006-2010 Peter
- * Johnson. All Rights Reserved.
- *
- * Contributor(s):
- *   NONE
- *
- * ***** END LICENSE BLOCK *****
+ * Page used as template for highlighted code fragments.
 -->
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-	<title>PasHiGUI - Delphi Code Fragment</title>
-	<meta name="generator" content="DelphiDabbler PasH Pascal Highlighter" />
-	<style type="text/css">
-		<!--
-		.title {
-			margin:4px 0;font-weight:bold;
-		}
-		.comments {
-			margin:4px 0;
-		}
-		.pas-source {
-			font-family: "Courier New", monospace;
-			font-size: 9pt;
-			background-color :#ffc;
-			margin-top: 8px;
-			padding: 4px;
-			border: 1px silver solid;
-		}
-		.pas-comment {
-			font-style: italic;
-			font-weight: normal;
-			text-decoration: none;
-			color: #000080;
-		}
-		.pas-kwd {
-			font-style: normal;
-			font-weight: bold;
-			text-decoration: none;
-		}
-		.pas-str {
-			font-style: normal;
-			font-weight: normal;
-			text-decoration: none;
-			color: #800080;
-		}
-		.pas-num {
-			font-style: normal;
-			font-weight: normal;
-			text-decoration: none;
-			color: #800000;
-		}
-		.pas-float {
-			font-style: normal;
-			font-weight: normal;
-			text-decoration: none;
-			color: #800000;
-		}
-		.pas-hex {
-			font-style: normal;
-			font-weight: normal;
-			text-decoration: none;
-			color: #800000;
-		}
-		.pas-preproc {
-			font-style: normal;
-			font-weight: normal;
-			text-decoration: none;
-			color: #008000;
-		}
-		.pas-asm {
-			font-style: italic;
-			font-weight: normal;
-			text-decoration: none;
-		}
-		.pas-err {
-			font-style: normal;
-			font-weight: normal;
-			text-decoration: none;
-			color: #FF0000;
-		}
-		-->
-	</style>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+  <meta name="generator" content="DelphiDabbler PasH Pascal Highlighter" />
+  <title>PasHiGUI - Delphi Code Fragment</title>
+  <style type="text/css">
+    .title {
+      margin:4px 0;font-weight:bold;
+    }
+    .comments {
+      margin:4px 0;
+    }
+    .code-pascal,
+    .pas-source {
+      background-color :#ffc;
+      margin-top: 8px;
+      padding: 4px;
+      border: 1px silver solid;
+    }
+    .code-pascal pre,
+    .pas-source pre {
+      font-family: "Courier New", monospace;
+      font-size: 9pt;
+      margin: 0;
+    }
+    .code-pascal pre.line,
+    .pas-source pre.line {
+    }
+    .code-pascal pre.odd-line,
+    .pas-source pre.odd-line {
+    }
+    .code-pascal pre.even-line,
+    .pas-source pre.even-line {
+      background-color: #f0f0f0;
+    }
+    .code-pascal .linenum,
+    .pas-source .linenum {
+      border-right: 1px silver solid;
+      padding: 1px 4px 1px 2px;
+      margin-right: 0.75em;
+      color: gray;
+      background-color: #f0f0f0;
+    }
+    .code-pascal .comment,
+    .pas-comment {
+      color: green;
+      font-weight: normal;
+      font-style: italic;
+      text-decoration: none;
+    }
+    .code-pascal .kwd,
+    .pas-kwd {
+      color: navy;
+      font-weight: bold;
+      font-style: normal;
+      text-decoration: none;
+    }
+    .code-pascal .ident,
+    .pas-ident {
+      color: black;
+      font-weight: normal;
+      font-style: normal;
+      text-decoration: none;
+    }
+    .code-pascal .sym,
+    .pas-sym {
+      color: black;
+      font-weight: normal;
+      font-style: normal;
+      text-decoration: none;
+    }
+    .code-pascal .str,
+    .pas-str {
+      color: blue;
+      font-weight: normal;
+      font-style: normal;
+      text-decoration: none;
+    }
+    .code-pascal .num,
+    .code-pascal .float,
+    .code-pascal .hex,
+    .pas-num,
+    .pas-float,
+    .pas-hex {
+      color: maroon;
+      font-weight: normal;
+      font-style: normal;
+      text-decoration: none;
+    }
+    .code-pascal .preproc,
+    .pas-preproc {
+      color: teal;
+      font-weight: normal;
+      font-style: normal;
+      text-decoration: none;
+    }
+    .code-pascal .asm,
+    .pas-asm {
+      color: black;
+      font-weight: normal;
+      font-style: normal;
+      text-decoration: none;
+    }
+    .code-pascal .space,
+    .pas-space {
+    }
+    .code-pascal .err,
+    .pas-err {
+      color: black;
+      background-color: yellow;
+      font-weight: normal;
+      font-style: normal;
+      text-decoration: none;
+    }
+  </style>
 </head>
 <body>
-	<div>
-		<div class="title">
-			Code fragment:
-		</div>
-		<div>
-			<%Fragment-Here%>
-		</div>
-		<div class="comments">
-			The code fragment is embedded in a HTML document that uses a custom
-			style sheet containing all required pas-xxx style definitions.
-		</div>
-	</div>
+  <div>
+    <div class="title">
+      Code fragment:
+    </div>
+    <div>
+      <%Fragment-Here%>
+    </div>
+    <div class="comments">
+      The code fragment is embedded in a HTML document that uses a custom
+      style sheet containing all required pas-xxx style definitions.
+    </div>
+  </div>
 </body>
 </html>

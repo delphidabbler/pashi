@@ -1,47 +1,26 @@
 # ------------------------------------------------------------------------------
-# Common.mak
+# This Source Code Form is subject to the terms of the Mozilla Public License,
+# v. 2.0. If a copy of the MPL was not distributed with this file, You can
+# obtain one at http://mozilla.org/MPL/2.0/
 #
-# Common code for inclusion in all make files. Defines common macros and rules.
-# Files that require Common.mak must include it using the !include directive.
+# Copyright (C) 2010-2012, Peter Johnson (www.delphidabbler.com).
 #
 # $Rev$
 # $Date$
 #
-# ***** BEGIN LICENSE BLOCK *****
-#
-# Version: MPL 1.1
-#
-# The contents of this file are subject to the Mozilla Public License Version
-# 1.1 (the "License"); you may not use this file except in compliance with the
-# License. You may obtain a copy of the License at http://www.mozilla.org/MPL/
-#
-# Software distributed under the License is distributed on an "AS IS" basis,
-# WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for
-# the specific language governing rights and limitations under the License.
-#
-# The Original Code is Common.mak
-#
-# The Initial Developer of the Original Code is Peter Johnson
-# (http://www.delphidabbler.com/).
-#
-# Portions created by the Initial Developer are Copyright (C) 2010 Peter
-# Johnson. All Rights Reserved.
-#
-# Contributors:
-#   NONE
-#
-# ***** END LICENSE BLOCK *****
+# Common code for inclusion in all make files. Defines common macros and rules.
+# Files that require Common.mak must include it using the !include directive.
 # ------------------------------------------------------------------------------
 
 
-# The preferred compiler is Delphi 2006. If the DELPHI2006 evironment variable
-# is set, it will be used and expected to reference the Delphi 2006 install
+# The preferred compiler is Delphi 2010. If the DELPHI2010 evironment variable
+# is set, it will be used and expected to reference the Delphi 2010 install
 # directory.
-# If DELPHI2006 is not set then the DELPHIROOT environment variable is examined.
-# This can be set to any Delphi compiler. If neither DELPHI2006 nor DELPHIROOT
+# If DELPHI2010 is not set then the DELPHIROOT environment variable is examined.
+# This can be set to any Delphi compiler. If neither DELPHI2010 nor DELPHIROOT
 # is set then an error is reported
-!ifdef DELPHI2006
-DELPHIROOT = $(DELPHI2006)
+!ifdef DELPHI2010
+DELPHIROOT = $(DELPHI2010)
 !endif
 
 # Requires the following macros:
@@ -65,6 +44,11 @@ BRCC32 = "$(DELPHIROOT)\Bin\BRCC32.exe"
 VIED = "$(VIEDROOT)\VIEd.exe" -makerc
 !else
 VIED = VIEd.exe -makerc
+!endif
+!ifdef INNOSETUP
+ISCC = "$(INNOSETUP)\ISCC.exe"
+!else
+ISCC = ISCC.exe
 !endif
 !ifdef ZIPROOT
 ZIP = "$(ZIPROOT)\Zip.exe"

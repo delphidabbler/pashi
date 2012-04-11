@@ -1,36 +1,15 @@
 {
- * UInputData.pas
+ * This Source Code Form is subject to the terms of the Mozilla Public License,
+ * v. 2.0. If a copy of the MPL was not distributed with this file, You can
+ * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Interface and classes that route input data from various sources to the
- * application.
+ * Copyright (C) 2006-2012, Peter Johnson (www.delphidabbler.com).
  *
  * $Rev$
  * $Date$
  *
- * ***** BEGIN LICENSE BLOCK *****
- *
- * Version: MPL 1.1
- *
- * The contents of this file are subject to the Mozilla Public License Version
- * 1.1 (the "License"); you may not use this file except in compliance with the
- * License. You may obtain a copy of the License at http://www.mozilla.org/MPL/
- *
- * Software distributed under the License is distributed on an "AS IS" basis,
- * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for
- * the specific language governing rights and limitations under the License.
- *
- * The Original Code is UInputData.pas
- *
- * The Initial Developer of the Original Code is Peter Johnson
- * (http://www.delphidabbler.com/).
- *
- * Portions created by the Initial Developer are Copyright (C) 2006-2010 Peter
- * Johnson. All Rights Reserved.
- *
- * Contributor(s):
- *   NONE
- *
- * ***** END LICENSE BLOCK *****
+ * Interface and classes that route input data from various sources to the
+ * application.
 }
 
 
@@ -66,11 +45,6 @@ type
   }
   TInputDataFactory = class(TObject)
   public
-    class function CreateFromFile(const FileName: string): IInputData;
-      {Creates object that can read data from file.
-        @param FileName [in] Name of file containing data.
-        @return Required object.
-      }
     class function CreateFromText(const Text: string): IInputData;
       {Creates object that can read data from string.
         @param Text [in] Data as text.
@@ -88,26 +62,6 @@ uses
 
 
 type
-
-  {
-  TFileInputData:
-    IInputData implementation that reads data from a file.
-  }
-  TFileInputData = class(TInterfacedObject, IInputData)
-  private
-    fFileName: string;
-      {Name of file containing data}
-  protected
-    { IInputData }
-    procedure ReadData(const Stream: TStream);
-      {Reads data from file into stream.
-        @param Stream [in] Stream to receive file data.
-      }
-  public
-    constructor Create(const FileName: string);
-      {Class constructor. Sets up object.
-      }
-  end;
 
   {
   TTextInputData:
@@ -132,15 +86,15 @@ type
 
 { TInputDataFactory }
 
-class function TInputDataFactory.CreateFromFile(
-  const FileName: string): IInputData;
-  {Creates object that can read data from file.
-    @param FileName [in] Name of file containing data.
-    @return Required object.
-  }
-begin
-  Result := TFileInputData.Create(FileName);
-end;
+//class function TInputDataFactory.CreateFromFile(
+//  const FileName: string): IInputData;
+//  {Creates object that can read data from file.
+//    @param FileName [in] Name of file containing data.
+//    @return Required object.
+//  }
+//begin
+//  Result := TFileInputData.Create(FileName);
+//end;
 
 class function TInputDataFactory.CreateFromText(const Text: string): IInputData;
   {Creates object that can read data from string.
@@ -150,33 +104,6 @@ class function TInputDataFactory.CreateFromText(const Text: string): IInputData;
 begin
   Result := TTextInputData.Create(Text);
 end;
-
-
-{ TFileInputData }
-
-constructor TFileInputData.Create(const FileName: string);
-  {Class constructor. Sets up object.
-  }
-begin
-  inherited Create;
-  fFileName := FileName;
-end;
-
-procedure TFileInputData.ReadData(const Stream: TStream);
-  {Reads data from file into stream.
-    @param Stream [in] Stream to receive file data.
-  }
-var
-  FileStream: TFileStream;  // stream onto file
-begin
-  FileStream := TFileStream.Create(fFileName, fmOpenRead or fmShareDenyNone);
-  try
-    Stream.CopyFrom(FileStream, 0);
-  finally
-    FreeAndNil(FileStream);
-  end;
-end;
-
 
 { TTextInputData }
 
@@ -193,14 +120,14 @@ procedure TTextInputData.ReadData(const Stream: TStream);
     @const Stream [in] Stream to receive text.
   }
 var
-  StringStream: TStringStream;  // stream onto text string
+  PreambleBytes: TBytes;
+  ContentBytes: TBytes;
 begin
-  StringStream := TStringStream.Create(fText);
-  try
-    Stream.CopyFrom(StringStream, 0);
-  finally
-    FreeAndNil(StringStream);
-  end;
+  PreambleBytes := TEncoding.UTF8.GetPreamble;
+  ContentBytes := TEncoding.UTF8.GetBytes(fText);
+  if Length(PreambleBytes) > 0 then
+    Stream.WriteBuffer(Pointer(PreambleBytes)^, Length(PreambleBytes));
+  Stream.WriteBuffer(Pointer(ContentBytes)^, Length(ContentBytes));
 end;
 
 end.

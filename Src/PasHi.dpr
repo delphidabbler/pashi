@@ -1,36 +1,14 @@
 {
- * PasHi.dpr
+ * This Source Code Form is subject to the terms of the Mozilla Public License,
+ * v. 2.0. If a copy of the MPL was not distributed with this file, You can
+ * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Main project file.
+ * Copyright (C) 2005-2012, Peter Johnson (www.delphidabbler.com).
  *
  * $Rev$
  * $Date$
  *
- *
- * ***** BEGIN LICENSE BLOCK *****
- *
- * Version: MPL 1.1
- *
- * The contents of this file are subject to the Mozilla Public License Version
- * 1.1 (the "License"); you may not use this file except in compliance with the
- * License. You may obtain a copy of the License at http://www.mozilla.org/MPL/
- *
- * Software distributed under the License is distributed on an "AS IS" basis,
- * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for
- * the specific language governing rights and limitations under the License.
- *
- * The Original Code is PasHi.dpr.
- *
- * The Initial Developer of the Original Code is Peter Johnson
- * (http://www.delphidabbler.com/).
- *
- * Portions created by the Initial Developer are Copyright (C) 2005-2010 Peter
- * Johnson. All Rights Reserved.
- *
- * Contributor(s):
- *   NONE
- *
- * ***** END LICENSE BLOCK *****
+ * Main project file.
 }
 
 
@@ -62,24 +40,44 @@ program PasHi;
 {$RESOURCE VerInfo.res}     // contains version info
 
 uses
-  IntfCommon in 'IntfCommon.pas',
-  IntfHiliter in 'IntfHiliter.pas',
-  UCharStack in 'UCharStack.pas',
+  Hiliter.UGlobals in 'Hiliter.UGlobals.pas',
   UClipboardMgr in 'UClipboardMgr.pas',
-  UClipboardStreams in 'UClipboardStreams.pas',
   UConfig in 'UConfig.pas',
   UConsole in 'UConsole.pas',
-  UHilitePasLexer in 'UHilitePasLexer.pas',
-  UHilitePasParser in 'UHilitePasParser.pas',
+  Hiliter.UPasLexer in 'Hiliter.UPasLexer.pas',
+  Hiliter.UPasParser in 'Hiliter.UPasParser.pas',
   UHTMLUtils in 'UHTMLUtils.pas',
   UMain in 'UMain.pas',
   UParams in 'UParams.pas',
   UStdIO in 'UStdIO.pas',
-  UStdIOStreams in 'UStdIOStreams.pas',
-  UStrStreamWriter in 'UStrStreamWriter.pas',
-  USyntaxHiliters in 'USyntaxHiliters.pas',
-  UTextStreamReader in 'UTextStreamReader.pas',
-  PJStreamWrapper in '3rdParty\PJStreamWrapper.pas';
+  Hiliter.UHiliters in 'Hiliter.UHiliters.pas',
+  UStringReader in 'UStringReader.pas',
+  UConsts in 'UConsts.pas',
+  UComparers in 'UComparers.pas',
+  IO.UTypes in 'IO.UTypes.pas',
+  IO.Readers.UStdIn in 'IO.Readers.UStdIn.pas',
+  IO.Readers.UClipboard in 'IO.Readers.UClipboard.pas',
+  IO.Readers.UFactory in 'IO.Readers.UFactory.pas',
+  IO.Writers.UStdOut in 'IO.Writers.UStdOut.pas',
+  IO.Writers.UClipboard in 'IO.Writers.UClipboard.pas',
+  IO.Writers.UFactory in 'IO.Writers.UFactory.pas',
+  IO.Readers.UFiles in 'IO.Readers.UFiles.pas',
+  IO.Writers.UFile in 'IO.Writers.UFile.pas',
+  IO.UHelper in 'IO.UHelper.pas',
+  Renderers.UFactory in 'Renderers.UFactory.pas',
+  UConfigFiles in 'UConfigFiles.pas',
+  USpecialFolders in 'USpecialFolders.pas',
+  USourceProcessor in 'USourceProcessor.pas',
+  Renderers.UCharSetTag in 'Renderers.UCharSetTag.pas',
+  Renderers.UTypes in 'Renderers.UTypes.pas',
+  Renderers.UDocType in 'Renderers.UDocType.pas',
+  Renderers.UProcInst in 'Renderers.UProcInst.pas',
+  Renderers.URootTag in 'Renderers.URootTag.pas',
+  Renderers.UBranding in 'Renderers.UBranding.pas',
+  Renderers.USourceCode in 'Renderers.USourceCode.pas',
+  Renderers.UTitleTag in 'Renderers.UTitleTag.pas',
+  Renderers.UStyles in 'Renderers.UStyles.pas',
+  Renderers.UDocument in 'Renderers.UDocument.pas';
 
 { Main program code }
 

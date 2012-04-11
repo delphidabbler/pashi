@@ -1,35 +1,14 @@
 # ------------------------------------------------------------------------------
-# Makefile
+# This Source Code Form is subject to the terms of the Mozilla Public License,
+# v. 2.0. If a copy of the MPL was not distributed with this file, You can
+# obtain one at http://mozilla.org/MPL/2.0/
 #
-# Makefile for the PasHi project.
+# Copyright (C) 2005-2012, Peter Johnson (www.delphidabbler.com).
 #
 # $Rev$
 # $Date$
 #
-# ***** BEGIN LICENSE BLOCK *****
-#
-# Version: MPL 1.1
-#
-# The contents of this file are subject to the Mozilla Public License Version
-# 1.1 (the "License"); you may not use this file except in compliance with the
-# License. You may obtain a copy of the License at http://www.mozilla.org/MPL/
-#
-# Software distributed under the License is distributed on an "AS IS" basis,
-# WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for
-# the specific language governing rights and limitations under the License.
-#
-# The Original Code is Makefile
-#
-# The Initial Developer of the Original Code is Peter Johnson
-# (http://www.delphidabbler.com/).
-#
-# Portions created by the Initial Developer are Copyright (C) 2009-2010 Peter
-# Johnson. All Rights Reserved.
-#
-# Contributors:
-#   NONE
-#
-# ***** END LICENSE BLOCK *****
+# Makefile for the PasHi project.
 # ------------------------------------------------------------------------------
 
 
@@ -39,15 +18,26 @@ BIN = ..\Bin
 # Include common macros and rules
 !include Common.mak
 
-# Default target is to configure and build the executable program
-everything: config resources pascal
+# Default target is to configure and build the PasHi executable program
+default: pashi
+
+# Configure and build PasHi
+pashi: config resources pascal
+
+# Configure and build PasHiGUI
+pashigui:
+  @cd GUI
+  @$(MAKE)
+  @cd ..
+
+# Build all exes, including setup and create release file
+all: pashi pashigui setup release
 
 # Configure source folders
 config:
   @echo Configuring PasHi
-  # Create .cfg and .dof files from templates 
+  # Create .cfg file from templates 
   @copy /Y PasHi.cfg.tplt PasHi.cfg
-  @copy /Y PasHi.bdsproj.tplt PasHi.bdsproj
   # Create build folders if necessary
   @cd ..
   @if not exist Bin @mkdir Bin
@@ -62,6 +52,11 @@ resources: VerInfo.res Resources.res
 # Builds PasHi pascal files and links program
 pascal: PasHi.exe
 
+# Builds setup program
+setup:
+  @del ..\Exe\PasHi-Setup-*
+  @$(ISCC) Install\Install.iss
+
 # Build release files (.zip)
 !ifndef RELEASEFILENAME
 RELEASEFILENAME = dd-pashi
@@ -73,7 +68,7 @@ release:
   @echo ---------------------
   @cd ..
   -@if exist $(OUTFILE) del $(OUTFILE)
-  @$(ZIP) -j -9 $(OUTFILE) Exe\PasHi.exe Exe\PasHiGUI.exe
+  @$(ZIP) -j -9 $(OUTFILE) Exe\PasHi-Setup-*.exe
   @$(ZIP) -j -9 $(OUTFILE) Docs\ReadMe.html Docs\License.txt
   @cd Src
 
@@ -87,6 +82,7 @@ clean:
   -@del /S *.ddp 2>nul
   -@del /S *.local 2>nul
   -@del /S *.identcache 2>nul
+  -@del /S *.tvsconfig 2>nul
   # remove any __history folders
   -@for /F "usebackq" %i in (`dir /S /B /A:D ..\__history`) do @rmdir /S /Q %i
   @cd Src
@@ -95,7 +91,6 @@ deepclean: clean
   @cd ..
   # remove files created by make config
   -@del /S *.cfg 2>nul
-  -@del /S *.bdsproj 2>nul
   # remove folders created by make config
   -@if exist Bin rmdir /S /Q Bin
   -@if exist Exe rmdir /S /Q Exe

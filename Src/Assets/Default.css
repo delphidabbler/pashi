@@ -1,100 +1,131 @@
 /*
- * Default.css
+ * This Source Code Form is subject to the terms of the Mozilla Public License,
+ * v. 2.0. If a copy of the MPL was not distributed with this file, You can
+ * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Contains default CSS applied to complete XHTML documents.
+ * Copyright (C) 2009-2012, Peter Johnson (www.delphidabbler.com).
  *
  * $Rev$
  * $Date$
  *
+ * Contains default CSS applied to complete XHTML documents.
  *
- * ***** BEGIN LICENSE BLOCK *****
- *
- * Version: MPL 1.1
- *
- * The contents of this file are subject to the Mozilla Public License Version
- * 1.1 (the "License"); you may not use this file except in compliance with the
- * License. You may obtain a copy of the License at http://www.mozilla.org/MPL/
- *
- * Software distributed under the License is distributed on an "AS IS" basis,
- * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for
- * the specific language governing rights and limitations under the License.
- *
- * The Original Code is Default.css.
- *
- * The Initial Developer of the Original Code is Peter Johnson
- * (http://www.delphidabbler.com/).
- *
- * Portions created by the Initial Developer are Copyright (C) 2009 Peter
- * Johnson. All Rights Reserved.
- *
- * Contributor(s):
- *   NONE
- *
- * ***** END LICENSE BLOCK *****
- */
-
-
-/*
-  .pas-source class sets font for whole of source code: background colour,
-  border, margins and padding could also be set here
+ * Many classes have two names: the first name is that used by default in PasHi
+ * v2 and later while the second name is the older PasHi v1 class name that is
+ * used when PasHi is run in legacy CSS mode.
 */
 
+.code-pascal,
 .pas-source {
-    font-family: "Courier New", monospace;
-    font-size: 9pt;
+  background-color: transparent;
 }
 
+.code-pascal pre,
+.pas-source pre {
+  font-family: "Courier New", monospace;
+  font-size: 9pt;
+  margin: 0;
+}
 
-/*
-  remaining classes set text colour, style, weight and decoration for each
-  highlighted element
-*/
+.code-pascal pre.line,
+.pas-source pre.line {
+}
 
+.code-pascal pre.odd-line,
+.pas-source pre.odd-line {
+}
+
+.code-pascal pre.even-line,
+.pas-source pre.even-line {
+  background-color: #f0f0f0;
+}
+
+.code-pascal .linenum,
+.pas-source .linenum {
+  border-right: 1px silver solid;
+  padding: 1px 4px 1px 2px;
+  margin-right: 0.75em;
+  color: gray;
+  background-color: #f0f0f0;
+}
+
+.code-pascal .comment,
 .pas-comment {
-    font-style: italic;
-    font-weight: normal;
-    text-decoration: none;
-    color: #000080;
+  color: green;
+  font-weight: normal;
+  font-style: italic;
+  text-decoration: none;
 }
 
+.code-pascal .kwd,
 .pas-kwd {
-    font-style: normal;
-    font-weight: bold;
-    text-decoration: none;
+  color: navy;
+  font-weight: bold;
+  font-style: normal;
+  text-decoration: none;
 }
 
+.code-pascal .ident,
+.pas-ident {
+  color: black;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+}
+
+.code-pascal .sym,
+.pas-sym {
+  color: black;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+}
+
+.code-pascal .str,
 .pas-str {
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: none;
-    color: #800080;
+  color: blue;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
 }
 
-.pas-num, .pas-float, .pas-hex {
-    /* all number styled the same */
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: none;
-    color: #800000;
+.code-pascal .num,
+.code-pascal .float,
+.code-pascal .hex,
+.pas-num,
+.pas-float,
+.pas-hex {
+  color: maroon;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
 }
 
+.code-pascal .preproc,
 .pas-preproc {
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: none;
-    color: #008000;
+  color: teal;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
 }
 
+.code-pascal .asm,
 .pas-asm {
-    font-style: italic;
-    font-weight: normal;
-    text-decoration: none;
+  color: black;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
 }
 
+.code-pascal .space,
+.pas-space {
+}
+
+.code-pascal .err,
 .pas-err {
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: none;
-    color: #FF0000;
+  color: black;
+  background-color: yellow;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
 }
-

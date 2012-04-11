@@ -1,0 +1,31 @@
+{
+ * This Source Code Form is subject to the terms of the Mozilla Public License,
+ * v. 2.0. If a copy of the MPL was not distributed with this file, You can
+ * obtain one at http://mozilla.org/MPL/2.0/
+ *
+ * Copyright (C) 2012, Peter Johnson (www.delphidabbler.com).
+ *
+ * $Rev$
+ * $Date$
+ *
+ * Handles Inno Setup's install and uninstall events to add and remove PasHi's
+ * install directory to system path.
+ *
+ * Requirements:
+ *   ModifyPathTask constant set to name of task used to update path
+ *   UpdatePath.ps script.
+}
+
+// Adds install directory to path if ModifyPathTask is enabled.
+procedure CurStepChanged(CurStep: TSetupStep);
+begin
+  if (CurStep = ssPostInstall) and IsTaskSelected(ModifyPathTask) then
+    AddToPath(ExpandConstant('{app}'));
+end;
+
+// Removes install directory from path if present.
+procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
+begin
+  if (CurUninstallStep = usUninstall) then
+    RemoveFromPath(ExpandConstant('{app}'));
+end;

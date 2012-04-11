@@ -1,43 +1,20 @@
 {
- * UStdIO.pas
+ * This Source Code Form is subject to the terms of the Mozilla Public License,
+ * v. 2.0. If a copy of the MPL was not distributed with this file, You can
+ * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Static class that outputs to standard output and standard error and inputs
- * from standard input.
+ * Copyright (C) 2005-2012, Peter Johnson (www.delphidabbler.com).
  *
  * $Rev$
  * $Date$
  *
- *
- * ***** BEGIN LICENSE BLOCK *****
- *
- * Version: MPL 1.1
- *
- * The contents of this file are subject to the Mozilla Public License Version
- * 1.1 (the "License"); you may not use this file except in compliance with the
- * License. You may obtain a copy of the License at http://www.mozilla.org/MPL/
- *
- * Software distributed under the License is distributed on an "AS IS" basis,
- * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for
- * the specific language governing rights and limitations under the License.
- *
- * The Original Code is UStdIO.pas.
- *
- * The Initial Developer of the Original Code is Peter Johnson
- * (http://www.delphidabbler.com/).
- *
- * Portions created by the Initial Developer are Copyright (C) 2005-2009 Peter
- * Johnson. All Rights Reserved.
- *
- * Contributor(s):
- *   NONE
- *
- * ***** END LICENSE BLOCK *****
+ * Static class that outputs to standard output and standard error and inputs
+ * from standard input.
 }
 
 
 unit UStdIO;
 
-{$WARN UNSAFE_TYPE OFF}
 
 interface
 
@@ -70,21 +47,6 @@ type
         @param Channel [in] Required output channel.
         @param Buffer [in] Contains data to be written.
         @param Size [in] Size of data in buffer in bytes.
-      }
-    class procedure Write(Channel: TStdIOOutput; const Text: string); overload;
-      {Write text to a channel.
-        @param Channel [in] Required output channel.
-        @param Text [in] Text to be written.
-      }
-    class procedure WriteLn(Channel: TStdIOOutput; const Text: string);
-      overload;
-      {Write text to a channel followed by a new line.
-        @param Channel [in] Required output channel.
-        @param Text [in] Text to be written.
-      }
-    class procedure WriteLn(Channel: TStdIOOutput); overload;
-      {Write a new line to a channel.
-        @param Channel [in] Required output channel.
       }
     class function ReadBuf(var Buffer; const Count: Integer): Integer;
       {Read data from standard input to a buffer.
@@ -140,15 +102,6 @@ begin
   Result := BytesRead;
 end;
 
-class procedure TStdIO.Write(Channel: TStdIOOutput; const Text: string);
-  {Write text to a channel.
-    @param Channel [in] Required output channel.
-    @param Text [in] Text to be written.
-  }
-begin
-  Write(Channel, Text[1], Length(Text));
-end;
-
 class procedure TStdIO.Write(Channel: TStdIOOutput; const Buffer;
   const Size: Integer);
   {Write data from a buffer to an output channel.
@@ -161,23 +114,6 @@ var
 begin
   // Write the data
   Windows.WriteFile(GetHandle(Channel), Buffer, Size, Dummy, nil);
-end;
-
-class procedure TStdIO.WriteLn(Channel: TStdIOOutput; const Text: string);
-  {Write text to a channel followed by a new line.
-    @param Channel [in] Required output channel.
-    @param Text [in] Text to be written.
-  }
-begin
-  Write(Channel, Text + #13#10);
-end;
-
-class procedure TStdIO.WriteLn(Channel: TStdIOOutput);
-  {Write a new line to a channel.
-    @param Channel [in] Required output channel.
-  }
-begin
-  WriteLn(Channel, '');
 end;
 
 end.
