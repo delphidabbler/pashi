@@ -89,10 +89,6 @@ object MainForm: TMainForm
     object tsRendered: TTabSheet
       Caption = 'Display View'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object pnlRendered: TPanel
         Left = 0
         Top = 0
@@ -252,12 +248,13 @@ object MainForm: TMainForm
       ParentColor = True
       TabOrder = 2
       object cpnlMisc: TCategoryPanel
-        Top = 90
+        Top = 190
         Height = 30
         Caption = 'Miscellaneous'
         Color = clWindow
         Collapsed = True
         TabOrder = 0
+        ExplicitTop = 90
         ExpandedHeight = 217
         inline frmMisc: TMiscOptionsFrame
           Left = 0
@@ -271,12 +268,13 @@ object MainForm: TMainForm
         end
       end
       object cpnlLines: TCategoryPanel
-        Top = 60
+        Top = 160
         Height = 30
         Caption = 'Line Numbering && Striping'
         Color = clWindow
         Collapsed = True
         TabOrder = 1
+        ExplicitTop = 60
         ExpandedHeight = 167
         inline frmLines: TLineStyleOptionsFrame
           Left = 0
@@ -290,12 +288,13 @@ object MainForm: TMainForm
         end
       end
       object cpnlCSS: TCategoryPanel
-        Top = 30
+        Top = 130
         Height = 30
         Caption = 'Style Sheets'
         Color = clWindow
         Collapsed = True
         TabOrder = 2
+        ExplicitTop = 30
         ExpandedHeight = 248
         inline frmCSS: TCSSOptionsFrame
           Left = 0
@@ -310,17 +309,15 @@ object MainForm: TMainForm
       end
       object cpnlDocType: TCategoryPanel
         Top = 0
-        Height = 30
+        Height = 130
         Caption = 'Document Type'
         Color = clWindow
-        Collapsed = True
         TabOrder = 3
-        ExpandedHeight = 130
         inline frmDocType: TDocTypeOptionsFrame
           Left = 0
           Top = 0
           Width = 219
-          Height = 0
+          Height = 104
           Align = alClient
           TabOrder = 0
           ExplicitWidth = 219
