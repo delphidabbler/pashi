@@ -127,9 +127,11 @@ type
       {Flag true when program forces actions to update. Used to prevent flicker
       when toolbar actions repeatedly set true then false on idle in
       alMainUpdate event handler}
+
     procedure UpdateDisplay;
       {Updates main display with contents of document.
       }
+    procedure Render;
     procedure DoLoad(const InputData: IInputData); overload;
       {Loads data into document, setting program busy while load takes place.
         @param InputData [in] Object encapsulating data to be loaded.
@@ -241,15 +243,8 @@ begin
   );
   Busy(True);
   try
-    if fOptions.GetParamAsStr('doc-type') = 'fragment' then
-      // todo: change this output type to doFragment
-      fDocument.OutputType := doXHTMLFragment
-    else
-      // todo: change this output type to doComplete
-      fDocument.OutputType := doXHTML;
-    fDocument.Highlight(fOptions);
-    UpdateDisplay;
-    fDocLoaded := True;
+    if fDocLoaded then
+      Render;
   finally
     Busy(False);
   end;
@@ -443,8 +438,7 @@ begin
   Busy(True);
   try
     fDocument.InputFiles := Files;
-    fDocument.Highlight(fOptions);
-    UpdateDisplay;
+    Render;
     fDocLoaded := True;
   finally
     Busy(False);
@@ -459,8 +453,7 @@ begin
   Busy(True);
   try
     fDocument.InputData := InputData;
-    fDocument.Highlight(fOptions);
-    UpdateDisplay;
+    Render;
     fDocLoaded := True;
   finally
     Busy(False);
@@ -683,6 +676,18 @@ procedure TMainForm.pcMainMouseLeave(Sender: TObject);
   }
 begin
   pcMain.Hint := '';
+end;
+
+procedure TMainForm.Render;
+begin
+  if fOptions.GetParamAsStr('doc-type') = 'fragment' then
+    // todo: change this output type to doFragment
+    fDocument.OutputType := doXHTMLFragment
+  else
+    // todo: change this output type to doComplete
+    fDocument.OutputType := doXHTML;
+  fDocument.Highlight(fOptions);
+  UpdateDisplay;
 end;
 
 procedure TMainForm.TranslateAccelHandler(Sender: TObject; const Msg: TMSG;
