@@ -30,7 +30,7 @@ PasHi v1.99.1 build 9
   + Program now has full Unicode support.
   + Support for a config file added to allow program defaults to be configured.
   + Heavily revised command line options:
-    - Many new commands to control new options. 
+    - Many new commands to control new options.
     - Some new commands to reinstate program defaults that may have been overridden by config file.
     - All commands now have a long form beginning with double dashes. Some commands also have a short form comprising a single dash and a single letter.
     - Commands from earlier program versions retained as aliases to new commands.
@@ -54,6 +54,7 @@ PasHiGUI v0.99.1 build 3
   + Input files are now passed directly to the PasHi command line rather than being opened and sent to PasHi via a pipe. (Text from clipboard or drag/drop is still piped to PasHi).
   + Interaction with PasHi changed to permit user defined options to be passed on command line.
   + Options entered in Options Side Bar are persisted in a PasHiGUI's own config file.
+  + Errors returned from PasHi are now reported to user.
   + Online documentation can now be accessed from Help menu.
   + Some refactoring.
 General changes
