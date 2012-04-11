@@ -29,8 +29,8 @@ uses
 type
 
   TDocOutputType = (
-    doXHTML,
-    doXHTMLFragment
+    doComplete,
+    doFragment
   );
 
   TDocInputSource = (
@@ -132,7 +132,7 @@ function TDocument.GetDisplayHTML: string;
     @return Required HTML code.
   }
 begin
-  if fOutputType = doXHTMLFragment then
+  if fOutputType = doFragment then
     Result := SampleHTMLFragmentDoc
   else
     Result := GetHilitedCode;
@@ -198,7 +198,7 @@ function TDocument.SampleHTMLFragmentDoc: string;
     @return Required HTML document.
   }
 begin
-  Assert(fOutputType = doXHTMLFragment,
+  Assert(fOutputType = doFragment,
     'TDocument.SampleHTMLFragmentDoc: Fragment not true');
   Result := StringReplace(
     LoadHTMLTemplate,

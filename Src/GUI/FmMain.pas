@@ -681,11 +681,9 @@ end;
 procedure TMainForm.Render;
 begin
   if fOptions.GetParamAsStr('doc-type') = 'fragment' then
-    // todo: change this output type to doFragment
-    fDocument.OutputType := doXHTMLFragment
+    fDocument.OutputType := doFragment
   else
-    // todo: change this output type to doComplete
-    fDocument.OutputType := doXHTML;
+    fDocument.OutputType := doComplete;
   fDocument.Highlight(fOptions);
   UpdateDisplay;
 end;
