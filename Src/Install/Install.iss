@@ -24,7 +24,8 @@
 ;   GetFileProductVersion - gets product version info string from an executable
 
 #define ExeFile "PasHi.exe"
-#define LicenseFile "License.txt"
+#define LicenseFile "License.rtf"
+#define LicenseTextFile "License.txt"
 #define ReadmeFile "ReadMe.html"
 #define InstUninstDir "Uninst"
 #define OutDir SourcePath + "..\..\Exe"
@@ -86,7 +87,7 @@ ChangesEnvironment=true
 [Files]
 Source: {#SrcExePath}{#ExeFile}; DestDir: {app}; Flags: uninsrestartdelete replacesameversion
 Source: {#SrcExePath}PasHiGUI.exe; DestDir: {app}; Tasks: gui; Flags: uninsrestartdelete replacesameversion
-Source: {#SrcDocsPath}{#LicenseFile}; DestDir: {app}; Flags: ignoreversion
+Source: {#SrcDocsPath}{#LicenseTextFile}; DestDir: {app}; Flags: ignoreversion
 Source: {#SrcDocsPath}{#ReadmeFile}; DestDir: {app}; Flags: ignoreversion
 Source: {#SrcConfigPath}version; DestDir: {#AppDataDir}; Flags: ignoreversion
 Source: {#SrcConfigPath}config-template; DestDir: {#AppDataDir}; Flags: ignoreversion
