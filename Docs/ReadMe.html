@@ -1361,7 +1361,7 @@ doc-type fragment</pre>
     Applied to each <code>&lt;pre&gt;</code> tag when all lines are to be
     rendered the same, i.e. when code striping is switched off (see the
     <code>--striping</code> command above). Provide CSS for this class if you
-    want to style the line, for example to draw a border. Define this class as
+    want to style the line, for example to draw a border.
   </dd>
   <dt class="css">
     .even-line<br />
@@ -1372,19 +1372,19 @@ doc-type fragment</pre>
     numbered lines respectively when code striping is switched on (see the
     <code>--striping</code> command above). <code>.even-line</code> and
     <code>.odd-line</code> must be styled differently otherwise striping will
-    have no visible effect. The usualy use is to provide a different background
+    have no visible effect. The usual use is to provide a different background
     colour for alternate lines &ndash; hence the name &quot;striping&quot;.
   </dd>
   <dt class="css">
     .linenum
   </dt>
   <dd>
-    This class is applied to any line numbers that may be included at the
-    start of a line (see the <code>--line-numbering</code> and related
-    commands). <code>.linenum</code> can be used to set line number font style
-    and colour along with the margin between the line number and source code
-    line and any separating border, for example. The font used should be mono
-    spaced otherwise the numbers may not line up correctly.
+    This class is applied to any line numbers that may be prepended to the start
+    of a line (see <code>--line-numbering</code> and related commands).
+    <code>.linenum</code> can be used to set line number font style and colour
+    along with the margin between the line number and source code, and any
+    separating border, for example. The font used should be mono spaced
+    otherwise the numbers may not line up correctly.
   </dd>
 </dl>
 
@@ -1472,9 +1472,9 @@ doc-type fragment</pre>
 </dl>
 
 <p>
-  The element CSS classes should be defined as children of
-  <code>.code-pascal</code> to avoid potential clashes with other similarly
-  named styles in an HTML document.
+  These CSS classes should be defined as children of <code>.code-pascal</code>
+  to avoid potential clashes with other similarly named styles in an HTML
+  document.
 </p>
 
 <p>
@@ -1489,7 +1489,7 @@ doc-type fragment</pre>
     <code>--embed-css</code> switch.
   </li>
   <li>
-    Link to an external style sheet from the output document using the
+    Link to your own external style sheet from the output document using the
     <code>--link-css</code> switch.
   </li>
   <li>
@@ -1498,18 +1498,13 @@ doc-type fragment</pre>
   </li>
 </ul>
 
-<p class="pullout">
-  Note that whenever you defined your own CSS for the above classes and tags,
-  each one should be defined as a child of <code>.code-pascal</code>.
-</p>
-
 <h3>
   Default style
 </h3>
 
 <p>
   To help you get started in defining your own classes, here are the default
-  definitions for the classes that are used by <em>PasHi</em>:
+  definitions that are used by <em>PasHi</em>:
 </p>
 
 <pre class="block">.code-pascal,
@@ -1642,11 +1637,6 @@ doc-type fragment</pre>
     &quot;<code>legacy-css&nbsp;on</code>&quot; in the <code>config</code> file
     if you want to use the old style names by default.
   </p>
-  <p>
-    The above style sheet is not suitable for use with legacy css classes: refer
-    to one of the sample .css files provided with <em>PasHi</em> to learn how to
-    define CSS files to work with both legacy and the later classes.
-  </p>
 </div>
 
 <h3 id="css-samples">
@@ -1655,7 +1645,7 @@ doc-type fragment</pre>
 
 <p>
   <em>PasHi</em> provides several .css files that can be used to change the
-  style of highlighted code. They are installed into the
+  style of highlighted code. They are (optionally) installed into the
   <code>%AppData%\DelphiDabbler\PasHi</code> directory when <em>PasHi</em> is
   first run after installation. The files are:
 </p>
@@ -1732,7 +1722,7 @@ doc-type fragment</pre>
     v1-default.css
   </dt>
   <dd>
-    Replicates the highligting style used by <em>PasHi</em> v1. There is also
+    Replicates the highlighting style used by <em>PasHi</em> v1. There is also
     a custom config script that replicates v1 as far as possible, and that
     script requires this CSS file.
   </dd>
@@ -1747,8 +1737,8 @@ doc-type fragment</pre>
   You can embed these files using the <code>--embed-css</code> command, followed
   by the file name on its own with no path information. You can also configure
   <em>PasHi</em> to always use one of the files by including a suitable
-  <code>embed-css</code> command in the <code>config</code> files. You may also
-  copy and edit these files freely, and may use them on any website.
+  <code>embed-css</code> command in the <code>config</code> file. You may copy
+  and edit these files freely, and may use them on any website.
 </p>
 
 <p>
@@ -1764,28 +1754,93 @@ doc-type fragment</pre>
 </h2>
 
 <p>
-  <em>PasHiGUI</em> is very simple and pretty straightforward. A brief
-  explanation of the commands and main display should suffice.
+  <em>PasHiGUI</em> provides a GUI for <em>PasHi</em> and permits many of
+  <em>PasHi</em> features to be accessed graphically.
 </p>
 
 <h3>
-  Commands
+  Main display
 </h3>
+
+<p>
+  <em>PasHiGUI</em>'s main window displays two tabs: <em>Display View</em> and
+  <em>HTML view</em>. These tabs provide different views of the generated HTML,
+  as follows:
+</p>
+
+<dl class="spaced">
+  <dt>
+    Display View
+  </dt>
+  <dd>
+    Renders the HTML as it will appear in a browser. If the generated code
+    is a complete document it is displayed as-is. If it is a fragment the code
+    is displayed using <em>PasHiGUI</em>'s built in style sheet.
+  </dd>
+  <dt>
+    HTML View
+  </dt>
+  <dd>
+    Displays the generated HTML source code.
+  </dd>
+</dl>
+
+<h3>
+  Options side bar
+</h3>
+
+<p>
+  <em>PasHi</em>'s behaviour is customised using the <em>Options Side Bar</em>.
+  This can be displayed on the right hand side of the main window when required.
+  It is toggled on and off using the <em>Options | Show / Hide Options Bar</em>
+  menu option or the &quot;cog&quot; button on the toolbar.
+</p>
+
+<p>
+  All <em>PasHi</em> options supported by <em>PasHiGUI</em> can be set from this
+  side bar. Options are grouped under various collapsible sections. Each group
+  relates to one or more <em>PasHi</em> commands. Select the required options
+  and click the <em>Apply</em> button when ready. Any currently displayed
+  document will then be regenerated using the new settings.
+</p>
+
+<p>
+  You can revert to <em>PasHi</em>'s default settings, as modified by any config
+  file. Click the <em>Restore Defaults</em> to do this. Clicking this button
+  updates the options in the side bar but does not regenerate the current
+  document. You need to click the <em>Apply</em> button to do this.
+</p>
+
+<p>
+  The options set in the side bar are recorded in a file when <em>PasHiGUI</em>
+  closes. They are reloaded the next time the program is started. This means
+  that you can keep a different set of &quot;defaults&quot; for
+  <em>PasHiGUI</em> to those used for <em>PasHi</em>.
+</p>
+
+<h3>
+  Main menu
+</h3>
+
+<p>
+  <em>PasHiGUI</em> is controlled by a main menu along with a toolbar that
+  replicates some of the functions accessed via the menus. The menus are
+  described below:
+</p>
 
 <dl class="spaced">
   <dt>
     File | Open
   </dt>
   <dd>
-    Opens one or more source files for highlighting. Multiple files are combined
-    before highlighting.
+    Opens one or more source files for highlighting.
   </dd>
   <dt>
     File | Save
   </dt>
   <dd>
-    Saves highlighted code as XTHML to a file. The file can be saved with
-    either .html or .txt extensions.
+    Saves highlighted code as HTML to a file. The file can be saved with either
+    .html or .txt extensions.
   </dd>
   <dt>
     File | Exit
@@ -1797,37 +1852,34 @@ doc-type fragment</pre>
     Edit | Copy
   </dt>
   <dd>
-    Copies highlighted code to the clipboard as HTML in text format.
+    Copies highlighted code to the clipboard as HTML, in text format.
   </dd>
   <dt>
     Edit | Paste
   </dt>
   <dd>
-    Attempts to highlight any text on the clipboard: it assumes it is source
-    code.
+    Attempts to highlight any text on the clipboard. The text is assumed to be
+    source code.
   </dd>
   <dt>
-    Options | Generate Fragment
+    Options | Show Options Bar<br />
+    Options | Hide Options Bar
   </dt>
   <dd>
-    When this option is set an HTML fragment is generated instead of a
-    complete HTML document. For more information see the documentation of
-    <em>PasHi</em>'s <code>--doc-type fragment</code> command.
+    Displays or hides the <em>Options Side Bar</em>.
   </dd>
   <dt>
-    Options | Show Hints
+    Help | Online Docs
   </dt>
   <dd>
-    Determines whether help hints are displayed in the status bar as the
-    mouse moves over menus and other parts of the interface. Turn this on
-    if you want to be reminded of a command etc.
+    Displays the online documentation for <em>PasHiGUI</em> in the default web
+    browser.
   </dd>
   <dt>
     Help | About
   </dt>
   <dd>
-    Displays the About Box. Useful to find the version number of the
-    program.
+    Displays the program's About Box.
   </dd>
 </dl>
 
@@ -1847,50 +1899,19 @@ doc-type fragment</pre>
   </li>
   <li>
     Drag and drop selected text from a suitable text editor: the selected text
-    is highlighted and is assumed to be valid Pascal source code.
+    is syntax highlighted and is assumed to be valid Pascal source code.
   </li>
 </ul>
-
-<h3>
-  Main Display
-</h3>
-
-<p>
-  There are two display tabs each of which render the generated XHTML in a
-  different way:
-</p>
-
-<dl class="spaced">
-  <dt>
-    Display View
-  </dt>
-  <dd>
-    Renders the HTML as it will appear in a browser. If the generated code
-    is a complete document it is displayed as-is. If it is a fragment the code
-    is displayed in a yellow box.
-  </dd>
-  <dt>
-    HTML View
-  </dt>
-  <dd>
-    Displays the generated HTML source code.
-  </dd>
-</dl>
 
 <h3>
   Dependencies
 </h3>
 
 <p>
-  <em>PasHiGUI</em> is designed as a front end for <em>PasHi</em> and therefore
-  will not work unless a suitable version of <em>PasHi</em> is installed and
-  accessible. The best solution is to use the correct install program which
-  places <em>PasHiHUI</em> and <em>PasHi</em> in the same directory.
-</p>
-
-<p>
-  The version of <em>PasHi</em> being used must be v2 or later. If you used the
-  installer <em>PasHi</em> will be the correct version.
+  <em>PasHiGUI</em> will not work unless a suitable version of <em>PasHi</em> is
+  installed in the same directory and is the correct version. Using the
+  installer to install both programs is the best means of ensuring that
+  everything is set up correctly.
 </p>
 
 <p class="gototop">
@@ -1924,7 +1945,7 @@ doc-type fragment</pre>
 </p>
 
 <p>
-  Zip files containing source code is hosted on the project's GoogleCode <a
+  Zip files containing source code are hosted on the project's GoogleCode <a
     href="http://code.google.com/p/pas-hi/downloads/list"
   >download tab</a>.
 </p>
