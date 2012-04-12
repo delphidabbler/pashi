@@ -4,7 +4,7 @@
 ; $Date$
 ; ------------------------------------------------------------------------------
 
-Release 2.0 beta 1
+Release 2.0 beta 1 - 11 April 2011
 PasHi v1.99.1 build 9
   + Improved Pascal syntax highlighter:
     - Now understands Delphi 2010 keywords and directives.
