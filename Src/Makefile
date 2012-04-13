@@ -36,7 +36,7 @@ all: pashi pashigui setup release
 # Configure source folders
 config:
   @echo Configuring PasHi
-  # Create .cfg file from templates 
+  # Create .cfg file from templates
   @copy /Y PasHi.cfg.tplt PasHi.cfg
   # Create build folders if necessary
   @cd ..

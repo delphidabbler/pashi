@@ -8,7 +8,7 @@ the files in this directory. The number should be bumped by one each time one or
 more files in this directory are changed in a release.
 
 If the number in %ProgramData%\DelphiDabbler\PasHi\version is greater than that
-in %AppData%\DelphiDabbler\PasHi\version then the files in 
+in %AppData%\DelphiDabbler\PasHi\version then the files in
 %ProgramData%\DelphiDabbler\PasHi are copied to %AppData%\DelphiDabbler\PasHi,
 overwriting any existing files. The files are also copied if either of the
 "version" files are not present.
