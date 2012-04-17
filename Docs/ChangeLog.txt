@@ -5,7 +5,7 @@
 ; ------------------------------------------------------------------------------
 
 Release 2.0 beta 1 - 11 April 2011
-PasHi v1.99.1 build 9
+* PasHi v1.99.1 build 9
   + Improved Pascal syntax highlighter:
     - Now understands Delphi 2010 keywords and directives.
     - Support added for some context sensitive directives.
@@ -39,7 +39,7 @@ PasHi v1.99.1 build 9
     - Exceptions are no longer raised on checking clipboard when another program has it open.
     - Parser no longer crashes when unexpected characters are encountered in source code.
   + Significant refactoring of source code.
-PasHiGUI v0.99.1 build 3
+* PasHiGUI v0.99.1 build 3
   + Now requires PasHi v2 beta or later.
   + Now Unicode compatible.
   + UI changes:
@@ -57,7 +57,7 @@ PasHiGUI v0.99.1 build 3
   + Errors returned from PasHi are now reported to user.
   + Online documentation can now be accessed from Help menu.
   + Some refactoring.
-General changes
+* General changes
   + Recompiled PasHi and PasHiGUI with Delphi 2010.
   + Re-licensed source code: changed from Mozilla Public License v1.1 to v2.0.
   + New sample CSS style sheets and config template files.
@@ -68,11 +68,11 @@ General changes
   + Updated and expanded documentation.
 
 Release 1.1.0 - 15 February 2010
-PasHi v1.0.1 build 8
+* PasHi v1.0.1 build 8
   + Renamed PasH to PasHi to avoid clash with another open source project name PasH.
   + Rebuilt with Delphi 2006 instead of Delphi 7. Brings into line with PasHiGUI.
   + Updated documentation and merged in PasHiGUI docs.
-PasHiGUI v0.1.1 Beta build 2
+* PasHiGUI v0.1.1 Beta build 2
   + Added PasHiGUI (renamed from PasHGUI) to release. No longer to be released separately.
   + Merged documentation with PasHi
 
