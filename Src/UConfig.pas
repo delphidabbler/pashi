@@ -46,8 +46,8 @@ type
   TOutputEncodingId = (
     oeUTF8,         // UTF-8 encoding with BOM
     oeUTF16,        // Unicode little endian encoding with BOM
-    oeWindows1252,  // Windows-1252 aka Latin 1 encoding
-    oeISO88591      // ISO-8859-1 encoding
+    oeWindows1252,  // Windows-1252 aka CP-1252 encoding
+    oeISO88591      // ISO-8859-1 aka Latin-1 encoding
   );
 
   // Enumerates possible sources of style sheets

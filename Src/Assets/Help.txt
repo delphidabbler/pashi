@@ -43,8 +43,8 @@ PasHi supports the following commands:
                             parameter must provide one of the following values:
                               utf-8 [default]
                               utf-16 (or unicode)
-                              windows-1252 (or latin-1)
-                              iso-8859-1.
+                              windows-1252 (or cp-1252)
+                              iso-8859-1 (or latin-1).
 --help                -h    Displays this help screen. Do not use with other
                             commands.
 --hide-css            -c    Determines whether any embedded CSS is enclosed in

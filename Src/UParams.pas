@@ -239,9 +239,11 @@ begin
     Add('unicode', oeUTF16);
     Add('windows-1252', oeWindows1252);
     Add('windows1252', oeWindows1252);
-    Add('latin-1', oeWindows1252);
-    Add('latin1', oeWindows1252);
+    Add('cp-1252', oeWindows1252);
+    Add('cp1252', oeWindows1252);
     Add('iso-8859-1', oeISO88591);
+    Add('latin-1', oeISO88591);
+    Add('latin1', oeISO88591);
   end;
   // lookup table for --doc-type command values: case insensitive
   fDocTypeLookup := TDictionary<string, TDocType>.Create(
