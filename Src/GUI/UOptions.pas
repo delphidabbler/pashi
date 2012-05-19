@@ -207,7 +207,7 @@ begin
   // Remove all input options: these are determined by program's input source
   Delete('input-stdin');
   Delete('input-clipboard');
-  // Program always reads PasHi output from stdout: don't need option
+  // Program always writes PasHi output to stdout: don't need option
   Delete('output-file');
   Delete('output-clipboard');
   Delete('output-stdout');
@@ -281,3 +281,4 @@ begin
 end;
 
 end.
+
