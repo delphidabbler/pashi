@@ -194,6 +194,6 @@
 
 
 # --- Help ---
-# While it is possible to specify the help command in this file, you definately
+# While it is possible to specify the help command in this file, you definitely
 # should not. If you do then PasHi will only ever display help and will ignore
 # any other commands in this file or on the command line. You have been warned!
