@@ -115,7 +115,6 @@ begin
   Result := 'PasHi '
     + '--output-stdout '
     + '--encoding utf-8 '
-    + '--default-css '
     + '--verbosity quiet '
   ;
   if Assigned(Files) then
