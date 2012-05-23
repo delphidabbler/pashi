@@ -68,7 +68,7 @@ uses
 
 begin
   Application.Initialize;
-  Application.Title := 'PasH GUI';
+  Application.Title := 'PasHi GUI';
   Application.CreateForm(TMainForm, MainForm);
   Application.Run;
 end.
