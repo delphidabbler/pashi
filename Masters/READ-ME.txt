@@ -1,0 +1,23 @@
+The purpose of the "Masters" directory is to store "master" documents that have
+been used to generate some of the files used by the project.
+
+Files are listed below.
+
+--------------------------------------------------------------------------------
+PasH-Icon.icpr
+--------------------------------------------------------------------------------
+
+Description:
+
+  The program's icon as SIB icon editor icon project containing four 32 bit
+  colour program icons in 16x16, 32x32, 48x48 and 256x256 sizes.
+
+Use:
+
+  To generate the main icons for PasHi (PasHi.ico) and PasHiGUI (MainIcon.ico).
+
+
+--------------------------------------------------------------------------------
+$Rev$
+$Date$
+--------------------------------------------------------------------------------
