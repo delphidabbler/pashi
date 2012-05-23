@@ -254,7 +254,6 @@ object MainForm: TMainForm
         Color = clWindow
         Collapsed = True
         TabOrder = 0
-        ExplicitTop = 90
         ExpandedHeight = 217
         inline frmMisc: TMiscOptionsFrame
           Left = 0
@@ -274,7 +273,6 @@ object MainForm: TMainForm
         Color = clWindow
         Collapsed = True
         TabOrder = 1
-        ExplicitTop = 60
         ExpandedHeight = 167
         inline frmLines: TLineStyleOptionsFrame
           Left = 0
@@ -294,7 +292,6 @@ object MainForm: TMainForm
         Color = clWindow
         Collapsed = True
         TabOrder = 2
-        ExplicitTop = 30
         ExpandedHeight = 248
         inline frmCSS: TCSSOptionsFrame
           Left = 0
@@ -321,7 +318,7 @@ object MainForm: TMainForm
           Align = alClient
           TabOrder = 0
           ExplicitWidth = 219
-          ExplicitHeight = 0
+          ExplicitHeight = 104
         end
       end
     end
@@ -454,8 +451,8 @@ object MainForm: TMainForm
     end
     object actPasHiGUIWiki: TBrowseURL
       Category = 'Help'
-      Caption = 'Online Docs'
-      Hint = 'Browse URL'
+      Caption = 'Online User Guide'
+      Hint = 'User Guide|Display user guide online'
       URL = 'www.delphidabbler.com/view/url/pashigui-wiki'
     end
   end
