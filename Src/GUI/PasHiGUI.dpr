@@ -68,6 +68,7 @@ uses
 
 begin
   Application.Initialize;
+  Application.MainFormOnTaskBar := True;
   Application.Title := 'PasHi GUI';
   Application.CreateForm(TMainForm, MainForm);
   Application.Run;
