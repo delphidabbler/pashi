@@ -236,6 +236,7 @@ object MainForm: TMainForm
       Top = 18
       Width = 223
       Height = 357
+      VertScrollBar.Position = 55
       VertScrollBar.Tracking = True
       Align = alNone
       Anchors = [akLeft, akTop, akBottom]
@@ -248,17 +249,18 @@ object MainForm: TMainForm
       ParentColor = True
       TabOrder = 2
       object cpnlMisc: TCategoryPanel
-        Top = 190
+        Top = 135
         Height = 30
         Caption = 'Miscellaneous'
         Color = clWindow
         Collapsed = True
         TabOrder = 0
+        ExplicitTop = 353
         ExpandedHeight = 217
         inline frmMisc: TMiscOptionsFrame
           Left = 0
           Top = 0
-          Width = 219
+          Width = 202
           Height = 0
           Align = alClient
           TabOrder = 0
@@ -267,17 +269,18 @@ object MainForm: TMainForm
         end
       end
       object cpnlLines: TCategoryPanel
-        Top = 160
+        Top = 105
         Height = 30
         Caption = 'Line Numbering && Striping'
         Color = clWindow
         Collapsed = True
         TabOrder = 1
+        ExplicitTop = 323
         ExpandedHeight = 167
         inline frmLines: TLineStyleOptionsFrame
           Left = 0
           Top = 0
-          Width = 219
+          Width = 202
           Height = 0
           Align = alClient
           TabOrder = 0
@@ -286,13 +289,13 @@ object MainForm: TMainForm
         end
       end
       object cpnlCSS: TCategoryPanel
-        Top = 130
+        Top = 75
         Height = 30
         Caption = 'Style Sheets'
         Color = clWindow
         Collapsed = True
         TabOrder = 2
-        ExpandedHeight = 248
+        ExpandedHeight = 254
         inline frmCSS: TCSSOptionsFrame
           Left = 0
           Top = 0
@@ -305,7 +308,7 @@ object MainForm: TMainForm
         end
       end
       object cpnlDocType: TCategoryPanel
-        Top = 0
+        Top = -55
         Height = 130
         Caption = 'Document Type'
         Color = clWindow
@@ -313,7 +316,7 @@ object MainForm: TMainForm
         inline frmDocType: TDocTypeOptionsFrame
           Left = 0
           Top = 0
-          Width = 219
+          Width = 202
           Height = 104
           Align = alClient
           TabOrder = 0

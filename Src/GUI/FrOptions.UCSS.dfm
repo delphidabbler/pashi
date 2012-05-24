@@ -2,80 +2,80 @@ inherited CSSOptionsFrame: TCSSOptionsFrame
   Height = 261
   ExplicitHeight = 261
   object lblCSSFile: TLabel
-    Left = 19
-    Top = 50
-    Width = 177
+    Left = 24
+    Top = 55
+    Width = 145
     Height = 13
     Caption = 'Choose or enter CSS file name'
   end
   object lblCSSURL: TLabel
-    Left = 19
-    Top = 125
-    Width = 108
+    Left = 24
+    Top = 130
+    Width = 107
     Height = 13
     Caption = 'Enter style sheet URL:'
   end
   object rbEmbedCSS: TRadioButton
-    Left = 3
-    Top = 27
-    Width = 193
+    Left = 8
+    Top = 32
+    Width = 192
     Height = 17
     Caption = 'Embed CSS from file'
     TabOrder = 1
     OnClick = RadioButtonClick
   end
   object rbLinkCSS: TRadioButton
-    Left = 3
-    Top = 102
-    Width = 193
+    Left = 8
+    Top = 107
+    Width = 192
     Height = 17
     Caption = 'Link to external style sheet'
     TabOrder = 4
     OnClick = RadioButtonClick
   end
   object chkLegacyCSS: TCheckBox
-    Left = 3
-    Top = 176
-    Width = 193
+    Left = 8
+    Top = 181
+    Width = 192
     Height = 17
     Caption = 'Use PasHi v1 CSS style names'
     TabOrder = 6
   end
   object cbCSSFile: TComboBox
-    Left = 19
-    Top = 69
-    Width = 141
+    Left = 24
+    Top = 74
+    Width = 140
     Height = 21
     TabOrder = 2
   end
   object edCSSURL: TEdit
-    Left = 19
-    Top = 144
-    Width = 171
+    Left = 24
+    Top = 149
+    Width = 170
     Height = 21
     HideSelection = False
     TabOrder = 5
   end
   object chkHideCSS: TCheckBox
-    Left = 3
-    Top = 199
-    Width = 177
+    Left = 8
+    Top = 204
+    Width = 176
     Height = 17
     Caption = 'Hide CSS in HTML comments'
     TabOrder = 7
   end
   object btnCSSFileDlg: TButton
-    Left = 164
-    Top = 67
-    Width = 26
+    Left = 169
+    Top = 72
+    Width = 25
     Height = 25
     Action = actCSSFileBrowse
     TabOrder = 3
   end
   object rbDefaultCSS: TRadioButton
-    Left = 3
-    Top = 3
-    Width = 193
+    Left = 8
+    Top = 8
+    Width = 192
     Height = 17
     Caption = 'Use default style sheet'
     TabOrder = 0
