@@ -111,6 +111,9 @@ type
     procedure lblOptionsHideClick(Sender: TObject);
     procedure lblOptionsHideMouseEnter(Sender: TObject);
     procedure lblOptionsHideMouseLeave(Sender: TObject);
+  strict private
+    type
+      TLoadProc = reference to procedure;
   private
     fOptions: TOptions;
     fDocLoaded: Boolean;
@@ -138,6 +141,7 @@ type
       }
     procedure DoLoad(const Files: TArray<string>); overload;
     procedure DoLoad(const FileName: string); overload;
+    procedure InternalLoad(const Callback: TLoadProc);
     procedure TranslateAccelHandler(Sender: TObject; const Msg: TMSG;
       const CmdID: DWORD; var Handled: Boolean);
       {Handles event triggered by web browser controller when a key is pressed
@@ -424,25 +428,18 @@ begin
 end;
 
 procedure TMainForm.DoLoad(const FileName: string);
-var
-  Files: TArray<string>;
 begin
-  SetLength(Files, 1);
-  Files[0] := FileName;
-  DoLoad(Files);
+  DoLoad(TArray<string>.Create(FileName));
 end;
 
 procedure TMainForm.DoLoad(const Files: TArray<string>);
-// todo: merge DoLoad methods and set fDocument properties via closures
 begin
-  Busy(True);
-  try
-    fDocument.InputFiles := Files;
-    Render;
-    fDocLoaded := True;
-  finally
-    Busy(False);
-  end;
+  InternalLoad(
+    procedure
+    begin
+      fDocument.InputFiles := Files;
+    end
+  );
 end;
 
 procedure TMainForm.DoLoad(const InputData: IInputData);
@@ -450,14 +447,12 @@ procedure TMainForm.DoLoad(const InputData: IInputData);
     @param InputData [in] Object encapsulating data to be loaded.
   }
 begin
-  Busy(True);
-  try
-    fDocument.InputData := InputData;
-    Render;
-    fDocLoaded := True;
-  finally
-    Busy(False);
-  end;
+  InternalLoad(
+    procedure
+    begin
+      fDocument.InputData := InputData;
+    end
+  );
 end;
 
 procedure TMainForm.DragDropExceptionHandler(const E: TObject);
@@ -616,6 +611,18 @@ begin
       raise Exception.Create('Expected data format not available');
   finally
     FreeAndNil(DOAdapter);
+  end;
+end;
+
+procedure TMainForm.InternalLoad(const Callback: TLoadProc);
+begin
+  Busy(True);
+  try
+    Callback;
+    Render;
+    fDocLoaded := True;
+  finally
+    Busy(False);
   end;
 end;
 
