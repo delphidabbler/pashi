@@ -60,6 +60,8 @@ type
         @param CmdLine [in] PasHi command line.
         @except Exception raised if can't execute PasHi.exe.
       }
+    function InternalHilite(const HilitedStream: TStream;
+      const CmdLine: string): Boolean;
   public
     function Hilite(const SourceStream, HilitedStream: TStream;
       const Options: TOptions): Boolean; overload;
@@ -147,32 +149,12 @@ begin
   fErrPipe.CopyToStream(fConsoleOutputStream);
 end;
 
-// TODO: refactor Hilite methods using extract method passing fInPipe as param
 function TPasHi.Hilite(const Files: TArray<string>;
   const HilitedStream: TStream; const Options: TOptions): Boolean;
 begin
   Assert(Assigned(Files));
   Assert(Length(Files) > 0);
-  fErrPipe := nil;
-  fConsoleOutputStream := nil;
-  fOutPipe := nil;
-  fInPipe := nil;
-  try
-    // Create output pipes
-    fOutPipe := TPipe.Create;
-    fErrPipe := TPipe.Create;
-    // Create / record output streams
-    // default encoding used for console output on stderr
-    fConsoleOutputStream := TStringStream.Create('', TEncoding.Default);
-    fOutStream := HilitedStream;
-    // Run program and check for success
-    RunPasHi(BuildCommandLine(Files, Options));
-    Result := AnsiPos('Error:', ConsoleOutput) = 0;
-  finally
-    FreeAndNil(fConsoleOutputStream);
-    FreeAndNil(fOutPipe);
-    FreeAndNil(fErrPipe);
-  end;
+  Result := InternalHilite(HilitedStream, BuildCommandLine(Files, Options));
 end;
 
 function TPasHi.Hilite(const SourceStream, HilitedStream: TStream;
@@ -186,14 +168,24 @@ function TPasHi.Hilite(const SourceStream, HilitedStream: TStream;
     @return True if program completed normally, false on error.
   }
 begin
-  fErrPipe := nil;
-  fConsoleOutputStream := nil;
-  fOutPipe := nil;
   // Create input pipe and copy data into it
   fInPipe := TPipe.Create(SourceStream.Size);
   try
     fInPipe.CopyFromStream(SourceStream);
     fInPipe.CloseWriteHandle;
+    Result := InternalHilite(HilitedStream, BuildCommandLine(nil, Options));
+  finally
+    FreeAndNil(fInPipe);  // must leave fPipe = nil
+  end;
+end;
+
+function TPasHi.InternalHilite(const HilitedStream: TStream;
+  const CmdLine: string): Boolean;
+begin
+  fErrPipe := nil;
+  fConsoleOutputStream := nil;
+  fOutPipe := nil;
+  try
     // Create output pipes
     fOutPipe := TPipe.Create;
     fErrPipe := TPipe.Create;
@@ -202,13 +194,12 @@ begin
     fConsoleOutputStream := TStringStream.Create('', TEncoding.Default);
     fOutStream := HilitedStream;
     // Run program and check for success
-    RunPasHi(BuildCommandLine(nil, Options));
+    RunPasHi(CmdLine);
     Result := AnsiPos('Error:', ConsoleOutput) = 0;
   finally
     FreeAndNil(fConsoleOutputStream);
     FreeAndNil(fOutPipe);
     FreeAndNil(fErrPipe);
-    FreeAndNil(fInPipe);
   end;
 end;
 
