@@ -8,8 +8,8 @@
  * $Rev$
  * $Date$
  *
- * Class that interacts with and provides an alternate interface to a
- * IDataObject.
+ * Defines an adapter class that interacts with and provides an alternate
+ * interface to a IDataObject.
 }
 
 
@@ -25,41 +25,53 @@ uses
 
 
 type
-
-  {
-  TDataObjectAdapter:
-    Helper class that interacts with and provides an alternate interface to a
-    IDataObject.
-  }
+  ///  <summary>Adapter class that interacts with and provides an alternate
+  ///  interface to a IDataObject.</summary>
   TDataObjectAdapter = class(TObject)
-  private
-    fDataObject: IDataObject;
-      {Adapted data object}
+  strict private
+    var
+      ///  <summary>Adapted data object</summary>
+      fDataObject: IDataObject;
+    ///  <summary>Returns a TFormatEtc record that has been initialised for the
+    ///  given data format.</summary>
     function MakeFormatEtc(const Fmt: TClipFormat): TFormatEtc;
-      {Initialises a TFormatEtc record for a specified data format.
-        @param Fmt [in] Required data format.
-        @return Initialised record.
-      }
+
   public
+    ///  <summary>Creates adapter for a given IDataObject instance.</summary>
     constructor Create(const DataObject: IDataObject);
-      {Class constructor. Creates adapter for a IDataObject.
-        @param DataObject [in] Object to be adapted.
-      }
+
+    ///  <summary>Checks if data object supports given data format.</summary>
     function HasFormat(const Fmt: TClipFormat): Boolean;
-      {Checks if data object supports a data format.
-        @param Fmt [in] Format to check.
-        @return True if format supported, false otherwise.
-      }
+
+    ///  <summary>Extracts and returns data object's data as text using given
+    ///  clipboard format.</summary>
+    ///  <remarks>Clipboard format can be any type where there is a meaningful
+    ///  interpretation of the data as text.</remarks>
+    ///  <exception>EOleSysError raised if data object does not support format
+    ///  or data can't be read from data object.</exception>
     function GetDataAsText(const Fmt: TClipFormat): string;
-      {Extracts data object's data as text. The data object can be any format
-      type where there is a meaningful interpretation of data as text.
-        @param Fmt [in] Data object format required.
-        @return Required text.
-        @except EOleSysError raised if can't extract data from data object or
-          data object does not support required format.
-      }
+
+    ///  <summary>Extracts data object's data as ANSI text using given clipboard
+    ///  format and returns text converted to Unicode string.</summary>
+    ///  <remarks>Clipboard format can be any type where there is a meaningful
+    ///  interpretation of the data as ANSI text.</remarks>
+    ///  <exception>EOleSysError raised if data object does not support format
+    ///  or data can't be read from data object.</exception>
     function ReadDataAsAnsiText(const Fmt: TClipFormat): string;
+
+    ///  <summary>Extracts and returns data object's data as Unicode text using
+    ///  given clipboard format.</summary>
+    ///  <remarks>Clipboard format can be any type where there is a meaningful
+    ///  interpretation of the data as Unicode text.</remarks>
+    ///  <exception>EOleSysError raised if data object does not support format
+    ///  or data can't be read from data object.</exception>
     function ReadDataAsUnicodeText(const Fmt: TClipFormat): string;
+
+    ///  <summary>Gets all file names from data object in CF_HDROP format and
+    ///  returns them in a dynamic string array.</summary>
+    ///  <remarks>Data object must support CF_HDROP.</remarks>
+    ///  <exception>EOleSysError raised if data can't be read from data
+    ///  object.</exception>
     function GetHDROPFileNames: TArray<string>;
   end;
 
@@ -75,24 +87,14 @@ uses
 { TDataObjectAdapter }
 
 constructor TDataObjectAdapter.Create(const DataObject: IDataObject);
-  {Class constructor. Creates adapter for a IDataObject.
-    @param DataObject [in] Object to be adapted.
-  }
 begin
   inherited Create;
   fDataObject := DataObject;
 end;
 
 function TDataObjectAdapter.GetDataAsText(const Fmt: TClipFormat): string;
-  {Extracts data object's data as text. The data object can be any format type
-  where there is a meaningful interpretation of data as text.
-    @param Fmt [in] Data object format required.
-    @return Required text.
-    @except EOleSysError raised if can't extract data from data object or data
-      object does not support required format.
-  }
 var
-  Medium: TStgMedium;   // handle to storage medium
+  Medium: TStgMedium;   // storage medium
   PText: PChar;         // pointer to text
 begin
   Result := '';
@@ -111,12 +113,12 @@ end;
 
 function TDataObjectAdapter.GetHDROPFileNames: TArray<string>;
 var
-  Medium: TStgMedium;
-  HDrop: THandle;
-  FileCount: Integer;
-  NameLen: Integer;
-  Idx: Integer;
-  FileName: string;
+  Medium: TStgMedium; // storage medium
+  HDrop: THandle;     // handle to dropped files
+  FileCount: Integer; // number of dropped files
+  Idx: Integer;       // loops through all dropped files
+  FileName: string;   // name of a dropped file
+  NameLen: Integer;   // length of a dropped file name
 begin
   Assert(HasFormat(CF_HDROP));
   SetLength(Result, 0);
@@ -141,19 +143,11 @@ begin
 end;
 
 function TDataObjectAdapter.HasFormat(const Fmt: TClipFormat): Boolean;
-  {Checks if data object supports a data format.
-    @param Fmt [in] Format to check.
-    @return True if format supported, false otherwise.
-  }
 begin
   Result := fDataObject.QueryGetData(MakeFormatEtc(Fmt)) = S_OK;
 end;
 
 function TDataObjectAdapter.MakeFormatEtc(const Fmt: TClipFormat): TFormatEtc;
-  {Initialises a TFormatEtc record for a specified data format.
-    @param Fmt [in] Required data format.
-    @return Initialised record.
-  }
 begin
   Result.cfFormat := Fmt;               // record format type
   Result.ptd := nil;                    // device independent
@@ -164,8 +158,8 @@ end;
 
 function TDataObjectAdapter.ReadDataAsAnsiText(const Fmt: TClipFormat): string;
 var
-  Medium: TStgMedium;   // handle to storage medium
-  PText: PAnsiChar;
+  Medium: TStgMedium;   // storage medium
+  PText: PAnsiChar;     // pointer to ANSI text
 begin
   Result := '';
   OleCheck(fDataObject.GetData(MakeFormatEtc(Fmt), Medium));
@@ -184,7 +178,7 @@ end;
 function TDataObjectAdapter.ReadDataAsUnicodeText(const Fmt: TClipFormat):
   string;
 var
-  Medium: TStgMedium;   // handle to storage medium
+  Medium: TStgMedium;   // storage medium
   PText: PChar;         // pointer to text
 begin
   Result := '';
