@@ -43,14 +43,6 @@ type
     ///  <summary>Checks if data object supports given data format.</summary>
     function HasFormat(const Fmt: TClipFormat): Boolean;
 
-    ///  <summary>Extracts and returns data object's data as text using given
-    ///  clipboard format.</summary>
-    ///  <remarks>Clipboard format can be any type where there is a meaningful
-    ///  interpretation of the data as text.</remarks>
-    ///  <exception>EOleSysError raised if data object does not support format
-    ///  or data can't be read from data object.</exception>
-    function GetDataAsText(const Fmt: TClipFormat): string;
-
     ///  <summary>Extracts data object's data as ANSI text using given clipboard
     ///  format and returns text converted to Unicode string.</summary>
     ///  <remarks>Clipboard format can be any type where there is a meaningful
@@ -90,25 +82,6 @@ constructor TDataObjectAdapter.Create(const DataObject: IDataObject);
 begin
   inherited Create;
   fDataObject := DataObject;
-end;
-
-function TDataObjectAdapter.GetDataAsText(const Fmt: TClipFormat): string;
-var
-  Medium: TStgMedium;   // storage medium
-  PText: PChar;         // pointer to text
-begin
-  Result := '';
-  OleCheck(fDataObject.GetData(MakeFormatEtc(Fmt), Medium));
-  try
-    PText := GlobalLock(Medium.hGlobal);
-    try
-      Result := PText;
-    finally
-      GlobalUnlock(Medium.hGlobal);
-    end;
-  finally
-    ReleaseStgMedium(Medium);
-  end;
 end;
 
 function TDataObjectAdapter.GetHDROPFileNames: TArray<string>;
