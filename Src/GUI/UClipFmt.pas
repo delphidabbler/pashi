@@ -24,9 +24,9 @@ uses
 
 
 var
-  // Name of clipboard format that stores file names as ANSI text
-  CF_FILENAMEA: TClipFormat;
-  CF_FILENAMEW: TClipFormat;
+  // Variables that store indentifiers of custom clipboard formats
+  CF_FILENAMEA: TClipFormat;  // file name as ANSI text
+  CF_FILENAMEW: TClipFormat;  // file name as Unicode text
 
 
 implementation
@@ -39,7 +39,7 @@ uses
 
 initialization
 
-// Register file name clipboard formats
+// Register clipboard formats
 CF_FILENAMEA := RegisterClipboardFormat(CFSTR_FILENAMEA);
 CF_FILENAMEW := RegisterClipboardFormat(CFSTR_FILENAMEW);
 
