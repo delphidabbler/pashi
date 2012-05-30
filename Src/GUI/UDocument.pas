@@ -46,7 +46,7 @@ type
   ///  <summary>Class that enables a source code document to the highlighted and
   ///  provides access to highlighted code.</summary>
   TDocument = class(TObject)
-  private
+  strict private
     var
       ///  <summary>Value of OutputType property.</summary>
       fOutputType: TDocOutputType;

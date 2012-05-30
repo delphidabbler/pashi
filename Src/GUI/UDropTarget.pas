@@ -31,7 +31,7 @@ type
   ///  <remarks>Hands drop handling to object that implements IDropDataHandler.
   ///  </remarks>
   TDropTarget = class(TInterfacedObject, IDropTarget)
-  private
+  strict private
     var
       ///  <summary>Reference to object that accepts and handles drag drops.
       ///  </summary>
@@ -49,7 +49,11 @@ type
     ///  <returns>LongInt. Required drop effect.</returns>
     function DropEffect(const KeyState: Integer;
       const AllowedEffects: LongInt): LongInt;
-  protected
+  public
+    ///  <summary>Constructs drop target object that hands off drop operations
+    ///  to given drop data handler object.</summary>
+    constructor Create(const DropDataHandler: IDropDataHandler);
+
     ///  <summary>Determines whether a drop can be accepted and its effect if it
     ///  is.</summary>
     ///  <param name="dataObj">IDataObject [in] Data object being transferred in
@@ -62,6 +66,7 @@ type
     ///  of DROPEFFECT_* flags. Changed to required drop effect, which must be
     ///  a vlaid one.</param>
     ///  <returns>HResult. S_OK always returned.</returns>
+    ///  <remarks>Method of IDropTarget.</remarks>
     function DragEnter(const dataObj: IDataObject; grfKeyState: Longint;
       pt: TPoint; var dwEffect: Longint): HResult; stdcall;
 
@@ -75,12 +80,14 @@ type
     ///  of DROPEFFECT_* flags. Changed to required drop effect, which must be
     ///  a vlaid one.</param>
     ///  <returns>HResult. S_OK always returned.</returns>
+    ///  <remarks>Method of IDropTarget.</remarks>
     function DragOver(grfKeyState: Longint; pt: TPoint;
       var dwEffect: Longint): HResult; stdcall;
 
     ///  <summary>Called when mouse leaves drop target window. We do ntohing.
     ///  </summary>
     ///  <returns>HResult. S_OK always returned.</returns>
+    ///  <remarks>Method of IDropTarget.</remarks>
     function DragLeave: HResult; stdcall;
 
     ///  <summary>Handles drop of data object if accepted.</summary>
@@ -94,12 +101,9 @@ type
     ///  of DROPEFFECT_* flags. Changed to required drop effect, which must be
     ///  a vlaid one.</param>
     ///  <returns>HResult. S_OK always returned.</returns>
+    ///  <remarks>Method of IDropTarget.</remarks>
     function Drop(const dataObj: IDataObject; grfKeyState: Longint; pt: TPoint;
       var dwEffect: Longint): HResult; stdcall;
-  public
-    ///  <summary>Constructs drop target object that hands off drop operations
-    ///  to given drop data handler object.</summary>
-    constructor Create(const DropDataHandler: IDropDataHandler);
   end;
 
 
