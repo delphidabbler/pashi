@@ -14,46 +14,94 @@
 
 unit UConfigFiles;
 
+
 interface
 
+
 uses
+  // Delphi
   Generics.Collections;
 
+
 type
+  ///  <summary>Class that parses one or more config files and enumerates the
+  ///  commands contained in the files.</summary>
   TConfigFileReader = class(TObject)
   strict private
     var
+      ///  <summary>Map of commands from file onto their values.</summary>
       fMap: TList<TPair<string,string>>;
   public
+    ///  <summary>Constructs reader object.</summary>
     constructor Create;
-    procedure LoadData(const FileName: string);
+    ///  <summary>Destroys reader object.</summary>
     destructor Destroy; override;
+    ///  <summary>Parses and loads contents of given config file.</summary>
+    ///  <remarks>Subsequent calls to this method for different files add the
+    ///  data from the files to the same data structure.</remarks>
+    procedure LoadData(const FileName: string);
+    ///  <summary>Creates and returned enumerator for all commands loaded from
+    ///  config file(s).</summary>
     function GetEnumerator: TEnumerator<TPair<string,string>>;
   end;
 
+type
+  ///  <summary>Static class that provides access to current user's PasHi data
+  ///  directory and to contents of config file.</summary>
   TConfigFiles = class(TObject)
   strict private
+    ///  <summary>Returns directory where common config files are installed.
+    ///  </summary>
     class function CommonConfigDir: string;
+    ///  <summary>Checks if updated versions of config files has been installed
+    ///  in common config files directory.</summary>
     class function IsNewConfigFiles: Boolean;
+    ///  <summary>Gets the fully qualified name of a config file if it exists in
+    ///  this user's config file directory.</summary>
+    ///  <param name="BaseName">string [in] Base name of required file.</param>
+    ///  <param name="FullPath">string [out] Set to fully specified name of
+    ///  required file, if it exists or '' if not.</param>
+    ///  <returns>Boolean. True if file exists, False if not.</returns>
     class function FindConfigFile(const BaseName: string; out FullPath: string):
       Boolean;
   strict protected
+    ///  <summary>Creates and returns a config file reader object instance
+    ///  containing content of each config file named in Files array.</summary>
+    ///  <remarks>Caller is responsible for freeing the TConfigFileReader
+    ///  instance.</remarks>
     class function ConfigFileReaderInstance(const Files: array of string):
       TConfigFileReader; overload;
   public
+    ///  <summary>Class constructor. Ensures current user's config files are
+    ///  available.</summary>
     class constructor Create;
+    ///  <summary>Creates and returns a config file reader object instance
+    ///  containing content of current user's "config" file.</summary>
+    ///  <remarks>Caller is responsible for freeing the TConfigFileReader
+    ///  instance.</remarks>
     class function ConfigFileReaderInstance: TConfigFileReader; overload;
       virtual;
+    ///  <summary>Ensures config file directory for current user exists and
+    ///  contains latest copy of config and sample files installed in common
+    ///  data directory.</summary>
     class procedure Initialise;
+    ///  <summary>Returns directory where current user's config files are
+    ///  kept.</summary>
     class function UserConfigDir: string;
   end;
 
+
 implementation
 
+
 uses
+  // Delphi
   SysUtils, StrUtils, Classes,
+  // Project
   IO.UHelper, UComparers, USpecialFolders;
 
+
+///  <summary>Copies file Source to new file named by Dest.</summary>
 procedure CopyFile(const Source, Dest: string);
 var
   SourceStream, DestStream: TFileStream; // source and dest file streams
@@ -74,11 +122,8 @@ begin
   end;
 end;
 
+///  <summary>Checks if specified directory exists.</summary>
 function IsDirectory(const DirName: string): Boolean;
-  {Checks if a directory exists.
-    @param DirName [in] Name of directory to check.
-    @return True if DirName is valid directory.
-  }
 var
   Attr: Integer;  // directory's file attributes
 begin
@@ -87,6 +132,9 @@ begin
     and (Attr and faDirectory = faDirectory);
 end;
 
+///  <summary>Gets list of all files in given directory Dir that match WildCard
+///  and appends to string list List. Returns True if Dir is a directory and
+///  False if not.</summary>
 function ListFiles(const Dir, Wildcard: string; const List: TStrings): Boolean;
 var
   FileSpec: string;         // search file specification
