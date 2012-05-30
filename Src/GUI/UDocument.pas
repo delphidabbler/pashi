@@ -8,8 +8,8 @@
  * $Rev$
  * $Date$
  *
- * Class that encapsulates a Pascal document and manages the various views
- * displayed by the program.
+ * Implements a class that enables a source code document to the highlighted and
+ * provides access to highlighted code.
 }
 
 
@@ -27,73 +27,107 @@ uses
 
 
 type
-
+  ///  <summary>Enumeration of types of output document: complete document or
+  ///  document fragment.</summary>
   TDocOutputType = (
     doComplete,
     doFragment
   );
 
+type
+  ///  <summary>Enumeration of supported input sources: binary data of files.
+  ///  </summary>
   TDocInputSource = (
     isData,
     isFiles
   );
 
-  {
-  TDocument:
-    Encapsulates a Pascal document and manages the various views displayed by
-    the program.
-  }
+type
+  ///  <summary>Class that enables a source code document to the highlighted and
+  ///  provides access to highlighted code.</summary>
   TDocument = class(TObject)
   private
-    fOutputType: TDocOutputType;
-    fInputSource: TDocInputSource;
-    fInputData: IInputData;
-    fInputFiles: TArray<string>;
-    fPasHi: TPasHi;
-      {Reference to object that performs highlighting by interacting with PasHi}
-    fHilitedStream: TMemoryStream;
-      {Stream containing highlighted source code}
+    var
+      ///  <summary>Value of OutputType property.</summary>
+      fOutputType: TDocOutputType;
+      ///  <summary>Records source of input to be highlighted.</summary>
+      fInputSource: TDocInputSource;
+      ///  <summary>Value of InputData property.</summary>
+      fInputData: IInputData;
+      ///  <summary>Value of InputFiles property.</summary>
+      fInputFiles: TArray<string>;
+      ///  <summary>Reference to object that interacts with PasHi.</summary>
+      fPasHi: TPasHi;
+      ///  <summary>Stream that contains highlighted source code.</summary>
+      fHilitedStream: TMemoryStream;
+    ///  <summary>Write accessor for InputData property.</summary>
+    ///  <remarks>Clears InputFiles property and records input source type.
+    ///  </remarks>
     procedure SetInputData(const Value: IInputData);
+    ///  <summary>Write accessor for InputFiles property.</summary>
+    ///  <remarks>Clears InputData property and records input source type.
+    ///  </remarks>
     procedure SetInputFiles(const Value: TArray<string>);
+    ///  <summary>Read accessor for DisplayHTML property.</summary>
     function GetDisplayHTML: string;
-      {Read accessor for DisplayHTML property.
-        @return Required HTML code.
-      }
+    ///  <summary>Read accessor for HilitedCode property.</summary>
     function GetHilitedCode: string;
-      {Read accessor for HilitedCode property.
-        @return Required highlighted code.
-      }
+    ///  <summary>Creates and returns a complete XHTML document containing a
+    ///  highlighted HTML fragment.</summary>
+    ///  <remarks>For use only when document type is HTML fragment.</remarks>
     function SampleHTMLFragmentDoc: string;
-      {Builds complete HTML document containing fragment of highlighted HTML.
-      Used as display document when HTML fragments being generated.
-        @return Required HTML document.
-      }
+    ///  <summary>Loads HTML template from resources that is used for generating
+    ///  complete HTML documents from HTML fragments.</summary>
     function LoadHTMLTemplate: string;
-      {Loads HTML document template used to display HTML code fragments.
-      Document is loaded from resources.
-        @return Document template.
-      }
   public
+
+    ///  <summary>Constructs initialised object instance.</summary>
     constructor Create;
-      {Class constructor. Sets up object.
-      }
+
+    ///  <summary>Destroys object instance.</summary>
     destructor Destroy; override;
-      {Class destructor. Tears down object.
-      }
+
+    ///  <summary>Uses PasHi to highlight Pascal code read from input source
+    ///  specified by InputData or InputFiles property using given Options.
+    ///  </summary>
+    ///  <remarks>Highlighted code is stored in fHilitedStream for later use by
+    ///  HilitedCode and DisplayHTML properties and Save method.</remarks>
     procedure Highlight(const Options: TOptions);
+
+    ///  <summary>Saves highlighted source code to output sink specified by
+    ///  OutputData property.</summary>
     procedure Save(const OutputData: IOutputData);
-      {Saves document via output data object.
-        @param OutputData [in] Object used to write the highlighted document's
-          content.
-      }
+
+    ///  <summary>Specifies type of hilighted document required: either complete
+    ///  HTML document of HTML frgament.</summary>
     property OutputType: TDocOutputType read fOutputType write fOutputType;
+
+    ///  <summary>Contains raw source code to be highlighted, as a binary data.
+    ///  </summary>
+    ///  <remarks>This property and InputFiles are mutually exclusive. Setting
+    ///  this property clears InputFiles.</remarks>
     property InputData: IInputData read fInputData write SetInputData;
+
+    ///  <summary>Array of names of files containing raw source code to be
+    ///  highlighted.</summary>
+    ///  <remarks>This property and InputData are mutually exclusive. Setting
+    ///  this property clears InputData.</remarks>
     property InputFiles: TArray<string> read fInputFiles write SetInputFiles;
+
+    ///  <summary>A string containing highlighted source exactly as output from
+    ///  PasHi during the last call to the Highlight method.</summary>
+    ///  <remarks>Returns empty string if Hilight has not been called.</remarks>
     property HilitedCode: string read GetHilitedCode;
-      {Highlighted source code}
+
+    ///  <summary>A string containing a complete HTML document containing
+    ///  highlighted source generated by last call to Highlight method. The
+    ///  content depends on the value of OutputType: if doComplete DisplayHTML
+    ///  is the same as HilitedCode; if OutputType = doFragment DisplayHTML
+    ///  contains the code fragment from HilitedCode embedded in a complete HTML
+    ///  document.</summary>
+    ///  <remarks>The HTML document will have no displayable content if the
+    ///  Highlight method has not been called.</remarks>
     property DisplayHTML: string read GetDisplayHTML;
-      {HTML displayed in main program window. If Fragment = True this is
-      document that contains fragment otherwise it is the same as HilitedCode}
   end;
 
 
@@ -110,8 +144,6 @@ uses
 { TDocument }
 
 constructor TDocument.Create;
-  {Class constructor. Sets up object.
-  }
 begin
   inherited Create;
   fPasHi := TPasHi.Create;
@@ -119,8 +151,6 @@ begin
 end;
 
 destructor TDocument.Destroy;
-  {Class destructor. Tears down object.
-  }
 begin
   FreeAndNil(fHilitedStream);
   FreeAndNil(fPasHi);
@@ -128,9 +158,6 @@ begin
 end;
 
 function TDocument.GetDisplayHTML: string;
-  {Read accessor for DisplayHTML property.
-    @return Required HTML code.
-  }
 begin
   if fOutputType = doFragment then
     Result := SampleHTMLFragmentDoc
@@ -139,9 +166,6 @@ begin
 end;
 
 function TDocument.GetHilitedCode: string;
-  {Read accessor for HilitedCode property.
-    @return Required highlighted code.
-  }
 begin
   Result := StringFromStream(fHilitedStream);
 end;
@@ -175,10 +199,6 @@ begin
 end;
 
 function TDocument.LoadHTMLTemplate: string;
-  {Loads HTML document template used to display HTML code fragments. Document is
-  loaded from resources.
-    @return Document template.
-  }
 var
   ResStm: TResourceStream;    // stream onto template resource
 begin
@@ -193,10 +213,6 @@ begin
 end;
 
 function TDocument.SampleHTMLFragmentDoc: string;
-  {Builds complete HTML document containing fragment of highlighted HTML. Used
-  as display document when HTML fragments being generated.
-    @return Required HTML document.
-  }
 begin
   Assert(fOutputType = doFragment,
     'TDocument.SampleHTMLFragmentDoc: Fragment not true');
@@ -209,10 +225,6 @@ begin
 end;
 
 procedure TDocument.Save(const OutputData: IOutputData);
-  {Saves document via output data object.
-    @param OutputData [in] Object used to write the highlighted document's
-      content.
-  }
 begin
   fHilitedStream.Position := 0;
   OutputData.WriteData(fHilitedStream);
