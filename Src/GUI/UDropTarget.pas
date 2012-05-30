@@ -8,8 +8,7 @@
  * $Rev$
  * $Date$
  *
- * Class that implements IDropTarget to interact with OLE drag drop system.
- * Hands drop handling off to object that implements IDropDataHandler interface.
+ * Class that implements IDropTarget to interact with the OLE drag drop system.
 }
 
 
@@ -27,68 +26,80 @@ uses
 
 
 type
-
-  {
-  TDropTarget:
-    Interacts with OLE drag-drop system by implementing IDropTarget. Hands drop
-    handling to object that implements IDropDataHandler.
-  }
+  ///  <summary>Class that interacts with the OLE drag-drop system by
+  ///  implementing IDropTarget.</summary>
+  ///  <remarks>Hands drop handling to object that implements IDropDataHandler.
+  ///  </remarks>
   TDropTarget = class(TInterfacedObject, IDropTarget)
   private
-    fDropDataHandler: IDropDataHandler;
-      {Reference to object that accepts and handles drag drops}
-    fAllowDrop: Boolean;
-      {Flag true if we accept current drop object. Set in DragEnter()}
+    var
+      ///  <summary>Reference to object that accepts and handles drag drops.
+      ///  </summary>
+      fDropDataHandler: IDropDataHandler;
+      ///  <summary>Flag that indicates if we accept the current drop object.
+      ///  </summary>
+      ///  <remarks>Set in DragEnter method.</remarks>
+      fAllowDrop: Boolean;
+    ///  <summary>Determines drop effect based on key state and permitted
+    ///  effects.</summary>
+    ///  <param name="KeyState">Integer [in] Current state of keyboard modifier
+    ///  keys.</param>
+    ///  <param name="AllowedEffects">LongInt [in] Bitmask of permitted drop
+    ///  effects.</param>
+    ///  <returns>LongInt. Required drop effect.</returns>
     function DropEffect(const KeyState: Integer;
       const AllowedEffects: LongInt): LongInt;
-      {Determines drop effect based on key state and effects permitted.
-        @param KeyState [in] Current state of keyboard modifier keys.
-        @param AllowedEffects [in] Bitmask of permitted drop effects.
-        @return Required drop effect.
-      }
   protected
+    ///  <summary>Determines whether a drop can be accepted and its effect if it
+    ///  is.</summary>
+    ///  <param name="dataObj">IDataObject [in] Data object being transferred in
+    ///  drag-drop operation.</param>
+    ///  <param name="grfKeyState">Longint [in] Current state of keyboard
+    ///  modifier keys.</param>
+    ///  <param name="pt">TPoint [in] Mouse cursor co-ordinates in drop target
+    ///  window.</param>
+    ///  <param name="dwEffect">Longint [in/out] Valid drop effects as bitmask
+    ///  of DROPEFFECT_* flags. Changed to required drop effect, which must be
+    ///  a vlaid one.</param>
+    ///  <returns>HResult. S_OK always returned.</returns>
     function DragEnter(const dataObj: IDataObject; grfKeyState: Longint;
       pt: TPoint; var dwEffect: Longint): HResult; stdcall;
-      {Determines whether a drop can be accepted and its effect if it is
-      accepted.
-        @param dataObj [in] Data object being transferred in the drag-and-drop
-          operation.
-        @param grfKeyState [in] Current state of keyboard modifier keys.
-        @param pt [in] Cursor co-ordinates in drop target window. Ignored.
-        @param dwEffect [in] Specifies valid drop effects as bitmask of
-          DROPEFFECT_* flags. [out] Required drop effect.
-        @return S_OK if method completes successfully or error value otherwise.
-      }
+
+    ///  <summary>Indicates kind of drop accepted (if any) as mouse moves over
+    ///  drop window.</summary>
+    ///  <param name="grfKeyState">Longint [in] Current state of keyboard
+    ///  modifier keys.</param>
+    ///  <param name="pt">TPoint [in] Mouse cursor co-ordinates in drop target
+    ///  window.</param>
+    ///  <param name="dwEffect">Longint [in/out] Valid drop effects as bitmask
+    ///  of DROPEFFECT_* flags. Changed to required drop effect, which must be
+    ///  a vlaid one.</param>
+    ///  <returns>HResult. S_OK always returned.</returns>
     function DragOver(grfKeyState: Longint; pt: TPoint;
       var dwEffect: Longint): HResult; stdcall;
-      {Indicates kind of drop accepted (if any) as mouse moves over drop window.
-        @param grfKeyState [in] Current state of keyboard modifier keys.
-        @param pt [in] Cursor co-ordinates in drop target window. Ignored.
-        @param dwEffect [in] Specifies valid drop effects as bitmask of
-          DROPEFFECT_* flags. [out] Required drop effect.
-        @return S_OK if method completes successfully or error value otherwise.
-      }
+
+    ///  <summary>Called when mouse leaves drop target window. We do ntohing.
+    ///  </summary>
+    ///  <returns>HResult. S_OK always returned.</returns>
     function DragLeave: HResult; stdcall;
-      {Removes target feedback and releases the data object. We do nothing.
-        @return S_OK if method completes successfully or error values otherwise.
-      }
+
+    ///  <summary>Handles drop of data object if accepted.</summary>
+    ///  <param name="dataObj">IDataObject [in] Data object being transferred in
+    ///  drag-drop operation.</param>
+    ///  <param name="grfKeyState">Longint [in] Current state of keyboard
+    ///  modifier keys.</param>
+    ///  <param name="pt">TPoint [in] Mouse cursor co-ordinates in drop target
+    ///  window.</param>
+    ///  <param name="dwEffect">Longint [in/out] Valid drop effects as bitmask
+    ///  of DROPEFFECT_* flags. Changed to required drop effect, which must be
+    ///  a vlaid one.</param>
+    ///  <returns>HResult. S_OK always returned.</returns>
     function Drop(const dataObj: IDataObject; grfKeyState: Longint; pt: TPoint;
       var dwEffect: Longint): HResult; stdcall;
-      {Handles drop of data object if accepted.
-        @param dataObj [in] Data object being transferred in the drag-and-drop
-          operation.
-        @param grfKeyState [in] Current state of keyboard modifier keys.
-        @param pt [in] Cursor co-ordinates in drop target window. Ignored.
-        @param dwEffect [in] Specifies valid drop effects as bitmask of
-          DROPEFFECT_* flags. [out] Required drop effect.
-        @return S_OK if method completes successfully or error value otherwise.
-      }
   public
+    ///  <summary>Constructs drop target object that hands off drop operations
+    ///  to given drop data handler object.</summary>
     constructor Create(const DropDataHandler: IDropDataHandler);
-      {Class constructor. Create drop target that works with a specified data
-      handler.
-        @param DropDataHandler [in] Object that handles drag drops.
-      }
   end;
 
 
@@ -103,10 +114,6 @@ uses
 { TDropTarget }
 
 constructor TDropTarget.Create(const DropDataHandler: IDropDataHandler);
-  {Class constructor. Create drop target that works with a specified data
-  handler.
-    @param DropDataHandler [in] Object that handles drag drops.
-  }
 begin
   Assert(Assigned(DropDataHandler));
   inherited Create;
@@ -115,15 +122,6 @@ end;
 
 function TDropTarget.DragEnter(const dataObj: IDataObject;
   grfKeyState: Integer; pt: TPoint; var dwEffect: Integer): HResult;
-  {Determines whether a drop can be accepted and its effect if it is accepted.
-    @param dataObj [in] Data object being transferred in the drag-and-drop
-      operation.
-    @param grfKeyState [in] Current state of keyboard modifier keys.
-    @param pt [in] Cursor co-ordinates in drop target window. Ignored.
-    @param dwEffect [in] Specifies valid drop effects as bitmask of DROPEFFECT_*
-      flags. [out] Required drop effect.
-    @return S_OK if method completes successfully or error value otherwise.
-  }
 begin
   try
     // Ask data handler if we accept this data type
@@ -136,22 +134,12 @@ begin
 end;
 
 function TDropTarget.DragLeave: HResult;
-  {Removes target feedback and releases the data object. We do nothing.
-    @return S_OK if method completes successfully or error values otherwise.
-  }
 begin
   Result := S_OK;
 end;
 
 function TDropTarget.DragOver(grfKeyState: Integer; pt: TPoint;
   var dwEffect: Integer): HResult;
-  {Indicates kind of drop accepted (if any) as mouse moves over drop window.
-    @param grfKeyState [in] Current state of keyboard modifier keys.
-    @param pt [in] Cursor co-ordinates in drop target window. Ignored.
-    @param dwEffect [in] Specifies valid drop effects as bitmask of DROPEFFECT_*
-      flags. [out] Required drop effect.
-    @return S_OK if method completes successfully or error value otherwise.
-  }
 begin
   try
     dwEffect := DropEffect(grfKeyState, dwEffect);
@@ -163,15 +151,6 @@ end;
 
 function TDropTarget.Drop(const dataObj: IDataObject; grfKeyState: Integer;
   pt: TPoint; var dwEffect: Integer): HResult;
-  {Handles drop of data object if accepted.
-    @param dataObj [in] Data object being transferred in the drag-and-drop
-      operation.
-    @param grfKeyState [in] Current state of keyboard modifier keys.
-    @param pt [in] Cursor co-ordinates in drop target window. Ignored.
-    @param dwEffect [in] Specifies valid drop effects as bitmask of DROPEFFECT_*
-      flags. [out] Required drop effect.
-    @return S_OK if method completes successfully or error value otherwise.
-  }
 begin
   try
     try
@@ -191,17 +170,10 @@ end;
 
 function TDropTarget.DropEffect(const KeyState,
   AllowedEffects: Integer): LongInt;
-  {Determines drop effect based on key state and effects permitted.
-    @param KeyState [in] Current state of keyboard modifier keys.
-    @param AllowedEffects [in] Bitmask of permitted drop effects.
-    @return Required drop effect.
-  }
 
   // ---------------------------------------------------------------------------
+  // Converts Converts KeyState bitmask into a TShiftState set.
   function GetShiftState: TShiftState;
-    {Converts KeyState bitmask into a TShiftState set.
-      @return Required set of values.
-    }
   begin
     Result := [];
     if KeyState and MK_CONTROL <> 0 then
@@ -218,10 +190,8 @@ function TDropTarget.DropEffect(const KeyState,
       Include(Result, ssMiddle);
   end;
 
+  // Converts bitmask of permitted effects into TDragDropEffects set.
   function GetAllowedEffects: TDragDropEffects;
-    {Converts bitmask of permitted effects into TDragDropEffects set.
-      @return Required set of values.
-    }
   begin
     Result := [];
     if AllowedEffects and DROPEFFECT_COPY <> 0 then
@@ -232,11 +202,8 @@ function TDropTarget.DropEffect(const KeyState,
       Include(Result, deLink);
   end;
 
+  // Determines drop effect flag from TDragDropEffect value.
   function WantedEffect(const Effect: TDragDropEffect): LongInt;
-    {Determines drop effect flag from TDragDropEffect value.
-      @param Effect [in] Required drop effect.
-      @return Required flag.
-    }
   begin
     case Effect of
       deNone: Result := DROPEFFECT_NONE;
