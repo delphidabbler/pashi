@@ -14,41 +14,70 @@
 
 unit UGUIConfigFiles;
 
+
 interface
 
+
 uses
+  // Delphi
   Classes,
+  // Project
   UConfigFiles;
 
+
 type
+  ///  <summary>Writes data to a named config file.</summary>
+  ///  <remarks>Format is a UTF-8 text file with no BOM.</remarks>
   TConfigFileWriter = class(TObject)
   strict private
     var
+      ///  <summary>Stream onto config file.</summary>
       fFileStream: TFileStream;
   public
+    ///  <summary>Constructs writer object for given config file.</summary>
     constructor Create(const FileName: string);
+    ///  <summary>Destroys writer object and closes file.</summary>
     destructor Destroy; override;
+    ///  <summary>Writes given key / value pair to config file.</summary>
     procedure WriteLine(const Key, Value: string);
   end;
 
+type
+  ///  <summary>Static class that manages current user's PasHi and PasHiGUI
+  ///  configuration data.</summary>
   TGUIConfigFiles = class(TConfigFiles)
   public
+    ///  <summary>Creates and returns a config file reader object instance
+    ///  containing content of current user's PasHi and PasHiGUI config files.
+    ///  </summary>
+    ///  <remarks>Caller is responsible for freeing the object.</remarks>
     class function ConfigFileReaderInstance: TConfigFileReader; override;
+    ///  <summary>Creates and returns a config file writer object instance for
+    ///  writing data to PasHiGUI config file.</summary>
+    ///  <remarks>Caller is responsible for freeing the object.</remarks>
     class function ConfigFileWriterInstance: TConfigFileWriter;
+    ///  <summary>Deletes the current user's PasHiGUI config gile.</summary>
     class procedure DeleteGUICfgFile;
+    ///  <summary>Returns an array of CSS template file names.</summary>
     class function CSSFiles: TArray<string>;
   end;
 
+
 implementation
 
+
 uses
+  // Delphi
   SysUtils, Windows {for inlining},
+  // Project
   UUtils;
 
 { TGUIConfigFiles }
 
 const
+  ///  <summary>PasHi config file name.</summary>
   CmdCfgFileName = 'config';
+  ///  <summary>PasHiGUI config file name.</summary>
   GUICfgFileName = 'gui-config';
 
 class function TGUIConfigFiles.ConfigFileReaderInstance: TConfigFileReader;

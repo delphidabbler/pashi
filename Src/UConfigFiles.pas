@@ -47,8 +47,8 @@ type
   end;
 
 type
-  ///  <summary>Static class that provides access to current user's PasHi data
-  ///  directory and to contents of config file.</summary>
+  ///  <summary>Static class that manages current user's PasHi configuration
+  ///  data.</summary>
   TConfigFiles = class(TObject)
   strict private
     ///  <summary>Returns directory where common config files are installed.
@@ -77,9 +77,8 @@ type
     ///  available.</summary>
     class constructor Create;
     ///  <summary>Creates and returns a config file reader object instance
-    ///  containing content of current user's "config" file.</summary>
-    ///  <remarks>Caller is responsible for freeing the TConfigFileReader
-    ///  instance.</remarks>
+    ///  containing content of current user's PasHi config file.</summary>
+    ///  <remarks>Caller is responsible for freeing the object.</remarks>
     class function ConfigFileReaderInstance: TConfigFileReader; overload;
       virtual;
     ///  <summary>Ensures config file directory for current user exists and
