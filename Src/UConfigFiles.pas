@@ -8,7 +8,8 @@
  * $Rev$
  * $Date$
  *
- * Provides location of PasHi config file and parses contents.
+ * Provides access to PasHi config and .css template files and ensures they
+ * exist.
 }
 
 
