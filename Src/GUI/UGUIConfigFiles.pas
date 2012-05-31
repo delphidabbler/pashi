@@ -46,6 +46,10 @@ type
   ///  <summary>Static class that manages current user's PasHi and PasHiGUI
   ///  configuration data.</summary>
   TGUIConfigFiles = class(TConfigFiles)
+  strict protected
+    const
+      ///  <summary>PasHiGUI config file name.</summary>
+      GUICfgFileName = 'gui-config';
   public
     ///  <summary>Creates and returns a config file reader object instance
     ///  containing content of current user's PasHi and PasHiGUI config files.
@@ -73,12 +77,6 @@ uses
   UUtils;
 
 { TGUIConfigFiles }
-
-const
-  ///  <summary>PasHi config file name.</summary>
-  CmdCfgFileName = 'config';
-  ///  <summary>PasHiGUI config file name.</summary>
-  GUICfgFileName = 'gui-config';
 
 class function TGUIConfigFiles.ConfigFileReaderInstance: TConfigFileReader;
 begin

@@ -50,6 +50,10 @@ type
   ///  <summary>Static class that manages current user's PasHi configuration
   ///  data.</summary>
   TConfigFiles = class(TObject)
+  strict protected
+    const
+      ///  <summary>PasHi config file name.</summary>
+      CmdCfgFileName = 'config';
   strict private
     ///  <summary>Returns directory where common config files are installed.
     ///  </summary>
@@ -250,7 +254,7 @@ end;
 
 class function TConfigFiles.ConfigFileReaderInstance: TConfigFileReader;
 begin
-  Result := ConfigFileReaderInstance(['config']);
+  Result := ConfigFileReaderInstance([CmdCfgFileName]);
 end;
 
 class constructor TConfigFiles.Create;
