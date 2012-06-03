@@ -135,12 +135,9 @@ type
       {Updates main display with contents of document.
       }
     procedure Render;
-    procedure DoLoad(const InputData: IInputData); overload;
-      {Loads data into document, setting program busy while load takes place.
-        @param InputData [in] Object encapsulating data to be loaded.
-      }
-    procedure DoLoad(const Files: TArray<string>); overload;
-    procedure DoLoad(const FileName: string); overload;
+    procedure LoadText(const Text: string);
+    procedure LoadFiles(const FileNames: TArray<string>);
+    procedure LoadFile(const FileName: string);
     procedure InternalLoad(const Callback: TLoadProc);
     procedure TranslateAccelHandler(Sender: TObject; const Msg: TMSG;
       const CmdID: DWORD; var Handled: Boolean);
@@ -284,7 +281,7 @@ begin
     Files[Idx] := actOpen.Dialog.Files[Idx];
   if Length(Files) = 0 then
     Exit;
-  DoLoad(Files);
+  LoadFiles(Files);
 end;
 
 procedure TMainForm.actOptionsBarExecute(Sender: TObject);
@@ -427,34 +424,6 @@ begin
   Result := fDocLoaded;
 end;
 
-procedure TMainForm.DoLoad(const FileName: string);
-begin
-  DoLoad(TArray<string>.Create(FileName));
-end;
-
-procedure TMainForm.DoLoad(const Files: TArray<string>);
-begin
-  InternalLoad(
-    procedure
-    begin
-      fDocument.InputFiles := Files;
-    end
-  );
-end;
-
-procedure TMainForm.DoLoad(const InputData: IInputData);
-  {Loads data into document, setting program busy while load takes place.
-    @param InputData [in] Object encapsulating data to be loaded.
-  }
-begin
-  InternalLoad(
-    procedure
-    begin
-      fDocument.InputData := InputData;
-    end
-  );
-end;
-
 procedure TMainForm.DragDropExceptionHandler(const E: TObject);
   {Handle exception trapped in drag-drop. Handler should swallow exception and
   not re-raise it.
@@ -564,14 +533,15 @@ procedure TMainForm.HandleData(const DataObj: IDataObject);
     @param DataObj [in] Dropped data object.
   }
 
-  function StripDirectories(const Files: TArray<string>): TArray<string>;
+  // Removes any directories from given array of file / directory names
+  function StripDirectories(const FileNames: TArray<string>): TArray<string>;
   var
-    FileName: string;
-    Count: Integer;
+    FileName: string; // each file name in array
+    Count: Integer;   // number of true files in array
   begin
-    SetLength(Result, Length(Files));
+    SetLength(Result, Length(FileNames));
     Count := 0;
-    for FileName in Files do
+    for FileName in FileNames do
     begin
       if IsDirectory(FileName) then
         Continue;
@@ -587,26 +557,19 @@ begin
   DOAdapter := TDataObjectAdapter.Create(DataObj);
   try
     if DOAdapter.HasFormat(CF_HDROP) then
-      DoLoad(StripDirectories(DOAdapter.GetHDROPFileNames))
+      LoadFiles(StripDirectories(DOAdapter.GetHDROPFileNames))
     else if DOAdapter.HasFormat(CF_FILENAMEW) then
       // Load data from file: we know it is not a directory since this method
       // is only called for valid data objects
-      DoLoad(DOAdapter.ReadDataAsUnicodeText(CF_FILENAMEW))
+      LoadFile(DOAdapter.ReadDataAsUnicodeText(CF_FILENAMEW))
     else if DOAdapter.HasFormat(CF_FILENAMEA) then
       // Load data from file: we know it is not a directory since this method
       // is only called for valid data objects
-      DoLoad(DOAdapter.ReadDataAsAnsiText(CF_FILENAMEA))
+      LoadFile(DOAdapter.ReadDataAsAnsiText(CF_FILENAMEA))
     else if DOAdapter.HasFormat(CF_UNICODETEXT) then
-      DoLoad(
-        TInputDataFactory.CreateFromText(
-          DOAdapter.ReadDataAsUnicodeText(CF_UNICODETEXT)
-        )
-      )
+      LoadText(DOAdapter.ReadDataAsUnicodeText(CF_UNICODETEXT))
     else if DOAdapter.HasFormat(CF_TEXT) then
-      // Load text data
-      DoLoad(
-        TInputDataFactory.CreateFromText(DOAdapter.ReadDataAsAnsiText(CF_TEXT))
-      )
+      LoadText(DOAdapter.ReadDataAsAnsiText(CF_TEXT))
     else
       raise Exception.Create('Expected data format not available');
   finally
@@ -675,6 +638,31 @@ end;
 procedure TMainForm.lblOptionsHideMouseLeave(Sender: TObject);
 begin
   lblOptionsHide.Font.Color := cpgrpOptions.ChevronColor;
+end;
+
+procedure TMainForm.LoadFile(const FileName: string);
+begin
+  LoadFiles(TArray<string>.Create(FileName));
+end;
+
+procedure TMainForm.LoadFiles(const FileNames: TArray<string>);
+begin
+  InternalLoad(
+    procedure
+    begin
+      fDocument.InputFiles := FileNames;
+    end
+  );
+end;
+
+procedure TMainForm.LoadText(const Text: string);
+begin
+  InternalLoad(
+    procedure
+    begin
+      fDocument.InputData := TInputDataFactory.CreateFromText(Text);
+    end
+  );
 end;
 
 procedure TMainForm.pcMainMouseLeave(Sender: TObject);
