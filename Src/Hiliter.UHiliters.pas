@@ -355,7 +355,7 @@ end;
 procedure TXHTMLHiliter.EndLine;
 begin
   if fIsEmptyLine then
-    Writer.Append(' ');
+    Writer.Append('&nbsp;');  // forces display: &nbsp; better than ' ' here
   Writer.AppendLine('</pre>');
 end;
 
