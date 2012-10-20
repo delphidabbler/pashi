@@ -22,7 +22,7 @@
 
 .code-pascal,
 .pas-source {
-  background-color: #ffc;
+  background-color: #ffffcc;
   border: 1px silver solid;
 }
 
@@ -53,7 +53,7 @@
 
 .code-pascal pre.even-line,
 .pas-source pre.even-line {
-  background-color: #ffe;
+  background-color: #ffffee;
 }
 
 .code-pascal .linenum,

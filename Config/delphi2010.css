@@ -40,7 +40,7 @@
 .code-pascal .linenum,
 .pas-source .linenum {
   border-right: 1px rgb(153,153,204) solid;
-  border-left: 4px #eee solid;
+  border-left: 4px #eeeeee solid;
   padding: 1px 4px 1px 2px;
   margin-right: 0.75em;
   color: rgb(153,153,204);
