@@ -117,9 +117,8 @@ type
 type
   TXHTMLHiliter = class sealed(TParsedSyntaxHiliter, ISyntaxHiliter)
   strict private
-    fIsFirstLine: Boolean; // Record whether we are about to write first line
     fCSSClases: ICSSClassNames;  // provides name of CSS classes
-    fIsEmptyLine: Boolean;
+    fIsEmptyLine: Boolean;       // flags if a line has no content
   strict protected
     procedure BeginDoc; override;
       {Called just before document is parsed: writes opening <pre> tag.
@@ -308,7 +307,6 @@ end;
 
 procedure TXHTMLHiliter.BeginDoc;
 begin
-  fIsFirstLine := True;
   Writer.AppendFormat('<div class="%s">', [fCSSClases.MainClass]);
   Writer.AppendLine;
 end;
@@ -317,15 +315,6 @@ procedure TXHTMLHiliter.BeginLine;
 const
   LineClasses: array[Boolean] of string = ('even-line', 'odd-line');
 begin
-  // Note we don't emit CRLF before first line since it must be on same line as
-  // any opening <pre> tag
-  if fIsFirstLine then
-    fIsFirstLine := False
-  else
-  begin
-//    if not Options.AlternateLines then
-//      Writer.AppendLine;
-  end;
   if Options.AlternateLines then
     Writer.Append(Format('<pre class="%s">', [LineClasses[Odd(LineNumber)]]))
   else
