@@ -4,6 +4,24 @@
 ; $Date$
 ; ------------------------------------------------------------------------------
 
+Release 2.0 beta 2 - XX XXXXX 20XX
+* PasHi v1.99.2 build 10
+  + Changed some parameters to --encoding command.
+  + Fixed bug where blank source code lines were not being displayed by browsers.
+* PasHiGUI v0.99.2 build 4
+  + Removed descriptive text that was shown in main display when code fragments were displayed.
+  + --default-css option is no longer hard wired: now user configured or taken from gui-config file.
+  + Changed name of Help menu item that accesses online documentation.
+  + Changed main icon to be same as PasHi.
+  + Changed program title and caption to "PasHi GUI".
+  + Main window now animates correctly when minimized to task bar.
+  + Adjusted size of, and arrangement of controls on, option frame.
+  + Some refactoring.
+* General changes
+  + Updated documentation.
+  + Some code refactoring and removed some redundant code.
+  + Some tweaks to default CSS files to fix problem displaying colours on Blogger.com.
+
 Release 2.0 beta 1 - 11 April 2011
 * PasHi v1.99.1 build 9
   + Improved Pascal syntax highlighter:
