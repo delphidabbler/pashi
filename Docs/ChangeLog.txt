@@ -4,11 +4,12 @@
 ; $Date$
 ; ------------------------------------------------------------------------------
 
-Release 2.0 beta 2 - XX XXXXX 20XX
-* PasHi v1.99.2 build 10
+Release 2.0 beta 2 - 12 August 2014
+* PasHi v1.99.2 build 10 (aka v2.0.0 beta 2)
   + Changed some parameters to --encoding command.
   + Fixed bug where blank source code lines were not being displayed by browsers.
-* PasHiGUI v0.99.2 build 4
+  + Sign-on message now shows this is a v2.0.0 beta version.
+* PasHiGUI v0.99.2 build 4 (aka v1.0.0 beta 2)
   + Removed descriptive text that was shown in main display when code fragments were displayed.
   + --default-css option is no longer hard wired: now user configured or taken from gui-config file.
   + Changed name of Help menu item that accesses online documentation.
@@ -16,14 +17,16 @@ Release 2.0 beta 2 - XX XXXXX 20XX
   + Changed program title and caption to "PasHi GUI".
   + Main window now animates correctly when minimized to task bar.
   + Adjusted size of, and arrangement of controls on, option frame.
+  + About box now shows this is a v1.0.0 beta version.
   + Some refactoring.
 * General changes
   + Updated documentation.
   + Some code refactoring and removed some redundant code.
   + Some tweaks to default CSS files to fix problem displaying colours on Blogger.com.
+  + New simplified EULA: installer now displays a summary instead of the full license.
 
 Release 2.0 beta 1 - 11 April 2011
-* PasHi v1.99.1 build 9
+* PasHi v1.99.1 build 9 (aka v2.0.0 beta 1)
   + Improved Pascal syntax highlighter:
     - Now understands Delphi 2010 keywords and directives.
     - Support added for some context sensitive directives.
@@ -37,14 +40,14 @@ Release 2.0 beta 1 - 11 April 2011
     - Output can now be in HTML 4 or HTML 5 in addition to XHTML and HTML fragments.
     - HTML file encoding is now user configurable and defaults to UTF-8. Byte order marks and HTML character set attributes are used as necessary.
     - User can specify language attribute of HTML output.
-    - Source code can now be preceeded by line numbers.
+    - Source code can now be preceded by line numbers.
     - Alternate source code lines can now be styled differently.
     - Custom style sheets can now be used. They can be either embedded or external.
-    - CSS class names changed but user can specify that old style names are used for compatibility with exisisting CSS code.
+    - CSS class names changed but user can specify that old style names are used for compatibility with existing CSS code.
     - Document title can be changed.
     - "Branding" (comments or meta tags declaring PasHi as generator) can be inhibited.
     - Output file name can now be specified on command line as an alternative to using shell redirection.
-    - HTML markup changed and requires some additional CSS classes to be defined.
+    - HTML mark-up changed and requires some additional CSS classes to be defined.
   + Program now has full Unicode support.
   + Support for a config file added to allow program defaults to be configured.
   + Heavily revised command line options:
@@ -57,7 +60,7 @@ Release 2.0 beta 1 - 11 April 2011
     - Exceptions are no longer raised on checking clipboard when another program has it open.
     - Parser no longer crashes when unexpected characters are encountered in source code.
   + Significant refactoring of source code.
-* PasHiGUI v0.99.1 build 3
+* PasHiGUI v0.99.1 build 3 (aka v1.0.0 beta 1)
   + Now requires PasHi v2 beta or later.
   + Now Unicode compatible.
   + UI changes:
