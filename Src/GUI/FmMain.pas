@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2006-2012, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2006-2014, Peter Johnson (www.delphidabbler.com).
  *
  * $Rev$
  * $Date$
@@ -225,10 +225,12 @@ procedure TMainForm.actAboutExecute(Sender: TObject);
     @param Sender [in] Not used.
   }
 begin
+  { TODO: Get version information from resources instead of hard coding. }
+  { TODO: Remove "beta" message once beta program has ended. }
   Application.MessageBox(
-      'PasHiGUI v0.99.1 beta.'#13#10#13#10
+      'PasHiGUI v1.0.0 beta 2.'#13#10#13#10
       + 'A GUI front end for the PasHi Syntax Highlighter v2.'#13#10#13#10
-      + 'Copyright (c) 2006-2012 by Peter D Johnson (www.delphidabbler.com).',
+      + 'Copyright (c) 2006-2014 by Peter D Johnson (www.delphidabbler.com).',
     'About',
     MB_OK
   );

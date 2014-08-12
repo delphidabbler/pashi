@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2007-2012, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2007-2014, Peter Johnson (www.delphidabbler.com).
  *
  * $Rev$
  * $Date$
@@ -107,14 +107,17 @@ begin
         begin
           FFI := PVSFixedFileInfo(ValPtr)^;
           // Build version info string from product version field of FFI
-          Result := Format(
-            '%d.%d.%d',
-            [
-              HiWord(FFI.dwProductVersionMS),
-              LoWord(FFI.dwProductVersionMS),
-              HiWord(FFI.dwProductVersionLS)
-            ]
-          );
+          { TODO: delete following line and reinstate commented out lines once
+                  beta program has ended. }
+          Result := Format('v2.0.0 beta %d', [HiWord(FFI.dwProductVersionLS)]);
+//          Result := Format(
+//            'v%d.%d.%d',
+//            [
+//              HiWord(FFI.dwProductVersionMS),
+//              LoWord(FFI.dwProductVersionMS),
+//              HiWord(FFI.dwProductVersionLS)
+//            ]
+//          );
         end
       end;
     finally
