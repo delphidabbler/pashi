@@ -4,7 +4,7 @@ Executable Programs
 DelphiDabbler PasHi is copyright © 2005-2014 by Peter D Johnson,
 http://www.delphidabbler.com.
 
-DelphiDabbler PasHiGUI is copyright © 2010-2014 by Peter D Johnson,
+DelphiDabbler PasHiGUI is copyright © 2006-2014 by Peter D Johnson,
 http://www.delphidabbler.com.
 
 The executable version of the program is made available under the terms of the
