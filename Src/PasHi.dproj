@@ -79,7 +79,6 @@
 						<Source Name="MainSource">PasHi.dpr</Source>
 					</Source>
 					<Parameters>
-						<Parameters Name="RunParams">-localhost</Parameters>
 						<Parameters Name="UseLauncher">False</Parameters>
 						<Parameters Name="LoadAllSymbols">True</Parameters>
 						<Parameters Name="LoadUnspecifiedSymbols">False</Parameters>
