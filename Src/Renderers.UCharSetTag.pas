@@ -5,9 +5,6 @@
  *
  * Copyright (C) 2012, Peter Johnson (www.delphidabbler.com).
  *
- * $Rev$
- * $Date$
- *
  * Classes that render appropriate HTML meta tags for defining an HTML
  * document's character set.
 }

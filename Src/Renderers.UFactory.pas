@@ -5,9 +5,6 @@
  *
  * Copyright (C) 2012, Peter Johnson (www.delphidabbler.com).
  *
- * $Rev$
- * $Date$
- *
  * Provides factory for creating objects that render the supported types of
  * out document.
 }

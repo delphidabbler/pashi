@@ -5,9 +5,6 @@
  *
  * Copyright (C) 2012, Peter Johnson (www.delphidabbler.com).
  *
- * $Rev$
- * $Date$
- *
  * Provides access to locations of Windows special folders.
 }
 

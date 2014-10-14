@@ -5,9 +5,6 @@
  *
  * Copyright (C) 2005-2012, Peter Johnson (www.delphidabbler.com).
  *
- * $Rev$
- * $Date$
- *
  * Utility functions used when generating HTML.
 }
 

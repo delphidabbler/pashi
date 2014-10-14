@@ -5,9 +5,6 @@
  *
  * Copyright (C) 2006-2012, Peter Johnson (www.delphidabbler.com).
  *
- * $Rev$
- * $Date$
- *
  * Class that implements IDropTarget to interact with the OLE drag drop system.
 }
 

@@ -5,9 +5,6 @@
  *
  * Copyright (C) 2005-2012, Peter Johnson (www.delphidabbler.com).
  *
- * $Rev$
- * $Date$
- *
  * Implements class that writes text to console using standard error.
 }
 

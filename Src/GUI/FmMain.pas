@@ -5,9 +5,6 @@
  *
  * Copyright (C) 2006-2014, Peter Johnson (www.delphidabbler.com).
  *
- * $Rev$
- * $Date$
- *
  * Application's main form. Handles main user inteface interaction.
 }
 

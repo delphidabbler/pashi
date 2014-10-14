@@ -5,9 +5,6 @@
  *
  * Copyright (C) 2012, Peter Johnson (www.delphidabbler.com).
  *
- * $Rev$
- * $Date$
- *
  * Provides classes that render the DOCTYPE statement for the head of complete
  * HTML documents of different types.
 }

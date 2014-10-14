@@ -12,8 +12,3 @@ in %AppData%\DelphiDabbler\PasHi\version then the files in
 %ProgramData%\DelphiDabbler\PasHi are copied to %AppData%\DelphiDabbler\PasHi,
 overwriting any existing files. The files are also copied if either of the
 "version" files are not present.
-
---------------------------------------------------------------------------------
-$Rev$
-$Date$
---------------------------------------------------------------------------------

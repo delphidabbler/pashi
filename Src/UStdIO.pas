@@ -5,9 +5,6 @@
  *
  * Copyright (C) 2005-2012, Peter Johnson (www.delphidabbler.com).
  *
- * $Rev$
- * $Date$
- *
  * Static class that outputs to standard output and standard error and inputs
  * from standard input.
 }

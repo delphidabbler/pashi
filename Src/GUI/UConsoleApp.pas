@@ -5,9 +5,6 @@
  *
  * Copyright (C) 2006-2012, Peter Johnson (www.delphidabbler.com).
  *
- * $Rev$
- * $Date$
- *
  * Class that encapsulates and executes a command line application and
  * optionally redirects the application's standard input, output and error.
 }

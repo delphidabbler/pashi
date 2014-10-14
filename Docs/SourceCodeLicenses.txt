@@ -110,6 +110,3 @@ Sample files are found in the Config and Test directories. These files may be
 used freely, without warranty of any kind.
 
 --------------------------------------------------------------------------------
-$Rev$
-$Date$
---------------------------------------------------------------------------------

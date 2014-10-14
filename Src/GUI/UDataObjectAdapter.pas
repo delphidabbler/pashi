@@ -5,9 +5,6 @@
  *
  * Copyright (C) 2012, Peter Johnson (www.delphidabbler.com).
  *
- * $Rev$
- * $Date$
- *
  * Defines an adapter class that interacts with and provides an alternate
  * interface to a IDataObject.
 }

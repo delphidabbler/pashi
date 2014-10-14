@@ -5,9 +5,6 @@
 #
 # Copyright (C) 2010-2012, Peter Johnson (www.delphidabbler.com).
 #
-# $Rev$
-# $Date$
-#
 # Common code for inclusion in all make files. Defines common macros and rules.
 # Files that require Common.mak must include it using the !include directive.
 # ------------------------------------------------------------------------------

@@ -5,9 +5,6 @@
 ;
 ; Copyright (C) 2005-2014, Peter Johnson (www.delphidabbler.com).
 ;
-; $Rev$
-; $Date$
-;
 ; Version information description file used to create VerInfo.res resource file.
 ; Build this file with DelphiDabbler Version Information Editor from
 ; http://www.delphidabbler.com/. Compile the resulting .rc file using the

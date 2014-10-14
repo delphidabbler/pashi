@@ -5,9 +5,6 @@
  *
  * Copyright (C) 2006-2012, Peter Johnson (www.delphidabbler.com).
  *
- * $Rev$
- * $Date$
- *
  * Implements a class that enables a source code document to the highlighted and
  * provides access to highlighted code.
 }

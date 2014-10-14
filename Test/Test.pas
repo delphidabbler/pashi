@@ -4,9 +4,6 @@
  * PasH test file. Used to check PasH output.
  *
  * DO NOT COMPILE THIS FILE.
- *
- * $Rev$
- * $Date$
 }
 
 unit Test;

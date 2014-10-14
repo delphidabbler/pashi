@@ -5,9 +5,6 @@
  *
  * Copyright (C) 2006-2012, Peter Johnson (www.delphidabbler.com).
  *
- * $Rev$
- * $Date$
- *
  * Defines a class that provides a "do-nothing" implementation of the
  * IDocHostUIHandler interface. All methods are "stubbed out" to return values
  * that will make no changes to the web browser control if this class is

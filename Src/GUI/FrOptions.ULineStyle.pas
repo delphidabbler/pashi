@@ -5,9 +5,6 @@
  *
  * Copyright (C) 2012, Peter Johnson (www.delphidabbler.com).
  *
- * $Rev$
- * $Date$
- *
  * Frame that is used to edit various PasHi options relating to how source code
  * lines are styled.
 }

@@ -5,9 +5,6 @@
  *
  * Copyright (C) 2007-2014, Peter Johnson (www.delphidabbler.com).
  *
- * $Rev$
- * $Date$
- *
  * Implements top level class that executes program.
 }
 

@@ -5,9 +5,6 @@
  *
  * Copyright (C) 2007-2012, Peter Johnson (www.delphidabbler.com).
  *
- * $Rev$
- * $Date$
- *
  * Implements classes that used to parse command line and record details.
 }
 

@@ -5,9 +5,6 @@
  *
  * Copyright (C) 2012, Peter Johnson (www.delphidabbler.com).
  *
- * $Rev$
- * $Date$
- *
  * Frame that is used to edit various miscellaneous PasHi options not edited via
  * other option frames.
 }

@@ -5,9 +5,6 @@
 #
 # Copyright (C) 2010-2012, Peter Johnson (www.delphidabbler.com).
 #
-# $Rev$
-# $Date$
-#
 # Makefile for the PasHiGUI project.
 # ------------------------------------------------------------------------------
 

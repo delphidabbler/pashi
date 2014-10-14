@@ -5,9 +5,6 @@
  *
  * Copyright (C) 2012, Peter Johnson (www.delphidabbler.com).
  *
- * $Rev$
- * $Date$
- *
  * Classes that render style information for inclusion in output HTML documents.
  * A <style> tag is generated for embedded CSS and a <link> tag is generated for
  * linked CSS.

@@ -5,9 +5,6 @@
  *
  * Copyright (C) 2006-2012, Peter Johnson (www.delphidabbler.com).
  *
- * $Rev$
- * $Date$
- *
  * Interfaces, records and constants used when customising a hosted the IE
  * WebBrowser Control. The content of the unit is based on Microsoft UI
  * documentation from MSDN.

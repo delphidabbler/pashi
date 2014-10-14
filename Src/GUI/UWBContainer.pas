@@ -5,9 +5,6 @@
  *
  * Copyright (C) 2006-2012, Peter Johnson (www.delphidabbler.com).
  *
- * $Rev$
- * $Date$
- *
  * Class that hosts the IE web browser control and enables both direct loading
  * of browser's HTML and customisation of the user interface.
 }

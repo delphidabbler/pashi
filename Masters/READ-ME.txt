@@ -16,13 +16,10 @@ Use:
 
   1) To generate the main icons for PasHi (PasHi.ico) and PasHiGUI
      (MainIcon.ico).
-     
+
   2) To generate the icon used on the project's GoogleCode pages. The 128x128
      icon was exported from SIB as a .png file. This was opened in Paint.Net and
      resized to 55x55. This resized image was uploaded to GoogleCode.
 
 
---------------------------------------------------------------------------------
-$Rev$
-$Date$
 --------------------------------------------------------------------------------

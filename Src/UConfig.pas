@@ -5,9 +5,6 @@
  *
  * Copyright (C) 2007-2012, Peter Johnson (www.delphidabbler.com).
  *
- * $Rev$
- * $Date$
- *
  * Implements class that stores program's configuration information.
 }
 

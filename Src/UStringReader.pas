@@ -5,9 +5,6 @@
  *
  * Copyright (C) 2009-2012, Peter Johnson (www.delphidabbler.com).
  *
- * $Rev$
- * $Date$
- *
  * Defines class that performs character based access to a string.
 }
 

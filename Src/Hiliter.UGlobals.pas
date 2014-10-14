@@ -5,9 +5,6 @@
  *
  * Copyright (C) 2005-2012, Peter Johnson (www.delphidabbler.com).
  *
- * $Rev$
- * $Date$
- *
  * Declares types required when using syntax highlighters. Defines interface
  * supported by highlighter objects and enumeration of different highlighter
  * elements.

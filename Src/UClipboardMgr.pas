@@ -5,9 +5,6 @@
  *
  * Copyright (C) 2005-2012, Peter Johnson (www.delphidabbler.com).
  *
- * $Rev$
- * $Date$
- *
  * Defines a lightweight object that accesses and saves clipboard data. Used to
  * avoid significant overhead of VCL's ClipBrd unit.
 }

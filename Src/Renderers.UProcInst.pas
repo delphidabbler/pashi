@@ -5,9 +5,6 @@
  *
  * Copyright (C) 2012, Peter Johnson (www.delphidabbler.com).
  *
- * $Rev$
- * $Date$
- *
  * Classes that render XML processing instructions for inclusion at the top of
  * output XML documents. Includes a null class for use with document types that
  * require no processing instruction.

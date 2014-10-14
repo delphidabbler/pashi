@@ -5,9 +5,6 @@
 ;
 ; Copyright (C) 2012, Peter Johnson (www.delphidabbler.com).
 ;
-; $Rev$
-; $Date$
-;
 ; PasHi install file generation script for use with Inno Setup 5 Unicode.
 ;===============================================================================
 
