@@ -80,7 +80,7 @@
 </p>
 
 <p>
-  The programs are written in Object Pascal and are targetted at Delphi 2010.
+  The programs are written in Object Pascal and are targeted at Delphi XE.
 </p>
 
 <p>
@@ -141,7 +141,7 @@
 </h4>
 
 <p>
-  <em>PasHiGUI</em> requires <code>PJWdwState.pas</code> from the DelphiDabbler 
+  <em>PasHiGUI</em> requires <code>PJWdwState.pas</code> from the DelphiDabbler
   Window State Components, v5.6.1 or later. A copy of the required file is
   included in the <code>Src\GUI\Imported</code> directory.
 </p>
@@ -167,8 +167,8 @@
 </h3>
 
 <p>
-  A copy of Delphi is required to build the object Pascal code. Delphi 2010
-  is the preferred compiler.
+  A copy of Delphi is required to build the object Pascal code. Delphi XE is the
+  preferred compiler.
 </p>
 
 <div class="box">
@@ -205,8 +205,7 @@
 
 <dl>
   <dt class="spaced">
-    <code>DELPHIROOT</code> - required unless <code>DELPHI2010</code> is
-    set.
+    <code>DELPHIROOT</code> - required unless <code>DELPHIXE</code> is set.
   </dt>
   <dd>
     Should be set to the install directory of the version of Delphi being
@@ -214,13 +213,13 @@
     the <code>Bin</code> sub-directory of <code>DELPHIROOT</code>.
   </dd>
   <dt class="spaced">
-    <code>DELPHI2010</code> - optional
+    <code>DELPHIXE</code> - optional
   </dt>
   <dd>
-    If you are using Delphi 2010 this environment variable should be set
-    to the Delphi install directory. When <code>DELPHI2010</code> is specified
+    If you are using Delphi XE this environment variable should be set to the
+    Delphi install directory. When <code>DELPHIXE</code> is specified
     <code>DELPHIROOT</code> will ignore its own value and use the value of
-    <code>DELPHI2010</code> instead.
+    <code>DELPHIXE</code> instead.
   </dd>
 </dl>
 
@@ -298,7 +297,7 @@
 
 <p>
   The first step is to configure the required <code>DELPHIROOT</code> or
-  <code>DELPHI2010</code> environment variables.
+  <code>DELPHIXE</code> environment variables.
 </p>
 
 <p>
@@ -438,7 +437,7 @@
   or
 </p>
 
-<pre class="cmd"><span class="prompt">Src&gt;</span> %DELPHI2010%\Bin\Make config</pre>
+<pre class="cmd"><span class="prompt">Src&gt;</span> %DELPHIXE%\Bin\Make config</pre>
 
 <p>
   depending on which environment variable you have set.
