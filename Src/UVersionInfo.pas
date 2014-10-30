@@ -18,7 +18,7 @@ interface
 
 ///  <summary>Gets the file version number from version information of the host
 ///  program.</summary>
-function GetProductVersionStr: string;
+function GetFileVersionStr: string;
 
 
 implementation
@@ -29,7 +29,7 @@ uses
   SysUtils, Windows;
 
 
-function GetProductVersionStr: string;
+function GetFileVersionStr: string;
 var
   Dummy: DWORD;           // unused variable required in API calls
   VerInfoSize: Integer;   // size of version information data

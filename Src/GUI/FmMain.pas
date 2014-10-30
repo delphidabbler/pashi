@@ -224,7 +224,7 @@ procedure TMainForm.actAboutExecute(Sender: TObject);
 begin
   Application.MessageBox(
     PChar(
-      Format('PasHiGUI %s.', [GetProductVersionStr])
+      Format('PasHiGUI %s.', [GetFileVersionStr])
         + #10#10
         + 'A GUI front end for the PasHi Syntax Highlighter v2.'
         + #10#10

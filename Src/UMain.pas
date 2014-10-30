@@ -206,7 +206,7 @@ var
   Msg: string;  // sign on message text
 begin
   // Create and write sign on message
-  Msg := Format(sSignOn, [GetProductVersionStr]);
+  Msg := Format(sSignOn, [GetFileVersionStr]);
   fConsole.WriteLn(Msg);
   // underline sign-on message with dashes
   fConsole.WriteLn(StringOfChar('-', Length(Msg)));
