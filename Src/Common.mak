@@ -3,21 +3,21 @@
 # v. 2.0. If a copy of the MPL was not distributed with this file, You can
 # obtain one at http://mozilla.org/MPL/2.0/
 #
-# Copyright (C) 2010-2012, Peter Johnson (www.delphidabbler.com).
+# Copyright (C) 2010-2014, Peter Johnson (www.delphidabbler.com).
 #
 # Common code for inclusion in all make files. Defines common macros and rules.
 # Files that require Common.mak must include it using the !include directive.
 # ------------------------------------------------------------------------------
 
 
-# The preferred compiler is Delphi 2010. If the DELPHI2010 evironment variable
-# is set, it will be used and expected to reference the Delphi 2010 install
+# The preferred compiler is Delphi XE. If the DELPHIXE environment variable is
+# set, it will be used and expected to reference the Delphi XE install
 # directory.
-# If DELPHI2010 is not set then the DELPHIROOT environment variable is examined.
-# This can be set to any Delphi compiler. If neither DELPHI2010 nor DELPHIROOT
-# is set then an error is reported
-!ifdef DELPHI2010
-DELPHIROOT = $(DELPHI2010)
+# If DELPHIXE is not set then the DELPHIROOT environment variable is examined.
+# This can be set to any Delphi compiler. If neither DELPHIXE nor DELPHIROOT is
+# set then an error is reported.
+!ifdef DELPHIXE
+DELPHIROOT = $(DELPHIXE)
 !endif
 
 # Requires the following macros:
