@@ -1,5 +1,6 @@
 Bin/
 Exe/
 Release/
+__history
 Src/GUI/PasHiGUI.cfg
 Src/PasHi.cfg
