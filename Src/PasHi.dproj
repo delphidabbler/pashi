@@ -65,6 +65,7 @@
 			<DCCReference Include="Renderers.UTitleTag.pas"/>
 			<DCCReference Include="Renderers.UStyles.pas"/>
 			<DCCReference Include="Renderers.UDocument.pas"/>
+			<DCCReference Include="UVersionInfo.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

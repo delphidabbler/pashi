@@ -74,7 +74,8 @@ uses
   Renderers.USourceCode in 'Renderers.USourceCode.pas',
   Renderers.UTitleTag in 'Renderers.UTitleTag.pas',
   Renderers.UStyles in 'Renderers.UStyles.pas',
-  Renderers.UDocument in 'Renderers.UDocument.pas';
+  Renderers.UDocument in 'Renderers.UDocument.pas',
+  UVersionInfo in 'UVersionInfo.pas';
 
 { Main program code }
 
