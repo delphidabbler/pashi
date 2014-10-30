@@ -205,7 +205,7 @@ uses
   // Delphi
   SysUtils, ComObj, Messages,
   // Project
-  UClipFmt, UDataObjectAdapter, UOutputData, UUtils, UDropTarget;
+  UClipFmt, UDataObjectAdapter, UOutputData, UUtils, UDropTarget, UVersionInfo;
 
 
 {$R *.dfm}
@@ -222,12 +222,17 @@ procedure TMainForm.actAboutExecute(Sender: TObject);
     @param Sender [in] Not used.
   }
 begin
-  { TODO: Get version information from resources instead of hard coding. }
-  { TODO: Remove "beta" message once beta program has ended. }
   Application.MessageBox(
-      'PasHiGUI v1.0.0 beta 2.'#13#10#13#10
-      + 'A GUI front end for the PasHi Syntax Highlighter v2.'#13#10#13#10
-      + 'Copyright (c) 2006-2014 by Peter D Johnson (www.delphidabbler.com).',
+    PChar(
+      Format('PasHiGUI %s.', [GetProductVersionStr])
+        + #10#10
+        + 'A GUI front end for the PasHi Syntax Highlighter v2.'
+        + #10#10
+        + 'Copyright (c) 2006-2014 by Peter D Johnson (www.delphidabbler.com).'
+        + #10#10
+        + 'Released under the terms of the Mozilla Public License v2.0. '
+        + 'See the file License.txt for full details.'
+    ),
     'About',
     MB_OK
   );

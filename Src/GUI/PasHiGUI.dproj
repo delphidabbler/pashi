@@ -71,6 +71,7 @@
 				<Form>MiscOptionsFrame</Form>
 				<DesignClass>TFrame</DesignClass>
 			</DCCReference>
+			<DCCReference Include="..\UVersionInfo.pas"/>
 			<None Include="PasHiGUI.todo"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>

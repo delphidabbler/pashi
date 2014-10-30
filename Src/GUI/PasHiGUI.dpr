@@ -57,7 +57,8 @@ uses
   FrOptions.UHelper in 'FrOptions.UHelper.pas',
   FrOptions.ULineStyle in 'FrOptions.ULineStyle.pas' {LineStyleOptionsFrame: TFrame},
   FrOptions.UCSS in 'FrOptions.UCSS.pas' {CSSOptionsFrame: TFrame},
-  FrOptions.UMisc in 'FrOptions.UMisc.pas' {MiscOptionsFrame: TFrame};
+  FrOptions.UMisc in 'FrOptions.UMisc.pas' {MiscOptionsFrame: TFrame},
+  UVersionInfo in '..\UVersionInfo.pas';
 
 {$R Resources.res}      // main program resources, including icon
 {$R VersionInfo.res}    // version information resource
