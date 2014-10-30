@@ -300,7 +300,8 @@ resourcestring
 const
   Captions: array[Boolean] of string = (sShow, sHide);
 begin
-  actOptionsBar.Caption := Captions[actOptionsBar.Checked]
+  actOptionsBar.Caption := Captions[actOptionsBar.Checked];
+  actOptionsBar.Hint := Captions[actOptionsBar.Checked];
 end;
 
 procedure TMainForm.actPasteExecute(Sender: TObject);

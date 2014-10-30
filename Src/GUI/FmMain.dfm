@@ -16,6 +16,7 @@ object MainForm: TMainForm
   Menu = mnuMain
   OldCreateOrder = False
   Position = poDesigned
+  ShowHint = True
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
@@ -236,7 +237,6 @@ object MainForm: TMainForm
       Top = 18
       Width = 223
       Height = 357
-      VertScrollBar.Position = 55
       VertScrollBar.Tracking = True
       Align = alNone
       Anchors = [akLeft, akTop, akBottom]
@@ -249,18 +249,17 @@ object MainForm: TMainForm
       ParentColor = True
       TabOrder = 2
       object cpnlMisc: TCategoryPanel
-        Top = 135
+        Top = 190
         Height = 30
         Caption = 'Miscellaneous'
         Color = clWindow
         Collapsed = True
         TabOrder = 0
-        ExplicitTop = 353
         ExpandedHeight = 217
         inline frmMisc: TMiscOptionsFrame
           Left = 0
           Top = 0
-          Width = 202
+          Width = 219
           Height = 0
           Align = alClient
           TabOrder = 0
@@ -269,18 +268,17 @@ object MainForm: TMainForm
         end
       end
       object cpnlLines: TCategoryPanel
-        Top = 105
+        Top = 160
         Height = 30
         Caption = 'Line Numbering && Striping'
         Color = clWindow
         Collapsed = True
         TabOrder = 1
-        ExplicitTop = 323
         ExpandedHeight = 167
         inline frmLines: TLineStyleOptionsFrame
           Left = 0
           Top = 0
-          Width = 202
+          Width = 219
           Height = 0
           Align = alClient
           TabOrder = 0
@@ -289,7 +287,7 @@ object MainForm: TMainForm
         end
       end
       object cpnlCSS: TCategoryPanel
-        Top = 75
+        Top = 130
         Height = 30
         Caption = 'Style Sheets'
         Color = clWindow
@@ -308,7 +306,7 @@ object MainForm: TMainForm
         end
       end
       object cpnlDocType: TCategoryPanel
-        Top = -55
+        Top = 0
         Height = 130
         Caption = 'Document Type'
         Color = clWindow
@@ -316,7 +314,7 @@ object MainForm: TMainForm
         inline frmDocType: TDocTypeOptionsFrame
           Left = 0
           Top = 0
-          Width = 202
+          Width = 219
           Height = 104
           Align = alClient
           TabOrder = 0
@@ -383,7 +381,7 @@ object MainForm: TMainForm
         'Pascal files (*.pas,*.dpr,*.inc)|*.pas;*.dpr;*.inc|All files (*.' +
         '*)|*.*'
       Dialog.Options = [ofHideReadOnly, ofAllowMultiSelect, ofFileMustExist, ofEnableSizing]
-      Hint = 'Open|Opens and highlights a file'
+      Hint = 'Open File'
       ImageIndex = 0
       ShortCut = 16463
       OnAccept = actOpenAccept
@@ -396,7 +394,7 @@ object MainForm: TMainForm
         'HTML files (*.html)|*.html;*.htm|Text files (*.txt)|*.txt|All fi' +
         'les (*.*)|*.*'
       Dialog.Options = [ofOverwritePrompt, ofHideReadOnly, ofPathMustExist, ofEnableSizing]
-      Hint = 'Save As|Saves highlighted code as HTML'
+      Hint = 'Save Highlighted Document'
       ImageIndex = 2
       ShortCut = 16467
       OnAccept = actSaveAsAccept
@@ -405,12 +403,12 @@ object MainForm: TMainForm
     object actExit: TFileExit
       Category = 'File'
       Caption = 'E&xit'
-      Hint = 'Exit|Quits the application'
+      Hint = 'Exit'
     end
     object actCopy: TAction
       Category = 'Edit'
       Caption = '&Copy'
-      Hint = 'Copy|Copies highlighted code to clipboard'
+      Hint = 'Copy'
       ImageIndex = 1
       ShortCut = 16451
       OnExecute = actCopyExecute
@@ -419,7 +417,7 @@ object MainForm: TMainForm
     object actPaste: TAction
       Category = 'Edit'
       Caption = '&Paste'
-      Hint = 'Paste|Highlights source code pasted from clipboard'
+      Hint = 'Paste'
       ImageIndex = 3
       ShortCut = 16470
       OnExecute = actPasteExecute
@@ -428,19 +426,17 @@ object MainForm: TMainForm
     object actAbout: TAction
       Category = 'Help'
       Caption = '&About...'
-      Hint = 'About|Displays About dialog'
+      Hint = 'Display About Box'
       OnExecute = actAboutExecute
     end
     object actRestoreDefaults: TAction
       Category = 'Options'
       Caption = '&Restore Defaults'
-      Hint = '|Restore default values from PasHi config file'
       OnExecute = actRestoreDefaultsExecute
     end
     object actApply: TAction
       Category = 'Options'
       Caption = 'Apply'
-      Hint = '|Apply options to any current document'
       OnExecute = actApplyExecute
     end
     object actOptionsBar: TAction
@@ -455,7 +451,7 @@ object MainForm: TMainForm
     object actPasHiGUIWiki: TBrowseURL
       Category = 'Help'
       Caption = 'Online User Guide'
-      Hint = 'User Guide|Display user guide online'
+      Hint = 'View User Guide'
       URL = 'www.delphidabbler.com/view/url/pashigui-wiki'
     end
   end
@@ -464,7 +460,7 @@ object MainForm: TMainForm
     Left = 336
     Top = 152
     Bitmap = {
-      494C010105000900040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010105000900080010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
