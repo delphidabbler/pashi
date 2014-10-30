@@ -18,6 +18,8 @@ uses
   // Delphi
   ExtActns, ImgList, Controls, ActnList, StdActns, Classes, Menus, Forms,
   ExtCtrls, StdCtrls, OleCtrls, SHDocVw, ComCtrls, ToolWin, ActiveX, Windows,
+  // 3rd Party
+  PJWdwState,
   // Project
   IntfDropDataHandler, UOptions, UDocument, UWBContainer, UInputData,
   FrOptions.UBase, FrOptions.UDocType, FrOptions.ULineStyle, FrOptions.UCSS,
@@ -113,6 +115,8 @@ type
       TLoadProc = reference to procedure;
   private
     fOptions: TOptions;
+    // Saves and restores window's size and position.
+    fWdwState: TPJWdwState;
     fDocLoaded: Boolean;
     fDocument: TDocument;
       {Currently loaded document}
@@ -205,7 +209,8 @@ uses
   // Delphi
   SysUtils, ComObj, Messages,
   // Project
-  UClipFmt, UDataObjectAdapter, UOutputData, UUtils, UDropTarget, UVersionInfo;
+  UClipFmt, UConfigFiles, UDataObjectAdapter, UOutputData, UUtils, UDropTarget,
+  UVersionInfo;
 
 
 {$R *.dfm}
@@ -501,6 +506,12 @@ begin
   fWBContainer.DropTarget := fDropTarget;
   fWBContainer.OnTranslateAccel := TranslateAccelHandler;
 
+  fWdwState := TPJWdwState.CreateStandAlone(Self);
+  fWdwState.Options := [woFitWorkArea, woIgnoreState];
+  fWdwState.IniFileName := TConfigFiles.UserConfigDir + '\gui-state';
+  fWdwState.Section := 'MainWindow';
+  fWdwState.Restore;
+
   fOptions := TOptions.Create;
   DisplayOptions;
 end;
@@ -510,6 +521,7 @@ procedure TMainForm.FormDestroy(Sender: TObject);
     @param Sender [in] Not used.
   }
 begin
+  fWdwState.Save;
   // Unregister drag drop
   RevokeDragDrop(Handle);
   fDropTarget := nil;
