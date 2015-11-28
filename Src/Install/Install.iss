@@ -27,10 +27,11 @@
 #define ReadmeFile "ReadMe.txt"
 #define UserGuide "UserGuide.html"
 #define InstUninstDir "Uninst"
-#define OutDir SourcePath + "..\..\Exe"
-#define SrcExePath SourcePath + "..\..\Exe\"
-#define SrcDocsPath SourcePath + "..\..\Docs\"
-#define SrcConfigPath SourcePath + "..\..\Config\"
+#define SrcRootPath SourcePath + "..\..\"
+#define OutDir SrcRootPath + "Exe"
+#define SrcExePath SrcRootPath + "Exe\"
+#define SrcDocsPath SrcRootPath + "Docs\"
+#define SrcConfigPath SrcRootPath + "Config\"
 #define ExeProg SrcExePath + ExeFile
 #define Company "DelphiDabbler.com"
 #define AppPublisher "DelphiDabbler"
@@ -86,7 +87,7 @@ ChangesEnvironment=true
 [Files]
 Source: {#SrcExePath}{#ExeFile}; DestDir: {app}; Flags: uninsrestartdelete replacesameversion
 Source: {#SrcExePath}{#GUIExeFile}; DestDir: {app}; Tasks: gui; Flags: uninsrestartdelete replacesameversion
-Source: {#LicenseTextFile}; DestDir: {app}; Flags: ignoreversion
+Source: {#SrcRootPath}{#LicenseTextFile}; DestDir: {app}; Flags: ignoreversion
 Source: {#SrcDocsPath}{#ReadmeFile}; DestDir: {app}; Flags: ignoreversion
 Source: {#SrcDocsPath}{#UserGuide}; DestDir: {app}; Flags: ignoreversion
 Source: {#SrcConfigPath}version; DestDir: {#AppDataDir}; Flags: ignoreversion
