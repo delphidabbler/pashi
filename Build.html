@@ -93,29 +93,8 @@
 
   <p>
     <strong>Note:</strong>
-    These instructions do not apply to the following versions of the program:
-  </p>
-
-  <ul>
-    <li>
-      Release 1.1.0. See the version of <code>Build.html</code> in the
-      <code>tags/version-1.1.0</code> branch of the repository.
-    </li>
-    <li>
-      <em>PasH</em> <sup><span style="font-size:smaller;">&dagger;</span></sup>
-      release 1.0.0 or earlier or
-      <em>PasHGUI</em>
-      <sup><span style="font-size:smaller;">&dagger;</span></sup> release 0.1.0.
-      For instructions on how to build these versions please refer to the
-      <code>ReadMe-Src.txt</code> files that are to be found in the
-      <code>Docs</code> or root directories of the relevant source code trees.
-    </li>
-  </ul>
-
-  <p style="font-size:smaller;">
-    <sup><span style="font-size:smaller;">&dagger;</span></sup> <em>PasH</em>
-    and <em>PasHGUI</em> are the old names for <em>PasHi</em> and
-    <em>PasHiGUI</em>.
+    These instructions do not apply to versions of the program before release
+    v2.0.0.
   </p>
 
 </div>
@@ -188,30 +167,39 @@
     <code>DCC32</code>
   </dt>
   <dd>
-    The Delphi command line compiler.
+    <p>
+      The Delphi command line compiler.
+    </p>
+    <div class="box">
+      Not available with starter editions of Delphi.
+    </div>
   </dd>
   <dt class="spaced">
     <code>RC</code>
   </dt>
   <dd>
-    The Microsoft resource compiler. Used to compile the main resource file.
+    <p>
+      The Microsoft resource compiler. Used to compile the main resource file.
+    </p>
   </dd>
   <dt class="spaced">
     <code>BRCC32</code>
   </dt>
   <dd>
-    The Borland resource compiler. Used to compile version information resources
-    from temporary resource files emitted by VIEd (see below)
+    <p>
+      The Borland resource compiler. Used to compile version information
+      resources from temporary resource files emitted by VIEd (see below).
+    </p>
   </dd>
 </dl>
 
 <div class="box">
-  We use two different resource compilers because <code>RC</code> fails to 
-  compile resource files emitted by the Version Information Editor while 
-  <code>BRCC32</code> can fail to compile <code>.manifest</code> files 
+  We use two different resource compilers because <code>RC</code> fails to
+  compile resource files emitted by the Version Information Editor while
+  <code>BRCC32</code> can fail to compile <code>.manifest</code> files
   correctly.
 </div>
-  
+
 <p>
   The following environment variables are associated with these tools:
 </p>
@@ -221,18 +209,22 @@
     <code>DELPHIROOT</code> - required unless <code>DELPHIXE</code> is set.
   </dt>
   <dd>
-    Should be set to the install directory of the version of Delphi being
-    used. <code>DCC32</code> and <code>BRCC32</code> are expected to be in
-    the <code>Bin</code> sub-directory of <code>DELPHIROOT</code>.
+    <p>
+      Should be set to the install directory of the version of Delphi being
+      used. <code>DCC32</code> and <code>BRCC32</code> are expected to be in
+      the <code>Bin</code> sub-directory of <code>DELPHIROOT</code>.
+    </p>
   </dd>
   <dt class="spaced">
     <code>DELPHIXE</code> - optional
   </dt>
   <dd>
-    If you are using Delphi XE this environment variable should be set to the
-    Delphi install directory. When <code>DELPHIXE</code> is specified
-    <code>DELPHIROOT</code> will ignore its own value and use the value of
-    <code>DELPHIXE</code> instead.
+    <p>
+      If you are using Delphi XE this environment variable should be set to the
+      Delphi install directory. When <code>DELPHIXE</code> is specified
+      <code>DELPHIROOT</code> will ignore its own value and use the value of
+      <code>DELPHIXE</code> instead.
+    </p>
   </dd>
 </dl>
 
@@ -343,9 +335,10 @@
 
 <p>
   <em>PasHi</em>'s latest stable source code can be found in the <em>master</em>
-  branch while development code is maintained in the <em>develop</em> branch.
-  You can also download the code of one of the releases by selecting the
-  relevant tag.
+  branch while development code is maintained in the <em>develop</em> branch and
+  new features are developed in branches whose name begins with
+  <em>feature</em>. You can also download the code of one of the releases by
+  selecting the relevant tag.
 </p>
 
 <p class="box">
@@ -379,15 +372,15 @@
   |   |   |
   |   |   +-- Imported      - 3rd party source code used for GUI application
   |   |   |
-  |   |   +-- Resources     - assets required to build PasHiGUI's resources
+  |   |   +-- Assets        - assets required to build PasHiGUI's resources
   |   |
   |   +-- Install           - install program scripts
   |
   +-- Test                  - contains test file</pre>
 
 <p>
-  If, by chance, you also have <code>Bin</code>, <code>Exe</code> and
-  <code>Release</code> directories don't worry - all will become clear.
+  If, by chance, don't worry if you also have a <code>Build</code> directory and
+  sub-directories - all will become clear.
 </p>
 
 <p>
@@ -423,18 +416,20 @@
 </p>
 
 <pre>./
-  +-- Bin                   - receives object files and .res files for PasHi
+  <strong>+-- Build                 - receives all files created by the build process
+  |   |
+  |   +-- Bin               - receives object files and .res files for PasHi
+  |   |
+  |   +-- Exe               - receives executable code
+  |   |
+  |   +-- Release           - receives release files</strong>
   <span class="disabled">|
   +-- Config                - config files to be installed with PasHi
   |
   +-- Docs                  - documentation
-  |</span>
-  +-- Exe                   - receives executable code
-  <span class="disabled">|
+  |
   +-- Masters               - documents used to generate some project files
-  |</span>
-  +-- Release               - receives release files
-  <span class="disabled">|
+  |
   +-- Src                   - source code for PasHi
   |   |
   |   +-- Assets            - assets required to build PasHi's resources
@@ -443,7 +438,7 @@
   |   |   |
   |   |   +-- Imported      - 3rd party source code used for GUI application
   |   |   |
-  |   |   +-- Resources     - assets required to build PasHiGUI's resources
+  |   |   +-- Assets        - assets required to build PasHiGUI's resources
   |   |
   |   +-- Install           - install program scripts
   |
@@ -470,19 +465,21 @@
 </p>
 
 <pre>./
-  <span class="disabled">+-- Bin                   - receives object files and .res files for PasHi</span>
-  <span class="disabled">|</span>   |
-  <span class="disabled">|</span>   +-- GUI               - receives object files and .res files for PasHiGUI
-  <span class="disabled">|
+  <span class="disabled">+-- Build                 - receives all files created by the build process
+  |   |
+  |   +-- Bin               - receives object files and .res files for PasHi
+  |   |</span>   <strong>|</strong>
+  <span class="disabled">|   |</span>   <strong>+-- GUI           - receives object files and .res files for PasHiGUI</strong>
+  <span class="disabled">|   |
+  |   +-- Exe               - receives executable code
+  |   |
+  |   +-- Release           - receives release files
+  |
   +-- Config                - config files to be installed with PasHi
   |
   +-- Docs                  - documentation
   |
-  +-- Exe                   - receives executable code
-  |
   +-- Masters               - documents used to generate some project files
-  |
-  +-- Release               - receives release files
   |
   +-- Src                   - source code for PasHi
   |   |
@@ -492,12 +489,11 @@
   |   |   |
   |   |   +-- Imported      - 3rd party source code used for GUI application
   |   |   |
-  |   |   +-- Resources     - assets required to build PasHiGUI's resources
+  |   |   +-- Assets        - assets required to build PasHiGUI's resources
   |   |
   |   +-- Install           - install program scripts
   |
   +-- Test                  - contains test file</span></pre>
-
 
 <p>
   <code>Make</code> will also have created the required <code>.cfg</code> file
@@ -582,8 +578,8 @@
 
 <p>
   So, to build <em>PasHi</em> and <em>PasHiGUI</em> and place
-  <code>PasHi.exe</code> and <code>PasHiGUI.exe</code> in the <code>Exe</code>
-  folder do this:
+  <code>PasHi.exe</code> and <code>PasHiGUI.exe</code> in the
+  <code>Build\Exe</code> folder do this:
 </p>
 
 <pre class="cmd"><span class="prompt">Src&gt;</span> Make
