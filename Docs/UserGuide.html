@@ -2,14 +2,14 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <!--
- * Copyright (C) 2005-2012 Peter Johnson (www.delphidabbler.com)
+ * Copyright (C) 2005-2015 Peter Johnson (www.delphidabbler.com)
  *
  * This document may be re-distributed or re-published only with the
  * DelphiDabbler PasHi Pascal Highlighter program available from
  * http://www.delphidabbler.com/software/pashi
  *
  * The document may be modified only if distributed with a modified version
- * DelphiDabbler PasHi Pascal Highlighter. Modified version must retain this
+ * DelphiDabbler PasHi Pascal Highlighter. Modified versions must retain this
  * copyright message and the author and copyright meta tags.
 -->
 
@@ -18,7 +18,7 @@
 <head>
 
   <title>
-    DelphiDabbler || PasHi Pascal Highlighter
+    PasHi Pascal Highlighter User Guide
   </title>
 
   <meta
@@ -233,7 +233,7 @@
 
 <h1>
   <div><em>PasHi</em> Pascal Highlighter</div>
-  <div class="subtitle">Read Me Document</div>
+  <div class="subtitle">User Guide</div>
 </h1>
 
 <h2 id="contents">
@@ -245,10 +245,7 @@
     <a href="#introduction">Introduction</a>
   </li>
   <li>
-    <a href="#why">Why another Pascal highlighter?</a>
-  </li>
-  <li>
-    <a href="#install">Installation</em></a>
+    <a href="#installation">Installation</em></a>
   </li>
   <li>
     <a href="#usage">Using <em>PasHi</em></a>
@@ -261,12 +258,6 @@
   </li>
   <li>
     <a href="#pashigui">Using <em>PasHiGUI</em></a>
-  </li>
-  <li>
-    <a href="#bugs">Bugs &amp; Feature Requests</em>
-  </li>
-  <li>
-    <a href="#source">Source code</a>
   </li>
 </ul>
 
@@ -309,215 +300,17 @@
   and dropped onto the window to highlight them.
 </p>
 
-<p>
-  Check <a
-    href="http://hallvards.blogspot.com/"
-  >Hallvard's Blog</a> for an example of a site using <em>PasHi</em>.
-  <em>PasHi</em> has also been used to highlight example source code on the
-  DelphiDabbler <a
-    href="http://www.delphidabbler.com/tips"
-  >Delphi Tips</a> and
-  <a
-    href="http://www.delphidabbler.com/articles"
-  >Articles</a> pages.
-</p>
-
 <p class="gototop">
   &raquo; <a href="#contents">Contents</a>
 </p>
 
-<h2 id="why">
-  Why another Pascal highlighter?
-</h2>
-
-<p>
-  Simple, I wanted an easy to use tool to format Pascal code for the
-  <a
-    href="http://www.delphidabbler.com/"
-  >DelphiDabbler website</a>. I wanted the following:
-</p>
-
-<ol>
-  <li>
-    Conformant XHTML and later HTML 5.
-  </li>
-  <li>
-    Styling by means of cascading style sheets.
-  </li>
-  <li>
-    Full control over the appearance of the output code.
-  </li>
-  <li>
-    Ability to highlight via the clipboard.
-  </li>
-  <li>
-    The option to generate HTML fragments for inserting into existing
-    documents.
-  </li>
-</ol>
-
-<p>
-  On checking the available free tools I found that they were either too complex
-  or they didn't provide one or more of the features I wanted.
-</p>
-
-<p>
-  I had already written highlighter code for my <em><a
-    href="http://www.delphidabbler.com/software/codesnip"
-  >CodeSnip</a></em> program, so I extracted that, tweaked it and wrapped it up
-  in a command line program. Having made it I thought I'd release it in case
-  anyone else found it useful. Since then it's been greatly enhanced.
-</p>
-
-<p class="gototop">
-  &raquo; <a href="#contents">Contents</a>
-</p>
-
-<h2 id="install">
+<h2 id="installation">
   Installation
 </h2>
 
-<div class="pullout">
-  <p>
-    <em>PasHi</em> requires Windows 2000 or later to run. You need to have
-    administrative privileges to install it. Elevation may be required to
-    install on Windows Vista and later.
-  </p>
-  <p>
-    If you have <em>PasHi</em> v1.x or earlier you need to remove it before
-    installing this version. These early versions of the program have no setup
-    program, so you must uninstall manually. Simply find the program (and
-    <em>PasHiGUI</em> if you have it) and delete the executable file(s) along
-    with any support files you installed. If you included the v1.x install
-    directory on the system path you should remove it.
-  </p>
-</div>
-
 <p>
-  <em>PasHi</em> is provided in a zip file that contains a setup program,
-  <code>PasHi-Setup-xxx.exe</code> (where xxx is the program's version number).
-  The zip file also contains this read-me file.
-</p>
-
-<p>
-  Extract the setup program from the zip file and run it, following the
-  on-screen instructions.
-</p>
-
-<p>
-  You will need to accept the license before configuring and completing the
-  installation. The license is permissive and lets you copy and share
-  <em>PasHi</em> freely. You can also modify it providing you make the source
-  code of your changes freely available.
-</p>
-
-<p>
-  After agreeing to the license the installer you choose the installation
-  directory followed by the name of the start menu program group. Following that
-  you have three options, all of which are selected by default:
-</p>
-
-<ol class="spaced">
-  </li>
-  <li>
-    <em>Add PasHi's directory to the system path for all users</em>:<br />
-    This lets
-    you run <em>PasHi</em> simply by typing its name on the command line,
-    without specifying the path to the program. The installer modifies the
-    system PATH environment variable. This option is recommended for everyone.
-  </li>
-  <li>
-    <em>Install sample style sheets and config file templates</em>:<br />
-    This option installs various <a
-      href="#css-samples"
-    >CSS style sheets</a> and <a
-      href="#config-samples"
-    >config file templates</a>. These files will appear in your
-    <code>%AppData%\DelphiDabbler\PasHi</code> directly immediately after you
-    first run <em>PasHi</em>. The files take up very little disk space so this
-    option is recommended unless you are sure you will never need to use the
-    files.
-  </li>
-  <li>
-    <em>Install GUI front end program, PasHiGUI</em>:<br />
-    This installs the <a
-      href="#pashigui"
-    ><em>PasHiGUI</em></a> program alongside <em>PasHi</em>. This program is
-    worth installing if you prefer to use <em>PasHi</em> from a GUI rather than
-    mastering the command line. Most, but not all, of <em>PasHi</em>'s options
-    are available from <em>PasHiGUI</em>.
-  </li>
-</ol>
-
-<p>
-  Once you have made your choices, you can review them then either go back to
-  make changes or commit to installing. Once installation is complete then the
-  last page is displayed. It gives an option to display this ReadMe file. If you
-  have installed <em>PasHiGUI</em> you are given the option to run it.
-</p>
-
-<p>
-  The installer makes the following changes to your system:
-</p>
-
-<ul>
-  <li>
-    The main program's executable files and documentation are installed into the
-    chosen install folder (<code>%ProgramFiles%\DelphiDabbler\PasHi</code> by
-    default). If you chose to install it, <em>PasHiGUI</em> will also be placed
-    in this directory.
-  </li>
-  <li>
-    Files required by the uninstaller are stored in the main installation's
-    <code>Uninst</code> sub-folder.
-  </li>
-  <li>
-    The program's uninstall information is registered with the Add / Remove
-    Programs (aka Programs and Features) control panel applet.
-  </li>
-  <li>
-    The system path may be updated if you chose the relevant option.
-  </li>
-  <li>
-    A program group will be created in the start menu.
-  </li>
-  <li>
-    Sample .css and config files are installed in
-    <code>%ProgramData%\DelphiDabbler\PasHi</code>. The first time that
-    <em>PasHi</em> is run by each user, these files are also copied to that
-    users's <code>%AppData%\DelphiDabbler\PasHi</code> directory.
-  </li>
-</ul>
-
-<h3>
-  Uninstallation
-</h3>
-
-<p>
-  Open the Add / Remove Programs (Programs and Features) applet from the Control
-  Panel, navigate to the <em>DelphiDabbler PasHi</em> entry and click the
-  <em>Remove</em> or <em>Uninstall</em> button. You will be asked to confirm
-  removal of the program. Click <em>Yes</em> to proceed.
-</p>
-
-<p>
-  <em>PasHi</em>, <em>PasHiGUI</em> (if installed) and all documentation will
-  be removed.
-</p>
-
-<p>
-  The directory <code>%ProgramData%\DelphiDabbler\PasHi</code> will be removed
-  but each user's <code>%AppData%\DelphiDabbler\PasHi</code> directory and all
-  its files will be left behind.
-</p>
-
-<p>
-  <em>PasHi</em>'s install directory will be removed from the system path if
-  present.
-</p>
-
-<p class="gototop">
-  &raquo; <a href="#contents">Contents</a>
+  Details of how to install <em>PasHi</em> and <em>PasHiGUI</em> are provided in
+  the file <code>ReadMe.txt</code> that is included in the program download.
 </p>
 
 <h2 id="usage">
@@ -529,7 +322,7 @@
 </h3>
 
 <p>
-  By default <em>PashHi</em> reads input from standard input and writes
+  By default <em>PasHi</em> reads input from standard input and writes
   highlighted output to standard output. You can process a single file and write
   output to another file using shell redirection. For example, to highlight
   <code>source.pas</code> and output to <code>source.html</code> use:
@@ -557,7 +350,7 @@
 </h3>
 
 <p>
-  <em>PashHi</em>'s behaviour can be modified by specifying one or more file
+  <em>PahHi</em>'s behaviour can be modified by specifying one or more file
   names and / or commands on the command line. File names and commands can be
   intermixed.
 </p>
@@ -848,8 +641,8 @@
       When using the <code>--embed-css</code> or <code>--link-css</code> you
       should be careful to ensure that the class names in the CSS file you are
       embedding or linking provides the correct class names.<br />
-      This command is provided mainly when you are committed to using the old
-      CSS style names.
+      This command is provided for when you are committed to using the old CSS
+      style names.
     </td>
   </tr>
   <tr>
@@ -916,8 +709,8 @@
       Specifies the number of blank lines to insert between the contents of each
       source file. The required number of lines is given in the following
       parameter and must be in the range 0..16. The default value is 1.<br />
-      This command is ignored unless more than file is specified on the command
-      line.
+      This command is ignored unless more than one file is specified on the
+      command line.
     </td>
   </tr>
   <tr>
@@ -1118,7 +911,7 @@
 </h3>
 
 <p>
-  <em>PasHi</em> uses the following exit code:
+  <em>PasHi</em> uses the following exit codes:
 </p>
 
 <ul>
@@ -1130,10 +923,6 @@
     error message written to standard error for details.
   </li>
 </ul>
-
-<p>
-  When <em>PasHi</em> exits normally then the exit code is 0.
-</p>
 
 <h3>
   Usage example
@@ -1188,9 +977,9 @@
 </h2>
 
 <p>
-  <em>PasHi</em> reads any <code>config</code> file that is present in the
-  <code>%AppData%\DelphiDabbler\PasHi</code> directory when it starts up. Any
-  commands it finds in that file can be used to change the program's default
+  If <em>PasHi</em> finds a file named <code>config</code> in the
+  <code>%AppData%\DelphiDabbler\PasHi</code> directory when it starts up, it is
+  read. Any commands found in that file are used to change the program's default
   state.
 </p>
 
@@ -1249,9 +1038,8 @@
 
 <p>
   Some example config scripts are optionally installed in
-  <code>%AppData%\DelphiDabbler\PasHi</code>. (If you installed them you may
-  need to run <em>PasHi</em> once for the files to appear). The sample scripts
-  are:
+  <code>%AppData%\DelphiDabbler\PasHi</code>. The files may not appear in that
+  folder until after <em>PasHi</em> has been run once. The sample scripts are:
 </p>
 
 <dl>
@@ -1266,7 +1054,7 @@
     config-v1
   </dt>
   <dd>
-    Emulates, as far as possible the actions of <em>PasHi</em>. This script
+    Emulates, as far as possible the actions of <em>PasHi</em> v1. This script
     requires that the file <code>v1-default.css</code> (provided) is present in
     the same directory.
   </dd>
@@ -1297,16 +1085,21 @@ doc-type fragment</pre>
 
 <p>
   on its own on the command line and it will perform the required actions by
-  default. Be warned that if you do this, you will need to use the
+  default.</p>
+
+<p>
+  Be warned that if you do this, you will need to specify the
   <code>--input-stdin</code>, <code>--output-stdout</code> and
-  <code>--doc-type xhtml</code> commands to revert to normal default behaviour.
+  <code>--doc-type xhtml</code> commands on the command line to revert to
+  default behaviour.
 </p>
 
 <p>
   Another useful example is if you provide your own CSS file containing your
-  desired highlighting style that you always want to use. To save you having
-  to specify this file on the command line each time, simply put a suitable
-  command in <code>config</code>. For example, to embed CSS use something like:
+  desired highlighting style that you always want to embed in your highlighted
+  document. To save you having to specify this file on the command line each
+  time, simply put a suitable command in <code>config</code>. For example, to
+  embed CSS use something like:
 </p>
 
 <pre class="indent">embed-css C:\CSS\my-style.css</pre>
@@ -1320,7 +1113,8 @@ doc-type fragment</pre>
 <pre class="indent">embed-css twilight.css</pre>
 
 <p>
-  You can also link to your CSS file. For example:
+  If you prefer to link to your CSS file instead of embedding it, you can add
+  the following line to <code>config</code>:
 </p>
 
 <pre class="indent">link-css http://example.com/css/my-style.css</pre>
@@ -1896,7 +1690,7 @@ doc-type fragment</pre>
     dropped file(s). Folders are ignored.
   </li>
   <li>
-    Drag and drop selected text from a suitable text editor: the selected text
+    Drag and drop selected text from a compatible text editor: the selected text
     is syntax highlighted and is assumed to be valid Pascal source code.
   </li>
 </ul>
@@ -1906,79 +1700,22 @@ doc-type fragment</pre>
 </h3>
 
 <p>
-  <em>PasHiGUI</em> will not work unless a suitable version of <em>PasHi</em> is
-  installed in the same directory and is the correct version. Using the
-  installer to install both programs is the best means of ensuring that
-  everything is set up correctly.
-</p>
-
-<p class="gototop">
-  &raquo; <a href="#contents">Contents</a>
-</p>
-
-<h2 id="bugs">
-  Bugs &amp; Feature Requests
-</h2>
-
-<p>
-  Please do report bugs and request new features. To do this please use the <a
-    href="http://www.delphidabbler.com/url/pashi-issues"
-  >issue tracker</a>. Do review any existing reports before raising a new
-  issue.
-</p>
-
-<p class="gototop">
-  &raquo; <a href="#contents">Contents</a>
-</p>
-
-<h2 id="source">
-  Source code
-</h2>
-
-<p>
-  The source code for <em>PasHi</em> and <em>PasHiGUI</em> is hosted in
-  Subversion repository on GoogleCode. The repository can be viewed at <a
-    href="http://code.google.com/p/pas-hi/source/browse/"
-  >http://code.google.com/p/pas-hi/source/browse/</a>.
-</p>
-
-<p>
-  Zip files containing source code are hosted on the project's GoogleCode <a
-    href="http://code.google.com/p/pas-hi/downloads/list"
-  >download tab</a>.
-</p>
-
-<p>
-  Finally, the latest release of the source code is always available via the
-  <a
-    href="http://www.delphidabbler.com/software/pashi"
-  ><em>PasHi</em> home page</a>.
-</p>
-
-<p>
-  You will find a file named <code>Build.html</code> in the root directory of
-  each source code distribution that explains how to build the programs.
+  <em>PasHiGUI</em> will not work unless <em>PasHi</em> is installed in the same
+  directory and is the correct version. Using the installer to install both
+  programs is the best means of ensuring that everything is set up correctly.
 </p>
 
 <div class="endnotes">
 
-  <div class="comments">
-    If you have any comments about this program please get in touch via my
-    <a
-      href="http://www.delphidabbler.com/contact"
-    >website</a>. But do please use the <strong>issue tracker</strong>
-    mentioned above to report bugs rather than contacting me direct.
-  </div>
-
   <div class="copyright">
     <em>PasHi</em>'s license is available
     <a
-      href="http://www.delphidabbler.com/software/pashi/license"
+      href="http://delphidabbler.com/software/pashi/license"
     >here</a>.<br />
-    This document is copyright &copy; 2005-2012, P D Johnson,
+    This document is copyright &copy; 2005-2015, P D Johnson,
     <a
-      href="http://www.delphidabbler.com/"
-    >www.delphidabbler.com</a>
+      href="http://delphidabbler.com/"
+    >delphidabbler.com</a>.
   </div>
 
 </div>
