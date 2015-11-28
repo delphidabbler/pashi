@@ -64,7 +64,7 @@ release:
   @cd ..
   -@if exist $(OUTFILE) del $(OUTFILE)
   @$(ZIP) -j -9 $(OUTFILE) Exe\PasHi-Setup-*.exe
-  @$(ZIP) -j -9 $(OUTFILE) Docs\ReadMe.html Docs\License.txt
+  @$(ZIP) -j -9 $(OUTFILE) Docs\ReadMe.txt LICENSE
   @cd Src
 
 # Clean up unwanted files
