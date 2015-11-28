@@ -4,23 +4,27 @@
 			<MainSource>PasHiGUI.dpr</MainSource>
 			<Config Condition="'$(Config)'==''">Base</Config>
 			<DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
-			<ProjectVersion>12.0</ProjectVersion>
+			<ProjectVersion>12.3</ProjectVersion>
+			<Base>True</Base>
+			<Platform>Win32</Platform>
+			<AppType>Application</AppType>
+			<FrameworkType>VCL</FrameworkType>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
 			<Base>true</Base>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base)'!=''">
-			<DCC_UnitSearchPath>..\..\Bin\GUI;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+			<DCC_UnitSearchPath>..\..\Build\Bin\GUI;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
 			<DCC_DependencyCheckOutputName>..\..\Exe\PasHiGUI.exe</DCC_DependencyCheckOutputName>
 			<DCC_SYMBOL_PLATFORM>false</DCC_SYMBOL_PLATFORM>
-			<DCC_UnitAlias>WinTypes=Windows;WinProcs=Windows;$(DCC_UnitAlias)</DCC_UnitAlias>
-			<DCC_ExeOutput>..\..\Exe</DCC_ExeOutput>
+			<DCC_UnitAlias>WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;$(DCC_UnitAlias)</DCC_UnitAlias>
+			<DCC_ExeOutput>..\..\Build\Exe</DCC_ExeOutput>
 			<DCC_ImageBase>00400000</DCC_ImageBase>
 			<DCC_CVT_WIDENING_STRING_LOST>true</DCC_CVT_WIDENING_STRING_LOST>
 			<DCC_CVT_ACHAR_TO_WCHAR>true</DCC_CVT_ACHAR_TO_WCHAR>
 			<DCC_EXPLICIT_STRING_CAST_LOSS>true</DCC_EXPLICIT_STRING_CAST_LOSS>
 			<DCC_Platform>x86</DCC_Platform>
-			<DCC_DcuOutput>..\..\Bin\GUI</DCC_DcuOutput>
+			<DCC_DcuOutput>..\..\Build\Bin\GUI</DCC_DcuOutput>
 			<DCC_SymbolReferenceInfo>1</DCC_SymbolReferenceInfo>
 		</PropertyGroup>
 		<ItemGroup>
@@ -78,7 +82,8 @@
 				<Key>Base</Key>
 			</BuildConfiguration>
 		</ItemGroup>
-		<Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
+		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')" Project="$(BDS)\Bin\CodeGear.Delphi.Targets"/>
+		<Import Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')" Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj"/>
 		<ProjectExtensions>
 			<Borland.Personality>Delphi.Personality.12</Borland.Personality>
 			<Borland.ProjectType>VCLApplication</Borland.ProjectType>
@@ -89,9 +94,6 @@
 					</Source>
 					<Parameters>
 						<Parameters Name="RunParams">-localhost</Parameters>
-						<Parameters Name="UseLauncher">False</Parameters>
-						<Parameters Name="LoadAllSymbols">True</Parameters>
-						<Parameters Name="LoadUnspecifiedSymbols">False</Parameters>
 					</Parameters>
 					<VersionInfo>
 						<VersionInfo Name="IncludeVerInfo">False</VersionInfo>
@@ -121,14 +123,17 @@
 						<VersionInfoKeys Name="Comments"/>
 					</VersionInfoKeys>
 					<Excluded_Packages>
-						<Excluded_Packages Name="$(BDS)\Bin\dclib140.bpl">Embarcadero InterBase Express Components</Excluded_Packages>
-						<Excluded_Packages Name="$(BDS)\bin\dclado140.bpl">Embarcadero ADO DB Components</Excluded_Packages>
-						<Excluded_Packages Name="$(BDS)\bin\dclwebsnap140.bpl">Embarcadero WebSnap Components</Excluded_Packages>
-						<Excluded_Packages Name="$(BDS)\bin\dclwbm140.bpl">Embarcadero InternetExpress Components</Excluded_Packages>
-						<Excluded_Packages Name="$(BDS)\bin\dcloffice2k140.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
-						<Excluded_Packages Name="$(BDS)\bin\dclofficexp140.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+						<Excluded_Packages Name="$(BDSBIN)\dclib140.bpl">Embarcadero InterBase Express Components</Excluded_Packages>
+						<Excluded_Packages Name="$(BDSBIN)\dclado140.bpl">Embarcadero ADO DB Components</Excluded_Packages>
+						<Excluded_Packages Name="$(BDSBIN)\dclwebsnap140.bpl">Embarcadero WebSnap Components</Excluded_Packages>
+						<Excluded_Packages Name="$(BDSBIN)\dclwbm140.bpl">Embarcadero InternetExpress Components</Excluded_Packages>
+						<Excluded_Packages Name="$(BDSBIN)\dcloffice2k140.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+						<Excluded_Packages Name="$(BDSBIN)\dclofficexp140.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
 					</Excluded_Packages>
 				</Delphi.Personality>
+				<Platforms>
+					<Platform value="Win32">True</Platform>
+				</Platforms>
 			</BorlandProject>
 			<ProjectFileVersion>12</ProjectFileVersion>
 		</ProjectExtensions>

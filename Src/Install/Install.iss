@@ -28,8 +28,9 @@
 #define UserGuide "UserGuide.html"
 #define InstUninstDir "Uninst"
 #define SrcRootPath SourcePath + "..\..\"
-#define OutDir SrcRootPath + "Exe"
-#define SrcExePath SrcRootPath + "Exe\"
+#define BuildPath SrcRootPath + "Build\"
+#define OutDir BuildPath + "Exe"
+#define SrcExePath BuildPath + "Exe\"
 #define SrcDocsPath SrcRootPath + "Docs\"
 #define SrcConfigPath SrcRootPath + "Config\"
 #define ExeProg SrcExePath + ExeFile
