@@ -191,14 +191,27 @@
     The Delphi command line compiler.
   </dd>
   <dt class="spaced">
+    <code>RC</code>
+  </dt>
+  <dd>
+    The Microsoft resource compiler. Used to compile the main resource file.
+  </dd>
+  <dt class="spaced">
     <code>BRCC32</code>
   </dt>
   <dd>
-    The Borland resource compiler. Used to compile various resource source
-    (<code>.rc</code>) files.
+    The Borland resource compiler. Used to compile version information resources
+    from temporary resource files emitted by VIEd (see below)
   </dd>
 </dl>
 
+<div class="box">
+  We use two different resource compilers because <code>RC</code> fails to 
+  compile resource files emitted by the Version Information Editor while 
+  <code>BRCC32</code> can fail to compile <code>.manifest</code> files 
+  correctly.
+</div>
+  
 <p>
   The following environment variables are associated with these tools:
 </p>
