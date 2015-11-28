@@ -30,9 +30,8 @@ config:
   @if not exist Exe @mkdir Exe
   @cd Src\GUI
 
-# Compiles the resources and deletes intermediate file created by VIED
+# Compiles the resources
 resources: VersionInfo.res Resources.res
-  -@del VersionInfo.rc
 
 # Builds PasHiGUI pascal files and links program
 pascal: PasHiGUI.exe

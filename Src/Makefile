@@ -42,9 +42,8 @@ config:
   @if not exist Release @mkdir Release
   @cd Src
 
-# Compiles the resources and deletes intermediate file created by VIED
+# Compiles the resources
 resources: VerInfo.res Resources.res
-  -@del VerInfo.rc
 
 # Builds PasHi pascal files and links program
 pascal: PasHi.exe

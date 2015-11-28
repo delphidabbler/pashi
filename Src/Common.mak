@@ -37,6 +37,7 @@ DELPHIROOT = $(DELPHIXE)
 MAKE = "$(MAKEDIR)\Make.exe" -$(MAKEFLAGS)
 DCC32 = "$(DELPHIROOT)\Bin\DCC32.exe"
 BRCC32 = "$(DELPHIROOT)\Bin\BRCC32.exe"
+RC = "$(DELPHIROOT)\Bin\RC.exe"
 !ifdef VIEDROOT
 VIED = "$(VIEDROOT)\VIEd.exe" -makerc
 !else
@@ -64,10 +65,18 @@ ZIP = Zip.exe
 # Resource files are compiled to the directory specified by BIN macro, which
 # must have been set by the caller.
 .rc.res:
-  @echo +++ Compiling Resource file $< +++
-  @$(BRCC32) $< -fo$(BIN)\$(@F)
+  @echo +++ Compiling Resource file $< to $(@F) +++
+  @$(RC) -fo$(BIN)\$(@F) $<
 
-# Version info files are compiled by VIEd. A temporary .rc file is left behind
-.vi.rc:
-  @echo +++ Compiling Version Info file $< +++
+# Temporary resource files with special extension .tmp-rcx are compiled to the
+# Bin directory using BRCC32
+.tmp-rcx.res:
+  @echo +++ Compiling Resource file $< to $(@F) +++
+  @$(BRCC32) -fo$(BIN)\$(@F) $<
+  -@del $(<B).tmp-rcx
+
+# Version info files are compiled by VIEd to a temporary .tmp-rcx resource file
+.vi.tmp-rcx:
+  @echo +++ Compiling Version Info file $< to $(@F) +++
   @$(VIED) .\$<
+  -@ren $(@B).rc $(@F)
