@@ -26,6 +26,10 @@ Mozilla Public License v2.0. Most source files will contain a comment to this
 effect. Any file without such a comment should be treated as being covered by
 this license unless it is mentioned below.
 
+Third party code can be found in the `Src/GUI/Imported` directory. This code
+carries its own license. Licensing information will be found in the `ReadMe.txt`
+file in the same directory.
+
 Exceptions
 ----------
 
