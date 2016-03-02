@@ -33,9 +33,9 @@ file in the same directory.
 Exceptions
 ----------
 
-* Icon files (with `.ico` and `.icpr` extensions) may be neither copied nor
-  modified nor used in distributions of derived programs without explicit
-  permission of the copyright holder.
+* Icon files (with `.ico` extensions) may be neither copied nor modified nor
+  used in distributions of derived programs without explicit permission of the
+  copyright holder.
 
 * The files in the `Config` directory have any copyright dedicated to the Public
   Domain. http://creativecommons.org/publicdomain/zero/1.0/
