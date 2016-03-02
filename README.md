@@ -3,7 +3,7 @@ PasHi - Pascal Syntax Highlighter
 
 PasHi is a Pascal syntax highlighter targetted at the Delphi Language.
 
-For an overview of the program, installation and usage information see [`ReadMe.html`](Docs/ReadMe.html) in the `Docs` directory.
+For an overview of the program, installation and usage information see [`UserGuide.html`](Docs/UserGuide.html) in the `Docs` directory.
 
 Source Code
 -----------
