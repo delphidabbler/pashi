@@ -82,6 +82,13 @@
       font-size: 9pt;
       font-weight: bold;
     }
+    h4 {
+      margin: 0.5em 0 0 0;
+      padding: 0;
+      font-size: 9pt;
+      font-weight: normal;
+      font-style: italic;
+    }
     p {
       margin: 0.5em 0 0 0;
       padding: 0;
@@ -362,7 +369,7 @@
   If one or more file names are entered on the command line then input is taken
   from the files. Source code is read from each named file in turn and
   concatenated before being highlighted. Standard input is ignored. Specifying
-  one file name has the same effect as redirecting standard input from that
+  a single file name has the same effect as redirecting standard input from that
   file.
 </p>
 
@@ -377,7 +384,7 @@
   long form. They are explained in the following table.
 </p>
 
-<table>
+<table id="command-ref">
   <colgroup style="width:14em;"></colgroup>
   <tr>
     <th colspan="2">Command</th>
@@ -552,11 +559,11 @@
       <a href="#css">below</a>.<br />
       If the file name includes no path information, e.g.
       <code>delphi2006.css</code>, then the file will be expected to be found in
-      <code>%AppData%\DelphiDabbler\PasHi</code>. To read a file from the
-      working directory, prepend <code>.\</code> to it, e.g.
+      the <code>%AppData%\DelphiDabbler\PasHi</code> directory. To read a file
+      from the working directory, prepend <code>.\</code> to it, e.g.
       <code>.\delphi2006.css</code>.<br />
       Do not combine this command with <code>--link-css</code> or
-      <code>default-css</code> because the commands are mutually exclusive.
+      <code>--default-css</code> because the commands are mutually exclusive.
       <code>--embed-css</code> is ignored if the
       <code>--doc-type fragment</code> command is also used.
     </td>
@@ -594,10 +601,10 @@
     <td class="switch">--hide-css</td>
     <td class="switch">-c</td>
     <td>
-      Determines if the CSS code embedded in a <code>&lt;style&gt;</code> tag is
-      wrapped in HTML comment tags (<code>&lt;!--</code> ...
-      <code>--&gt;</code>). This command is provided because some old browsers
-      will render the CSS as text unless it is enclosed in comment tags.<br />
+      Determines if embedded CSS code is wrapped in HTML comment tags
+      (<code>&lt;!--</code> ... <code>--&gt;</code>). This command is provided
+      because some old browsers will render the CSS as text unless it is
+      enclosed in comment tags.<br />
       In the case of <code>--hide-css</code> the parameter following the command
       determines whether the CSS is hidden in comments or not. This parameter
       must be one of the following:
@@ -633,7 +640,7 @@
         <li>
           <code>True</code>, <code>1</code>, <code>Y</code>, <code>yes</code> or
           <code>on</code>:
-          Use legacy (<em>PasHi</em> v1 style class names.
+          Use legacy (<em>PasHi</em> v1) style class names.
         </li>
         <li>
           <code>False</code>, <code>0</code>, <code>N</code>, <code>no</code> or
@@ -641,11 +648,13 @@
           Use new CSS class names (the default).
         </li>
       </ul>
-      When using the <code>--embed-css</code> or <code>--link-css</code> you
-      should be careful to ensure that the class names in the CSS file you are
-      embedding or linking provides the correct class names.<br />
-      This command is provided for when you are committed to using the old CSS
-      style names.
+      This command is provided for when you have to maintain code that uses the
+      old CSS style names. New code should use the new class names.<br />
+      When using the <code>--embed-css</code> or <code>--link-css</code>
+      commands you should be careful to ensure that the CSS file you are
+      embedding or linking defines the correct class names. The CSS files that
+      are optionally installed with <em>PasHi</em> define both legacy and new
+      CSS classes.
     </td>
   </tr>
   <tr>
@@ -654,9 +663,7 @@
     <td>
       Sets the character encoding used for output to the encoding specified in
       next parameter. HTML documents are marked with the chosen format and the
-      resulting file may include byte order marks. This command is ignored if
-      the <code>--output-clipboard</code> command is specified, because data is
-      always written to the clipboard in Unicode. Valid encoding parameters are:
+      resulting file may include byte order marks. Valid encoding parameters are:
       <ul class="squashed">
         <li>
           <code>utf-8</code> or <code>utf8</code>: Encodes in Unicode using
@@ -677,6 +684,8 @@
           <code>latin1</code>: Encodes in ISO-8859-1 format.
         </li>
       </ul>
+      This command is ignored if the <code>--output-clipboard</code> command is
+      specified, because data is always written to the clipboard in Unicode.
     </td>
   </tr>
   <tr>
@@ -987,10 +996,10 @@
 </p>
 
 <p>
-  <em>PasHi</em> does not install a <code>config</code> file, so if you need one
-  you must create your own. You can do this either by creating a new file or by
-  copying and editing one of the sample scripts provided with <em>PasHi</em>
-  (providing you installed them).
+  <em>PasHi</em> does not install a <code>config</code> file by default, so if
+  you need one you must create your own. You can do this either by creating a
+  new file or by copying and editing one of the sample scripts provided with
+  <em>PasHi</em> (providing you installed them).
 </p>
 
 <p>
@@ -1004,7 +1013,8 @@
   <li>
     Where a command takes a parameter the parameter should be placed on the same
     line as the command, separated from it by one or more spaces. Parameters
-    containing spaces should not be quoted (unlike on the command line).
+    containing spaces should <strong>not</strong> be quoted (unlike on the
+    command line).
   </li>
   <li>
     All the long form commands listed in <a
@@ -1029,10 +1039,10 @@
 </p>
 
 <p class="pullout">
-  Warning: Although <em>PasHi</em> accepts the <code>help</code> command in a
-  config file you should <strong>never</strong> use it or the program will do
-  nothing except display the help screen, no matter what commands you pass on
-  the command line.
+  <strong>Warning:</strong> Although <em>PasHi</em> accepts the
+  <code>help</code> command in a config file you should <strong>never</strong>
+  use it or the program will do nothing except display the help screen, no
+  matter what commands you pass on the command line.
 </p>
 
 <h3 id="config-samples">
@@ -1040,9 +1050,8 @@
 </h3>
 
 <p>
-  Some example config scripts are optionally installed in
-  <code>%AppData%\DelphiDabbler\PasHi</code>. The files may not appear in that
-  folder until after <em>PasHi</em> has been run once. The sample scripts are:
+  Some example config scripts are optionally installed in the
+  <code>%AppData%\DelphiDabbler\PasHi</code> directory. The sample scripts are:
 </p>
 
 <dl>
@@ -1051,26 +1060,37 @@
   </dt>
   <dd>
     This script does nothing, but is copiously commented with all possible
-    commands. It is a good starting point for your own config script.
+    commands. Used in conjunction with the <a
+      href="#command-ref"
+    >command reference</a> above it is a good starting point for your own config
+    script.
   </dd>
   <dt class="file">
     config-v1
   </dt>
   <dd>
-    Emulates, as far as possible the actions of <em>PasHi</em> v1. This script
-    requires that the file <code>v1-default.css</code> (provided) is present in
-    the same directory.
+    Emulates, as far as possible, the functioning of <em>PasHi</em> v1. This
+    script requires that the file <code>v1-default.css</code> (provided) is
+    present in the same directory.
   </dd>
 </dl>
+
+<p class="pullout">
+  The example config files, where installed, may not appear in the
+  <code>%AppData%\DelphiDabbler\PasHi</code> directory until after
+  <em>PasHi</em> has been run once.
+</p>
 
 <h3 id="config-egs">
   Examples
 </h3>
 
+<h4>
+  Example 1
+</h4>
+
 <p>
-  As mentioned in <a
-    href="#usage"
-  >Using <em>PasHi</em></a>, a common use for <em>PasHi</em> is to highlight
+  As mentioned above, a common use for <em>PasHi</em> is to highlight
   source code from the clipboard as an HTML fragment and place the HTML back on
   the clipboard. Instead of using the necessary commands each time you run
   <em>PasHi</em> you can add the following to the config file:
@@ -1097,12 +1117,16 @@ doc-type fragment</pre>
   default behaviour.
 </p>
 
+<h4>
+  Example 2
+</h4>
+
 <p>
-  Another useful example is if you provide your own CSS file containing your
-  desired highlighting style that you always want to embed in your highlighted
-  document. To save you having to specify this file on the command line each
-  time, simply put a suitable command in <code>config</code>. For example, to
-  embed CSS use something like:
+  Another useful example is where you have a CSS file containing your desired
+  highlighting style that you always want to embed in your highlighted document.
+  To save you having to specify a <code>--embed-css</code> command each time you
+  run <em>PasHi</em>, simply put the command in <code>config</code>, something
+  like:
 </p>
 
 <pre class="indent">embed-css C:\CSS\my-style.css</pre>
@@ -1117,10 +1141,15 @@ doc-type fragment</pre>
 
 <p>
   If you prefer to link to your CSS file instead of embedding it, you can add
-  the following line to <code>config</code>:
+  a line to <code>config</code> like:
 </p>
 
 <pre class="indent">link-css http://example.com/css/my-style.css</pre>
+
+<p>
+  Should you now need to revert <em>PasHi</em> to using its default CSS you will
+  need to include <code>--default-css</code> on the command line.
+</p>
 
 <h2 id="css">
   CSS styles used by <em>PasHi</em>
@@ -1163,23 +1192,24 @@ doc-type fragment</pre>
     .odd-line
   </dt>
   <dd>
-    These classes are applied to <code>&lt;pre&gt;</code> tags in even and odd
-    numbered lines respectively when code striping is switched on (see the
-    <code>--striping</code> command above). <code>.even-line</code> and
-    <code>.odd-line</code> must be styled differently otherwise striping will
-    have no visible effect. The usual use is to provide a different background
-    colour for alternate lines &ndash; hence the name &quot;striping&quot;.
+    These classes are applied to <code>&lt;pre&gt;</code> tags in place of the
+    <code>.line</code> class in even and odd numbered lines respectively when
+    code striping is switched on (see the <code>--striping</code> command
+    above). <code>.even-line</code> and <code>.odd-line</code> must be styled
+    differently otherwise striping will have no visible effect. It is usual to
+    provide a different background colour for alternate lines &ndash; hence the
+    name &quot;striping&quot;.
   </dd>
   <dt class="css">
     .linenum
   </dt>
   <dd>
     This class is applied to any line numbers that may be prepended to the start
-    of a line (see <code>--line-numbering</code> and related commands).
-    <code>.linenum</code> can be used to set line number font style and colour
+    of a line (see <code>--line-numbering</code> and related commands above).
+    <code>.linenum</code> can be used to set line number, font style and colour
     along with the margin between the line number and source code, and any
-    separating border, for example. The font used should be mono spaced
-    otherwise the numbers may not line up correctly.
+    separating border. The font used should be mono spaced otherwise the numbers
+    may not line up correctly.
   </dd>
 </dl>
 
