@@ -1,7 +1,7 @@
 {
  * Test.pas
  *
- * PasH test file. Used to check PasH output.
+ * PasHi test file. Used to check PasHi output.
  *
  * DO NOT COMPILE THIS FILE.
 }
