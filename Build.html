@@ -122,7 +122,8 @@
 <p>
   <em>PasHiGUI</em> requires <code>PJWdwState.pas</code> from the DelphiDabbler
   Window State Components, v5.6.1 or later. A copy of the required file is
-  included in the <code>Src\GUI\Imported</code> directory.
+  included in the <code>Src\GUI\Imported</code> directory. There is no need to
+  install the components into the DelphiIDE.
 </p>
 
 <h3>
@@ -211,8 +212,9 @@
   <dd>
     <p>
       Should be set to the install directory of the version of Delphi being
-      used. <code>DCC32</code> and <code>BRCC32</code> are expected to be in
-      the <code>Bin</code> sub-directory of <code>DELPHIROOT</code>.
+      used. <code>DCC32</code>, <code>BRCC32</code> and <code>RC</code> are
+      expected to be in the <code>Bin</code> sub-directory of
+      <code>DELPHIROOT</code>.
     </p>
   </dd>
   <dt class="spaced">
@@ -220,10 +222,10 @@
   </dt>
   <dd>
     <p>
-      If you are using Delphi XE this environment variable should be set to the
-      Delphi install directory. When <code>DELPHIXE</code> is specified
-      <code>DELPHIROOT</code> will ignore its own value and use the value of
-      <code>DELPHIXE</code> instead.
+      If you are using Delphi XE this environment variable may be set to its
+      install directory. When <code>DELPHIXE</code> is specified
+      <code>DELPHIROOT</code> will be ignored and <code>DELPHIXE</code> will be
+      used instead.
     </p>
   </dd>
 </dl>
@@ -352,8 +354,8 @@
 </h3>
 
 <p>
-  After checking out or downloading and extracting the source code you should
-  have the following directory structure:
+  After obtaining the source code you should have the following directory
+  structure:
 </p>
 
 <pre>./
@@ -377,7 +379,7 @@
   +-- Test                  - contains test file</pre>
 
 <p>
-  If, by chance, don't worry if you also have a <code>Build</code> directory and
+  Don't worry if you also have a <code>Build</code> directory and
   sub-directories - all will become clear.
 </p>
 
