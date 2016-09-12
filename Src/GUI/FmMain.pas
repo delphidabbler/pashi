@@ -233,7 +233,7 @@ begin
         + #10#10
         + 'A GUI front end for the PasHi Syntax Highlighter v2.'
         + #10#10
-        + 'Copyright (c) 2006-2016 by Peter D Johnson (www.delphidabbler.com).'
+        + GetLegalCopyright
         + #10#10
         + 'Released under the terms of the Mozilla Public License v2.0. '
         + 'See the LICENSE file for full details.'
