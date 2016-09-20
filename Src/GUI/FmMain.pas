@@ -542,6 +542,8 @@ begin
   pcMain.ActivePage := tsRendered;
   // Display empty document
   fWBContainer.EmptyDocument;
+  // Set state of Show/Hide Options action
+  actOptionsBar.Checked := pnlOptions.Visible;
 end;
 
 procedure TMainForm.HandleData(const DataObj: IDataObject);
