@@ -361,8 +361,8 @@ object MainForm: TMainForm
     end
     object miHelp: TMenuItem
       Caption = 'Help'
-      object miPasHiGUIWiki: TMenuItem
-        Action = actPasHiGUIWiki
+      object miUserGuide: TMenuItem
+        Action = actUserGuide
       end
       object miAbout: TMenuItem
         Action = actAbout
@@ -448,11 +448,12 @@ object MainForm: TMainForm
       OnExecute = actOptionsBarExecute
       OnUpdate = actOptionsBarUpdate
     end
-    object actPasHiGUIWiki: TBrowseURL
+    object actUserGuide: TAction
       Category = 'Help'
-      Caption = 'Online User Guide'
+      Caption = 'PasHi && PasHiGUI &User Guide'
       Hint = 'View User Guide'
-      URL = 'www.delphidabbler.com/view/url/pashigui-wiki'
+      OnExecute = actUserGuideExecute
+      OnUpdate = actUserGuideUpdate
     end
   end
   object ilMain: TImageList
@@ -460,7 +461,7 @@ object MainForm: TMainForm
     Left = 336
     Top = 152
     Bitmap = {
-      494C010105000900080010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C0101050009000C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

@@ -88,8 +88,8 @@ type
     miOptionsBar: TMenuItem;
     actOptionsBar: TAction;
     lblOptionsHide: TLabel;
-    actPasHiGUIWiki: TBrowseURL;
-    miPasHiGUIWiki: TMenuItem;
+    miUserGuide: TMenuItem;
+    actUserGuide: TAction;
     procedure actAboutExecute(Sender: TObject);
     procedure actCopyExecute(Sender: TObject);
     procedure actCopyUpdate(Sender: TObject);
@@ -110,6 +110,8 @@ type
     procedure lblOptionsHideClick(Sender: TObject);
     procedure lblOptionsHideMouseEnter(Sender: TObject);
     procedure lblOptionsHideMouseLeave(Sender: TObject);
+    procedure actUserGuideExecute(Sender: TObject);
+    procedure actUserGuideUpdate(Sender: TObject);
   strict private
     type
       TLoadProc = reference to procedure;
@@ -210,7 +212,7 @@ uses
   SysUtils, ComObj, Messages,
   // Project
   UClipFmt, UConfigFiles, UDataObjectAdapter, UOutputData, UUtils, UDropTarget,
-  UVersionInfo;
+  UUserGuide, UVersionInfo;
 
 
 {$R *.dfm}
@@ -354,6 +356,16 @@ procedure TMainForm.actSaveAsUpdate(Sender: TObject);
   }
 begin
   actSaveAs.Enabled := DocHasContent;
+end;
+
+procedure TMainForm.actUserGuideExecute(Sender: TObject);
+begin
+  TUserGuide.Display;
+end;
+
+procedure TMainForm.actUserGuideUpdate(Sender: TObject);
+begin
+  actUserGuide.Enabled := TUserGuide.CanDisplay;
 end;
 
 procedure TMainForm.alMainUpdate(Action: TBasicAction; var Handled: Boolean);
