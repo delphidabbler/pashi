@@ -85,8 +85,7 @@
 
 <p>
   The Delphi IDE can be used to modify the source and to perform test builds.
-  Final builds should be built using the provided makefiles, but you can get
-  away with using the IDE if you don't change any resources.
+  Final builds should be built using the provided makefiles.
 </p>
 
 <div class="box">
@@ -248,8 +247,8 @@
   into intermediate resource source (<code>.rc</code>) files. Version 2.11.2
   or later is required. Version Information Editor can be obtained from
   <a
-    href="http://www.delphidabbler.com/software/vied"
-  >http://www.delphidabbler.com/software/vied</a>.
+    href="http://delphidabbler.com/software/vied"
+  >http://delphidabbler.com/software/vied</a>.
 </p>
 
 <p>
@@ -336,11 +335,11 @@
 </p>
 
 <p>
-  <em>PasHi</em>'s latest stable source code can be found in the <em>master</em>
-  branch while development code is maintained in the <em>develop</em> branch and
-  new features are developed in branches whose name begins with
-  <em>feature</em>. You can also download the code of one of the releases by
-  selecting the relevant tag.
+  Source code for <em>PasHi</em>'s latest release can be found in the
+  <em>master</em> branch while development code is maintained in the
+  <em>develop</em> branch. New features are developed in branches whose name
+  begins with <em>feature</em>. You can also download the code of one of the
+  releases by selecting the relevant tag.
 </p>
 
 <p class="box">
@@ -370,9 +369,9 @@
   |   |
   |   +-- GUI               - source code of the GUI application, PasHiGUI
   |   |   |
-  |   |   +-- Imported      - 3rd party source code used for GUI application
-  |   |   |
   |   |   +-- Assets        - assets required to build PasHiGUI's resources
+  |   |   |
+  |   |   +-- Imported      - 3rd party source code used for GUI application
   |   |
   |   +-- Install           - install program scripts
   |
@@ -385,8 +384,9 @@
 
 <p>
   Before you can get hacking, you need to prepare the source code tree. Open a
-  command console and navigate into the <code>Src</code> sub-folder. Run any
-  script you have created to set the required environment variables then do:
+  command console and run any script you have created to set the required
+  environment variables. Then navigate into the <code>Src</code> sub-folder and
+  do:
 </p>
 
 <pre class="cmd"><span class="prompt">Src&gt;</span> Make config</pre>
@@ -434,9 +434,9 @@
   |   |
   |   +-- GUI               - source code of the GUI application, PasHiGUI
   |   |   |
-  |   |   +-- Imported      - 3rd party source code used for GUI application
-  |   |   |
   |   |   +-- Assets        - assets required to build PasHiGUI's resources
+  |   |   |
+  |   |   +-- Imported      - 3rd party source code used for GUI application
   |   |
   |   +-- Install           - install program scripts
   |
@@ -483,9 +483,9 @@
   |   |
   |   +-- GUI               - source code of the GUI application, PasHiGUI
   |   |   |
-  |   |   +-- Imported      - 3rd party source code used for GUI application
-  |   |   |
   |   |   +-- Assets        - assets required to build PasHiGUI's resources
+  |   |   |
+  |   |   +-- Imported      - 3rd party source code used for GUI application
   |   |
   |   +-- Install           - install program scripts
   |
@@ -497,8 +497,8 @@
 </p>
 
 <p>
-  If you are intending to use the Delphi IDE to compile code, you should also
-  do:
+  If you are intending to use the Delphi IDE to compile <em>PasHi</em>, you
+  should also do:
 </p>
 
 <pre class="cmd"><span class="prompt">Src&gt;</span> Make resources</pre>
@@ -625,8 +625,8 @@
 <pre class="cmd"><span class="prompt">Src&gt;</span> Make -DRELEASEFILENAME=MyRelease release</pre>
 
 <p>
-  Release zip files are always placed in the <code>Release</code>
-  directory. The directory is created if it doesn't exist.
+  Release zip files are always placed in the <code>Build\Release</code>
+  directory.
 </p>
 
 <h3>
@@ -700,13 +700,17 @@
 </p>
 
 <h2>
-  Copyright
+  License &amp; Copyright
 </h2>
 
 <p>
   If you are planning to re-use or modify any of the code, please see the
   <code>LICENSE</code> file for an overview of the open source licenses that
   apply to the source code.
+</p>
+
+<p>
+  <code>LICENSE</code> also provides copyright information.
 </p>
 
 </body>
