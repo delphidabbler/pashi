@@ -1,14 +1,14 @@
 Executable Programs
 ===================
 
-DelphiDabbler PasHi is copyright © 2005-2016 by Peter D Johnson,
-http://www.delphidabbler.com.
+DelphiDabbler PasHi is copyright (c) 2005-2016 by Peter D Johnson,
+<http://www.delphidabbler.com>.
 
-DelphiDabbler PasHiGUI is copyright © 2006-2016 by Peter D Johnson,
-http://www.delphidabbler.com.
+DelphiDabbler PasHiGUI is copyright (c) 2006-2016 by Peter D Johnson,
+<http://www.delphidabbler.com>.
 
 The executable version of the program is made available under the terms of the
-Mozilla Public License v2.0 (http://mozilla.org/MPL/2.0/). This means you can
+Mozilla Public License v2.0 <http://mozilla.org/MPL/2.0/>. This means you can
 use, copy and distribute PasHi and PasHiGUI as you wish.
 
 You may also modify the programs as you wish and you may distribute copies of
@@ -19,6 +19,11 @@ permission of the copyright holder.
 
 Source Code
 ===========
+
+Source code for the current release of PasHi is available from the
+delphidabbler/pashi project on GitHub <https://github.com/delphidabbler/pashi>.
+All paths referenced below are relative to the root of the source tree for the
+current release.
 
 With the exception of the files listed under "Exceptions" below, all of PasHi
 and PasHiGUI's original source code is made available under the terms of the
@@ -38,7 +43,7 @@ Exceptions
   copyright holder.
 
 * The files in the `Config` directory have any copyright dedicated to the Public
-  Domain. http://creativecommons.org/publicdomain/zero/1.0/
+  Domain. <http://creativecommons.org/publicdomain/zero/1.0/>
 
 * The file `Test.pas` in the `Test` directory has any copyright dedicated to the
-  Public Domain. http://creativecommons.org/publicdomain/zero/1.0/
+  Public Domain. <http://creativecommons.org/publicdomain/zero/1.0/>
