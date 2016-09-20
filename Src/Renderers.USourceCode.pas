@@ -22,11 +22,11 @@ type
   TSourceCodeRenderer = class sealed(TInterfacedObject, IRenderer)
   strict private
     fSourceCode: string;
-    fLegacyCSSNames: Boolean;
+    fUseLegacyCSSNames: Boolean;
     fHiliteOptions: THiliteOptions;
   public
     constructor Create(const SourceCode: string;
-      const LegacyCSSClasses: Boolean; const HiliteOptions: THiliteOptions);
+      const UseLegacyCSSClasses: Boolean; const HiliteOptions: THiliteOptions);
     function Render: string;
   end;
 
@@ -39,11 +39,11 @@ uses
 { TSourceCodeRenderer }
 
 constructor TSourceCodeRenderer.Create(const SourceCode: string;
-  const LegacyCSSClasses: Boolean; const HiliteOptions: THiliteOptions);
+  const UseLegacyCSSClasses: Boolean; const HiliteOptions: THiliteOptions);
 begin
   inherited Create;
   fSourceCode := SourceCode;
-  fLegacyCSSNames := LegacyCSSClasses;
+  fUseLegacyCSSNames := UseLegacyCSSClasses;
   fHiliteOptions := HiliteOptions;
 end;
 
@@ -51,7 +51,7 @@ function TSourceCodeRenderer.Render: string;
 var
   Hiliter: ISyntaxHiliter;
 begin
-  if fLegacyCSSNames then
+  if fUseLegacyCSSNames then
     Hiliter := THTMLHiliter.Create(TLegacyCSSNames.Create)
   else
     Hiliter := THTMLHiliter.Create(TCSSNames.Create);
