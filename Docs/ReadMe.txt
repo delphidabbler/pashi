@@ -15,14 +15,17 @@ predefined style sheets are installed with the program. You can also create your
 own.
 
 PasHi can either generate complete HTML documents or just fragments of HTML
-code. HTML fragments make it easy to embed highlighted code in existing web
-pages. Web page authors simply need to ensure that the necessary CSS classes are
-available. The easiest way to do this is to use an external style sheet.
+code.
 
-PasHiGUI, a GUI front end for PasHi, is included in the release. This provides a
-point and click way of using PasHi. Most, but not all, command line options are
-supported. Files and text can be dragged and dropped onto the window to
-highlight them.
+HTML fragments make it easy to embed highlighted code in existing web pages. Web
+page authors simply need to ensure that the necessary CSS classes are available.
+The easiest way to do this is to use an external style sheet. The program's user
+guide contains details of the required CSS classes.
+
+PasHiGUI, an optional GUI front end for PasHi, is included in the release. This
+provides a point and click way of using PasHi. Most, but not all, command line
+options are supported. Files and text can be dragged and dropped onto the window
+to highlight them.
 
 
 Why another Pascal highlighter?
@@ -71,20 +74,22 @@ installation. The license is permissive and lets you copy and share PasHi
 freely. You can also modify it providing you make the source code of your
 changes freely available.
 
-After agreeing to the license the installer you choose the installation
-directory followed by the name of the start menu program group. Following that
-you have three options, all of which are selected by default:
+After agreeing to the license you then choose the installation directory
+followed by the name of the start menu program group. Following that you have
+three options, all of which are selected by default:
 
 1. Add PasHi's directory to the system path for all users:
 
     This lets you run PasHi simply by typing its name on the command line,
     without specifying the path to the program. The installer modifies the
     system PATH environment variable. This option is recommended for everyone.
+    Please note that any open command shell windows will need to be closed and
+    re-opened before the updated path will be recognised.
 
 2. Install sample style sheets and config file templates:
 
     This option installs various CSS style sheets and config file templates.
-    These files will appear in your %AppData%\DelphiDabbler\PasHi directly
+    These files will appear in your %AppData%\DelphiDabbler\PasHi directory
     immediately after you first run PasHi. The files take up very little disk
     space so this option is recommended unless you are sure you will never need
     to use the files.
@@ -96,7 +101,7 @@ you have three options, all of which are selected by default:
     command line. Most, but not all, of PasHi's options are available from
     PasHiGUI.
 
-Once you have made your choices, you can review them then either go back to make
+Once you have made your choices you can review them. You can go back to make
 changes or commit to installing. Once installation is complete then the last
 page is displayed. It gives an option to display this ReadMe file. If you have
 installed PasHiGUI you are given the option to run it.
@@ -106,7 +111,7 @@ The installer makes the following changes to your system:
   * The main program's executable files and documentation are installed into the
     chosen install folder (%ProgramFiles%\DelphiDabbler\PasHi or
     %ProgramFiles(x86)%\DelphiDabbler\PasHi by default on 32 bit and 64 bit
-    Windows respectively). If you  chose to install it, PasHiGUI will also be
+    Windows respectively). If you chose to install it, PasHiGUI will also be
     placed in the same directory.
 
   * Files required by the uninstaller are stored in the main installation's
@@ -115,7 +120,7 @@ The installer makes the following changes to your system:
   * The program's uninstall information is registered with the Programs and
     Features (aka Add / Remove Programs) control panel applet.
 
-  * The system path may be updated if you chose the relevant option.
+  * The system path will have been modified if you chose the relevant option.
 
   * A program group will be created in the start menu.
 
