@@ -20,6 +20,8 @@ interface
 ///  program.</summary>
 function GetFileVersionStr: string;
 
+///  <summary>Gets the legal copyright string from version information of the
+///  host program.</summary>
 function GetLegalCopyright: string;
 
 

@@ -77,6 +77,7 @@
 			</DCCReference>
 			<DCCReference Include="..\UVersionInfo.pas"/>
 			<DCCReference Include="Imported\PJWdwState.pas"/>
+			<DCCReference Include="UUserGuide.pas"/>
 			<None Include="PasHiGUI.todo"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>

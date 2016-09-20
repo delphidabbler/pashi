@@ -30,10 +30,9 @@ type
 
   TOptionFrameCallback = reference to procedure(Frame: TBaseOptionsFrame);
 
-  {
-  TMainForm:
-    Application's main form and used interaction.
-  }
+  ///  <summary>
+  ///  Application's main form and user interaction.
+  ///  </summary>
   TMainForm = class(TForm, IDropDataHandler)
     actAbout: TAction;
     actCopy: TAction;
@@ -117,86 +116,41 @@ type
       TLoadProc = reference to procedure;
   private
     fOptions: TOptions;
-    // Saves and restores window's size and position.
     fWdwState: TPJWdwState;
     fDocLoaded: Boolean;
     fDocument: TDocument;
-      {Currently loaded document}
     fDropTarget: IDropTarget;
-      {Object that interacts with OLE drag and drop}
     fWBContainer: TWBContainer;
-      {Container for browser control that provide OLE client site and customises
-      browser}
     fBusy: Boolean;
-      {Flag true if program busy (i.e. highlighting and loading source)}
     fForcedActionUpdate: Boolean;
-      {Flag true when program forces actions to update. Used to prevent flicker
-      when toolbar actions repeatedly set true then false on idle in
-      alMainUpdate event handler}
 
     procedure UpdateDisplay;
-      {Updates main display with contents of document.
-      }
     procedure Render;
     procedure LoadText(const Text: string);
     procedure LoadFiles(const FileNames: TArray<string>);
     procedure LoadFile(const FileName: string);
     procedure InternalLoad(const Callback: TLoadProc);
+    ///  <summary>Handles key events in web browser control</summary>
     procedure TranslateAccelHandler(Sender: TObject; const Msg: TMSG;
       const CmdID: DWORD; var Handled: Boolean);
-      {Handles event triggered by web browser controller when a key is pressed
-      in the browser control. Browser is prevented from certain key down events
-      which are instead passed to main window for processing.
-        @param Sender [in] Not used.
-        @param Msg Message generating accelerator translation request.
-        @param CmdID Not used.
-        @param Handled [in/out] Set to true if Msg is a key down message that we
-          are handling and need to prevent browser control from processing.
-      }
+    ///  <summary>Checks if a data object is of a kind supported by the program.
+    ///  </summary>
     function IsValidDataObj(const DataObj: IDataObject): Boolean;
-      {Checks if a data object is of a kind supported by the program.
-        @param DataObj [in] Data object to check.
-        @return True if data object valid, false if not.
-      }
     procedure UpdateAllActions;
-      {Updates all actions in action list.
-      }
     procedure Busy(const Flag: Boolean);
-      {Flags application as busy or idle depending on state of a flag.
-        @param Flag [in] True if application is busy, false if idle.
-      }
+    ///  <summary>Checks if a document is loaded in web browser control.
+    ///  </summary>
     function DocHasContent: Boolean;
-      {Checks if document has content, i.e. is not empty.
-        @return True if document has content.
-      }
     procedure EnumOptionFrames(const Callback: TOptionFrameCallback);
     procedure DisplayOptions;
   protected
     { IDropDataHandler methods }
     function CanAccept(const DataObj: IDataObject): Boolean;
-      {Checks if application wants to accept a data object.
-        @param DataObj [in] Data object being dragged.
-        @return True if data object can be accepted, false if not.
-      }
     procedure HandleData(const DataObj: IDataObject);
-      {Handles drop of a dragged data object. Only called if CanAccept has
-      returned true.
-        @param DataObj [in] Dropped data object.
-      }
     function DropEffect(const Shift: TShiftState;
       const AllowedEffects: TDragDropEffects): TDragDropEffect;
-      {Determines drop effect for a dragged data object. Only called if
-      CanAccept has returned true.
-        @param Shift [in] Set of shift keys and mouse button pressed.
-        @param AllowedEffects [in] Effects supported by data source.
-        @return Desired drop effect (must be member of AllowedEffects set).
-      }
     procedure IDropDataHandler.ExceptionHandler = DragDropExceptionHandler;
     procedure DragDropExceptionHandler(const E: TObject);
-      {Handle exception trapped in drag-drop. Handler should swallow exception
-      and not re-raise it.
-        @param E [in] Exception object to be handled.
-      }
   end;
 
 
@@ -225,9 +179,6 @@ const
 { TMainForm }
 
 procedure TMainForm.actAboutExecute(Sender: TObject);
-  {Displays about box.
-    @param Sender [in] Not used.
-  }
 begin
   Application.MessageBox(
     PChar(
@@ -263,26 +214,17 @@ begin
 end;
 
 procedure TMainForm.actCopyExecute(Sender: TObject);
-  {Copies current document to clipboard.
-    @param Sender [in] Not used.
-  }
 begin
   // Document saves to IOutputData object that writes clipboard
   fDocument.Save(TOutputDataFactory.CreateForClipboard);
 end;
 
 procedure TMainForm.actCopyUpdate(Sender: TObject);
-  {Enables / disabled actCopy depending on if a document is loaded.
-    @param Sender [in] Not used.
-  }
 begin
   actCopy.Enabled := DocHasContent;
 end;
 
 procedure TMainForm.actOpenAccept(Sender: TObject);
-  {Loads the file selected in file open dialog into document.
-    @param Sender [in] Not used.
-  }
 var
   Files: TArray<string>;
   Idx: Integer;
@@ -312,9 +254,6 @@ begin
 end;
 
 procedure TMainForm.actPasteExecute(Sender: TObject);
-  {Loads contents of clipboard into document.
-    @param Sender [in] Not used.
-  }
 var
   CBData: IDataObject;  // object storing clipboard data
 begin
@@ -324,10 +263,6 @@ begin
 end;
 
 procedure TMainForm.actPasteUpdate(Sender: TObject);
-  {Enables / disables actPaste depending on whether clipboard contains suitable
-  data.
-    @param Sender [in] Not used.
-  }
 var
   CBData: IDataObject;  // object storing clipboard data
 begin
@@ -342,18 +277,12 @@ begin
 end;
 
 procedure TMainForm.actSaveAsAccept(Sender: TObject);
-  {Saves document as file selected in save dialog.
-    @param Sender [in] Not used.
-  }
 begin
   // Document saves to IOutputData object that writes to a file
   fDocument.Save(TOutputDataFactory.CreateForFile(actSaveAs.Dialog.FileName));
 end;
 
 procedure TMainForm.actSaveAsUpdate(Sender: TObject);
-  {Enables / disables actSaveAs depending on if document has content.
-    @param Sender [in] Not used.
-  }
 begin
   actSaveAs.Enabled := DocHasContent;
 end;
@@ -369,13 +298,6 @@ begin
 end;
 
 procedure TMainForm.alMainUpdate(Action: TBasicAction; var Handled: Boolean);
-  {Disables an action if program is busy highlighting a document and enables
-  them otherwise. This event handler is called for all actions before individual
-  actions' OnUpdate events.
-    @param Action [in] Action to enable / disable.
-    @param Handled [in/out] Set true if action disabled to prevent other update
-      events for action being triggered.
-  }
 begin
   if fBusy then
   begin
@@ -396,9 +318,6 @@ begin
 end;
 
 procedure TMainForm.Busy(const Flag: Boolean);
-  {Flags application as busy or idle depending on state of a flag.
-    @param Flag [in] True if application is busy, false if idle.
-  }
 begin
   // Set main window and browser control's cursors
   if Flag then
@@ -420,10 +339,6 @@ begin
 end;
 
 function TMainForm.CanAccept(const DataObj: IDataObject): Boolean;
-  {Checks if application wants to accept a data object.
-    @param DataObj [in] Data object being dragged.
-    @return True if data object can be accepted, false if not.
-  }
 begin
   Result := IsValidDataObj(DataObj);
 end;
@@ -439,30 +354,17 @@ begin
 end;
 
 function TMainForm.DocHasContent: Boolean;
-  {Checks if document has content, i.e. is not empty.
-    @return True if document has content.
-  }
 begin
   Result := fDocLoaded;
 end;
 
 procedure TMainForm.DragDropExceptionHandler(const E: TObject);
-  {Handle exception trapped in drag-drop. Handler should swallow exception and
-  not re-raise it.
-    @param E [in] Exception object to be handled.
-  }
 begin
   Application.HandleException(E);
 end;
 
 function TMainForm.DropEffect(const Shift: TShiftState;
   const AllowedEffects: TDragDropEffects): TDragDropEffect;
-  {Determines drop effect for a dragged data object. Only called if CanAccept
-  has returned true.
-    @param Shift [in] Set of shift keys and mouse button pressed.
-    @param AllowedEffects [in] Effects supported by data source.
-    @return Desired drop effect (must be member of AllowedEffects set).
-  }
 begin
   Result := deNone;
   // Set preferred effects based on keys pressed
@@ -496,9 +398,6 @@ begin
 end;
 
 procedure TMainForm.FormCreate(Sender: TObject);
-  {Initialises program.
-    @param Sender [in] Not used.
-  }
 begin
   Caption := Application.Title;
 
@@ -529,9 +428,6 @@ begin
 end;
 
 procedure TMainForm.FormDestroy(Sender: TObject);
-  {Tidies up program.
-    @param Sender [in] Not used.
-  }
 begin
   fWdwState.Save;
   // Unregister drag drop
@@ -546,9 +442,6 @@ begin
 end;
 
 procedure TMainForm.FormShow(Sender: TObject);
-  {Initialises controls
-    @param Sender [in] Not used.
-  }
 begin
   // Select rendered page by default
   pcMain.ActivePage := tsRendered;
@@ -559,12 +452,7 @@ begin
 end;
 
 procedure TMainForm.HandleData(const DataObj: IDataObject);
-  {Handles drop of a dragged data object. Only called if CanAccept has
-  returned true.
-    @param DataObj [in] Dropped data object.
-  }
 
-  // Removes any directories from given array of file / directory names
   function StripDirectories(const FileNames: TArray<string>): TArray<string>;
   var
     FileName: string; // each file name in array
@@ -621,10 +509,6 @@ begin
 end;
 
 function TMainForm.IsValidDataObj(const DataObj: IDataObject): Boolean;
-  {Checks if a data object is of a kind supported by the program.
-    @param DataObj [in] Data object to check.
-    @return True if data object valid, false if not.
-  }
 
   function HasTrueFiles(const Files: TArray<string>): Boolean;
   var
@@ -697,9 +581,6 @@ begin
 end;
 
 procedure TMainForm.pcMainMouseLeave(Sender: TObject);
-  {Clears any hint relating to page control when mouse leaves it.
-    @param Sender [in] Not used.
-  }
 begin
   pcMain.Hint := '';
 end;
@@ -716,28 +597,12 @@ end;
 
 procedure TMainForm.TranslateAccelHandler(Sender: TObject; const Msg: TMSG;
   const CmdID: DWORD; var Handled: Boolean);
-  {Handles event triggered by web browser controller when a key is pressed in
-  the browser control. Browser is prevented from certain key down events which
-  are instead passed to main window for processing.
-    @param Sender [in] Not used.
-    @param Msg Message generating accelerator translation request.
-    @param CmdID Not used.
-    @param Handled [in/out] Set to true if Msg is a key down message that we
-      are handling and need to prevent browser control from processing.
-  }
 
-  // ---------------------------------------------------------------------------
   procedure PostKeyPress(const DownMsg, UpMsg: UINT);
-    {Posts a key down and key up message to this window with wParam and lParam
-    per handled message.
-      @param DownMsg [in] Key down message (WM_KEYDOWN or WM_SYSKEYDOWN).
-      @param UpMsg [in] Key up message (WM_KEYUP or WM_SYSKEYUP).
-    }
   begin
     PostMessage(Handle, DownMsg, Msg.wParam, Msg.lParam);
     PostMessage(Handle, UpMsg, Msg.wParam, Msg.lParam);
   end;
-  // ---------------------------------------------------------------------------
 
 var
   ShiftState: TShiftState;  // state of key modifiers
@@ -779,8 +644,6 @@ begin
 end;
 
 procedure TMainForm.UpdateAllActions;
-  {Updates all actions in action list.
-  }
 var
   I: Integer; // loops thru action list's actions
 begin
@@ -794,8 +657,6 @@ begin
 end;
 
 procedure TMainForm.UpdateDisplay;
-  {Updates main display with contents of document.
-  }
 begin
   fWBContainer.LoadFromString(fDocument.DisplayHTML, TEncoding.UTF8);
   edHTML.Text := fDocument.HilitedCode;

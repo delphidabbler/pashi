@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2005-2012, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2005-2016, Peter Johnson (www.delphidabbler.com).
  *
  * Static class that outputs to standard output and standard error and inputs
  * from standard input.
@@ -18,39 +18,19 @@ interface
 
 type
 
-  {
-  TStdIOOutput:
-    Enumeration of available output "channels" - standard output or standard
-    error.
-  }
+  ///  <summary>Enumeration of available output 'channels' - standard output or
+  ///  standard error.</summary>
   TStdIOOutput = (stdOut, stdErr);
 
-  {
-  TStdIO:
-    Static class that outputs to standard output and standard error and inputs
-    from standard input.
-  }
+  ///  <summary>Static class that outputs to standard output and standard error
+  ///  and inputs from standard input.</summary>
   TStdIO = class(TObject)
   private
     class function GetHandle(Channel: TStdIOOutput): THandle;
-      {Gets Windows handle of an output channel.
-        @param Channel [in] The required channel.
-        @return Required Windows handle.
-      }
   public
     class procedure Write(Channel: TStdIOOutput; const Buffer;
       const Size: Integer); overload;
-      {Write data from a buffer to an output channel.
-        @param Channel [in] Required output channel.
-        @param Buffer [in] Contains data to be written.
-        @param Size [in] Size of data in buffer in bytes.
-      }
     class function ReadBuf(var Buffer; const Count: Integer): Integer;
-      {Read data from standard input to a buffer.
-        @param Buffer [in] Buffer to receive data.
-        @param Count [in] Maximum number of bytes to read into buffer.
-        @return Number of bytes actually read.
-      }
   end;
 
 
@@ -65,10 +45,6 @@ uses
 { TStdIO }
 
 class function TStdIO.GetHandle(Channel: TStdIOOutput): THandle;
-  {Gets Windows handle of an output channel.
-    @param Channel [in] The required channel.
-    @return Required Windows handle.
-  }
 const
   cHandles: array[TStdIOOutput] of DWORD = (
     STD_OUTPUT_HANDLE, STD_ERROR_HANDLE
@@ -78,11 +54,6 @@ begin
 end;
 
 class function TStdIO.ReadBuf(var Buffer; const Count: Integer): Integer;
-  {Read data from standard input to a buffer.
-    @param Buffer [in] Buffer to receive data.
-    @param Count [in] Maximum number of bytes to read into buffer.
-    @return Number of bytes actually read.
-  }
 var
   BytesRead: Cardinal;  // Number of bytes actually read
 begin
@@ -101,11 +72,6 @@ end;
 
 class procedure TStdIO.Write(Channel: TStdIOOutput; const Buffer;
   const Size: Integer);
-  {Write data from a buffer to an output channel.
-    @param Channel [in] Required output channel.
-    @param Buffer [in] Contains data to be written.
-    @param Size [in] Size of data in buffer in bytes.
-  }
 var
   Dummy: Cardinal;  // Unused param for Windows.WriteFile
 begin

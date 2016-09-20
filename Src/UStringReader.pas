@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2009-2012, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2009-2016, Peter Johnson (www.delphidabbler.com).
  *
  * Defines class that performs character based access to a string.
 }
@@ -28,27 +28,30 @@ type
   ///  </summary>
   TStringReader = class(TObject)
   strict private
-    ///  String being read.
-    var fBuffer: string;
-    ///  Cursor that indexes next character to be read.
-    var fIdx: Integer;
-    /// Read accessor for Ch property. Returns last character read or EOF.
+    var
+      // String being read.
+      fBuffer: string;
+      // Cursor that indexes next character to be read.
+      fIdx: Integer;
+    // Read accessor for Ch property. Returns last character read or EOF.
     function GetCh: Char;
   public
-    ///  Character indicating end of file.
-    const EOF = #0;
-    ///  Character indicating end of line.
-    const EOL = LF;
-    ///  Object constructor. Records string to be read. Initialises Ch property
-    ///  by reading first character.
+    const
+      // Character indicating end of file.
+      EOF = #0;
+      // Character indicating end of line.
+      EOL = LF;
+  public
+    ///  <summary>Object constructor. Records string to be read. Initialises Ch
+    ///  property by reading first character.</summary>
     constructor Create(const Str: string);
-    ///  Fetches next character from string and returns it. Returns EOL at end
-    ///  of line and EOF at end of file.
+    ///  <summary>Fetches next character from string and returns it. Returns EOL
+    ///  at end of line and EOF at end of file.</summary>
     function NextChar: Char;
-    ///  Puts last character read back on end of string.
+    ///  <summary>Puts last character read back on end of string.</summary>
     procedure PutBackChar;
-    ///  Last character read from stream (EOL at end of line and EOF at end of
-    ///  file).
+    ///  <summary>Last character read from stream (EOL at end of line and EOF at
+    ///  end of file).</summary>
     property Ch: Char read GetCh;
   end;
 
