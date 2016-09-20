@@ -3,7 +3,7 @@ PasHi - Pascal Syntax Highlighter
 
 PasHi is a Pascal syntax highlighter targetted at the Delphi Language.
 
-For an overview of the program, installation and usage information see [`UserGuide.html`](Docs/UserGuide.html) in the `Docs` directory.
+For an overview of the program, installation and usage information see `UserGuide.html` in the `Docs` directory.
 
 Source Code
 -----------
@@ -19,11 +19,11 @@ Contributions are welcome. Just fork the repo and create a feature branch off th
 Change Log
 ----------
 
-The program's change log is recorded in [`ChangeLog.txt`](Docs/ChangeLog.txt) in the `Docs` directory.
+The program's change log is recorded in `ChangeLog.txt` in the `Docs` directory.
 
 License
 -------
 
-The program's EULA can be found in the file [`LICENSE`](LICENSE).
+The program's EULA can be found in the file `LICENSE`.
 
 Much of the source code is released under the [Mozilla Public License v2.0](http://mozilla.org/MPL/2.0/).
