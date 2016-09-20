@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2012, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2012-2016, Peter Johnson (www.delphidabbler.com).
  *
  * Class that highlights source code into HTML suitable for all supported
  * document types.
@@ -52,9 +52,9 @@ var
   Hiliter: ISyntaxHiliter;
 begin
   if fLegacyCSSNames then
-    Hiliter := TXHTMLHiliter.Create(TLegacyCSSNames.Create)
+    Hiliter := THTMLHiliter.Create(TLegacyCSSNames.Create)
   else
-    Hiliter := TXHTMLHiliter.Create(TCSSNames.Create);
+    Hiliter := THTMLHiliter.Create(TCSSNames.Create);
   Result := Trim(Hiliter.Hilite(fSourceCode, fHiliteOptions));
 end;
 

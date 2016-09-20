@@ -73,7 +73,7 @@ type
 
 type
   ///  <summary>Highlights source code in HTML format.</summary>
-  TXHTMLHiliter = class sealed(TParsedSyntaxHiliter, ISyntaxHiliter)
+  THTMLHiliter = class sealed(TParsedSyntaxHiliter, ISyntaxHiliter)
   strict private
     fCSSClases: ICSSClassNames;  // provides name of CSS classes
     fIsEmptyLine: Boolean;       // flags if a line has no content
@@ -190,28 +190,28 @@ begin
     Result := Options.Padding + Result;
 end;
 
-{ TXHTMLHiliter }
+{ THTMLHiliter }
 
-procedure TXHTMLHiliter.AfterElem(Elem: THiliteElement);
+procedure THTMLHiliter.AfterElem(Elem: THiliteElement);
 begin
   // Close the element's span
   Writer.Append('</span>');
 end;
 
-procedure TXHTMLHiliter.BeforeElem(Elem: THiliteElement);
+procedure THTMLHiliter.BeforeElem(Elem: THiliteElement);
 begin
   inherited;
   // Open a span for required class
   Writer.AppendFormat('<span class="%s">', [fCSSClases.ElementClass(Elem)]);
 end;
 
-procedure TXHTMLHiliter.BeginDoc;
+procedure THTMLHiliter.BeginDoc;
 begin
   Writer.AppendFormat('<div class="%s">', [fCSSClases.MainClass]);
   Writer.AppendLine;
 end;
 
-procedure TXHTMLHiliter.BeginLine;
+procedure THTMLHiliter.BeginLine;
 const
   LineClasses: array[Boolean] of string = ('even-line', 'odd-line');
 begin
@@ -230,25 +230,25 @@ begin
     fIsEmptyLine := True;
 end;
 
-constructor TXHTMLHiliter.Create(CSSClasses: ICSSClassNames);
+constructor THTMLHiliter.Create(CSSClasses: ICSSClassNames);
 begin
   inherited Create;
   fCSSClases := CSSClasses;
 end;
 
-procedure TXHTMLHiliter.EndDoc;
+procedure THTMLHiliter.EndDoc;
 begin
   Writer.AppendLine('</div>');
 end;
 
-procedure TXHTMLHiliter.EndLine;
+procedure THTMLHiliter.EndLine;
 begin
   if fIsEmptyLine then
     Writer.Append('&nbsp;');  // forces display: &nbsp; better than ' ' here
   Writer.AppendLine('</pre>');
 end;
 
-procedure TXHTMLHiliter.WriteElem(const ElemText: string);
+procedure THTMLHiliter.WriteElem(const ElemText: string);
 begin
   // Write element text with illegal characters converted to entities
   if ElemText <> '' then
