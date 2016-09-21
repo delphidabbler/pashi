@@ -11,8 +11,8 @@ or the clipboard.
 
 HTML 4, XHTML and HTML 5 are all supported. CSS is used for styling. Style
 sheets may be external or can be embedded in the HTML document. Several
-predefined style sheets are installed with the program. You can also create your
-own.
+predefined style sheets may be installed with the program. You can also create
+your own.
 
 PasHi can either generate complete HTML documents or just fragments of HTML
 code.
@@ -23,25 +23,26 @@ The easiest way to do this is to use an external style sheet. The program's user
 guide contains details of the required CSS classes.
 
 PasHiGUI, an optional GUI front end for PasHi, is included in the release. This
-provides a point and click way of using PasHi. Most, but not all, command line
-options are supported. Files and text can be dragged and dropped onto the window
-to highlight them.
+provides a point and click interface to PasHi. Most, but not all, of PasHi's
+command line options are supported. Files and text can be dragged and dropped
+onto the GUI to highlight them.
 
 
 Why another Pascal highlighter?
 -------------------------------
 
-Simple, I wanted an easy to use tool to format Pascal code for the DelphiDabbler
-website. I wanted the following:
+Simple. I wanted an easy to use tool to format Pascal code for the DelphiDabbler
+website that:
 
-* Conformant XHTML and later HTML 5.
-* Styling by means of cascading style sheets.
-* Full control over the appearance of the output code.
-* Ability to highlight via the clipboard.
-* The option to generate HTML fragments for inserting into existing documents.
+* Generated conformant XHTML or HTML 5 code.
+* Styled the HTML using cascading style sheets.
+* Provided full control over the appearance of the resulting document.
+* Had the ability to highlight via the clipboard.
+* Could optionally generate HTML code fragments for inserting into existing HTML
+  documents.
 
 On checking the available free tools I found that they were either too complex
-or they didn't provide one or more of the features I wanted.
+or they didn't provide all the features I wanted.
 
 I had already written highlighter code for my CodeSnip program, so I extracted
 that, tweaked it and wrapped it up in a command line program. Having made it I
@@ -56,43 +57,47 @@ PasHi requires Windows 2000 or later to run. You need to have administrative
 privileges to install it. Elevation may be required to install on Windows Vista
 and later.
 
-If you have PasHi v1.x or earlier you need to remove it before installing this
-version. These early versions of the program have no setup program, so you must
-uninstall manually. Simply find the program (and PasHiGUI if you have it) and
-delete the executable file(s) along with any support files you installed. If you
-included the v1.x install directory on the system path you should remove it.
+If you have PasHi (a.k.a PasH) v1.x or earlier you need to remove it before
+installing this version. These early versions of the program have no setup
+program, so you must uninstall manually. Simply find the program and delete the
+executable file along with any support files you installed. If you included the
+v1.x install directory on the system path you should remove it. If you used
+PasHGUI v0.1.0 beta you also need to remove that program manually.
 
-PasHi is provided in a zip file that contains a setup program,
+PasHi is provided in a zip file that contains a setup program named
 PasHi-Setup-xxx.exe (where xxx is the program's version number). The zip file
 also contains this read-me file.
 
 Extract the setup program from the zip file and run it, following the on-screen
 instructions.
 
-You will need to accept the license before configuring and completing the
-installation. The license is permissive and lets you copy and share PasHi
-freely. You can also modify it providing you make the source code of your
-changes freely available.
+You will need to accept the license before proceeding with the installation. The
+license is permissive and lets you copy and share PasHi freely.
 
 After agreeing to the license you then choose the installation directory
-followed by the name of the start menu program group. Following that you have
-three options, all of which are selected by default:
+followed by the name of the start menu program group. After that you have three
+options, all of which are selected by default:
 
 1. Add PasHi's directory to the system path for all users:
 
     This lets you run PasHi simply by typing its name on the command line,
     without specifying the path to the program. The installer modifies the
     system PATH environment variable. This option is recommended for everyone.
+
     Please note that any open command shell windows will need to be closed and
     re-opened before the updated path will be recognised.
 
 2. Install sample style sheets and config file templates:
 
-    This option installs various CSS style sheets and config file templates.
-    These files will appear in your %AppData%\DelphiDabbler\PasHi directory
-    immediately after you first run PasHi. The files take up very little disk
-    space so this option is recommended unless you are sure you will never need
-    to use the files.
+    This option installs various CSS style sheets and config file templates. The
+    files take up very little disk space so this option is recommended unless
+    you are sure you will never need them.
+
+    See the program's user guide for details of how to create a config file for
+    PasHi from the provided template files.
+
+    The files will appear in your %AppData%\DelphiDabbler\PasHi directory
+    immediately after you first run PasHi.
 
 3. Install GUI front end program, PasHiGUI:
 
@@ -104,7 +109,7 @@ three options, all of which are selected by default:
 Once you have made your choices you can review them. You can go back to make
 changes or commit to installing. Once installation is complete then the last
 page is displayed. It gives an option to display this ReadMe file. If you have
-installed PasHiGUI you are given the option to run it.
+installed PasHiGUI you are also given the option to run it.
 
 The installer makes the following changes to your system:
 
@@ -118,16 +123,18 @@ The installer makes the following changes to your system:
     Uninst sub-folder.
 
   * The program's uninstall information is registered with the Programs and
-    Features (aka Add / Remove Programs) control panel applet.
+    Features (aka Add / Remove Programs) control panel applet, which in turn
+    updates the system registry.
 
-  * The system path will have been modified if you chose the relevant option.
+  * The system path will have been modified for all users if you chose the
+    relevant option.
 
   * A program group will be created in the start menu.
 
-  * Sample .css and config files are installed in
-    %ProgramData%\DelphiDabbler\PasHi. The first time that PasHi is run by each
-    user, these files are also copied to that users's
-    %AppData%\DelphiDabbler\PasHi directory.
+  * Sample .css and config files are copied to
+    %ProgramData%\DelphiDabbler\PasHi if you chose to install them. The first
+    time that PasHi is run by each user, these files are also copied to that
+    users's %AppData%\DelphiDabbler\PasHi directory.
 
 
 Uninstallation
@@ -143,6 +150,8 @@ PasHi, PasHiGUI (if installed) and all documentation will be removed.
 The directory %ProgramData%\DelphiDabbler\PasHi will be removed but each user's %AppData%\DelphiDabbler\PasHi directory and all its files will be left behind.
 
 PasHi's install directory will be removed from the system path if present.
+
+Installation information should be removed from the registry by the uninstaller.
 
 
 Documentation
@@ -164,8 +173,7 @@ Source Code
 -----------
 
 Source code is available from the program's GitHub repository at
-<https://github.com/delphidabbler/pashi/>. Please read the file ReadMe.md that
-is stored in the root of the reposity for details of how to contribute.
+<https://github.com/delphidabbler/pashi/>.
 
 Source code of each release of the program going back to v1.0.0 is available for
 download from <https://github.com/delphidabbler/pashi/releases>.
