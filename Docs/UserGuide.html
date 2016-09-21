@@ -287,7 +287,8 @@
 <p>
   HTML 4, XHTML and HTML 5 are all supported. CSS is used for styling. Style
   sheets may be external or can be embedded in the HTML document. Several
-  predefined style sheets are installed with the program. You can also create <a
+  predefined style sheets can be installed with the program. You can also
+  create <a
     href="#css"
   >your own</a>.
 </p>
@@ -302,10 +303,10 @@
 </p>
 
 <p>
-  <em>PasHiGUI</em>, a GUI front end for <em>PasHi</em>, is included in the
-  release. This provides a point and click way of using <em>PasHi</em>. Most,
-  but not all, command line options are supported. Files and text can be dragged
-  and dropped onto the window to highlight them.
+  <em>PasHiGUI</em>, an optional GUI front end for <em>PasHi</em>, is included
+  in the release. This provides a point and click way of using <em>PasHi</em>.
+  Most, but not all, command line options are supported. Files and text can be
+  dragged and dropped onto the program's window to highlight them.
 </p>
 
 <p class="gototop">
@@ -561,9 +562,9 @@
       from the working directory, prepend <code>.\</code> to it, e.g.
       <code>.\delphi2006.css</code>.<br />
       Do not combine this command with <code>--link-css</code> or
-      <code>--default-css</code> because the commands are mutually exclusive.
-      <code>--embed-css</code> is ignored if the
-      <code>--doc-type fragment</code> command is also used.
+      <code>--default-css</code> because the commands are mutually exclusive and
+      the result will be unpredictable. <code>--embed-css</code> is ignored if
+      the <code>--doc-type fragment</code> command is also used.
     </td>
   </tr>
   <tr>
@@ -574,11 +575,12 @@
       HTML file. The URL must be given in the parameter immediately following
       this command. The URL can be relative or absolute. The linked CSS file
       must define the styles described <a href="#css">below</a>.<br />
-      This command is ignored if <code>--doc-type fragment</code> is also
-      used. Since no CSS is embedded in the output file the
+      Since no CSS is embedded in the output file the
       <code>--hide-css</code> command does nothing if used with this command.
-      Do not combine <code>-link-css</code> with <code>--embed-css</code> or
-      <code>default-css</code> because the commands are mutually exclusive.
+      Do not combine <code>--link-css</code> with <code>--embed-css</code> or
+      <code>--default-css</code> because the commands are mutually exclusive and
+      the result will be unpredicatble. <code>--link-css</code> is ignored if
+      <code>--doc-type fragment</code> is also used.
     </td>
   </tr>
   <tr>
@@ -590,9 +592,9 @@
       mainly to restore that behaviour if it has been overridden in the config
       file.<br .>
       This command negates both the <code>--embed-css</code> and
-      <code>--link-css</code> commands and should not be combined with them.
-      <code>--default-css</code> is ignored if the
-      <code>--doc-type fragment</code> command is also used.
+      <code>--link-css</code> commands and should not be combined with them
+      because the result will be unpredictable. <code>--default-css</code> is
+      ignored if the <code>--doc-type fragment</code> command is also used.
     </td>
   </tr>
   <tr>
@@ -652,7 +654,8 @@
       commands you should be careful to ensure that the CSS file you are
       embedding or linking defines the correct class names. The CSS files that
       are optionally installed with <em>PasHi</em> define both legacy and new
-      CSS classes.
+      CSS classes. See <a href="#css">below</a> for information about the
+      required CSS class names.
     </td>
   </tr>
   <tr>
@@ -756,7 +759,8 @@
       Line numbers are padded to this width if necessary (but longer line
       numbers are not truncated). The required width is given in the following
       parameter and must be in the range 1..6. The default value is 3.<br />
-      The command is ignored if line numbering is not enabled.
+      This command is ignored if line numbering is not enabled: see the
+      <code>--line-numbering</code> command.
     </td>
   </tr>
   <tr>
@@ -780,7 +784,8 @@
           <code>dot</code>: Pads with dots (.).
         </li>
       </ul>
-      This command is ignored if line numbering is not enabled.
+      This command is ignored if line numbering is not enabled: see the
+      <code>--line-numbering</code> command.
     </td>
   </tr>
   <tr>
@@ -808,7 +813,8 @@
       line. When striping is enabled the <code>line</code> class is replaced by
       <code>odd-line</code> and <code>even-line</code> on alternate lines.
       These classes must be defined differently in CSS otherwise no difference
-      between alternate lines will be visible.
+      between alternate lines will be visible. See <a href="#css">below</a> for
+      more information about the necessary CSS classes.
     </td>
   </tr>
   <tr>
@@ -853,7 +859,8 @@
 
 <p>
   There are some commands inherited from <em>PasHi</em> v1 that are not listed
-  above. They have now been superceded by other commands. They are:
+  above. They have now been superceded by other commands but are still supported
+  for compatibility reasons. They are:
 </p>
 
 <table>
@@ -1025,6 +1032,9 @@
     Lines begining with &quot;#&quot; are treated as comments and ignored.
   </li>
   <li>
+    Blank lines are ignored.
+  </li>
+  <li>
     Leading and trailing spaces are ignored.
   </li>
 </ul>
@@ -1130,9 +1140,9 @@ doc-type fragment</pre>
 <pre class="indent">embed-css C:\CSS\my-style.css</pre>
 
 <p>
-  Or, in the special case of the CSS files provided with <em>PasHi</em> in
-  <code>%AppData%\DelphiDabbler\PasHi</code>, omit the path information and use,
-  for example:
+  Or, in the special case of the CSS files optionally installed with
+  <em>PasHi</em> in <code>%AppData%\DelphiDabbler\PasHi</code>, omit the path
+  information and use, for example:
 </p>
 
 <pre class="indent">embed-css twilight.css</pre>
@@ -1204,10 +1214,10 @@ doc-type fragment</pre>
   <dd>
     This class is applied to any line numbers that may be prepended to the start
     of a line (see <code>--line-numbering</code> and related commands above).
-    <code>.linenum</code> can be used to set line number, font style and colour
-    along with the margin between the line number and source code, and any
-    separating border. The font used should be mono spaced otherwise the numbers
-    may not line up correctly.
+    <code>.linenum</code> can be used to set the font style and colour used for
+    the line number, along with the margin between the line number and source
+    code and any separating border. The font used should be mono spaced
+    otherwise the numbers may not line up correctly.
   </dd>
 </dl>
 
@@ -1327,8 +1337,15 @@ doc-type fragment</pre>
 
 <p>
   To help you get started in defining your own classes, here are the default
-  definitions that are used by <em>PasHi</em>:
+  definitions that are used by <em>PasHi</em>.
 </p>
+
+<div class="pullout">
+  <p>
+    Note that this example also includes some additional class names. These
+    relate to <em>PasHi</em> v1.x, as explained below the listing.
+  </p>
+</div>
 
 <pre class="block">.code-pascal,
 .pas-source {
@@ -1578,7 +1595,7 @@ doc-type fragment</pre>
 
 <p>
   <em>PasHiGUI</em> provides a GUI for <em>PasHi</em> and permits many of
-  <em>PasHi</em> features to be accessed graphically.
+  <em>PasHi</em>'s features to be accessed via a point and click interface.
 </p>
 
 <h3>
@@ -1696,8 +1713,7 @@ doc-type fragment</pre>
   </dt>
   <dd>
     Displays the combined user guide for <em>PasHi</em> and <em>PasHiGUI</em> in
-    the default web browser. This user guide is installed on the local hard
-    disk.
+    the default web browser.
   </dd>
   <dt>
     Help | About
@@ -1718,8 +1734,8 @@ doc-type fragment</pre>
 
 <ul class="spaced">
   <li>
-    Drag and drop one or more file names from Windows Explorer: this opens the
-    dropped file(s). Folders are ignored.
+    Drag and drop one or more file names from Windows Explorer: this highlights
+    the dropped file(s). Folders are ignored.
   </li>
   <li>
     Drag and drop selected text from a compatible text editor: the selected text
@@ -1740,10 +1756,6 @@ doc-type fragment</pre>
 <div class="endnotes">
 
   <div class="copyright">
-    <em>PasHi</em>'s license is available
-    <a
-      href="https://github.com/delphidabbler/pashi/blob/master/LICENSE"
-    >here</a>.<br />
     This document is copyright &copy; 2005-2016, P D Johnson,
     <a
       href="http://delphidabbler.com/"
