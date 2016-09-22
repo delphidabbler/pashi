@@ -152,9 +152,9 @@
 
 <div class="box">
   The code should be able to compile with Delphi XE and later. It is possible
-  that Delphi 2009 may compile the code, but it hasn't been tested. Versions
-  earlier than Delphi 2009 are not suitable due to their lack of Unicode
-  support.
+  that Delphi 2009 and 2010 may compile the code, but it hasn't been tested.
+  Versions earlier than Delphi 2009 are not suitable due to their lack of
+  Unicode support.
 </div>
 
 <p>
@@ -261,7 +261,7 @@
 </h3>
 
 <p>
-  The Unicode version on the Inno setup command line compiler is needed to
+  The Unicode version of the Inno setup command line compiler is needed to
   create <em>CodeSnip</em>'s install program. v5.4.0 (u) or later is required as
   is a compatible version of the ISPP pre-processor. You can get Inno Setup with
   ISPP at <a
@@ -398,13 +398,13 @@
   try:
 </p>
 
-<pre class="cmd"><span class="prompt">Src&gt;</span> %DELPHIROOT%\Bin\Make config</pre>
+<pre class="cmd"><span class="prompt">Src&gt;</span> &quot;%DELPHIROOT%\Bin\Make&quot; config</pre>
 
 <p>
   or
 </p>
 
-<pre class="cmd"><span class="prompt">Src&gt;</span> %DELPHIXE%\Bin\Make config</pre>
+<pre class="cmd"><span class="prompt">Src&gt;</span> &quot;%DELPHIXE%\Bin\Make&quot; config</pre>
 
 <p>
   depending on which environment variable you have set.
@@ -412,7 +412,8 @@
 
 <p>
   Once <code>Make config</code> has completed, your folder structure should
-  have acquired the following new folders:
+  have acquired a <code>Build</code> folder and sub-folders and now look like
+  this:
 </p>
 
 <pre>./
@@ -457,9 +458,9 @@
 <span class="prompt">Src\GUI&gt;</span> cd ..</pre>
 
 <p>
-  This runs a separate makefile in the GUI directory and further configures
-  the source tree to enable <em>PasHiGUI</em> to be compiled. The source tree
-  should have been changed slightly to look like this:
+  This runs a separate makefile in the <code>Src\GUI</code> sub-directory and
+  further configures the source tree to enable <em>PasHiGUI</em> to be compiled.
+  The source tree should have been changed slightly to look like this:
 </p>
 
 <pre>./
