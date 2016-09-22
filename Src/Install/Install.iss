@@ -3,7 +3,7 @@
 ; v. 2.0. If a copy of the MPL was not distributed with this file, You can
 ; obtain one at http://mozilla.org/MPL/2.0/
 ;
-; Copyright (C) 2012, Peter Johnson (www.delphidabbler.com).
+; Copyright (C) 2012-2015, Peter Johnson (www.delphidabbler.com).
 ;
 ; PasHi install file generation script for use with Inno Setup 5 Unicode.
 ;===============================================================================
@@ -21,14 +21,18 @@
 ;   GetFileProductVersion - gets product version info string from an executable
 
 #define ExeFile "PasHi.exe"
+#define GUIExeFile = "PasHiGUI.exe"
 #define LicenseFile "License.rtf"
-#define LicenseTextFile "License.txt"
-#define ReadmeFile "ReadMe.html"
+#define LicenseTextFile "LICENSE"
+#define ReadmeFile "ReadMe.txt"
+#define UserGuide "UserGuide.html"
 #define InstUninstDir "Uninst"
-#define OutDir SourcePath + "..\..\Exe"
-#define SrcExePath SourcePath + "..\..\Exe\"
-#define SrcDocsPath SourcePath + "..\..\Docs\"
-#define SrcConfigPath SourcePath + "..\..\Config\"
+#define SrcRootPath SourcePath + "..\..\"
+#define BuildPath SrcRootPath + "Build\"
+#define OutDir BuildPath + "Exe"
+#define SrcExePath BuildPath + "Exe\"
+#define SrcDocsPath SrcRootPath + "Docs\"
+#define SrcConfigPath SrcRootPath + "Config\"
 #define ExeProg SrcExePath + ExeFile
 #define Company "DelphiDabbler.com"
 #define AppPublisher "DelphiDabbler"
@@ -63,10 +67,7 @@ SolidCompression=true
 InternalCompressLevel=ultra
 OutputDir={#OutDir}
 OutputBaseFilename={#AppName}-Setup-{#AppVersion}
-; Special VersionInfoVersion defined for pre-release versions only
-; revert to commened out line in release version
-;VersionInfoVersion={#AppVersion}
-VersionInfoVersion=1.99.1
+VersionInfoVersion={#AppVersion}
 VersionInfoCompany={#Company}
 VersionInfoDescription=Installer for {#AppName}
 VersionInfoTextVersion={#AppVersion}
@@ -83,9 +84,10 @@ ChangesEnvironment=true
 
 [Files]
 Source: {#SrcExePath}{#ExeFile}; DestDir: {app}; Flags: uninsrestartdelete replacesameversion
-Source: {#SrcExePath}PasHiGUI.exe; DestDir: {app}; Tasks: gui; Flags: uninsrestartdelete replacesameversion
-Source: {#SrcDocsPath}{#LicenseTextFile}; DestDir: {app}; Flags: ignoreversion
+Source: {#SrcExePath}{#GUIExeFile}; DestDir: {app}; Tasks: gui; Flags: uninsrestartdelete replacesameversion
+Source: {#SrcRootPath}{#LicenseTextFile}; DestDir: {app}; Flags: ignoreversion
 Source: {#SrcDocsPath}{#ReadmeFile}; DestDir: {app}; Flags: ignoreversion
+Source: {#SrcDocsPath}{#UserGuide}; DestDir: {app}; Flags: ignoreversion
 Source: {#SrcConfigPath}version; DestDir: {#AppDataDir}; Flags: ignoreversion
 Source: {#SrcConfigPath}config-template; DestDir: {#AppDataDir}; Flags: ignoreversion
 Source: {#SrcConfigPath}config-v1; DestDir: {#AppDataDir}; Tasks: samples; Flags: ignoreversion
@@ -103,7 +105,7 @@ Source: {#SrcConfigPath}mono.css; DestDir: {#AppDataDir}; Tasks: samples; Flags:
 
 [Icons]
 Name: {group}\Read Me File; Filename: {app}\{#ReadmeFile}
-Name: {group}\Run PasHiGUI; Tasks: gui; Filename: {app}\PasHiGUI.exe
+Name: {group}\Run PasHiGUI; Tasks: gui; Filename: {app}\{#GUIExeFile}
 Name: {group}\{cm:UninstallProgram,{#AppName}}; Filename: {uninstallexe}
 
 [Tasks]

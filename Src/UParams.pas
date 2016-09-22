@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2007-2012, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2007-2016, Peter Johnson (www.delphidabbler.com).
  *
  * Implements classes that used to parse command line and record details.
 }
@@ -22,10 +22,7 @@ uses
   UConfig;
 
 type
-  {
-    TCommandId:
-    Ids representing each valid command line comamnd.
-  }
+  ///  <summary>Ids representing each valid command line comamnd.</summary>
   TCommandId = (
     siInputClipboard,   // read input from clipboard
     siInputStdIn,       // read input from standard input
@@ -58,6 +55,7 @@ type
   );
 
 type
+  ///  <summary>Encapsulation of a single command line command.</summary>
   TCommand = record
   strict private
     const
@@ -68,35 +66,33 @@ type
     var
       fCommand: string;
     function GetName: string;
-    // Validates command syntax, not semantics
+    ///  <summary>Validates given command syntax, not semantics.</summary>
     class procedure ValidateCommand(const Cmd: string); static;
   public
     constructor Create(const Cmd: string);
-    // Complete command, including any switches. Same as Name property unless
-    // command is a switch
+    ///  <summary>Complete command, including any switches. Same as Name
+    ///  property unless command is a switch.</summary>
     property Command: string read fCommand;
-    // Name of command without any switch values. Same as Command property
-    // unless command is a switch
+    ///  <summary>Name of command without any switch values. Same as Command
+    ///  property unless command is a switch.</summary>
     property Name: string read GetName;
-    // Checks if command is a short form command
+    ///  <summary>Checks if command is a short form command.</summary>
     function IsShortForm: Boolean; overload;
+    ///  <summary>Checks if given command is a short form command.</summary>
     class function IsShortForm(const Cmd: string): Boolean; overload; static;
-    // Checks if command is a switch
+    ///  <summary>Checks if command is a switch.</summary>
     function IsSwitch: Boolean;
-    // Value of switch. Error if command not switch
+    ///  <summary>Value of switch. Error if command not switch.</summary>
     function SwitchValue: Boolean;
-    // Checks if given string is a valid command
+    ///  <summary>Checks if given string is a valid command.</summary>
     class function IsCommand(const S: string): Boolean; static;
     class operator Implicit(const S: string): TCommand;
     class operator Implicit(const Cmd: TCommand): string;
   end;
 
 type
-  {
-    TParams:
-    Class that parses command line and stores settings according to commands
-    provided.
-  }
+  ///  <summary>Class that parses command line and stores settings according to
+  ///  commands provided.</summary>
   TParams = class(TObject)
   strict private
     var
@@ -123,16 +119,8 @@ type
     function GetPaddingParameter(const Cmd: TCommand): Char;
   public
     constructor Create(const Config: TConfig);
-    { Class constructor. Initialises object.
-      @param Config [in] Configuration object to be updated from command line.
-      }
     destructor Destroy; override;
-    { Class destructor. Tears down object.
-      }
     procedure Parse;
-    { Parses the command line.
-      @except Exception raised if error in command line.
-      }
   end;
 
 
@@ -149,9 +137,6 @@ uses
 { TParams }
 
 constructor TParams.Create(const Config: TConfig);
-{ Class constructor. Initialises object.
-  @param Config [in] Configuration object to be updated from command line.
-  }
 begin
   Assert(Assigned(Config), 'TParams.Create: Config is nil');
   inherited Create;
@@ -292,8 +277,6 @@ begin
 end;
 
 destructor TParams.Destroy;
-{ Class destructor. Tears down object.
-  }
 begin
   fPaddingLookup.Free;
   fVerbosityLookup.Free;
@@ -424,9 +407,6 @@ begin
 end;
 
 procedure TParams.Parse;
-{ Parses the command line.
-  @except Exception raised if error in command line.
-  }
 
   procedure ParseQueue(const ErrorFmtStr: string);
   begin

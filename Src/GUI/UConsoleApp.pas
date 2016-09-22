@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2006-2012, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2006-2016, Peter Johnson (www.delphidabbler.com).
  *
  * Class that encapsulates and executes a command line application and
  * optionally redirects the application's standard input, output and error.
@@ -32,131 +32,52 @@ const
 
 type
 
-  {
-  TConsoleApp:
-    Class that encapsulates and executes a command line application and
-    optionally redirects the application's standard input, output and error. The
-    application is excuted in time slices and the class triggers an event
-    between time slices.
-  }
+  ///  <summary>Class that encapsulates and executes a command line application.
+  ///  </summary>
+  ///  <remarks>The class optionally redirects the application's standard input,
+  ///  output and error. The application is excuted in time slices and the class
+  ///  triggers an event between time slices.</remarks>
   TConsoleApp = class(TObject)
   private
     fOnWork: TNotifyEvent;
-      {References OnWork event handler}
     fStdIn: THandle;
-      {Handle of Console app's redirected standard input or 0 if not redirected}
     fStdOut: THandle;
-      {Handle of Console app's redirected standard output or 0 if not
-      redirected}
     fStdErr: THandle;
-      {Handle of Console app's redirected standard error or 0 if not redirected}
     fExitCode: LongWord;
-      {Exit code returned from console app}
     fMaxExecTime: LongWord;
-      {Maximum execution time of console app}
     fProcessHandle: THandle;
-      {Process handle of console app. 0 when no app is executing}
     fErrorMessage: string;
-      {Description of any error that occured while trying to execute
-      application}
     fErrorCode: LongWord;
-      {Code of any error that occured while trying to execute application}
     fVisible: Boolean;
-      {Whether application is to be visible or hidden}
     fTimeSlice: Integer;
-      {Time to let application run before generating each OnWork event}
     function MonitorProcess: Boolean;
-      {Monitors a running process, triggering event at end of each timeslice.
-        @return True on successful completion or false if application times out.
-      }
     function SetExitCode: Boolean;
-      {Sets ExitCode property to value returned from application.
-        @return True if exit code retrieved OK and false if we fail to retrieve
-          it.
-      }
     procedure TriggerWorkEvent;
-      {Triggers OnWork event if assigned.
-      }
     procedure SetMaxExecTime(const Value: LongWord);
-      {Sets MaxExecTime property.
-        @param Value [in] Required time in miliseconds. If 0 then property's
-          default value is used.
-      }
     procedure SetTimeSlice(const Value: Integer);
-      {Sets TimeSlice property.
-        @param Value [in] Required time in miliseconds. If 0 then property's
-          default value is used.
-      }
   protected
     function StartProcess(const CmdLine, CurrentDir: string;
       out ProcessInfo: TProcessInformation): Boolean;
-      {Starts a process and gets information about it from OS.
-        @param CmdLine [in] Command line to be executed.
-        @param CurrentDir [in] Application's current directory.
-        @param ProcessInfo [out] Passes OS process info back to caller.
-        @return True if process created OK and false if process couldn't be
-          started.
-      }
     procedure DoWork; virtual;
-      {Overridable method called between program timeslices and after
-      completion. Simply triggers OnWorkEvent.
-      }
     procedure RecordAppError(const Code: LongWord; const Msg: string);
-      {Set error code and message to class-defined error. Error code has bit 29
-      set.
-        @param ErrorCode [in] Required error code. Bit 29 will be forced set.
-        @param Msg [in] Required error message.
-      }
     procedure RecordWin32Error;
-      {Set error code message to the last-reported Windows error.
-      }
     procedure ResetError;
-      {Resets error code and message to "no error" values of 0 and empty string.
-      }
   public
     constructor Create;
-      {Class constructor. Instantiates object.
-      }
     function Execute(const CmdLine, CurrentDir: string): Boolean;
-      {Executes given command line and returns whether application succeeds
-      fails.
-        @param CmdLine [in] Command line to execute.
-        @param CurrentDir [in] Current directory of application.
-        @return True if command line application succeeds or false if it fails.
-      }
     property StdIn: THandle read fStdIn write fStdIn default 0;
-      {Handle of console app's redirected standard input. Leave as 0 if standard
-      input is not to be redirected. Ensure handle is inheritable}
     property StdOut: THandle read fStdOut write fStdOut default 0;
-      {Handle of console app's redirected standard output. Leave as 0 if
-      standard output not to be redirected. Ensure handle is inheritable}
     property StdErr: THandle read fStdErr write fStdErr default 0;
-      {Handle of console app's redirected standard error. Leave as 0 if standard
-      error is not to be redirected. Ensure handle is inheritable}
     property Visible: Boolean read fVisible write fVisible default False;
-      {Determines whether console app is to be displayed of not}
     property MaxExecTime: LongWord read fMaxExecTime write SetMaxExecTime
       default cDefMaxExecTime;
-      {Maximum execution time of console app in miliseconds}
     property TimeSlice: Integer read fTimeSlice write SetTimeSlice
       default cDefTimeSlice;
-      {Timeslice allocated to console app in miliseconds. The app is paused at
-      end of each time slice and Onwork event is triggered}
     property ProcessHandle: THandle read fProcessHandle;
-      {Handle of executing console app. Zero when no application executing}
     property ExitCode: LongWord read fExitCode;
-      {Exit code set by console app. Not valid if ErrorCode is non zero. Refer
-      to console application documentation for meaning of these codes}
     property ErrorCode: DWORD read fErrorCode;
-      {Zero if application executes successfully and non-zero if there was an
-      error executing the application (e.g. if it timed out). Error codes either
-      correspond to Windows error or are set by the class. Class generated error
-      codes have bit 29 set}
     property ErrorMessage: string read fErrorMessage;
-      {Error message corresponding to ErrorCode. '' if ErrorCode = 0}
     property OnWork: TNotifyEvent read fOnWork write fOnWork;
-      {Event triggered each time console application signals the class.
-      Frequency of these events depends on TimeSlice}
   end;
 
 
@@ -182,8 +103,6 @@ resourcestring
 { TConsoleApp }
 
 constructor TConsoleApp.Create;
-  {Class constructor. Instantiates object.
-  }
 begin
   inherited Create;
   // Set default property values
@@ -196,20 +115,11 @@ begin
 end;
 
 procedure TConsoleApp.DoWork;
-  {Overridable method called between program timeslices and after completion.
-  Simply triggers OnWorkEvent.
-  }
 begin
   TriggerWorkEvent;
 end;
 
 function TConsoleApp.Execute(const CmdLine, CurrentDir: string): Boolean;
-  {Executes given command line and returns whether application succeeds
-  fails.
-    @param CmdLine [in] Command line to execute.
-    @param CurrentDir [in] Current directory of application.
-    @return True if command line application succeeds or false if it fails.
-  }
 var
   ProcessInfo: TProcessInformation; // information about process
 begin
@@ -238,9 +148,6 @@ begin
 end;
 
 function TConsoleApp.MonitorProcess: Boolean;
-  {Monitors a running process, triggering event at end of each timeslice.
-    @return True on successful completion or false if application times out.
-  }
 var
   TimeToLive: Integer;  // Milliseconds app has left before timing out
   AppState: DWORD;      // State of app after last wait
@@ -271,36 +178,24 @@ end;
 
 procedure TConsoleApp.RecordAppError(const Code: LongWord;
   const Msg: string);
-  {Set error code and message to class-defined error. Error code has bit 29
-  set.
-    @param ErrorCode [in] Required error code. Bit 29 will be forced set.
-    @param Msg [in] Required error message.
-  }
 begin
   fErrorMessage := Msg;
   fErrorCode := Code or cAppErrorMask;
 end;
 
 procedure TConsoleApp.RecordWin32Error;
-  {Set error code message to the last-reported Windows error.
-  }
 begin
   fErrorCode := GetLastError;
   fErrorMessage := SysErrorMessage(fErrorCode);
 end;
 
 procedure TConsoleApp.ResetError;
-  {Resets error code and message to "no error" values of 0 and empty string.
-  }
 begin
   fErrorCode := 0;
   fErrorMessage := '';
 end;
 
 function TConsoleApp.SetExitCode: Boolean;
-  {Sets ExitCode property to value returned from application.
-    @return True if exit code retrieved OK and false if we fail to retrieve it.
-  }
 begin
   Result := GetExitCodeProcess(fProcessHandle, fExitCode);
   if not Result then
@@ -308,10 +203,6 @@ begin
 end;
 
 procedure TConsoleApp.SetMaxExecTime(const Value: LongWord);
-  {Sets MaxExecTime property.
-    @param Value [in] Required time in miliseconds. If 0 then property's default
-      value is used.
-  }
 begin
   if Value = 0 then
     fMaxExecTime := cDefMaxExecTime
@@ -320,10 +211,6 @@ begin
 end;
 
 procedure TConsoleApp.SetTimeSlice(const Value: Integer);
-  {Sets TimeSlice property.
-    @param Value [in] Required time in miliseconds. If 0 then property's default
-      value is used.
-  }
 begin
   if Value > 0 then
     fTimeSlice := Value
@@ -333,12 +220,6 @@ end;
 
 function TConsoleApp.StartProcess(const CmdLine, CurrentDir: string;
   out ProcessInfo: TProcessInformation): Boolean;
-  {Starts a process and gets information about it from OS.
-    @param CmdLine [in] Command line to be executed.
-    @param CurrentDir [in] Application's current directory.
-    @param ProcessInfo [out] Passes OS process info back to caller.
-    @return True if process created OK and false if process couldn't be started.
-  }
 const
   // Maps Visible property to required wondows flags
   cShowFlags: array[Boolean] of Integer = (SW_HIDE, SW_SHOW);
@@ -380,8 +261,6 @@ begin
 end;
 
 procedure TConsoleApp.TriggerWorkEvent;
-  {Triggers OnWork event if assigned.
-  }
 begin
   if Assigned(fOnWork) then
     fOnWork(Self);

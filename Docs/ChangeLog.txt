@@ -2,6 +2,31 @@
 ; Change Log for PasHi
 ; ------------------------------------------------------------------------------
 
+Release 2.0.0 - 22 September 2016
+This is a major release. Changes from v1.1.0 include the changes below along with all changes from releases 2.0 beta 1 and beta 2.
+* PasHi v2.0.0 build 11
+  + Help screen text corrected and clarified.
+  + Manifested program as being compatible with Windows Vista through to Windows 10 and updated program version number in manifest.
+* PasHiGUI v1.0.0 build 5
+  + Main window size and position now persists between runs.
+  + Hints are now displayed in main window.
+  + Help menu option to display online help replaced with option to display user guide that is installed with the program.
+  + Updates to About box:
+    - Program version number and copyright details are now extracted from program resources instead of being hard coded.
+    - The name of the license file was updated.
+  + Fixed potential bug in synchronising visibility of Options Bar with state of Show/Hide Options Bar menu option and toolbar button.
+  + Manifested program as being compatible with Windows Vista through to Windows 10.
+* General changes
+  + Standardised format of version information for PasHi and PasHiGUI.
+  + Programs now compiled with Delphi XE instead of Delphi.
+  + Major overhaul of documentation including:
+    - Former read-me HTML file was split into two documents: an HTML user guide named UserGuide.html that is installed with the programs and a read-me text file that is included with the installer in the program download.
+    - All license information was consolidated in a new LICENSE file that is installed with the programs. This replaces License.txt and SourceCodeLicenses.txt.
+    - Minor modification were made to license summary displayed by installer.
+    - Many documents were updated re changes in v2 and were corrected and/or clarified.
+  + Corrections were made to config file templates and some of the optionally installed CSS files. Some comments were also clarified.
+  + Some code refactored and commenting standardised.
+
 Release 2.0 beta 2 - 12 August 2014
 * PasHi v1.99.2 build 10 (aka v2.0.0 beta 2)
   + Changed some parameters to --encoding command.
@@ -52,7 +77,7 @@ Release 2.0 beta 1 - 11 April 2011
     - Many new commands to control new options.
     - Some new commands to reinstate program defaults that may have been overridden by config file.
     - All commands now have a long form beginning with double dashes. Some commands also have a short form comprising a single dash and a single letter.
-    - Commands from earlier program versions retained as aliases to new commands.
+    - Commands from earlier program versions retained but made into aliases to relevant new commands.
   + Help screen completely re-written.
   + Bug fixes:
     - Exceptions are no longer raised on checking clipboard when another program has it open.
@@ -72,7 +97,7 @@ Release 2.0 beta 1 - 11 April 2011
   + Multiple file names can now be passed to PasHi via file open dialog box or by dragging and dropping from Explorer.
   + Input files are now passed directly to the PasHi command line rather than being opened and sent to PasHi via a pipe. (Text from clipboard or drag/drop is still piped to PasHi).
   + Interaction with PasHi changed to permit user defined options to be passed on command line.
-  + Options entered in Options Side Bar are persisted in a PasHiGUI's own config file.
+  + Options entered in Options Side Bar are persisted in PasHiGUI's own config file.
   + Errors returned from PasHi are now reported to user.
   + Online documentation can now be accessed from Help menu.
   + Some refactoring.
@@ -103,9 +128,9 @@ Release 1.1.0 - 15 February 2010
 
 PasH Release 1.0 - 31 May 2009
 Build 7
-+ Added new -hidecss switch. Specifying it hides contents of <style> tag in HTML comments. Default is now not to hide contents.
++ Added new -hidecss switch to hide contents of <style> tag in HTML comments. Default is now not to hide contents.
 + Replaced on-the-fly generation of embedded style sheets for XHTML documents with a default style sheet read from resources.
-+ Updated to use Delphi 2006 keyword and directives list from Delphi 7.
++ Updated to use Delphi 2006 keyword and directives list instead of those from Delphi 7.
 + Replaced generic DelphiDabbler icon with custom PasH icon set.
 + Added Vista manifest.
 + Removed unnecessary compiler directives in units, i.e. those that replicate directives in project file.
@@ -126,7 +151,7 @@ Build 1
 
 PasH Release 0.1.4 Beta - 17 April 2006
 Build 5
-+ Corrected title tag written to XHTML documents. Used to refer to CodeSnip Database, now refers to PasH.
++ Corrected title tag written to XHTML documents. Previously referred to CodeSnip Database, now refers to PasH.
 
 PasH Release 0.1.3 Beta - 9 December 2005
 Build 4
@@ -136,7 +161,7 @@ PasH Release 0.1.2 Beta - 3 November 2005
 Build 3
 + Program now traps exceptions and displays error message before terminating rather than exceptions crashing program.
 + Documentation updated and changed to HTML from plain text.
-+ Moved program from alpha to beta.
++ Moved program from alpha to beta release status.
 
 PasH Release 0.1.1 Alpha - 4 June 2005
 Build 2

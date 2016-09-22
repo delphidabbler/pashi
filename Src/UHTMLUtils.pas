@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2005-2012, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2005-2016, Peter Johnson (www.delphidabbler.com).
  *
  * Utility functions used when generating HTML.
 }
@@ -20,20 +20,15 @@ uses
   Graphics;
 
 
+///  <summary>Encodes the given string so that any HTML-incompatible characters
+///  are replaced with equivalent character entities.</summary>
 function MakeSafeHTMLText(const TheText: string): string;
-  {Encodes the given string so that any HTML-incompatible characters are
-  replaced with equivalent character entities.
-    @param TheText [in] Text to be encoded.
-    @return The encoded text.
-  }
 
+///  <summary>Converts a Delphi TColor value into a string suitable for use in
+///  HTML or CSS code.</summary>
+///  <remarks>Any system colors (like clBtnFace) are mapped to the actual colour
+///  according to the current Windows settings.</remarks>
 function ColorToHTML(const Color: TColor): string;
-  {Converts a Delphi TColor value into a string suitable for use in HTML or CSS
-  code. Any system colors (like clBtnFace) are mapped to the actual colour
-  according to the current Windows settings.
-    @param Color [in] Colour value to be converted.
-    @return HTML/CSS code for colour.
-  }
 
 
 implementation
@@ -45,11 +40,6 @@ uses
 
 
 function MakeSafeHTMLText(const TheText: string): string;
-  {Encodes the given string so that any HTML-incompatible characters are
-  replaced with equivalent character entities.
-    @param TheText [in] Text to be encoded.
-    @return the encoded text.
-  }
 var
   Idx: Integer; // loops thru the given text
 begin
@@ -72,12 +62,6 @@ begin
 end;
 
 function ColorToHTML(const Color: TColor): string;
-  {Converts a Delphi TColor value into a string suitable for use in HTML or CSS
-  code. Any system colors (like clBtnFace) are mapped to the actual colour
-  according to the current Windows settings.
-    @param Color [in] Colour value to be converted.
-    @return HTML/CSS code for colour.
-  }
 var
   ColorRGB: Integer;  // RGB code for the colour
 begin

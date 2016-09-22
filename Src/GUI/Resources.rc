@@ -3,17 +3,17 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2006-2012, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2006-2015, Peter Johnson (www.delphidabbler.com).
  *
  * Application's resources.
  */
 
 
-/* Template for displaying higfhlighted HTML fragments */
-FRAGMENTTPLT RCDATA "Resources\fragment-tplt.html"
+/* Template for displaying highlighted HTML fragments */
+FRAGMENTTPLT RCDATA "Assets\fragment-tplt.html"
 
 /* Program's icon */
-MAINICON ICON "Resources/MainIcon.ico"
+MAINICON ICON "Assets\MainIcon.ico"
 
-/* Manifest file for themed UI and execution level */
-1 24 Resources\PasHiGUI.manifest
+/* Manifest file */
+1 24 "Assets\PasHiGUI.manifest"

@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2012, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2012-2016, Peter Johnson (www.delphidabbler.com).
  *
  * Provides classes that render complete output documents and document
  * fragments.
@@ -25,8 +25,6 @@ type
   end;
 
 type
-  // may or may not need passing hiliter instance to constructor or could call
-  // directly if not parameterised
   TXHTMLFragmentRenderer = class(TInterfacedObject, IRenderer)
   strict private
     fRenderers: TXHTMLFragmentParams;

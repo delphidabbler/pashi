@@ -38,7 +38,7 @@ PasHi supports the following commands:
                             tag in the output HTML document. The name of the
                             CSS file must be supplied in the next parameter.
                             File names containing no path information are read
-                            from PasHi's application data directory.
+                            from PasHi's per-user application data directory.
 --encoding            -e    Specifies the output encoding. The next
                             parameter must provide one of the following values:
                               utf-8 [default]
@@ -70,7 +70,7 @@ PasHi supports the following commands:
                             following values:
                               yes - use PasHi v1 CSS class names
                               no - use current CSS class names [default].
---line-numbering      -n    Switches line numebring on or off. --line-numbering
+--line-numbering      -n    Switches line numbering on or off. --line-numbering
                             requires the next parameter to supply one of the
                             following values:
                               on - number each line of source code

@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2005-2012, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2005-2016, Peter Johnson (www.delphidabbler.com).
  *
  * Provides highlighter classes used to format and highlight source code in
  * HTML.
@@ -24,13 +24,11 @@ uses
 
 
 type
-  {
-  TParsedSyntaxHiliter:
-    Abstract base class for all highlighter classes that parse source code using
-    Pascal parser object. Handles parser events and calls virtual methods to
-    write the various document parts. Also provides a helper object to simplify
-    output of formatted code.
-  }
+  ///  <summary>Abstract base class for all highlighter classes that parse
+  ///  and highlight source code using Pascal parser object.</summary>
+  ///  <remarks>Handles parser events and calls virtual methods to write the
+  ///  various document parts. Also provides a helper object to simplify
+  ///  output of formatted code.</remarks>
   TParsedSyntaxHiliter = class abstract(TInterfacedObject)
   strict private
     fWriter: TStringBuilder;  // Helper object used to emit formatted source
@@ -38,54 +36,17 @@ type
     fOptions: THiliteOptions;
     procedure ElementHandler(Parser: THilitePasParser; Elem: THiliteElement;
       const ElemText: string);
-      {Handles parser's OnElement event: calls virtual do nothing and abstract
-      methods that descendants override to write a document element in required
-      format.
-        @param Parser [in] Reference to parser that triggered event (unused).
-        @param Elem [in] Type of element to output.
-        @param ElemText [in] Text to be output.
-      }
     procedure LineBeginHandler(Parser: THilitePasParser);
-      {Handles parser's OnLineBegin event: calls virtual do nothing method that
-      descendants override to output data needed to start a new line.
-        @param Parser [in] Reference to parser that triggered event (unused).
-      }
     procedure LineEndHandler(Parser: THilitePasParser);
-      {Handles parser's OnLineEnd event: calls virtual do nothing method that
-      descendants override to output data needed to end a new line.
-        @param Parser [in] Reference to parser that triggered event (unused).
-      }
   strict protected
     procedure BeginDoc; virtual;
-      {Called just before document is parsed: used to initialise document.
-      }
     procedure EndDoc; virtual;
-      {Called after parsing complete: used to finalise document.
-      }
     procedure BeginLine; virtual;
-      {Called when a new line in output is started: used to initialise a line in
-      output.
-      }
     procedure EndLine; virtual;
-      {Called when a line is ending: used to terminate a line in output.
-      }
     procedure WriteElem(const ElemText: string); virtual; abstract;
-      {Called for each different highlight element in document and is overridden
-      to output element's text.
-        @param ElemText [in] Text of the element.
-      }
     procedure BeforeElem(Elem: THiliteElement); virtual;
-      {Called before a highlight element is output. Used to write code used to
-      display element in required format.
-        @param Elem [in] Kind of highlight element.
-      }
     procedure AfterElem(Elem: THiliteElement); virtual;
-      {Called after a highlight element is output. Used to write code used to
-      finalise element formatting.
-        @param Elem [in] Kind of highlight element.
-      }
     property Writer: TStringBuilder read fWriter;
-      {Helper object used to write formatted code to output}
     property LineNumber: Integer read fLineNumber write fLineNumber;
     function LineNumberStr: string;
     property Options: THiliteOptions read fOptions;
@@ -93,55 +54,37 @@ type
     constructor Create; virtual;
     function Hilite(const RawCode: string; const Options: THiliteOptions):
       string;
-      {Highlights source code and writes to a string.
-        @param RawCode [in] Contains source code to be highlighted.
-        @return Highlighted source code.
-      }
   end;
 
 type
+  ///  <summary>Supplies names of CSS classes used in highlighting by PasHi v1.
+  ///  </summary>
   TLegacyCSSNames = class(TInterfacedObject, ICSSClassNames)
   public
     function MainClass: string;
     function ElementClass(const Elem: THiliteElement): string;
   end;
 
+  ///  <summary>Supplies names of CSS classes used in highlighting.</summary>
   TCSSNames = class(TInterfacedObject, ICSSClassNames)
     function MainClass: string;
     function ElementClass(const Elem: THiliteElement): string;
   end;
 
 type
-  TXHTMLHiliter = class sealed(TParsedSyntaxHiliter, ISyntaxHiliter)
+  ///  <summary>Highlights source code in HTML format.</summary>
+  THTMLHiliter = class sealed(TParsedSyntaxHiliter, ISyntaxHiliter)
   strict private
     fCSSClases: ICSSClassNames;  // provides name of CSS classes
     fIsEmptyLine: Boolean;       // flags if a line has no content
   strict protected
     procedure BeginDoc; override;
-      {Called just before document is parsed: writes opening <pre> tag.
-      }
     procedure EndDoc; override;
-      {Called after parsing complete: writes closing </pre> tag.
-      }
     procedure BeginLine; override;
-      {Called when a new line in output is started: writes new line where
-      required.
-      }
     procedure EndLine; override;
     procedure BeforeElem(Elem: THiliteElement); override;
-      {Called before a highlight element is output. Used to write <span> tag for
-      required class if element is formatted.
-        @param Elem [in] Kind of highlight element.
-      }
     procedure WriteElem(const ElemText: string); override;
-      {Outputs element's text.
-        @param ElemText [in] Text of the element.
-      }
     procedure AfterElem(Elem: THiliteElement); override;
-      {Called after a highlight element is output. Writes closing span tag where
-      required.
-        @param Elem [in] Kind of highlight element.
-      }
   public
     constructor Create(CSSClasses: ICSSClassNames); reintroduce;
   end;
@@ -157,34 +100,21 @@ uses
 { TParsedSyntaxHiliter }
 
 procedure TParsedSyntaxHiliter.AfterElem(Elem: THiliteElement);
-  {Called after a highlight element is output. Used to write code used to
-  finalise element formatting.
-    @param Elem [in] Kind of highlight element.
-  }
 begin
   // Do nothing: descendants override
 end;
 
 procedure TParsedSyntaxHiliter.BeforeElem(Elem: THiliteElement);
-  {Called before a highlight element is output. Used to write code used to
-  display element in required format.
-    @param Elem [in] Kind of highlight element.
-  }
 begin
   // Do nothing: descendants override
 end;
 
 procedure TParsedSyntaxHiliter.BeginDoc;
-  {Called just before document is parsed: used to initialise document.
-  }
 begin
   // Do nothing: descendants override
 end;
 
 procedure TParsedSyntaxHiliter.BeginLine;
-  {Called when a new line in output is started: used to initialise a line in
-  output.
-  }
 begin
   // Do nothing: descendants override
 end;
@@ -197,13 +127,6 @@ end;
 
 procedure TParsedSyntaxHiliter.ElementHandler(Parser: THilitePasParser;
   Elem: THiliteElement; const ElemText: string);
-  {Handles parser's OnElement event: calls virtual do nothing and abstract
-  methods that descendants override to write a document element in required
-  format.
-    @param Parser [in] Reference to parser that triggered event (unused).
-    @param Elem [in] Type of element to output.
-    @param ElemText [in] Text to be output.
-  }
 begin
   BeforeElem(Elem);
   WriteElem(ElemText);
@@ -211,15 +134,11 @@ begin
 end;
 
 procedure TParsedSyntaxHiliter.EndDoc;
-  {Called after parsing complete: used to finalise document.
-  }
 begin
   // Do nothing: descendants override
 end;
 
 procedure TParsedSyntaxHiliter.EndLine;
-  {Called when a line is ending: used to terminate a line in output.
-  }
 begin
   // Do nothing: descendants override
 end;
@@ -254,20 +173,12 @@ begin
 end;
 
 procedure TParsedSyntaxHiliter.LineBeginHandler(Parser: THilitePasParser);
-  {Handles parser's OnLineBegin event: calls virtual do nothing method that
-  descendants override to output data needed to start a new line.
-    @param Parser [in] Reference to parser that triggered event (unused).
-  }
 begin
   Inc(fLineNumber);
   BeginLine;
 end;
 
 procedure TParsedSyntaxHiliter.LineEndHandler(Parser: THilitePasParser);
-  {Handles parser's OnLineEnd event: calls virtual do nothing method that
-  descendants override to output data needed to end a new line.
-    @param Parser [in] Reference to parser that triggered event (unused).
-  }
 begin
   EndLine;
 end;
@@ -279,36 +190,28 @@ begin
     Result := Options.Padding + Result;
 end;
 
-{ TXHTMLHiliter }
+{ THTMLHiliter }
 
-procedure TXHTMLHiliter.AfterElem(Elem: THiliteElement);
-  {Called after a highlight element is output. Writes closing span tag where
-  required.
-    @param Elem [in] Kind of highlight element.
-  }
+procedure THTMLHiliter.AfterElem(Elem: THiliteElement);
 begin
   // Close the element's span
   Writer.Append('</span>');
 end;
 
-procedure TXHTMLHiliter.BeforeElem(Elem: THiliteElement);
-  {Called before a highlight element is output. Used to write <span> tag for
-  required class if element is formatted.
-    @param Elem [in] Kind of highlight element.
-  }
+procedure THTMLHiliter.BeforeElem(Elem: THiliteElement);
 begin
   inherited;
   // Open a span for required class
   Writer.AppendFormat('<span class="%s">', [fCSSClases.ElementClass(Elem)]);
 end;
 
-procedure TXHTMLHiliter.BeginDoc;
+procedure THTMLHiliter.BeginDoc;
 begin
   Writer.AppendFormat('<div class="%s">', [fCSSClases.MainClass]);
   Writer.AppendLine;
 end;
 
-procedure TXHTMLHiliter.BeginLine;
+procedure THTMLHiliter.BeginLine;
 const
   LineClasses: array[Boolean] of string = ('even-line', 'odd-line');
 begin
@@ -327,25 +230,25 @@ begin
     fIsEmptyLine := True;
 end;
 
-constructor TXHTMLHiliter.Create(CSSClasses: ICSSClassNames);
+constructor THTMLHiliter.Create(CSSClasses: ICSSClassNames);
 begin
   inherited Create;
   fCSSClases := CSSClasses;
 end;
 
-procedure TXHTMLHiliter.EndDoc;
+procedure THTMLHiliter.EndDoc;
 begin
   Writer.AppendLine('</div>');
 end;
 
-procedure TXHTMLHiliter.EndLine;
+procedure THTMLHiliter.EndLine;
 begin
   if fIsEmptyLine then
     Writer.Append('&nbsp;');  // forces display: &nbsp; better than ' ' here
   Writer.AppendLine('</pre>');
 end;
 
-procedure TXHTMLHiliter.WriteElem(const ElemText: string);
+procedure THTMLHiliter.WriteElem(const ElemText: string);
 begin
   // Write element text with illegal characters converted to entities
   if ElemText <> '' then

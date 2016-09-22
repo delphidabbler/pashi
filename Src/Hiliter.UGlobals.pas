@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2005-2012, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2005-2016, Peter Johnson (www.delphidabbler.com).
  *
  * Declares types required when using syntax highlighters. Defines interface
  * supported by highlighter objects and enumeration of different highlighter
@@ -24,11 +24,8 @@ uses
 
 type
 
-  {
-  THiliteElement:
-    Defines the different elements that can be highlighted in Pascal source
-    code.
-  }
+  ///  <summary>Defines the different elements that can be highlighted in Pascal
+  ///  source code.</summary>
   THiliteElement = (
     heWhitespace,   // white space
     heComment,      // comments: in (* .. *), { .. } or // styles
@@ -44,6 +41,8 @@ type
     heError         // an unrecognised piece of code (shouldn't happen)
   );
 
+  ///  <summary>Records options used to customise syntaxt highlighting.
+  ///  </summary>
   THiliteOptions = record
   strict private
     fUseLineNumbering: Boolean;
@@ -59,21 +58,17 @@ type
       APadding: Char; AAlternateLines: Boolean);
   end;
 
-  {
-  ISyntaxHiliter:
-    Interface implemented by all highlighter classes. Provides overloaded
-    methods used to highlight a document.
-  }
+  ///  <summary>Interface implemented by all highlighter classes.</summary>
+  ///  <remarks>Provides overloaded methods used to highlight a document.
+  ///  </remarks>
   ISyntaxHiliter = interface(IInterface)
     ['{1E26A663-705C-4A20-A3CE-771176B35F65}']
     function Hilite(const RawCode: string; const Options: THiliteOptions):
       string;
-      {Highlights source code and writes to a string.
-        @param RawCode [in] Contains source code to be highlighted.
-        @return Highlighted source code.
-      }
   end;
 
+  ///  <summary>Interface implemented by classes that provide names of CSS
+  ///  classes to be used in highlighted HTML code.</summary>
   ICSSClassNames = interface(IInterface)
     ['{98845F5E-9871-4821-9850-010BF3B9C0B3}']
     function MainClass: string;

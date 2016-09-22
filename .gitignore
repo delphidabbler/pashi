@@ -1,5 +1,7 @@
-Bin/
-Exe/
-Release/
+Build/
+__history/
 Src/GUI/PasHiGUI.cfg
 Src/PasHi.cfg
+*.local
+*.identcache
+*.todo

@@ -4,17 +4,17 @@
 # PURPOSE
 # -------
 #
-# PasHi looks for a file named config in the %AppData%\DelphiDabbler\PasHi when
-# it starts up. Any commands it finds in that file can be used to change the
-# program's default state. By default there is no config: the user must provide
-# one if needed.
+# PasHi looks for a file named "config" in the %AppData%\DelphiDabbler\PasHi
+# directory when it starts up. Any commands it finds in that file are used to
+# override the program's defaults. No "config" file is provided as standard: the
+# user must provide one if needed.
 #
-# This file is provided as a template for creating a config file. As provided,
-# it makes makes no changes to PasHi's default state. However it is fully
+# This file is provided as a template for creating a "config" file. As supplied,
+# this file makes makes no changes to PasHi's default state. However it is fully
 # commented and lists every available configuration option.
 #
 # Possible commands are noted below. For an explanation of each command, and its
-# permitted parameters (if any) see the command reference in ReadMe.html.
+# permitted parameters (if any) see the command reference in UserGuide.html.
 #
 # FILE FORMAT
 # -----------
@@ -37,10 +37,11 @@
 # -----
 #
 # To use this file you must copy it as "config", over-writing any existing file.
+# "config" must be placed in the %AppData%\DelphiDabbler\PasHi directory.
 #
 # WARNING: Any changes to this file before renaming are likely to be overwritten
 # by PasHi, so do not run PasHi while editing the original file. Preferrably you
-# should make changes to a copy of the file.
+# should make changes to a copy of this file.
 #
 # Commands entered on PasHi's command line override commands in this file.
 
@@ -54,7 +55,7 @@
 
 
 # --- Input source trimming ---
-# Commands
+# Command:
 #   trim <param>
 #     where <param> ie either "yes" or "no"
 # Default:
@@ -85,7 +86,7 @@
 # --- Output document type ---
 # Command:
 #   doc-type <param>
-#     where <param> is on of "xhtml", "html4", "html5" or "fragment"
+#     where <param> is one of "xhtml", "html4", "html5" or "fragment"
 # Default:
 #   doc-type xhtml
 
@@ -99,9 +100,9 @@
 
 
 # --- Output file language ---
-# Command:
+# Commands:
 #   language <param>
-#     where <param> is either a valid language code recognised by HTML
+#     where <param> is a valid language code recognised by HTML
 #   language-neutral
 # Examples:
 #   language en
@@ -111,7 +112,7 @@
 
 
 # --- Output document title ---
-# Command:
+# Commands:
 #   title <param>
 #     where <param> is the required title text
 #   title-default
@@ -135,7 +136,7 @@
 #     where <param> is the name of a CSS file
 #   default-css
 #   link-css <param>
-#     where <param> is the name of a CSS file
+#     where <param> is the absolute or relative URL of a CSS file
 # Examples:
 #   embed-css C:\CSS\style.css
 #   embed-css .\style.css

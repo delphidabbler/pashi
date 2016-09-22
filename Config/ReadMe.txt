@@ -1,4 +1,4 @@
-All files in this directory, except this one, are installed into the
+All files in this directory, except this one, are optionally installed into the
 %ProgramData%\DelphiDabbler\PasHi directory by the installer. PasHi then copies
 the files into each user's %AppData%\DelphiDabbler\PasHi directory, and updates
 them after each update is installed.

@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2006-2012, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2006-2016, Peter Johnson (www.delphidabbler.com).
  *
  * Interface and classes that route input data from various sources to the
  * application.
@@ -23,30 +23,17 @@ uses
 
 type
 
-  {
-  IInputData:
-    Interface supported by classes that are used to read source code data into a
-    document.
-  }
+  ///  <summary>Interface supported by classes that are used to read source code
+  ///  data into a document.</summary>
   IInputData = interface(IInterface)
     ['{F48A8B32-31D3-49FD-8D5D-6338D0E63E43}']
     procedure ReadData(const Stream: TStream);
-      {Reads data into a stream.
-        @param Stream [in] Stream to receive data.
-      }
   end;
 
-  {
-  TInputDataFactory:
-    Factory for IInputData implementations.
-  }
+  ///  <summary>Factory for IInputData implementations.</summary>
   TInputDataFactory = class(TObject)
   public
     class function CreateFromText(const Text: string): IInputData;
-      {Creates object that can read data from string.
-        @param Text [in] Data as text.
-        @return Required object.
-      }
   end;
 
 
@@ -60,44 +47,21 @@ uses
 
 type
 
-  {
-  TTextInputData:
-    IInputData implementation that reads data from a string.
-  }
+  ///  <summary>IInputData implementation that reads data from a string.
+  ///  </summary>
   TTextInputData = class(TInterfacedObject, IInputData)
   private
     fText: string;
-      {Data as text}
   protected
-    { IInputData }
     procedure ReadData(const Stream: TStream);
-      {Reads data from text into stream.
-        @const Stream [in] Stream to receive text.
-      }
   public
     constructor Create(const Text: string);
-      {Class constructor. Sets up object.
-      }
   end;
 
 
 { TInputDataFactory }
 
-//class function TInputDataFactory.CreateFromFile(
-//  const FileName: string): IInputData;
-//  {Creates object that can read data from file.
-//    @param FileName [in] Name of file containing data.
-//    @return Required object.
-//  }
-//begin
-//  Result := TFileInputData.Create(FileName);
-//end;
-
 class function TInputDataFactory.CreateFromText(const Text: string): IInputData;
-  {Creates object that can read data from string.
-    @param Text [in] Data as text.
-    @return Required object.
-  }
 begin
   Result := TTextInputData.Create(Text);
 end;
@@ -105,17 +69,12 @@ end;
 { TTextInputData }
 
 constructor TTextInputData.Create(const Text: string);
-  {Class constructor. Sets up object.
-  }
 begin
   inherited Create;
   fText := Text;
 end;
 
 procedure TTextInputData.ReadData(const Stream: TStream);
-  {Reads data from text into stream.
-    @const Stream [in] Stream to receive text.
-  }
 var
   PreambleBytes: TBytes;
   ContentBytes: TBytes;
