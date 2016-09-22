@@ -44,7 +44,10 @@ Exceptions
   copyright holder.
 
 * The files in the `Config` directory have any copyright dedicated to the Public
-  Domain. <http://creativecommons.org/publicdomain/zero/1.0/>
+  Domain. <http://creativecommons.org/publicdomain/zero/1.0/>.
 
 * The file `Test.pas` in the `Test` directory has any copyright dedicated to the
-  Public Domain. <http://creativecommons.org/publicdomain/zero/1.0/>
+  Public Domain. <http://creativecommons.org/publicdomain/zero/1.0/>.
+
+* `.gitgnore` in the root of the repository has any copyright dedicated to the
+  Public Domain. <http://creativecommons.org/publicdomain/zero/1.0/>.
