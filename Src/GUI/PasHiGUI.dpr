@@ -59,7 +59,8 @@ uses
   FrOptions.UCSS in 'FrOptions.UCSS.pas' {CSSOptionsFrame: TFrame},
   FrOptions.UMisc in 'FrOptions.UMisc.pas' {MiscOptionsFrame: TFrame},
   UVersionInfo in '..\UVersionInfo.pas',
-  PJWdwState in 'Imported\PJWdwState.pas';
+  PJWdwState in 'Imported\PJWdwState.pas',
+  UUserGuide in 'UUserGuide.pas';
 
 {$R Resources.res}      // main program resources, including icon
 {$R VersionInfo.res}    // version information resource

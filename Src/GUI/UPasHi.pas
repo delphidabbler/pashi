@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2006-2012, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2006-2016, Peter Johnson (www.delphidabbler.com).
  *
  * Class that executes and communicates with PasHi.exe.
 }
@@ -24,58 +24,26 @@ uses
 
 type
 
-  {
-  TPasHi:
-    Interacts with PasHi.exe to do syntax highlighting.
-  }
+  ///  <summary>Interacts with PasHi.exe to do syntax highlighting.</summary>
   TPasHi = class(TObject)
   private
     fInPipe: TPipe;
-      {Pipe to PasHi's standard input}
     fOutPipe: TPipe;
-      {Pipe to PasHi's standard output}
     fOutStream: TStream;
-      {Stream that receives PasHi's standard output}
     fErrPipe: TPipe;
-      {Pipe to PasHi's standard error output}
     fConsoleOutputStream: TStringStream;
-      {Stream that receives PasHi's standard error output}
     procedure HandleAppOutput(Sender: TObject);
-      {Handles TConsoleApp's OnWork event and copies contents of output pipes to
-      respective data streams.
-        @param Sender [in] Not used.
-      }
     function BuildCommandLine(const Files: TArray<string>;
       const Options: TOptions): string;
-      {Creates command line needed to execute PasHi.exe with required switches.
-        @param CreateFragment [in] Flag indicating if code fragment (true) or
-          complete HTML document to be generated.
-        @return Required command line.
-      }
     procedure RunPasHi(const CmdLine: string);
-      {Executes PasHi with a given command line.
-        @param CmdLine [in] PasHi command line.
-        @except Exception raised if can't execute PasHi.exe.
-      }
     function InternalHilite(const HilitedStream: TStream;
       const CmdLine: string): Boolean;
   public
     function Hilite(const SourceStream, HilitedStream: TStream;
       const Options: TOptions): Boolean; overload;
-      {Highlights source code by executing PasHi.exe with appropriate
-      parameters.
-        @param SourceStream [in] Stream containing raw source code (input to
-          PasHi).
-        @param HilitedStream [in] Stream that receives highlighted source code
-          (output from PasHi).
-        @param CreateFragment [in] Flag indicating if code fragment (true) or
-          complete HTML document to be generated.
-        @return True if program completed normally, false on error.
-      }
     function Hilite(const Files: TArray<string>; const HilitedStream: TStream;
       const Options: TOptions): Boolean; overload;
     function ConsoleOutput: string;
-      {Returns any text written by PasHi to console stderr}
   end;
 
 
@@ -93,11 +61,6 @@ uses
 
 function TPasHi.BuildCommandLine(const Files: TArray<string>;
   const Options: TOptions): string;
-  {Creates command line needed to execute PasHi.exe with required switches.
-    @param CreateFragment [in] Flag indicating if code fragment (true) or
-      complete HTML document to be generated.
-    @return Required command line.
-  }
 
   function NormaliseParam(const Param: string): string;
   begin
@@ -137,10 +100,6 @@ begin
 end;
 
 procedure TPasHi.HandleAppOutput(Sender: TObject);
-  {Handles TConsoleApp's OnWork event and copies contents of output pipes to
-  respective data streams.
-    @param Sender [in] Not used.
-  }
 begin
   fOutPipe.CopyToStream(fOutStream);
   fErrPipe.CopyToStream(fConsoleOutputStream);
@@ -156,14 +115,6 @@ end;
 
 function TPasHi.Hilite(const SourceStream, HilitedStream: TStream;
   const Options: TOptions): Boolean;
-  {Highlights source code by executing PasHi.exe with appropriate parameters.
-    @param SourceStream [in] Stream containing raw source code (input to PasHi).
-    @param HilitedStream [in] Stream that receives highlighted source code
-      (output from PasHi).
-    @param CreateFragment [in] Flag indicating if code fragment (true) or
-      complete HTML document to be generated.
-    @return True if program completed normally, false on error.
-  }
 begin
   // Create input pipe and copy data into it
   fInPipe := TPipe.Create(SourceStream.Size);
@@ -201,10 +152,6 @@ begin
 end;
 
 procedure TPasHi.RunPasHi(const CmdLine: string);
-  {Executes PasHi with a given command line.
-    @param CmdLine [in] PasHi command line.
-    @except Exception raised if can't execute PasHi.exe.
-  }
 var
   ConsoleApp: TConsoleApp;
 begin

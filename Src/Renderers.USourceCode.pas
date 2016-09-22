@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2012, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2012-2016, Peter Johnson (www.delphidabbler.com).
  *
  * Class that highlights source code into HTML suitable for all supported
  * document types.
@@ -22,11 +22,11 @@ type
   TSourceCodeRenderer = class sealed(TInterfacedObject, IRenderer)
   strict private
     fSourceCode: string;
-    fLegacyCSSNames: Boolean;
+    fUseLegacyCSSNames: Boolean;
     fHiliteOptions: THiliteOptions;
   public
     constructor Create(const SourceCode: string;
-      const LegacyCSSClasses: Boolean; const HiliteOptions: THiliteOptions);
+      const UseLegacyCSSClasses: Boolean; const HiliteOptions: THiliteOptions);
     function Render: string;
   end;
 
@@ -39,11 +39,11 @@ uses
 { TSourceCodeRenderer }
 
 constructor TSourceCodeRenderer.Create(const SourceCode: string;
-  const LegacyCSSClasses: Boolean; const HiliteOptions: THiliteOptions);
+  const UseLegacyCSSClasses: Boolean; const HiliteOptions: THiliteOptions);
 begin
   inherited Create;
   fSourceCode := SourceCode;
-  fLegacyCSSNames := LegacyCSSClasses;
+  fUseLegacyCSSNames := UseLegacyCSSClasses;
   fHiliteOptions := HiliteOptions;
 end;
 
@@ -51,10 +51,10 @@ function TSourceCodeRenderer.Render: string;
 var
   Hiliter: ISyntaxHiliter;
 begin
-  if fLegacyCSSNames then
-    Hiliter := TXHTMLHiliter.Create(TLegacyCSSNames.Create)
+  if fUseLegacyCSSNames then
+    Hiliter := THTMLHiliter.Create(TLegacyCSSNames.Create)
   else
-    Hiliter := TXHTMLHiliter.Create(TCSSNames.Create);
+    Hiliter := THTMLHiliter.Create(TCSSNames.Create);
   Result := Trim(Hiliter.Hilite(fSourceCode, fHiliteOptions));
 end;
 

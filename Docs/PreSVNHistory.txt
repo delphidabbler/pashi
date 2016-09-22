@@ -13,9 +13,9 @@ under version control with Subversion. PasHi was placed under version control on
 2010 at at v0.1.0.
 
 Note that PasHi was named PasH and PasHiGUI was named as PasHGUI when they were
-first imported to Subversion.
+first imported to Subversion (SVN).
 
-There are two sections:
+There are two sections in this document:
 
   1 Files: Lists all source code and development tools and provides details of
     changes to these files that preceded version control.
@@ -132,8 +132,8 @@ PASHI: Src\Resources.rc
 --------------------------------------------------------------------------------
 v1.0 of 28 May 2005  - Original version named Images.rc.
 v2.0 of 31 May 2009  - Renamed as Resources.rc from Images.rc.
-                     - Replaced generic DelphiDabbler from Img directory with
-                       custom icon in Assets directory.
+                     - Replaced generic DelphiDabbler icon from Img directory
+                       with custom icon in Assets directory.
                      - Added Vista manifest.
                      - Added default style sheet as RCDATA.
         03 Aug 2009  - MOVED TO SVN.
@@ -165,8 +165,8 @@ v1.1 of 29 May 2009  - Corrected error where required clipboard format was being
 --------------------------------------------------------------------------------
 PASHI: Src\UConfig.pas
 --------------------------------------------------------------------------------
-v1.0 of 10 Mar 2007 -  Original version.
-v1.1 of 29 May 2009 -  Added support for doc type that generates a complete
+v1.0 of 10 Mar 2007  - Original version.
+v1.1 of 29 May 2009  - Added support for doc type that generates a complete
                        XHTML document but which hides embedded CSS from browser
                        in HTML comments.
         03 Aug 2009  - MOVED TO SVN.
@@ -174,11 +174,11 @@ v1.1 of 29 May 2009 -  Added support for doc type that generates a complete
 --------------------------------------------------------------------------------
 PASHI: Src\UConsole.pas
 --------------------------------------------------------------------------------
-v1.0 of 09 Dec 2005 - Original version.
-v1.1 of 10 Mar 2007 - Removed Silent parameter from TConsole constructor and
-                      replaced with read/write property.
-                    - Removed compiler directives. These are now set in project
-                      file.
+v1.0 of 09 Dec 2005  - Original version.
+v1.1 of 10 Mar 2007  - Removed Silent parameter from TConsole constructor and
+                       replaced with read/write property.
+                     - Removed compiler directives. These are now set in project
+                       file.
         03 Aug 2009  - MOVED TO SVN.
 
 --------------------------------------------------------------------------------
@@ -227,7 +227,7 @@ v1.0 of 10 Mar 2007  - Original version. Code based on that formerly in main
                        updated.
 v1.1 of 30 May 2009  - Added support -hidecss switch.
                      - Changed to use revised ISyntaxHiliter.Hilite method call
-                       and removed instantiation of hilight attributes.
+                       and removed instantiation of highlight attributes.
                      - Updated and corrected help screen.
                      - Now sets exit code of 0 on success, 1 on error.
                      - Moved sign on message into a resource string.

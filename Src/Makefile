@@ -3,17 +3,24 @@
 # v. 2.0. If a copy of the MPL was not distributed with this file, You can
 # obtain one at http://mozilla.org/MPL/2.0/
 #
-# Copyright (C) 2005-2014, Peter Johnson (www.delphidabbler.com).
+# Copyright (C) 2005-2015, Peter Johnson (www.delphidabbler.com).
 #
 # Makefile for the PasHi project.
 # ------------------------------------------------------------------------------
 
 
-# Set bin output path
-BIN = ..\Bin
+# Set required output paths for Common.mak
+ROOT = ..
+BINREL =
 
 # Include common macros and rules
 !include Common.mak
+
+# Store name and path of release file
+!ifndef RELEASEFILENAME
+RELEASEFILENAME = dd-pashi
+!endif
+RELEASEFILEPATH = $(RELEASE)\$(RELEASEFILENAME).zip
 
 # Default target is to configure and build the PasHi executable program
 default: pashi
@@ -36,36 +43,28 @@ config:
   # Create .cfg file from templates
   @copy /Y PasHi.cfg.tplt PasHi.cfg
   # Create build folders if necessary
-  @cd ..
-  @if not exist Bin @mkdir Bin
-  @if not exist Exe @mkdir Exe
-  @if not exist Release @mkdir Release
-  @cd Src
+  @if not exist $(BUILD) @mkdir $(BUILD)
+  @if not exist $(BIN) @mkdir $(BIN)
+  @if not exist $(EXE) @mkdir $(EXE)
+  @if not exist $(RELEASE) @mkdir $(RELEASE)
 
-# Compiles the resources and deletes intermediate file created by VIED
+# Compiles the resources
 resources: VerInfo.res Resources.res
-  -@del VerInfo.rc
 
 # Builds PasHi pascal files and links program
 pascal: PasHi.exe
 
 # Builds setup program
 setup:
-  @del ..\Exe\PasHi-Setup-*
+  @del $(EXE)\PasHi-Setup-*
   @$(ISCC) Install\Install.iss
 
 # Build release files (.zip)
-!ifndef RELEASEFILENAME
-RELEASEFILENAME = dd-pashi
-!endif
-OUTFILE = Release\$(RELEASEFILENAME).zip
 release:
-  @echo Creating Release File $(OUTFILE)
-  @cd ..
-  -@if exist $(OUTFILE) del $(OUTFILE)
-  @$(ZIP) -j -9 $(OUTFILE) Exe\PasHi-Setup-*.exe
-  @$(ZIP) -j -9 $(OUTFILE) Docs\ReadMe.html Docs\License.txt
-  @cd Src
+  @echo Creating Release File $(RELEASEFILENAME)
+  -@if exist $(RELEASEFILEPATH) del $(RELEASEFILEPATH)
+  @$(ZIP) -j -9 $(RELEASEFILEPATH) $(EXE)\PasHi-Setup-*.exe
+  @$(ZIP) -j -9 $(RELEASEFILEPATH) $(DOCS)\ReadMe.txt $(ROOT)\LICENSE
 
 # Clean up unwanted files
 clean:
@@ -83,11 +82,10 @@ clean:
   @cd Src
 
 deepclean: clean
-  @cd ..
   # remove files created by make config
   -@del /S *.cfg 2>nul
   # remove folders created by make config
-  -@if exist Bin rmdir /S /Q Bin
-  -@if exist Exe rmdir /S /Q Exe
-  -@if exist Release rmdir /S /Q Release
-  @cd Src
+  -@if exist $(BIN)\GUI rmdir /S /Q $(BIN)\GUI
+  -@if exist $(BIN) rmdir /S /Q $(BIN)
+  -@if exist $(EXE) rmdir /S /Q $(EXE)
+  -@if exist $(RELEASE) rmdir /S /Q $(RELEASE)

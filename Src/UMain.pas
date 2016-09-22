@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2007-2014, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2007-2016, Peter Johnson (www.delphidabbler.com).
  *
  * Implements top level class that executes program.
 }
@@ -24,42 +24,21 @@ uses
 
 type
 
-  {
-  TMain:
-    Class that executes program.
-  }
+  ///  <summary>Class that executes program.</summary>
   TMain = class(TObject)
   private
     fConfig: TConfig;     // Program configurations object
     fConsole: TConsole;   // Object used to write to console
     fSignedOn: Boolean;   // Flag shows if sign on message has been displayed
     procedure Configure;
-      {Configure program from command line.
-      }
     procedure SignOn;
-      {Writes sign on message to console.
-      }
     procedure ShowHelp;
-      {Writes help text to console.
-      }
     function GetInputSourceCode: string;
-      {Reads program input as a string.
-        @return Required input string.
-      }
     procedure WriteOutput(const S: string);
-      {Writes program output.
-        @param S [in] String containing output.
-      }
   public
     constructor Create;
-      {Class constructor. Sets up object.
-      }
     destructor Destroy; override;
-      {Class destructor. Tears down object.
-      }
     procedure Execute;
-      {Executes program.
-      }
   end;
 
 
@@ -84,8 +63,6 @@ resourcestring
 { TMain }
 
 procedure TMain.Configure;
-  {Configure program from command line.
-  }
 var
   Params: TParams;  // object that gets configuration from command line
 begin
@@ -98,8 +75,6 @@ begin
 end;
 
 constructor TMain.Create;
-  {Class constructor. Sets up object.
-  }
 begin
   fConfig := TConfig.Create;
   fConsole := TConsole.Create;
@@ -107,8 +82,6 @@ begin
 end;
 
 destructor TMain.Destroy;
-  {Class destructor. Tears down object.
-  }
 begin
   FreeAndNil(fConsole);
   FreeAndNil(fConfig);
@@ -116,8 +89,6 @@ begin
 end;
 
 procedure TMain.Execute;
-  {Executes program.
-  }
 var
   SourceCode: string;   // input Pascal source code
   XHTML: string;        // highlighted XHTML output
@@ -179,8 +150,6 @@ begin
 end;
 
 procedure TMain.ShowHelp;
-  {Writes help text to console.
-  }
 var
   RS: TResourceStream;
 begin
@@ -197,8 +166,6 @@ begin
 end;
 
 procedure TMain.SignOn;
-  {Writes sign on message to console.
-  }
 resourcestring
   // Sign on message format string
   sSignOn = 'PasHi %s by DelphiDabbler (www.delphidabbler.com)';

@@ -3,14 +3,15 @@
 # v. 2.0. If a copy of the MPL was not distributed with this file, You can
 # obtain one at http://mozilla.org/MPL/2.0/
 #
-# Copyright (C) 2010-2012, Peter Johnson (www.delphidabbler.com).
+# Copyright (C) 2010-2015, Peter Johnson (www.delphidabbler.com).
 #
 # Makefile for the PasHiGUI project.
 # ------------------------------------------------------------------------------
 
+# Set required output paths for Common.mak
+ROOT = ..\..
+BINREL = GUI
 
-# Set bin output path
-BIN = ..\..\Bin\GUI
 
 # Include common macros and rules
 !include ..\Common.mak
@@ -24,15 +25,13 @@ config:
   # Create .cfg file from templates
   @copy /Y PasHiGUI.cfg.tplt PasHiGUI.cfg
   # Create build folders
-  @cd ..\..
-  @if not exist Bin @mkdir Bin
-  @if not exist Bin\GUI @mkdir Bin\GUI
-  @if not exist Exe @mkdir Exe
-  @cd Src\GUI
+  @if not exist $(BUILD) @mkdir $(BUILD)
+  @if not exist $(BINBASE) @mkdir $(BINBASE)
+  @if not exist $(BIN) @mkdir $(BIN)
+  @if not exist $(EXE) @mkdir $(EXE)
 
-# Compiles the resources and deletes intermediate file created by VIED
+# Compiles the resources
 resources: VersionInfo.res Resources.res
-  -@del VersionInfo.rc
 
 # Builds PasHiGUI pascal files and links program
 pascal: PasHiGUI.exe

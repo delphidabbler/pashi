@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2012, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2012-2016, Peter Johnson (www.delphidabbler.com).
  *
  * Classes that render style information for inclusion in output HTML documents.
  * A <style> tag is generated for embedded CSS and a <link> tag is generated for
@@ -42,8 +42,6 @@ type
   end;
 
 type
-  // could parameterise this renderer for -hidecss flag to avoid extra
-  // complexity of several more classes
   TEmbeddedStyleSheetRenderer = class(TInterfacedObject, IRenderer)
   strict private
     fCSSReader: IRenderer;
@@ -158,15 +156,6 @@ end;
 
 function TCSSRenderer.FindComment(const Text: string; var BeginIdx: Integer;
   out Size: Integer): Boolean;
-  {Finds a comment in CSS text.
-    @param Text [in] Text in which to find comment.
-    @param BeginIdx [in/out] Caller sets index at which to start looking for
-      comemnt in text. Updated to index of start of next comment. Unchanged if
-      no comment found.
-    @param Size [out] Receives size of comment found. Undefined if no comment
-      found.
-    @return True if a comment was found, false if not.
-  }
 var
   EndComment: Integer;    // index of end of first comment block of CSS
 begin

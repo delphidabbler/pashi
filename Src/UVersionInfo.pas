@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2014, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2014-2016, Peter Johnson (www.delphidabbler.com).
  *
  * Gets details of host program's version number from its version information
  * resources.
@@ -19,6 +19,10 @@ interface
 ///  <summary>Gets the file version number from version information of the host
 ///  program.</summary>
 function GetFileVersionStr: string;
+
+///  <summary>Gets the legal copyright string from version information of the
+///  host program.</summary>
+function GetLegalCopyright: string;
 
 
 implementation
@@ -68,6 +72,36 @@ begin
     finally
       FreeMem(VerInfoBuf);
     end;
+  end;
+end;
+
+function GetLegalCopyright: string;
+var
+  Ptr: Pointer;                       // pointer to result of API call
+  Len: UINT;                          // length of structure returned from API
+  VerInfoSize: Integer;               // size of version information data
+  VerInfoBuf: Pointer;                // buffer holding version information
+  Dummy: DWORD;                       // unused variable required in API calls
+const
+  // Sub-block identifying copyright info
+  SubBlock = '\StringFileInfo\080904E4\LegalCopyright';
+begin
+  Result := '';
+  // get size of version info
+  VerInfoSize := GetFileVersionInfoSize(PChar(ParamStr(0)), Dummy);
+  if VerInfoSize <= 0 then
+    Exit;
+  // create buffer and read version info into it
+  GetMem(VerInfoBuf, VerInfoSize);
+  try
+    if not GetFileVersionInfo(
+      PChar(ParamStr(0)), Dummy, VerInfoSize, VerInfoBuf
+    ) then Exit;
+    if not VerQueryValue(VerInfoBuf, SubBlock, Ptr, Len) then
+      Exit;
+    Result := PChar(Ptr);
+  finally
+    FreeMem(VerInfoBuf);
   end;
 end;
 

@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2006-2012, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2006-2016, Peter Johnson (www.delphidabbler.com).
  *
  * Various utility routines.
 }
@@ -21,18 +21,8 @@ uses
 
 
 function IsDirectory(const DirName: string): Boolean;
-  {Checks if a directory exists.
-    @param DirName [in] Name of directory to check.
-    @return True if DirName is valid directory.
-  }
 
 function TaskAllocWideString(const S: string): PWChar;
-  {Converts an ANSI string to a wide string and stores it in a buffer allocated
-  by the Shell's task allocator. Caller is responsible for freeing the buffer
-  and must use shell's allocator to do this.
-    @param S [in] ANSI string to convert.
-    @return Pointer to buffer containing wide string.
-  }
 
 function StringFromStream(const Stm: TStream): string;
 
@@ -47,10 +37,6 @@ uses
 
 
 function IsDirectory(const DirName: string): Boolean;
-  {Checks if a directory exists.
-    @param DirName [in] Name of directory to check.
-    @return True if DirName is valid directory.
-  }
 var
   Attr: Integer;  // directory's file attributes
 begin
@@ -60,12 +46,6 @@ begin
 end;
 
 function TaskAllocWideString(const S: string): PWChar;
-  {Converts an ANSI string to a wide string and stores it in a buffer allocated
-  by the Shell's task allocator. Caller is responsible for freeing the buffer
-  and must use shell's allocator to do this.
-    @param S [in] ANSI string to convert.
-    @return Pointer to buffer containing wide string.
-  }
 var
   StrLen: Integer;  // length of string in bytes
 begin

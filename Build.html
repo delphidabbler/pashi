@@ -6,7 +6,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2009-2014, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2009-2016, Peter Johnson (www.delphidabbler.com).
  *
  * Instructions for building PasHi and PasHiGUI.
 -->
@@ -85,37 +85,15 @@
 
 <p>
   The Delphi IDE can be used to modify the source and to perform test builds.
-  Final builds should be built using the provided makefiles, but you can get
-  away with using the IDE if you don't change any resources.
+  Final builds should be built using the provided makefiles.
 </p>
 
 <div class="box">
 
   <p>
     <strong>Note:</strong>
-    These instructions do not apply to the following versions of the program:
-  </p>
-
-  <ul>
-    <li>
-      Release 1.1.0. See the version of <code>Build.html</code> in the
-      <code>tags/version-1.1.0</code> branch of the repository.
-    </li>
-    <li>
-      <em>PasH</em> <sup><span style="font-size:smaller;">&dagger;</span></sup>
-      release 1.0.0 or earlier or
-      <em>PasHGUI</em>
-      <sup><span style="font-size:smaller;">&dagger;</span></sup> release 0.1.0.
-      For instructions on how to build these versions please refer to the
-      <code>ReadMe-Src.txt</code> files that are to be found in the
-      <code>Docs</code> or root directories of the relevant source code trees.
-    </li>
-  </ul>
-
-  <p style="font-size:smaller;">
-    <sup><span style="font-size:smaller;">&dagger;</span></sup> <em>PasH</em>
-    and <em>PasHGUI</em> are the old names for <em>PasHi</em> and
-    <em>PasHiGUI</em>.
+    These instructions do not apply to versions of the program before release
+    v2.0.0.
   </p>
 
 </div>
@@ -143,7 +121,8 @@
 <p>
   <em>PasHiGUI</em> requires <code>PJWdwState.pas</code> from the DelphiDabbler
   Window State Components, v5.6.1 or later. A copy of the required file is
-  included in the <code>Src\GUI\Imported</code> directory.
+  included in the <code>Src\GUI\Imported</code> directory. There is no need to
+  install the components into the DelphiIDE.
 </p>
 
 <h3>
@@ -173,9 +152,9 @@
 
 <div class="box">
   The code should be able to compile with Delphi XE and later. It is possible
-  that Delphi 2009 may compile the code, but it hasn't been tested. Versions
-  earlier than Delphi 2009 are not suitable due to their lack of Unicode
-  support.
+  that Delphi 2009 and 2010 may compile the code, but it hasn't been tested.
+  Versions earlier than Delphi 2009 are not suitable due to their lack of
+  Unicode support.
 </div>
 
 <p>
@@ -188,16 +167,38 @@
     <code>DCC32</code>
   </dt>
   <dd>
-    The Delphi command line compiler.
+    <p>
+      The Delphi command line compiler.
+    </p>
+    <div class="box">
+      Not available with starter editions of Delphi.
+    </div>
+  </dd>
+  <dt class="spaced">
+    <code>RC</code>
+  </dt>
+  <dd>
+    <p>
+      The Microsoft resource compiler. Used to compile the main resource file.
+    </p>
   </dd>
   <dt class="spaced">
     <code>BRCC32</code>
   </dt>
   <dd>
-    The Borland resource compiler. Used to compile various resource source
-    (<code>.rc</code>) files.
+    <p>
+      The Borland resource compiler. Used to compile version information
+      resources from temporary resource files emitted by VIEd (see below).
+    </p>
   </dd>
 </dl>
+
+<div class="box">
+  We use two different resource compilers because <code>RC</code> fails to
+  compile resource files emitted by the Version Information Editor while
+  <code>BRCC32</code> can fail to compile <code>.manifest</code> files
+  correctly.
+</div>
 
 <p>
   The following environment variables are associated with these tools:
@@ -208,18 +209,23 @@
     <code>DELPHIROOT</code> - required unless <code>DELPHIXE</code> is set.
   </dt>
   <dd>
-    Should be set to the install directory of the version of Delphi being
-    used. <code>DCC32</code> and <code>BRCC32</code> are expected to be in
-    the <code>Bin</code> sub-directory of <code>DELPHIROOT</code>.
+    <p>
+      Should be set to the install directory of the version of Delphi being
+      used. <code>DCC32</code>, <code>BRCC32</code> and <code>RC</code> are
+      expected to be in the <code>Bin</code> sub-directory of
+      <code>DELPHIROOT</code>.
+    </p>
   </dd>
   <dt class="spaced">
     <code>DELPHIXE</code> - optional
   </dt>
   <dd>
-    If you are using Delphi XE this environment variable should be set to the
-    Delphi install directory. When <code>DELPHIXE</code> is specified
-    <code>DELPHIROOT</code> will ignore its own value and use the value of
-    <code>DELPHIXE</code> instead.
+    <p>
+      If you are using Delphi XE this environment variable may be set to its
+      install directory. When <code>DELPHIXE</code> is specified
+      <code>DELPHIROOT</code> will be ignored and <code>DELPHIXE</code> will be
+      used instead.
+    </p>
   </dd>
 </dl>
 
@@ -241,8 +247,8 @@
   into intermediate resource source (<code>.rc</code>) files. Version 2.11.2
   or later is required. Version Information Editor can be obtained from
   <a
-    href="http://www.delphidabbler.com/software/vied"
-  >http://www.delphidabbler.com/software/vied</a>.
+    href="http://delphidabbler.com/software/vied"
+  >http://delphidabbler.com/software/vied</a>.
 </p>
 
 <p>
@@ -255,7 +261,7 @@
 </h3>
 
 <p>
-  The Unicode version on the Inno setup command line compiler is needed to
+  The Unicode version of the Inno setup command line compiler is needed to
   create <em>CodeSnip</em>'s install program. v5.4.0 (u) or later is required as
   is a compatible version of the ISPP pre-processor. You can get Inno Setup with
   ISPP at <a
@@ -329,10 +335,11 @@
 </p>
 
 <p>
-  <em>PasHi</em>'s latest stable source code can be found in the <em>master</em>
-  branch while development code is maintained in the <em>develop</em> branch.
-  You can also download the code of one of the releases by selecting the
-  relevant tag.
+  Source code for <em>PasHi</em>'s latest release can be found in the
+  <em>master</em> branch while development code is maintained in the
+  <em>develop</em> branch. New features are developed in branches whose name
+  begins with <em>feature</em>. You can also download the code of one of the
+  releases by selecting the relevant tag.
 </p>
 
 <p class="box">
@@ -346,8 +353,8 @@
 </h3>
 
 <p>
-  After checking out or downloading and extracting the source code you should
-  have the following directory structure:
+  After obtaining the source code you should have the following directory
+  structure:
 </p>
 
 <pre>./
@@ -356,31 +363,30 @@
   |
   +-- Docs                  - documentation
   |
-  +-- Masters               - documents used to generate some project files
-  |
   +-- Src                   - source code for PasHi
   |   |
   |   +-- Assets            - assets required to build PasHi's resources
   |   |
   |   +-- GUI               - source code of the GUI application, PasHiGUI
   |   |   |
-  |   |   +-- Imported      - 3rd party source code used for GUI application
+  |   |   +-- Assets        - assets required to build PasHiGUI's resources
   |   |   |
-  |   |   +-- Resources     - assets required to build PasHiGUI's resources
+  |   |   +-- Imported      - 3rd party source code used for GUI application
   |   |
   |   +-- Install           - install program scripts
   |
   +-- Test                  - contains test file</pre>
 
 <p>
-  If, by chance, you also have <code>Bin</code>, <code>Exe</code> and
-  <code>Release</code> directories don't worry - all will become clear.
+  Don't worry if you also have a <code>Build</code> directory and
+  sub-directories - all will become clear.
 </p>
 
 <p>
   Before you can get hacking, you need to prepare the source code tree. Open a
-  command console and navigate into the <code>Src</code> sub-folder. Run any
-  script you have created to set the required environment variables then do:
+  command console and run any script you have created to set the required
+  environment variables. Then navigate into the <code>Src</code> sub-folder and
+  do:
 </p>
 
 <pre class="cmd"><span class="prompt">Src&gt;</span> Make config</pre>
@@ -392,13 +398,13 @@
   try:
 </p>
 
-<pre class="cmd"><span class="prompt">Src&gt;</span> %DELPHIROOT%\Bin\Make config</pre>
+<pre class="cmd"><span class="prompt">Src&gt;</span> &quot;%DELPHIROOT%\Bin\Make&quot; config</pre>
 
 <p>
   or
 </p>
 
-<pre class="cmd"><span class="prompt">Src&gt;</span> %DELPHIXE%\Bin\Make config</pre>
+<pre class="cmd"><span class="prompt">Src&gt;</span> &quot;%DELPHIXE%\Bin\Make&quot; config</pre>
 
 <p>
   depending on which environment variable you have set.
@@ -406,31 +412,32 @@
 
 <p>
   Once <code>Make config</code> has completed, your folder structure should
-  have acquired the following new folders:
+  have acquired a <code>Build</code> folder and sub-folders and now look like
+  this:
 </p>
 
 <pre>./
-  +-- Bin                   - receives object files and .res files for PasHi
+  <strong>+-- Build                 - receives all files created by the build process
+  |   |
+  |   +-- Bin               - receives object files and .res files for PasHi
+  |   |
+  |   +-- Exe               - receives executable code
+  |   |
+  |   +-- Release           - receives release files</strong>
   <span class="disabled">|
   +-- Config                - config files to be installed with PasHi
   |
   +-- Docs                  - documentation
-  |</span>
-  +-- Exe                   - receives executable code
-  <span class="disabled">|
-  +-- Masters               - documents used to generate some project files
-  |</span>
-  +-- Release               - receives release files
-  <span class="disabled">|
+  |
   +-- Src                   - source code for PasHi
   |   |
   |   +-- Assets            - assets required to build PasHi's resources
   |   |
   |   +-- GUI               - source code of the GUI application, PasHiGUI
   |   |   |
-  |   |   +-- Imported      - 3rd party source code used for GUI application
+  |   |   +-- Assets        - assets required to build PasHiGUI's resources
   |   |   |
-  |   |   +-- Resources     - assets required to build PasHiGUI's resources
+  |   |   +-- Imported      - 3rd party source code used for GUI application
   |   |
   |   +-- Install           - install program scripts
   |
@@ -451,25 +458,25 @@
 <span class="prompt">Src\GUI&gt;</span> cd ..</pre>
 
 <p>
-  This runs a separate makefile in the GUI directory and further configures
-  the source tree to enable <em>PasHiGUI</em> to be compiled. The source tree
-  should have been changed slightly to look like this:
+  This runs a separate makefile in the <code>Src\GUI</code> sub-directory and
+  further configures the source tree to enable <em>PasHiGUI</em> to be compiled.
+  The source tree should have been changed slightly to look like this:
 </p>
 
 <pre>./
-  <span class="disabled">+-- Bin                   - receives object files and .res files for PasHi</span>
-  <span class="disabled">|</span>   |
-  <span class="disabled">|</span>   +-- GUI               - receives object files and .res files for PasHiGUI
-  <span class="disabled">|
+  <span class="disabled">+-- Build                 - receives all files created by the build process
+  |   |
+  |   +-- Bin               - receives object files and .res files for PasHi
+  |   |</span>   <strong>|</strong>
+  <span class="disabled">|   |</span>   <strong>+-- GUI           - receives object files and .res files for PasHiGUI</strong>
+  <span class="disabled">|   |
+  |   +-- Exe               - receives executable code
+  |   |
+  |   +-- Release           - receives release files
+  |
   +-- Config                - config files to be installed with PasHi
   |
   +-- Docs                  - documentation
-  |
-  +-- Exe                   - receives executable code
-  |
-  +-- Masters               - documents used to generate some project files
-  |
-  +-- Release               - receives release files
   |
   +-- Src                   - source code for PasHi
   |   |
@@ -477,14 +484,13 @@
   |   |
   |   +-- GUI               - source code of the GUI application, PasHiGUI
   |   |   |
-  |   |   +-- Imported      - 3rd party source code used for GUI application
+  |   |   +-- Assets        - assets required to build PasHiGUI's resources
   |   |   |
-  |   |   +-- Resources     - assets required to build PasHiGUI's resources
+  |   |   +-- Imported      - 3rd party source code used for GUI application
   |   |
   |   +-- Install           - install program scripts
   |
   +-- Test                  - contains test file</span></pre>
-
 
 <p>
   <code>Make</code> will also have created the required <code>.cfg</code> file
@@ -492,8 +498,8 @@
 </p>
 
 <p>
-  If you are intending to use the Delphi IDE to compile code, you should also
-  do:
+  If you are intending to use the Delphi IDE to compile <em>PasHi</em>, you
+  should also do:
 </p>
 
 <pre class="cmd"><span class="prompt">Src&gt;</span> Make resources</pre>
@@ -569,8 +575,8 @@
 
 <p>
   So, to build <em>PasHi</em> and <em>PasHiGUI</em> and place
-  <code>PasHi.exe</code> and <code>PasHiGUI.exe</code> in the <code>Exe</code>
-  folder do this:
+  <code>PasHi.exe</code> and <code>PasHiGUI.exe</code> in the
+  <code>Build\Exe</code> folder do this:
 </p>
 
 <pre class="cmd"><span class="prompt">Src&gt;</span> Make
@@ -620,8 +626,8 @@
 <pre class="cmd"><span class="prompt">Src&gt;</span> Make -DRELEASEFILENAME=MyRelease release</pre>
 
 <p>
-  Release zip files are always placed in the <code>Release</code>
-  directory. The directory is created if it doesn't exist.
+  Release zip files are always placed in the <code>Build\Release</code>
+  directory.
 </p>
 
 <h3>
@@ -679,13 +685,33 @@
 </p>
 
 <h2>
-  Copyright
+  Testing
+</h2>
+
+<p>
+  A test file, named <code>Test.pas</code>, is provided in the <code>Test</code>
+  directory. This file can be used to test the output of <em>PasHi</em>. It
+  contains some unusual but valid constructs that push the program to its
+  limits.
+</p>
+
+<p>
+  <code>Test.pas</code> was not designed to compile, so do not add it to the
+  project.
+</p>
+
+<h2>
+  License &amp; Copyright
 </h2>
 
 <p>
   If you are planning to re-use or modify any of the code, please see the
-  <code>SourceCodeLicenses.txt</code> file in the <code>Docs</code> directory
-  for an overview of the open source licenses that apply to the source code.
+  <code>LICENSE</code> file for an overview of the open source licenses that
+  apply to the source code.
+</p>
+
+<p>
+  <code>LICENSE</code> also provides copyright information.
 </p>
 
 </body>
