@@ -2,6 +2,31 @@
 ; Change Log for PasHi
 ; ------------------------------------------------------------------------------
 
+Release 2.0.0 - 22 September 2016
+This is a major release. Changes from v1.1.0 include the changes below along with all changes from releases 2.0 beta 1 and beta 2.
+* PasHi v2.0.0 build 11
+  + Help screen text corrected and clarified.
+  + Manifested program as being compatible with Windows Vista through to Windows 10 and updated program version number in manifest.
+* PasHiGUI v1.0.0 build 5
+  + Main window size and position now persists between runs.
+  + Hints are now displayed in main window.
+  + Help menu option to display online help replaced with option to display user guide that is installed with the program.
+  + Updates to About box:
+    - Program version number and copyright details are now extracted from program resources instead of being hard coded.
+    - The name of the license file was updated.
+  + Fixed potential bug in synchronising visibility of Options Bar with state of Show/Hide Options Bar menu option and toolbar button.
+  + Manifested program as being compatible with Windows Vista through to Windows 10.
+* General changes
+  + Standardised format of version information for PasHi and PasHiGUI.
+  + Programs now compiled with Delphi XE instead of Delphi.
+  + Major overhaul of documentation including:
+    - Former read-me HTML file was split into two documents: an HTML user guide named UserGuide.html that is installed with the programs and a read-me text file that is included with the installer in the program download.
+    - All license information was consolidated in a new LICENSE file that is installed with the programs. This replaces License.txt and SourceCodeLicenses.txt.
+    - Minor modification were made to license summary displayed by installer.
+    - Many documents were updated re changes in v2 and were corrected and/or clarified.
+  + Corrections were made to config file templates and some of the optionally installed CSS files. Some comments were also clarified.
+  + Some code refactored and commenting standardised.
+
 Release 2.0 beta 2 - 12 August 2014
 * PasHi v1.99.2 build 10 (aka v2.0.0 beta 2)
   + Changed some parameters to --encoding command.

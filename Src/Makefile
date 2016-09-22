@@ -89,3 +89,4 @@ deepclean: clean
   -@if exist $(BIN) rmdir /S /Q $(BIN)
   -@if exist $(EXE) rmdir /S /Q $(EXE)
   -@if exist $(RELEASE) rmdir /S /Q $(RELEASE)
+  -@if exist $(BUILD) rmdir /S /Q $(BUILD)

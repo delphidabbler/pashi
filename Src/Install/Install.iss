@@ -67,10 +67,7 @@ SolidCompression=true
 InternalCompressLevel=ultra
 OutputDir={#OutDir}
 OutputBaseFilename={#AppName}-Setup-{#AppVersion}
-; Special VersionInfoVersion defined for pre-release versions only
-; revert to commened out line in release version
-;VersionInfoVersion={#AppVersion}
-VersionInfoVersion=1.99.1
+VersionInfoVersion={#AppVersion}
 VersionInfoCompany={#Company}
 VersionInfoDescription=Installer for {#AppName}
 VersionInfoTextVersion={#AppVersion}
