@@ -17,6 +17,7 @@ interface
 
 uses
   // Delphi
+  SysUtils,
   Generics.Collections,
   // Project
   UConfig;
@@ -99,6 +100,7 @@ type
       fParamQueue: TQueue<string>; // Queue of parameters to be processed
       fCmdLookup: TDictionary<string, TCommandId>;
       fSwitchCmdLookup: TList<string>;
+      fConfigBlacklist: TList<TCommandId>;
       fEncodingLookup: TDictionary<string, TOutputEncodingId>;
       fDocTypeLookup: TDictionary<string, TDocType>;
       fBooleanLookup: TDictionary<string, Boolean>;
@@ -107,7 +109,7 @@ type
       fConfig: TConfig; // Reference to program's configuration object
     procedure GetConfigParams;
     procedure GetCmdLineParams;
-    procedure ParseCommand;
+    procedure ParseCommand(const IsConfigCmd: Boolean);
     procedure ParseFileName;
     function GetStringParameter(const Cmd: TCommand): string;
     function GetBooleanParameter(const Cmd: TCommand): Boolean;
@@ -123,13 +125,37 @@ type
     procedure Parse;
   end;
 
+  ///  <summary>Type of exception raised for a command related error.</summary>
+  ///  <param name="CommandName">string [in] Name of command for which exception
+  ///  is being raised.</param>
+  ///  <param name="FormatStr">string [in] A format string that defines the
+  ///  error message. Must have a single %s placeholder in position where the
+  ///  (possibly modified) command name will appear.</param>
+  ///  <remarks>
+  ///  <para>Do not use any of the inherited constructors. Handling code expects
+  ///  expects valid CommandName and FormatStr properties to be set.</para>
+  ///  <para>We send a FormatStr to exception handler rather than a preformatted
+  ///  string since handler may need to modify CommandName before rendering
+  ///  message string.</para>
+  ///  </remarks>
+  ECommandError = class(Exception)
+  strict private
+    var
+      fFormatStr: string;
+      fCommandName: string;
+  public
+    constructor Create(const CommandName: string; const FormatStr: string);
+    property CommandName: string read fCommandName;
+    property FormatStr: string read fFormatStr;
+  end;
+
 
 implementation
 
 
 uses
   // Delphi
-  StrUtils, SysUtils, Classes, Character,
+  StrUtils, Classes, Character,
   // Project
   UComparers, UConfigFiles;
 
@@ -199,7 +225,7 @@ begin
     Add('-rc', siInputClipboard);
     Add('-wc', siOutputClipboard);
   end;
-  // lookup table for short form commands that are switches
+  // list of short form commands that are switches
   fSwitchCmdLookup := TList<string>.Create;
   with fSwitchCmdLookup do
   begin
@@ -207,6 +233,12 @@ begin
     Add('-c');
     Add('-m');
     Add('-n');
+  end;
+  // list of commands blacklisted from config file
+  fConfigBlacklist := TList<TCommandId>.Create;
+  with fConfigBlacklist do
+  begin
+    Add(siHelp);
   end;
   // lookup table for --encoding command values: case insensitive
   fEncodingLookup := TDictionary<string,TOutputEncodingId>.Create(
@@ -364,9 +396,9 @@ resourcestring
 begin
   Param := GetStringParameter(Cmd);
   if not TryStrToInt(Param, Value) then
-    raise Exception.CreateFmt(sNotNumber, [Cmd.Name]);
+    raise ECommandError.Create(Cmd.Name, sNotNumber);
   if (Value < Lo) or (Value > Hi) then
-    raise Exception.CreateFmt(sOutOfRange, [Cmd.Name, Lo, Hi]);
+    raise ECommandError.Create(Cmd.Name, Format(sOutOfRange, [Lo, Hi]));
   Result := UInt16(Value);
 end;
 
@@ -391,7 +423,7 @@ begin
   else
     Result := fParamQueue.Peek;
   if (Result = '') or AnsiStartsStr('-', Result) then
-    raise Exception.CreateFmt(sNoParam, [Cmd.Name]);
+    raise ECommandError.Create(Cmd.Name, sNoParam);
 end;
 
 function TParams.GetVerbosityParameter(const Cmd: TCommand): TVerbosity;
@@ -408,17 +440,36 @@ end;
 
 procedure TParams.Parse;
 
-  procedure ParseQueue(const ErrorFmtStr: string);
+  procedure ParseQueue(const IsConfigCmd: Boolean; const ErrorFmtStr: string);
+
+    function AdjustCommandName(const Name: string): string;
+    begin
+      WriteLn('DBG: ', Name);
+      if IsConfigCmd then
+      begin
+        if StartsStr('--', Name) then
+          Result := RightStr(Name, Length(Name) - 2)
+        else
+          Result := Name;
+      end
+      else
+        Result := Name;
+    end;
+
   begin
     try
       while fParamQueue.Count > 0 do
       begin
         if AnsiStartsStr('-', fParamQueue.Peek) then
-          ParseCommand
+          ParseCommand(IsConfigCmd)
         else
           ParseFileName;
       end;
     except
+      on E: ECommandError do
+        raise Exception.CreateFmt(
+          ErrorFmtStr, [Format(E.FormatStr, [AdjustCommandName(E.CommandName)])]
+        );
       on E: Exception do
         raise Exception.CreateFmt(ErrorFmtStr, [E.Message]);
     end;
@@ -429,30 +480,35 @@ resourcestring
   sCommandLineErrorFmt = '%s';
 begin
   GetConfigParams;
-  ParseQueue(sConfigFileErrorFmt);
+  ParseQueue(True, sConfigFileErrorFmt);
   GetCmdLineParams;
-  ParseQueue(sCommandLineErrorFmt);
+  ParseQueue(False, sCommandLineErrorFmt);
 end;
 
-procedure TParams.ParseCommand;
+procedure TParams.ParseCommand(const IsConfigCmd: Boolean);
 resourcestring
   // Error messages
   sBadCommand = 'Unrecognised command "%s"';
   sCantBeSwitch = '%s cannot be a switch command';
   sMustBeSwitch = '%s must be a switch command: append "+" or "-"';
+  sBlacklisted = 'The "%s" command is not permitted in the config file.'#13#10
+    + 'Please edit the file';
 var
   Command: TCommand;
   CommandId: TCommandId;
 begin
   Command := fParamQueue.Dequeue;
   if not fCmdLookup.ContainsKey(Command.Name) then
-    raise Exception.CreateFmt(sBadCommand, [Command.Name]);
+    raise ECommandError.Create(Command.Name, sBadCommand);
   CommandId := fCmdLookup[Command.Name];
 
+  if IsConfigCmd and fConfigBlacklist.Contains(CommandId) then
+    raise ECommandError.Create(Command.Name, sBlacklisted);
+
   if Command.IsSwitch and not fSwitchCmdLookup.Contains(Command.Name) then
-    raise Exception.CreateFmt(sCantBeSwitch, [Command.Name]);
+    raise ECommandError.Create(Command.Name, sCantBeSwitch);
   if not Command.IsSwitch and fSwitchCmdLookup.Contains(Command.Name) then
-    raise Exception.CreateFmt(sMustBeSwitch, [Command.Name]);
+    raise ECommandError.Create(Command.Name, sMustBeSwitch);
 
   case CommandId of
     siInputClipboard:
@@ -690,10 +746,10 @@ end;
 
 function TCommand.SwitchValue: Boolean;
 resourcestring
-  sBadSwitch = '%s in not a switch command';
+  sBadSwitch = '%s is not a switch command';
 begin
   if not IsSwitch then
-    raise Exception.CreateFmt(sBadSwitch, [Name]);
+    raise ECommandError.Create(Name, sBadSwitch);
   Result := CharInSet(fCommand[3], TrueSwitchChars);
 end;
 
@@ -702,7 +758,16 @@ resourcestring
   sBadCommand = '"%s" is not a valid command';
 begin
   if not IsCommand(Cmd) then
-    raise Exception.CreateFmt(sBadCommand, [Cmd]);
+    raise ECommandError.Create(Cmd, sBadCommand);
+end;
+
+{ ECommandError }
+
+constructor ECommandError.Create(const CommandName, FormatStr: string);
+begin
+  inherited Create('');
+  fCommandName := CommandName;
+  fFormatStr := FormatStr;
 end;
 
 end.
