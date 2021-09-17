@@ -1022,11 +1022,32 @@
     command line).
   </li>
   <li>
-    All the long form commands listed in <a
-      href="#usage"
-    >Using <em>PasHi</em></a> have an equivalent in the config file. Config
-    commands have the same name as the long form version except that the leading
-    &quot;--&quot; characters are omitted.
+    <p>
+      <strong>Most</strong> of the long form commands listed in <a
+        href="#usage"
+      >Using <em>PasHi</em></a> have an equivalent in the config file. Config
+      commands have the same name as the long form version except that the
+      leading &quot;--&quot; characters are omitted. For example, the equivalent
+      of the<code>--doc-type</code> command in the config file is
+      <code>doc-type</code>.
+    </p>
+    <p class="pullout">
+      <strong>WARNING:</strong>
+      The exception is that the  <code>--help</code> command has no equivalent
+      config file command. If <code>help</code> is included in the config file
+      <em>PasHi</em> will stop with an error every time it is run.
+    </p>
+  </li>
+  <li>
+    <p>
+      <strong>None</strong> of the short form commands can be used in the config
+      file, and nor can any of the v1 style commands.
+    </p>
+    <p class="pullout">
+      <strong>WARNING:</strong>
+      Using one of these commands in the config file will cause <em>PasHi</em>
+      to stop with an error every time it is run.
+    </p>
   </li>
   <li>
     Lines begining with &quot;#&quot; are treated as comments and ignored.
@@ -1044,13 +1065,6 @@
   byte order mark may be omitted from the start of the file if required. If your
   text editor does not support UTF-8, confine yourself to valid ASCII characters
   and all will be well.
-</p>
-
-<p class="pullout">
-  <strong>Warning:</strong> Although <em>PasHi</em> accepts the
-  <code>help</code> command in a config file you should <strong>never</strong>
-  use it or the program will do nothing except display the help screen, no
-  matter what commands you pass on the command line.
 </p>
 
 <h3 id="config-samples">
