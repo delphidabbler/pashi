@@ -50,6 +50,20 @@ type
     function GetHashCode(const Value: string): Integer; override;
   end;
 
+type
+  ///  <summary>
+  ///  Case sensitive character comparer.
+  ///  </summary>
+  TCharEqualityComparer = class(TEqualityComparer<Char>,
+    IEqualityComparer<Char>)
+  public
+    ///  <summary>Checks if two characters are equal, ignoring case
+    ///  </summary>
+    function Equals(const Left, Right: Char): Boolean; override;
+    ///  <summary>Gets hash of given character.</summary>
+    function GetHashCode(const Value: Char): Integer; override;
+  end;
+
 
 implementation
 
@@ -59,7 +73,7 @@ uses
   SysUtils;
 
 
-///  <summary>String has function.</summary>
+///  <summary>String hash function.</summary>
 ///  <remarks>Sourced from http://www.scalabium.com/faq/dct0136.htm.</summary>
 function ElfHash(const Value: string): Integer;
 var
@@ -102,6 +116,18 @@ end;
 function TStringEqualityComparer.GetHashCode(const Value: string): Integer;
 begin
   Result := ElfHash(Value);
+end;
+
+{ TCharEqualityComparer }
+
+function TCharEqualityComparer.Equals(const Left, Right: Char): Boolean;
+begin
+  Result := Left = Right;
+end;
+
+function TCharEqualityComparer.GetHashCode(const Value: Char): Integer;
+begin
+  Result := Integer(Value);
 end;
 
 end.
