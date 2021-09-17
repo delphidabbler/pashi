@@ -119,9 +119,6 @@ class function THTMLEntities.GetEntity(const Ch: Char): string;
 var
   Entity: string;
 begin
-//  if fMap.Count = 0 then
-//    // Work arround bug where Initialise doesn't work from class constructor
-//    Initialise;
   if not fMap.TryGetValue(Ch, Entity) then
     Exit(string(Ch));
   Result := '&' + Entity + ';';
@@ -134,9 +131,6 @@ end;
 
 class function THTMLEntities.HasEntity(const Ch: Char): Boolean;
 begin
-//  if fMap.Count = 0 then
-//    // Work arround bug where Initialise doesn't work from class constructor
-//    Initialise;
   Result := fMap.ContainsKey(Ch);
 end;
 
