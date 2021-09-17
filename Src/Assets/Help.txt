@@ -127,11 +127,12 @@ PasHi supports the following commands:
                                 [default]
                               quiet - error messages only
 
-Default commands can be changed by creating a "config" file in PasHi's
+Default commands can be changed by creating a file named "config" in PasHi's
 application data directory. Commands are listed one per line and have the same
-names as the long form commands above, but without the leading "--". If a
-command takes a parameter it must be entered on the same line as the command
-and separated from it by one or more spaces. Parameters containing spaces must
-not be enclosed in quotes.
+names and functionality as the long form commands above, but without the
+leading "--". If a command takes a parameter it must be entered on the same
+line as the command and separated from it by one or more spaces. Parameters
+containing spaces must not be enclosed in quotes. The "help" command must *not*
+be used in a config file otherwise PasHi will exit with an error.
 
 PasHi's application data directory is %AppData%\DelphiDabbler\PasHi.
