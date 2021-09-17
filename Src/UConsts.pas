@@ -16,9 +16,11 @@ interface
 
 
 const
+  TAB   = #9;       // tab character
   LF    = #10;      // line feed character
   CR    = #13;      // carriage return character
   CRLF  = CR + LF;  // carriage return followed by line feed
+  SPACE = ' ';      // space character
 
 
 implementation
