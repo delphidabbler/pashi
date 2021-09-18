@@ -205,6 +205,17 @@
 #   striping off
 
 
+# -- Meta tags
+# Commands:
+#   viewport <param>
+#     where <param> is one of "phone" or "none"
+#   edge-compatibility <param>
+#     where <param> is either "on" or "off"
+#   Defaults:
+#     viewport none
+#     edge-compatibility off
+
+
 # --- Output verbosity ---
 # Commands:
 #   verbosity <param>
