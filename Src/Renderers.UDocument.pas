@@ -41,6 +41,8 @@ type
     CharSetTag: IRenderer;
     HTMLTag: IRenderer;
     TitleTag: IRenderer;
+    ViewportTag: IRenderer;
+    EdgeCompatibilityTag: IRenderer;
     GeneratorTag: IRenderer;
     StyleSheet: IRenderer;
     SourceCode: IRenderer;
@@ -99,6 +101,10 @@ begin
     Writer.AppendLine('<head>');
     if fRenderers.CharSetTag.Render <> '' then
       Writer.AppendLine(fRenderers.CharSetTag.Render); // <meta>
+    if fRenderers.ViewportTag.Render <> '' then
+      Writer.AppendLine(fRenderers.ViewportTag.Render); // <meta>
+    if fRenderers.EdgeCompatibilityTag.Render <> '' then
+      Writer.AppendLine(fRenderers.EdgeCompatibilityTag.Render); // <meta>
     if fRenderers.GeneratorTag.Render <> '' then
       Writer.AppendLine(fRenderers.GeneratorTag.Render);
     Writer.AppendLine(fRenderers.TitleTag.Render);  // <title>

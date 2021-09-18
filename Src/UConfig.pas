@@ -64,6 +64,13 @@ type
     vbNormal
   );
 
+  ///  <summary>Enumerates different viewport options applied to complete
+  ///  (X)HTML documents.</summary>
+  TViewport = (
+    vpNone,
+    vpPhone
+  );
+
   ///  <summary>Valid range of separator lines between files.</summary>
   TSeparatorLines = 0..16;
 
@@ -95,6 +102,8 @@ type
     fLineNumberWidth: TLineNumberWidth;
     fLineNumberPadding: Char;
     fStriping: Boolean;
+    fViewport: TViewport;
+    fEdgeCompatibility: Boolean;
     function GetInputFiles: TArray<string>;
   public
     constructor Create;
@@ -134,6 +143,9 @@ type
     property LineNumberPadding: Char
       read fLineNumberPadding write fLineNumberPadding default ' ';
     property Striping: Boolean read fStriping write fStriping default False;
+    property Viewport: TViewport read fViewport write fViewport default vpNone;
+    property EdgeCompatibility: Boolean
+      read fEdgeCompatibility write fEdgeCompatibility default False;
     procedure AddInputFile(const FN: string);
     function OutputEncoding: TEncoding;
     function OutputEncodingName: string;
@@ -173,6 +185,8 @@ begin
   fLineNumberWidth := 3;
   fLineNumberPadding := ' ';
   fStriping := False;
+  fViewport := vpNone;
+  fEdgeCompatibility := False;
 end;
 
 destructor TConfig.Destroy;

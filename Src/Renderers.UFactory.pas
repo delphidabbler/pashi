@@ -30,9 +30,9 @@ implementation
 
 uses
   Hiliter.UGlobals, Renderers.UBranding, Renderers.UCharSetTag,
-  Renderers.UDocType, Renderers.UDocument, Renderers.UProcInst,
-  Renderers.URootTag, Renderers.USourceCode, Renderers.UStyles,
-  Renderers.UTitleTag;
+  Renderers.UDocType, Renderers.UDocument, Renderers.UEdgeCompatibility,
+  Renderers.UProcInst, Renderers.URootTag, Renderers.USourceCode,
+  Renderers.UStyles, Renderers.UTitleTag, Renderers.UViewport;
 
 { TRendererFactory }
 
@@ -65,6 +65,9 @@ begin
       );
       DocParams.HTMLTag := TXHTMLRootTagRenderer.Create(Config.Language);
       DocParams.TitleTag := TTitleTagRenderer.Create(Config.Title);
+      DocParams.ViewportTag := TXMLViewportTagRenderer.Create(Config.Viewport);
+      DocParams.EdgeCompatibilityTag :=
+        TXMLEdgeCompatibilityTagRenderer.Create(not Config.EdgeCompatibility);
       DocParams.GeneratorTag := TNewMetaBrandingRenderer.Create(
         not Config.BrandingPermitted
       );
@@ -81,6 +84,9 @@ begin
       );
       DocParams.HTMLTag := THTMLRootTagRenderer.Create(Config.Language);
       DocParams.TitleTag := TTitleTagRenderer.Create(Config.Title);
+      DocParams.ViewportTag := THTMLViewportTagRenderer.Create(Config.Viewport);
+      DocParams.EdgeCompatibilityTag :=
+        THTMLEdgeCompatibilityTagRenderer.Create(not Config.EdgeCompatibility);
       DocParams.GeneratorTag := TOldMetaBrandingRenderer.Create(
         not Config.BrandingPermitted
       );
@@ -97,6 +103,9 @@ begin
       );
       DocParams.HTMLTag := THTMLRootTagRenderer.Create(Config.Language);
       DocParams.TitleTag := TTitleTagRenderer.Create(Config.Title);
+      DocParams.ViewportTag := THTMLViewportTagRenderer.Create(Config.Viewport);
+      DocParams.EdgeCompatibilityTag :=
+        THTMLEdgeCompatibilityTagRenderer.Create(not Config.EdgeCompatibility);
       DocParams.GeneratorTag := TNewMetaBrandingRenderer.Create(
         not Config.BrandingPermitted
       );
