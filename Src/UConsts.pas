@@ -16,11 +16,17 @@ interface
 
 
 const
-  TAB   = #9;       // tab character
-  LF    = #10;      // line feed character
-  CR    = #13;      // carriage return character
-  CRLF  = CR + LF;  // carriage return followed by line feed
-  SPACE = ' ';      // space character
+  LF          = #$000A;
+  CR          = #$000D;
+  CRLF        = CR + LF;
+  EOL         = UnicodeString(sLineBreak);
+
+  DBLQUOTE   = #$0022;
+  APOSTROPHE = #$0027;
+  AMPERSAND  = #$0026;
+  GT         = #$003E;
+  LT         = #$003C;
+
 
 
 implementation

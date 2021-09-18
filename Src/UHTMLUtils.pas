@@ -22,8 +22,18 @@ uses
 
 ///  <summary>Encodes the given string so that any HTML-incompatible characters
 ///  are replaced with equivalent character entities.</summary>
-///  <remarks>**NOTE:** Ideally this function would change its behaviour
-///  depending on what output encoding is being used.</remarks>
+///  <remarks>
+///  <para>Ideally this function would change its behaviour depending on what
+///  doc type is being used: &apos; is required in XHTML but not in HTML 5.
+///  However, it's unlikely there will be a user agent that doesn't understand
+///  the &apos; entity in HTML5.</para>
+///  <para>Furthermore the HTML5 spec requires that the only white space are
+///  SPACE, TAB, LF, FF and CR and that control characters are not permitted.
+///  However tests have shown browsers happily accepting other whitespace and
+///  control characters, so these have not been trapped.</para>
+///  <para>Finally, the Unicode non-characters are not permitted, but again
+///  have not been trapped.</para>
+///  </remarks>
 function MakeSafeHTMLText(const TheText: string): string;
 
 ///  <summary>Converts a Delphi TColor value into a string suitable for use in
@@ -42,22 +52,6 @@ uses
   // Project
   UComparers, UConsts;
 
-type
-  ///  <summary>Private static class that returns HTML entities for supported
-  ///  characters.</summary>
-  THTMLEntities = class(TObject)
-    strict private
-      class var
-        fMap: TDictionary<Char, string>;
-      class procedure Initialise;
-    public
-      class constructor Create;
-      class destructor Destroy;
-      class function HasEntity(const Ch: Char): Boolean;
-      class function GetEntity(const Ch: Char): string;
-      class function GetNumericEntity(const Ch: Char): string;
-  end;
-
 function MakeSafeHTMLText(const TheText: string): string;
 var
   Ch: Char;
@@ -67,21 +61,14 @@ begin
   try
     for Ch in TheText do
     begin
-      if CharInSet(Ch, [CR, LF, SPACE, TAB]) then
-        // Always want these white space chars to be passed through unchanged
-        // Since they're white space (and TAB is also a control char) we do it
-        // first.
-        Builder.Append(Ch)
-      else if THTMLEntities.HasEntity(Ch) then
-        // Check remaining chars for associated named entities.
-        Builder.Append(THTMLEntities.GetEntity(Ch))
-      else if TCharacter.IsWhiteSpace(Ch) or TCharacter.IsControl(Ch) then
-        // All remaining white space & control chars get converted to
-        // numeric entities.
-        Builder.Append(THTMLEntities.GetNumericEntity(Ch))
-      else
-        // Everything else passes through unchanged.
-        Builder.Append(Ch);
+      case Ch of
+        LT:           Builder.Append('&lt;');
+        GT:           Builder.Append('&gt;');
+        APOSTROPHE:   Builder.Append('&apos;');
+        DBLQUOTE:     Builder.Append('&quot;');
+        AMPERSAND:    Builder.Append('&amp;');
+        else          Builder.Append(Ch);
+      end;
     end;
     Result := Builder.ToString;
   finally
@@ -100,50 +87,6 @@ begin
     '#%0.2X%0.2X%0.2X',
     [GetRValue(ColorRGB), GetGValue(ColorRGB), GetBValue(ColorRGB)]
   );
-end;
-
-{ THTMLEntities }
-
-class constructor THTMLEntities.Create;
-begin
-  fMap := TDictionary<Char,string>.Create(TCharEqualityComparer.Create);
-  Initialise;
-end;
-
-class destructor THTMLEntities.Destroy;
-begin
-  fMap.Free;
-end;
-
-class function THTMLEntities.GetEntity(const Ch: Char): string;
-var
-  Entity: string;
-begin
-  if not fMap.TryGetValue(Ch, Entity) then
-    Exit(string(Ch));
-  Result := '&' + Entity + ';';
-end;
-
-class function THTMLEntities.GetNumericEntity(const Ch: Char): string;
-begin
-  Result := '&#' + IntToStr(Ord(Ch)) + ';';
-end;
-
-class function THTMLEntities.HasEntity(const Ch: Char): Boolean;
-begin
-  Result := fMap.ContainsKey(Ch);
-end;
-
-class procedure THTMLEntities.Initialise;
-begin
-  fMap.Clear;
-  with fMap do
-  begin
-    Add('&', 'amp');
-    Add('<', 'lt');
-    Add('>', 'gt');
-    Add('"', 'quot');
-  end;
 end;
 
 end.
