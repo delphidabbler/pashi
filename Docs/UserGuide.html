@@ -542,8 +542,7 @@
     <td>
       Indicates that the default title is to be used in the output document.
       Since this is the default behaviour this command is provided mainly to
-      restore that behaviour if it has been overridden in the config file.
-
+      restore that behaviour if it has been overridden in the config file.<br />
       This command has no effect if the
       <code>--doc-type fragment</code> command is also used.
     </td>
@@ -590,7 +589,7 @@
       Inidicates that the default style sheet is to be embedded in the output
       document. Since this is the default behaviour, this command is provided
       mainly to restore that behaviour if it has been overridden in the config
-      file.<br .>
+      file.<br />
       This command negates both the <code>--embed-css</code> and
       <code>--link-css</code> commands and should not be combined with them
       because the result will be unpredictable. <code>--default-css</code> is
@@ -815,6 +814,50 @@
       These classes must be defined differently in CSS otherwise no difference
       between alternate lines will be visible. See <a href="#css">below</a> for
       more information about the necessary CSS classes.
+    </td>
+  </tr>
+  <tr>
+    <td class="switch">--viewport</td>
+    <td class="switch">&nbsp;</td>
+    <td>
+      Determines the type, if any, of viewport meta-data wis written to a HTML
+      document head section. The type of meta-data depends on the value of the
+      next parameter, which must be one of:
+      <ul class="squashed">
+        <li>
+          <code>none</code>: No viewport meta data is written.
+        </li>
+        <li>
+          <code>mobile</code>, <code>tablet</code> or <code>phone</code> (the
+          default): Meta data that sets viewport scaling suitable for use on
+          smart phones and tablets is written.
+        </li>
+      </ul>
+      This command has no effect if the <code>--doc-type fragment</code>
+      command is also used.
+    </td>
+  </tr>
+  <tr>
+    <td class="switch">--edge-compatibility</td>
+    <td class="switch">&nbsp;</td>
+    <td>
+      Determines whether a Microsoft Edge IE compatibility meta tag is written
+      to an HTML document head. The next parameter must be one
+      of the following values:
+      <ul class="squashed">
+        <li>
+          <code>True</code>, <code>1</code>, <code>Y</code>, <code>yes</code> or
+          <code>on</code>:
+          Write the meta data.
+        </li>
+        <li>
+          <code>False</code>, <code>0</code>, <code>N</code>, <code>no</code> or
+          <code>off</code>:
+          Do not write the meta data (the default).
+        </li>
+      </ul>
+      This command has no effect if the <code>--doc-type fragment</code>
+      command is also used.
     </td>
   </tr>
   <tr>

@@ -52,7 +52,9 @@ type
     siLineNumberWidth,  // specifies width of line numbers in characters
     siLineNumberPadding,// specifies character used to pad line number lines
     siStriping,         // switches line striping on and off
-    siQuiet             // don't display any output to console
+    siQuiet,            // don't display any output to console
+    siViewport,         // which viewport meta-data to output, if any
+    siEdgeCompatibility // whether edge compatibility info meta-data is output
   );
 
 type
@@ -106,6 +108,7 @@ type
       fBooleanLookup: TDictionary<string, Boolean>;
       fVerbosityLookup: TDictionary<string, TVerbosity>;
       fPaddingLookup: TDictionary<string, Char>;
+      fViewportLookup: TDictionary<string, TViewport>;
       fConfig: TConfig; // Reference to program's configuration object
     procedure GetConfigParams;
     procedure GetCmdLineParams;
@@ -119,6 +122,7 @@ type
     function GetNumericParameter(const Cmd: TCommand; const Lo, Hi: UInt16):
       UInt16;
     function GetPaddingParameter(const Cmd: TCommand): Char;
+    function GetViewportParameter(const Cmd: TCommand): TViewport;
   public
     constructor Create(const Config: TConfig);
     destructor Destroy; override;
@@ -219,6 +223,8 @@ begin
     Add('--line-number-width', siLineNumberWidth);
     Add('--line-number-padding', siLineNumberPadding);
     Add('--striping', siStriping);
+    Add('--viewport', siViewport);
+    Add('--edge-compatibility', siEdgeCompatibility);
     // commands kept for backwards compatibility with v1.x
     Add('-frag', siFragment);
     Add('-hidecss', siForceHideCSS);
@@ -306,10 +312,21 @@ begin
     Add('dash', '-');
     Add('dot', '.');
   end;
+  fViewportLookup := TDictionary<string,TViewport>.Create(
+    TTextEqualityComparer.Create
+  );
+  with fViewportLookup do
+  begin
+    Add('none', vpNone);
+    Add('mobile', vpPhone);
+    Add('phone', vpPhone);
+    Add('tablet', vpPhone);
+  end;
 end;
 
 destructor TParams.Destroy;
 begin
+  fViewportLookup.Free;
   fPaddingLookup.Free;
   fVerbosityLookup.Free;
   fBooleanLookup.Free;
@@ -436,6 +453,18 @@ begin
   if not fVerbosityLookup.ContainsKey(Param) then
     raise Exception.CreateFmt(sBadValue, [Param]);
   Result := fVerbosityLookup[Param];
+end;
+
+function TParams.GetViewportParameter(const Cmd: TCommand): TViewport;
+var
+  Param: string;
+resourcestring
+  sBadValue = 'Unrecognised viewport value "%s"';
+begin
+  Param := GetStringParameter(Cmd);
+  if not fViewportLookup.ContainsKey(Param) then
+    raise Exception.CreateFmt(sBadValue, [Param]);
+  Result := fViewportLookup[Param];
 end;
 
 procedure TParams.Parse;
@@ -648,6 +677,16 @@ begin
     end;
     siQuiet:
       fConfig.Verbosity := vbQuiet;
+    siViewport:
+    begin
+      fConfig.Viewport := GetViewportParameter(Command);
+      fParamQueue.Dequeue;
+    end;
+    siEdgeCompatibility:
+    begin
+      fConfig.EdgeCompatibility := GetBooleanParameter(Command);
+      fParamQueue.Dequeue;
+    end;
   end;
 end;
 
