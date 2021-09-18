@@ -118,16 +118,7 @@ begin
       FragParams.GeneratorComment := TFragmentBrandingRenderer.Create(
         not Config.BrandingPermitted
       );
-      FragParams.SourceCode := TSourceCodeRenderer.Create(
-        SourceCode,
-        Config.LegacyCSSNames,
-        THiliteOptions.Create(
-          Config.UseLineNumbering,
-          Config.LineNumberWidth,
-          Config.LineNumberPadding,
-          Config.Striping
-        )
-      );
+      FragParams.SourceCode := SourceCodeRenderer;
       Result := TXHTMLFragmentRenderer.Create(FragParams);
     end;
   end;
