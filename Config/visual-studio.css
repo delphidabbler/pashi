@@ -11,32 +11,32 @@
 
 
 .code-pascal,
-.pas-source {
+/* DEPRECATED */ .pas-source {
   background-color: white;
 }
 
 .code-pascal pre,
-.pas-source pre {
+/* DEPRECATED */ .pas-source pre {
   font-family: "Courier New", monospace;
   font-size: 9pt;
   margin: 0;
 }
 
 .code-pascal pre.line,
-.pas-source pre.line {
+/* DEPRECATED */ .pas-source pre.line {
 }
 
 .code-pascal pre.odd-line,
-.pas-source pre.odd-line {
+/* DEPRECATED */ .pas-source pre.odd-line {
   background-color: #f0f0f0; /* Visual Studio's "Line Highlight" is too pale */
 }
 
 .code-pascal pre.even-line,
-.pas-source pre.even-line {
+/* DEPRECATED */ .pas-source pre.even-line {
 }
 
 .code-pascal .linenum,
-.pas-source .linenum {
+/* DEPRECATED */ .pas-source .linenum {
   border-right: 1px gray solid;
   padding: 1px 4px 1px 0;
   margin-right: 0.75em;
@@ -45,7 +45,7 @@
 }
 
 .code-pascal .comment,
-.pas-comment {
+/* DEPRECATED */ .pas-comment {
   color: green;
   font-weight: normal;
   font-style: normal;
@@ -53,7 +53,7 @@
 }
 
 .code-pascal .kwd,
-.pas-kwd {
+/* DEPRECATED */ .pas-kwd {
   color: blue;
   font-weight: normal;
   font-style: normal;
@@ -61,7 +61,7 @@
 }
 
 .code-pascal .ident,
-.pas-ident {
+/* DEPRECATED */ .pas-ident {
   color: black;
   font-weight: normal;
   font-style: normal;
@@ -69,7 +69,7 @@
 }
 
 .code-pascal .sym,
-.pas-sym {
+/* DEPRECATED */ .pas-sym {
   color: black;
   font-weight: normal;
   font-style: normal;
@@ -77,7 +77,7 @@
 }
 
 .code-pascal .str,
-.pas-str {
+/* DEPRECATED */ .pas-str {
   color: black;
   font-weight: normal;
   font-style: normal;
@@ -87,9 +87,9 @@
 .code-pascal .num,
 .code-pascal .float,
 .code-pascal .hex,
-.pas-num,
-.pas-float,
-.pas-hex {
+/* DEPRECATED */ .pas-num,
+/* DEPRECATED */ .pas-float,
+/* DEPRECATED */ .pas-hex {
   color: black;
   font-weight: normal;
   font-style: normal;
@@ -97,7 +97,7 @@
 }
 
 .code-pascal .preproc,
-.pas-preproc {
+/* DEPRECATED */ .pas-preproc {
   color: blue;
   font-weight: normal;
   font-style: normal;
@@ -105,7 +105,7 @@
 }
 
 .code-pascal .asm,
-.pas-asm {
+/* DEPRECATED */ .pas-asm {
   color: black;
   font-weight: normal;
   font-style: normal;
@@ -113,11 +113,11 @@
 }
 
 .code-pascal .space,
-.pas-space {
+/* DEPRECATED */ .pas-space {
 }
 
 .code-pascal .err,
-.pas-err {  /* Visual Studio's "Error Line" */
+/* DEPRECATED */ .pas-err {  /* Visual Studio's "Error Line" */
   color: red;
   font-weight: normal;
   font-style: normal;

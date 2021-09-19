@@ -10,32 +10,32 @@
 
 
 .code-pascal,
-.pas-source {
+/* DEPRECATED */ .pas-source {
   background-color: white;
 }
 
 .code-pascal pre,
-.pas-source pre {
+/* DEPRECATED */ .pas-source pre {
   font-family: "Courier New", monospace;
   font-size: 9pt;
   margin: 0;
 }
 
 .code-pascal pre.line,
-.pas-source pre.line {
+/* DEPRECATED */ .pas-source pre.line {
 }
 
 .code-pascal pre.odd-line,
-.pas-source pre.odd-line {
+/* DEPRECATED */ .pas-source pre.odd-line {
   background-color: #f0f0f0;
 }
 
 .code-pascal pre.even-line,
-.pas-source pre.even-line {
+/* DEPRECATED */ .pas-source pre.even-line {
 }
 
 .code-pascal .linenum,
-.pas-source .linenum {
+/* DEPRECATED */ .pas-source .linenum {
   border-right: 1px silver solid;
   padding: 1px 4px 1px 0;
   margin-right: 0.75em;
@@ -44,8 +44,8 @@
 
 .code-pascal .comment,
 .code-pascal .preproc,
-.pas-comment,
-.pas-preproc {
+/* DEPRECATED */ .pas-comment,
+/* DEPRECATED */ .pas-preproc {
   color: navy;
   font-weight: normal;
   font-style: italic;
@@ -53,7 +53,7 @@
 }
 
 .code-pascal .kwd,
-.pas-kwd {
+/* DEPRECATED */ .pas-kwd {
   color: black;
   font-weight: bold;
   font-style: normal;
@@ -61,7 +61,7 @@
 }
 
 .code-pascal .ident,
-.pas-ident {
+/* DEPRECATED */ .pas-ident {
   color: black;
   font-weight: normal;
   font-style: normal;
@@ -69,7 +69,7 @@
 }
 
 .code-pascal .sym,
-.pas-sym {
+/* DEPRECATED */ .pas-sym {
   color: black;
   font-weight: normal;
   font-style: normal;
@@ -77,7 +77,7 @@
 }
 
 .code-pascal .str,
-.pas-str {
+/* DEPRECATED */ .pas-str {
   color: black;
   font-weight: normal;
   font-style: normal;
@@ -87,9 +87,9 @@
 .code-pascal .num,
 .code-pascal .float,
 .code-pascal .hex,
-.pas-num,
-.pas-float,
-.pas-hex {
+/* DEPRECATED */ .pas-num,
+/* DEPRECATED */ .pas-float,
+/* DEPRECATED */ .pas-hex {
   color: black;
   font-weight: normal;
   font-style: normal;
@@ -97,7 +97,7 @@
 }
 
 .code-pascal .asm,
-.pas-asm {
+/* DEPRECATED */ .pas-asm {
   color: black;
   font-weight: normal;
   font-style: normal;
@@ -105,11 +105,11 @@
 }
 
 .code-pascal .space,
-.pas-space {
+/* DEPRECATED */ .pas-space {
 }
 
 .code-pascal .err,
-.pas-err {
+/* DEPRECATED */ .pas-err {
   color: white;  /* Uses Delphi 4's "Error Line" */
   background-color: maroon;
   font-weight: normal;

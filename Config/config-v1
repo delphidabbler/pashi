@@ -1,6 +1,11 @@
 ﻿# PasHi config file for backards compatibility with PasHi v1
 # ----------------------------------------------------------
 #
+# ****************************************************************
+# This file is DEPRECATED and may be removed from a future release
+# ****************************************************************
+#
+#
 # PURPOSE
 # -------
 #
@@ -67,10 +72,12 @@ encoding windows-1252
 # v1 used different css class names to v2. This command reverts to using those
 # classes
 
+# DEPRECATED COMMAND: legacy-css
 legacy-css on
 
 # v1 had a different highlighting style to v2's default style. The following
 # style sheet replicates the v1 style while keeping the abiility to use
 # striping and line numbers.
 
+# DEPRECATED FILE: v1-default.css
 embed-css v1-default.css
