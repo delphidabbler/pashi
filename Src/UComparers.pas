@@ -64,6 +64,13 @@ type
     function GetHashCode(const Value: Char): Integer; override;
   end;
 
+type
+  // <summary>Case insensitive string comparer.</summary>
+  TTextComparer = class(TComparer<string>, IComparer<string>)
+  public
+    function Compare(const Left, Right: string): Integer; override;
+  end;
+
 
 implementation
 
@@ -128,6 +135,13 @@ end;
 function TCharEqualityComparer.GetHashCode(const Value: Char): Integer;
 begin
   Result := Integer(Value);
+end;
+
+{ TTextComparer }
+
+function TTextComparer.Compare(const Left, Right: string): Integer;
+begin
+  Result := AnsiCompareText(Left, Right);
 end;
 
 end.
