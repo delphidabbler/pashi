@@ -200,6 +200,12 @@
     .smallcaps {
       font-variant: small-caps;
     }
+    .deprecated {
+      color: red;
+      background-color: LemonChiffon;
+      padding: 2px 4px;
+      font-family: Verdana, Arial, sans-serif;
+    }
     td.pad-left, th.pad-left {
       padding-left: 2em;
     }
@@ -275,7 +281,7 @@
 </p>
 
 <p>
-  HTML 4, XHTML and HTML 5 are all supported. CSS is used for styling. Style
+  HTML 4 <span class="deprecated">[deprecated]</span>, XHTML and HTML 5 are all supported. CSS is used for styling. Style
   sheets may be external or can be embedded in the HTML document. Several
   predefined style sheets can be installed with the program. You can also
   create <a
@@ -449,10 +455,13 @@
       in the following parameter which must be one of:
       <ul class="squashed">
         <li>
-          <code>xhtml</code>: Complete XHTML document (the default).
+          <code>xhtml</code>: Complete XHTML document (the default):<br />
+          <span class="deprecated">Default deprecated &ndash; to change to
+          <code>html5</code>.</span>
         </li>
         <li>
           <code>html4</code>: Complete HTML 4 document.
+          <span class="deprecated">[deprecated]</span>
         </li>
         <li>
           <code>html5</code>: Complete HTML 5 document.
@@ -587,7 +596,8 @@
     </td>
   </tr>
   <tr>
-    <td class="switch">--hide-css</td>
+    <td class="switch">--hide-css<br />
+    <span class="deprecated">[deprecated]</span></td>
     <td class="switch">-c</td>
     <td>
       Determines if embedded CSS code is wrapped in HTML comment tags
@@ -618,7 +628,9 @@
     </td>
   </tr>
   <tr>
-    <td class="switch">--legacy-css</td>
+    <td class="switch">--legacy-css<br />
+      <span class="deprecated">[deprecated]</span>
+    </td>
     <td class="switch">&nbsp;</td>
     <td>
       Determines whether CSS classes in generated HTML documents revert to those
@@ -815,7 +827,10 @@
       next parameter, which must be one of:
       <ul class="squashed">
         <li>
-          <code>none</code>: No viewport meta data is written.
+          <code>none</code>: No viewport meta data is written (the
+          default)<br />
+          <span class="deprecated">Default deprecated: changing to
+          <code>mobile</code>.
         </li>
         <li>
           <code>mobile</code>, <code>tablet</code> or <code>phone</code> (the
@@ -893,7 +908,12 @@
 <p>
   There are some commands inherited from <em>PasHi</em> v1 that are not listed
   above. They have now been superceded by other commands but are still supported
-  for compatibility reasons. They are:
+  for compatibility reasons. However they are now 
+  <span class="deprecated">deprecated</span>.
+</p>
+
+<p>
+  They are:
 </p>
 
 <table>
@@ -909,28 +929,34 @@
     </th>
   <tr>
   <tr>
-    <td class="switch">-rc</td>
+    <td class="switch">-rc<br />
+    <span class="deprecated">[deprecated]</span></td>
     <td>
       Alias for the <code>--input-clipboard</code> command.
     </td>
   </tr>
   <tr>
-    <td class="switch">-wc</td>
+    <td class="switch">-wc<br />
+    <span class="deprecated">[deprecated]</span></td>
     <td>
       Alias for the <code>--output-clipboard</code> command.
     </td>
   </tr>
   <tr>
-    <td class="switch">-frag</td>
+    <td class="switch">-frag<br />
+    <span class="deprecated">[deprecated]</span></td>
     <td>
       Alias for the <code>--doc-type fragment</code> command.
     </td>
   </tr>
   <tr>
-    <td class="switch">-hidecss</td>
+    <td class="switch">-hidecss<br />
+    <span class="deprecated">[deprecated]</span></td>
     <td>
       Alias for <code>-c+</code> or the <code>--hide-css yes</code>
-      command.
+      command.<br />
+      <strong>Note:</strong> the <code>--hide-css</code> command is also 
+      <span class="deprecated">[deprecated]</span>.
     </td>
   </tr>
 </table>
@@ -1003,7 +1029,7 @@
     <pre
       class="indent"
       style="margin-top:0;margin-bottom:0;"
-    >PasHi -rc -wc -frag</pre>
+    >PasHi -rc -wc -frag <span class="deprecated">[deprecated]</span></pre>
   </li>
   <li>
     Switch to the editor containing the web page and paste in the
@@ -1121,11 +1147,12 @@
     script.
   </dd>
   <dt class="file">
-    config-v1
+    config-v1 <span class="deprecated">[deprecated]</span>
   </dt>
   <dd>
     Emulates, as far as possible, the functioning of <em>PasHi</em> v1. This
-    script requires that the file <code>v1-default.css</code> (provided) is
+    script requires that the file <code>v1-default.css</code>
+    <span class="deprecated">[deprecated]</span> (provided) is
     present in the same directory.
   </dd>
 </dl>
@@ -1389,7 +1416,8 @@ doc-type fragment</pre>
 
 <div class="pullout">
   <p>
-    Note that this example also includes some additional class names. These
+    Note that this example also includes some additional class names
+    <span class="deprecated">[deprecated]</span>. These
     relate to <em>PasHi</em> v1.x, as explained below the listing.
   </p>
 </div>
@@ -1520,8 +1548,10 @@ doc-type fragment</pre>
     remaining classes had <code>pas-</code> prepended to the class name, for
     example <code>.kwd</code> was <code>.pas-kwd</code>. If you want
     <em>PasHi</em> to revert to using the old style names pass
-    &quot;<code>--legacy-css on</code>&quot; on the command line or place
-    &quot;<code>legacy-css on</code>&quot; in the <code>config</code> file
+    &quot;<code>--legacy-css on</code>&quot;
+    <span class="deprecated">[deprecated]</span>on the command line or place
+    &quot;<code>legacy-css on</code>&quot;
+    <span class="deprecated">[deprecated]</span>in the <code>config</code> file
     if you want to use the old style names by default.
   </p>
 </div>
@@ -1606,7 +1636,7 @@ doc-type fragment</pre>
     highlighting.
   </dd>
   <dt class="file">
-    v1-default.css
+    v1-default.css <span class="deprecated">[deprecated]</span>
   </dt>
   <dd>
     Replicates the highlighting style used by <em>PasHi</em> v1. There is also
