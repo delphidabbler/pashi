@@ -567,7 +567,7 @@ resourcestring
   sBlacklisted = 'The "%s" command is not permitted in the config file.'#13#10
     + 'Please edit the file';
   // Warnings
-  sDeprecatedCmd = '*** The "%s" command is deprecated';
+  sDeprecatedCmd = 'The "%s" command is deprecated';
   sDepDocType = 'The "html4" parameter to the "%s" command deprecated';
 var
   Command: TCommand;
