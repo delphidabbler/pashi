@@ -29,6 +29,8 @@ type
     edLanguage: TEdit;
     edTitle: TEdit;
     chkBranding: TCheckBox;
+    chkViewport: TCheckBox;
+    chkEdgeCompatibility: TCheckBox;
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -70,6 +72,12 @@ begin
     edTitle.Text := '';
 
   chkBranding.Checked := Options.GetParamAsBool('branding');
+
+  chkViewport.Checked := not SameText(
+    Options.GetParamAsStr('viewport'), 'none'
+  );
+
+  chkEdgeCompatibility.Checked := Options.GetParamAsBool('edge-compatibility');
 end;
 
 procedure TMiscOptionsFrame.UpdateOptions(const Options: TOptions);
@@ -93,6 +101,13 @@ begin
     Options.Store('title-default');
 
   Options.Store('branding', chkBranding.Checked);
+
+  if chkViewPort.Checked then
+    Options.Store('viewport', 'mobile')
+  else
+    Options.Store('viewport', 'none');
+
+  Options.Store('edge-compatibility', chkEdgeCompatibility.Checked);
 end;
 
 end.

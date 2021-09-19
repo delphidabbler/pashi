@@ -70,4 +70,20 @@ inherited MiscOptionsFrame: TMiscOptionsFrame
     Caption = 'Include "branding" in documents'
     TabOrder = 4
   end
+  object chkViewport: TCheckBox
+    Left = 8
+    Top = 189
+    Width = 217
+    Height = 17
+    Caption = 'Set viewport to make mobile friendly'
+    TabOrder = 5
+  end
+  object chkEdgeCompatibility: TCheckBox
+    Left = 8
+    Top = 212
+    Width = 217
+    Height = 17
+    Caption = 'Include MS Edge compatibility info'
+    TabOrder = 6
+  end
 end
