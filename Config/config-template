@@ -63,7 +63,8 @@
 #
 # At present there is only one blacklisted command: "help"
 #
-# A complete list of valid commands follows:
+# A complete list of valid commands follows. Commands and parameters that are
+# slated for removal in the next major release are flagged as deprecated.
 
 
 # --- Input source commands ---
@@ -107,8 +108,11 @@
 # Command:
 #   doc-type <param>
 #     where <param> is one of "xhtml", "html4", "html5" or "fragment"
+#     ** The "html4" <param> is DEPRECATED
 # Default:
 #   doc-type xhtml
+#   ** the default may change in next release
+
 
 
 # --- Output file branding ---
@@ -170,6 +174,7 @@
 # --- Comment out embedded style sheets ---
 # Command:
 #   hide-css <param>
+#   ** Command DEPRECATED
 #     where <param> is either "yes" or "no"
 # Default:
 #   hide-css no
@@ -178,6 +183,7 @@
 # --- CSS class naming convention ---
 # Command:
 #   legacy-css <param>
+#   ** Command DEPRECATED
 #     where <param> is either "yes" of "no"
 # Default:
 #   legacy-css no
@@ -213,6 +219,7 @@
 #     where <param> is either "on" or "off"
 #   Defaults:
 #     viewport none
+#     ** the viewport default may change in next release
 #     edge-compatibility off
 
 
