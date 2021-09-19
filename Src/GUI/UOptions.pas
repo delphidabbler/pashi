@@ -245,6 +245,10 @@ begin
     Store('title-default');
   if not IsSet('branding') then
     Store('branding', True);
+  if not IsSet('viewport') then
+    Store('viewport', 'none');
+  if not IsSet('edge-compatibility') then
+    Store('edge-compatibility', False);
 end;
 
 procedure TOptions.Store(const Option, Value: string);
