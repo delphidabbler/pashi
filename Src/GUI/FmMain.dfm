@@ -255,16 +255,17 @@ object MainForm: TMainForm
         Color = clWindow
         Collapsed = True
         TabOrder = 0
-        ExpandedHeight = 217
+        ExplicitWidth = 204
+        ExpandedHeight = 262
         inline frmMisc: TMiscOptionsFrame
           Left = 0
           Top = 0
-          Width = 219
-          Height = 0
+          Width = 202
+          Height = 236
           Align = alClient
           TabOrder = 0
-          ExplicitWidth = 219
-          ExplicitHeight = 0
+          ExplicitWidth = 202
+          ExplicitHeight = 236
         end
       end
       object cpnlLines: TCategoryPanel
@@ -274,6 +275,7 @@ object MainForm: TMainForm
         Color = clWindow
         Collapsed = True
         TabOrder = 1
+        ExplicitWidth = 204
         ExpandedHeight = 167
         inline frmLines: TLineStyleOptionsFrame
           Left = 0
@@ -282,7 +284,7 @@ object MainForm: TMainForm
           Height = 0
           Align = alClient
           TabOrder = 0
-          ExplicitWidth = 219
+          ExplicitWidth = 202
           ExplicitHeight = 0
         end
       end
@@ -293,16 +295,17 @@ object MainForm: TMainForm
         Color = clWindow
         Collapsed = True
         TabOrder = 2
+        ExplicitWidth = 204
         ExpandedHeight = 254
         inline frmCSS: TCSSOptionsFrame
           Left = 0
           Top = 0
-          Width = 219
-          Height = 0
+          Width = 202
+          Height = 228
           Align = alClient
           TabOrder = 0
-          ExplicitWidth = 219
-          ExplicitHeight = 0
+          ExplicitWidth = 202
+          ExplicitHeight = 228
         end
       end
       object cpnlDocType: TCategoryPanel
@@ -311,6 +314,7 @@ object MainForm: TMainForm
         Caption = 'Document Type'
         Color = clWindow
         TabOrder = 3
+        ExplicitWidth = 204
         inline frmDocType: TDocTypeOptionsFrame
           Left = 0
           Top = 0
@@ -318,7 +322,7 @@ object MainForm: TMainForm
           Height = 104
           Align = alClient
           TabOrder = 0
-          ExplicitWidth = 219
+          ExplicitWidth = 202
           ExplicitHeight = 104
         end
       end
@@ -461,7 +465,7 @@ object MainForm: TMainForm
     Left = 336
     Top = 152
     Bitmap = {
-      494C0101050009000C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010105000900100010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
