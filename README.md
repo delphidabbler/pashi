@@ -30,7 +30,7 @@ The [Git Flow](http://nvie.com/posts/a-successful-git-branching-model/) methodol
 Change Log
 ----------
 
-The program's change log is recorded in `ChangeLog.txt` in the `Docs` directory of the GitHub project. The change log is not included in the program installation.
+The program's change log is recorded in `CHANGELOG.md` in the root directory of the GitHub project. The change log is not included in the program installation.
 
 License
 -------
