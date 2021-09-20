@@ -1,35 +1,38 @@
 Executable Programs
 ===================
 
-DelphiDabbler PasHi is copyright (c) 2005-2016 by Peter D Johnson,
-<http://www.delphidabbler.com>.
+The following programs are covered by this license:
 
-DelphiDabbler PasHiGUI is copyright (c) 2006-2016 by Peter D Johnson,
-<http://www.delphidabbler.com>.
+* DelphiDabbler PasHi, copyright (c) 2005-2016 by
+  [Peter D Johnson](http://www.delphidabbler.com).
 
-The executable version of the program is made available under the terms of the
-Mozilla Public License v2.0 <http://mozilla.org/MPL/2.0/>. This means you can
+* DelphiDabbler PasHiGUI, copyright (c) 2006-2016 by
+  [Peter D Johnson](http://www.delphidabbler.com).
+
+Executable versions of the programs are made available under the terms of the
+[Mozilla Public License v2.0](http://mozilla.org/MPL/2.0/). This means you can
 use, copy and distribute PasHi and PasHiGUI as you wish.
 
 You may also modify the programs as you wish and you may distribute copies of
 your modified version under the terms of the Mozilla Public License v2.0. The
 only exception is that you must not use the DelphiDabbler, PasHi and PasHiGUI
-names or program icons in any modification you distribute unless you have the
+names or program icons in any modification you distribute, unless you have the
 explicit permission of the copyright holder.
 
 Source Code
 ===========
 
 Source code for the current release of PasHi is available from the
-delphidabbler/pashi project on GitHub <https://github.com/delphidabbler/pashi>.
-All paths referenced below are relative to the root of the source tree that
-relates to this release.
+[delphidabbler/pashi](https://github.com/delphidabbler/pashi) project on GitHub.
+The source code of PasHiGUI is included in the same repository. All paths
+referenced below are relative to the root of the source tree that relates to
+this release.
 
 With the exception of the files listed under "Exceptions" below, all of PasHi
 and PasHiGUI's original source code is made available under the terms of the
-Mozilla Public License v2.0. Most source files will contain a comment to this
-effect. Any file without such a comment should be treated as being covered by
-this license unless it is mentioned below.
+[Mozilla Public License v2.0](http://mozilla.org/MPL/2.0/). Most source files
+will contain a comment to this effect. Any file without such a comment should
+be treated as being covered by this license unless it is mentioned below.
 
 Exceptions
 ----------
@@ -41,13 +44,9 @@ Exceptions
 
 * Icon files (with `.ico` extensions) must be neither copied nor modified nor
   used in distributions of derived programs without explicit permission of the
-  copyright holder.
+  copyright holder. To ask permission create an issue on the project's GitHub
+  issue tracker.
 
-* The files in the `Config` directory have any copyright dedicated to the Public
-  Domain. <http://creativecommons.org/publicdomain/zero/1.0/>.
-
-* The file `Test.pas` in the `Test` directory has any copyright dedicated to the
-  Public Domain. <http://creativecommons.org/publicdomain/zero/1.0/>.
-
-* `.gitgnore` in the root of the repository has any copyright dedicated to the
-  Public Domain. <http://creativecommons.org/publicdomain/zero/1.0/>.
+* The files in the `Config` directory, `Test.pas` in the `Test` directory and
+  `.gitgnore` dedicated to the public domain according to the
+  [CC0 1.0 Public Domain Dedication](https://tinyurl.com/3y3zxah8).
