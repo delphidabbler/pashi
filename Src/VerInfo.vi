@@ -25,7 +25,7 @@ Language=2057
 Character Set=1252
 
 [String File Info]
-Comments=For licensing information see the LICENSE file.
+Comments=For licensing information see the file LICENSE.md.
 Company Name=DelphiDabbler
 File Description=PasHi Pascal Highlighter
 File Version=<#F1>.<#F2>.<#F3> build <#F4>

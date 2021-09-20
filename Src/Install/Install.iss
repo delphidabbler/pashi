@@ -23,7 +23,7 @@
 #define ExeFile "PasHi.exe"
 #define GUIExeFile = "PasHiGUI.exe"
 #define LicenseFile "License.rtf"
-#define LicenseTextFile "LICENSE"
+#define LicenseTextFile "LICENSE.md"
 #define ReadmeFile "ReadMe.txt"
 #define UserGuide "UserGuide.html"
 #define InstUninstDir "Uninst"
