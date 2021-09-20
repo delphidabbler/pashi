@@ -189,7 +189,7 @@ begin
         + GetLegalCopyright
         + #10#10
         + 'Released under the terms of the Mozilla Public License v2.0. '
-        + 'See the LICENSE file for full details.'
+        + 'See the file LICENSE.md for full details.'
     ),
     'About',
     MB_OK

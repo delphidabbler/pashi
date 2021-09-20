@@ -182,5 +182,5 @@ download from <https://github.com/delphidabbler/pashi/releases>.
 License
 -------
 
-For details please see the file LICENSE that is installed in the directory where
-PasHi was installed.
+For details please see the file LICENSE.md that is installed in the directory
+where PasHi was installed.
