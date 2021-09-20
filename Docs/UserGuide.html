@@ -40,6 +40,11 @@
     content="Readme for DelphiDabbler PasHi Pascal Highlighter"
   />
 
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  />
+
   <style type="text/css">
     body {
       margin: 1em;
@@ -102,6 +107,7 @@
     pre {
       margin: 0.5em 0 0 0;
       padding: 0;
+      overflow: auto;
     }
     pre.block {
       background-color: #eef;
@@ -215,6 +221,7 @@
     table {
       margins: 0;
       padding: 0;
+      overflow: auto;
     }
     td {
       vertical-align: top;
@@ -556,9 +563,9 @@
       <a href="#css">below</a>.<br />
       If the file name includes no path information, e.g.
       <code>delphi2006.css</code>, then the file will be expected to be found in
-      the <code>%AppData%\DelphiDabbler\PasHi</code> directory. To read a file
-      from the working directory, prepend <code>.\</code> to it, e.g.
-      <code>.\delphi2006.css</code>.<br />
+      the <wbr /><code>%AppData%\DelphiDabbler\<wbr />PasHi</code> directory. To
+      read a file from the working directory, prepend <code>.\</code> to it,
+      e.g. <code>.\delphi2006.css</code>.<br />
       Do not combine this command with <code>--link-css</code> or
       <code>--default-css</code> because the commands are mutually exclusive and
       the result will be unpredictable. <code>--embed-css</code> is ignored if
@@ -1054,9 +1061,9 @@
 
 <p>
   If <em>PasHi</em> finds a file named <code>config</code> in the
-  <code>%AppData%\DelphiDabbler\PasHi</code> directory when it starts up, it is
-  read. Any commands found in that file are used to change the program's default
-  state.
+  <wbr /><code>%AppData%\DelphiDabbler\<wbr />PasHi</code> directory when it
+  starts up, it is read. Any commands found in that file are used to change the
+  program's default state.
 </p>
 
 <p>
@@ -1132,7 +1139,8 @@
 
 <p>
   Some example config scripts are optionally installed in the
-  <code>%AppData%\DelphiDabbler\PasHi</code> directory. The sample scripts are:
+  <wbr /><code>%AppData%\DelphiDabbler\<wbr />PasHi</code> directory. The sample
+  scripts are:
 </p>
 
 <dl>
@@ -1159,7 +1167,7 @@
 
 <p class="pullout">
   The example config files, where installed, may not appear in the
-  <code>%AppData%\DelphiDabbler\PasHi</code> directory until after
+  <wbr /><code>%AppData%\DelphiDabbler\<wbr />PasHi</code> directory until after
   <em>PasHi</em> has been run once.
 </p>
 
@@ -1215,8 +1223,8 @@ doc-type fragment</pre>
 
 <p>
   Or, in the special case of the CSS files optionally installed with
-  <em>PasHi</em> in <code>%AppData%\DelphiDabbler\PasHi</code>, omit the path
-  information and use, for example:
+  <em>PasHi</em> in <wbr /><code>%AppData%\DelphiDabbler\<wbr />PasHi</code>,
+  omit the path information and use, for example:
 </p>
 
 <pre class="indent">embed-css twilight.css</pre>
@@ -1563,8 +1571,8 @@ doc-type fragment</pre>
 <p>
   <em>PasHi</em> provides several .css files that can be used to change the
   style of highlighted code. They are (optionally) installed into the
-  <code>%AppData%\DelphiDabbler\PasHi</code> directory when <em>PasHi</em> is
-  first run after installation. The files are:
+  <wbr /><code>%AppData%\DelphiDabbler\<wbr />PasHi</code> directory when
+  <em>PasHi</em> is first run after installation. The files are:
 </p>
 
 <dl>
