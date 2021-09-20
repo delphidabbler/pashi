@@ -111,7 +111,7 @@
 #     ** The "html4" <param> is DEPRECATED
 # Default:
 #   doc-type xhtml
-#   ** the default may change in next release
+#   ** the default is DEPRECATED: may change in next major release
 
 
 
@@ -219,7 +219,7 @@
 #     where <param> is either "on" or "off"
 #   Defaults:
 #     viewport none
-#     ** the viewport default may change in next release
+#     ** the viewport default is DEPRECATED: may change in next major release
 #     edge-compatibility off
 
 
@@ -230,4 +230,5 @@
 #   quiet
 # Default:
 #   verbosity normal
+#   ** the default is DEPRECATED: may change in next major release
 
