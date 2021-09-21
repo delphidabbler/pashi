@@ -331,6 +331,7 @@ begin
   with fVerbosityLookup do
   begin
     Add('normal', vbNormal);
+    Add('no-warn', vbNoWarnings);
     Add('quiet', vbQuiet);
   end;
   fPaddingLookup := TDictionary<string, Char>.Create(
