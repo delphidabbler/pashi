@@ -123,9 +123,11 @@ PasHi supports the following commands:
                             trimming.
 --verbosity                 Specifies the amount of output from the program.
                             The next parameter must be one of:
-                              normal - sign-on, error and completion messages
-                                [default]
-                              quiet - error messages only
+                              normal - sign-on, error, warning and completion
+                                messages. [default]
+                              no-warn - no warnings: sign-on, error and
+                                completion messages only.
+                              quiet - error messages only.
 
 Default commands can be changed by creating a file named "config" in PasHi's
 application data directory. Commands are listed one per line and have the same

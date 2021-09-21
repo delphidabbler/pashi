@@ -61,6 +61,7 @@ type
   ///  </summary>
   TVerbosity = (
     vbQuiet,
+    vbNoWarnings,
     vbNormal
   );
 

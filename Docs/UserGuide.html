@@ -890,15 +890,21 @@
           the program to display sign-on information and to display a message
           when the program completes. All output goes to standard error so that
           it does not affect highlighted source code written to standard output.
-          Any error messages are also written to standard error.<br />
-          <span class="deprecated">Default deprecated: to change to
-          <code>quiet</code>.
+          Any error and wraning messages are also written to standard error.
+          <br /><span class="deprecated">Default deprecated: to change to a new
+          option that displays only warnings and error messages.
         </li>
         <li>
-          <code>quiet</code>: Quiet mode. Displays no sign on or completion
-          message. If the program detects errors or if the <code>--help</code>
-          command is used then this option is ignored and the program acts as
-          if the <code>normal</code> parameter had been specified.
+          <code>no-warn</code>. Suppress warnings. Displays just as when the
+          <code>normal</code> parameter is specified, except that no warning
+          messages are displayed.
+        </li>
+        <li>
+          <code>quiet</code>: Quiet mode. Displays no sign on, completion or
+          warning messages. If the program detects errors or if the
+          <code>--help</code> command is used then this option is ignored and
+          the program acts as if the <code>no-warn</code> parameter had been
+          specified.
         </li>
       </ul>
     </td>

@@ -177,6 +177,8 @@ var
 resourcestring
   sWarning = 'WARNING: %s';
 begin
+  if fConfig.Verbosity = vbNoWarnings then
+    Exit;
   for W in fWarnings do
     fConsole.WriteLn(Format(sWarning, [W]));
 end;
