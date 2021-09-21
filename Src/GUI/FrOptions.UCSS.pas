@@ -33,6 +33,8 @@ type
     alCSSActions: TActionList;
     actCSSFileBrowse: TFileOpen;
     rbDefaultCSS: TRadioButton;
+    lblHideCSSDeprecated: TLabel;
+    lblLegacyCSSDeprecated: TLabel;
     procedure RadioButtonClick(Sender: TObject);
     procedure actCSSFileBrowseAccept(Sender: TObject);
   private

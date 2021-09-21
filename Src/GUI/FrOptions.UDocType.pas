@@ -51,7 +51,7 @@ begin
   with fDocTypeMap do
   begin
     Add('XHTML', 'xhtml');
-    Add('HTML 4', 'html4');
+    Add('HTML 4 (deprecated)', 'html4');
     Add('HTML 5', 'html5');
   end;
   fDocTypeMap.GetDescriptions(cbCompleteDocType.Items);
