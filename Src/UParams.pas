@@ -572,7 +572,7 @@ resourcestring
     + 'Please edit the file';
   // Warnings
   sDeprecatedCmd = 'The "%s" command is deprecated';
-  sDepDocType = 'The "html4" parameter to the "%s" command deprecated';
+  sDepDocType = 'The "html4" parameter of the "%s" command is deprecated';
 var
   Command: TCommand;
   CommandId: TCommandId;
