@@ -28,12 +28,20 @@ PasHi supports the following commands:
                             HTML documents [default].
 --doc-type            -d    Specifies the output document type, which must be
                             supplied in the next parameter. Values are:
-                              xhtml - output complete XHTML document [default]
+                              xhtml - output complete XHTML document
+                                [default] (*default deprecated: xhtml option
+                                will remain*)
                               html4 - output complete HTML 4 document
+                                (*option deprecated*)
                               html5 - output complete HTML 5 document
                               fragment - output only a <div> block containing
                                 the highlighted code, compatible with XHTML,
                                 HTML 4 and HTML 5.
+--edge-compatibility        Determines whether a Microsoft Edge IE compatibility
+                            meta tag is written to HTML document head. The next
+                            parameter must be one of the following values:
+                              on - write the meta-data
+                              off - do not write the meta-data [default].
 --embed-css           -s    Reads CSS from a file and embeds it in a <style>
                             tag in the output HTML document. The name of the
                             CSS file must be supplied in the next parameter.
@@ -48,7 +56,7 @@ PasHi supports the following commands:
 --help                -h    Displays this help screen. Do not use with other
                             commands.
 --hide-css            -c    Determines whether any embedded CSS is enclosed in
-                            HTML comments to prevent older browsers from
+  (*deprecated*)            HTML comments to prevent older browsers from
                             displaying it. --hide-css requires the next
                             parameter to supply one of the following values:
                               yes - enclose CSS in comments
@@ -64,7 +72,7 @@ PasHi supports the following commands:
                             "en-gb".
 --language-neutral          Outputs no language information [default].
 --legacy-css                Determines which CSS class names are used in the
-                            output HTML document. These can either be the
+  (*deprecated*)            output HTML document. These can either be the
                             current class names or the class names used in
                             PasHi v1. The next parameter must supply one of the
                             following values:
@@ -124,10 +132,18 @@ PasHi supports the following commands:
 --verbosity                 Specifies the amount of output from the program.
                             The next parameter must be one of:
                               normal - sign-on, error, warning and completion
-                                messages. [default]
+                                messages. [default] (*default deprecated: normal
+                                option will remain*)
                               no-warn - no warnings: sign-on, error and
                                 completion messages only.
                               quiet - error messages only.
+--viewport                  Determines the type, if any, of viewport meta-data
+                            written to a HTML document head section. The next
+                            parameter must be one of:
+                              none - no viewport meta-data output
+                                [default] (*default deprecated: none option
+                                will remain*)
+                              mobile - mobile friendly viewport meta-data output
 
 Default commands can be changed by creating a file named "config" in PasHi's
 application data directory. Commands are listed one per line and have the same
