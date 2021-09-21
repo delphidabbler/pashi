@@ -112,6 +112,7 @@ type
       fViewportLookup: TDictionary<string, TViewport>;
       fConfig: TConfig; // Reference to program's configuration object
       fWarnings: TList<string>;
+      fFirstCommandFound: Boolean;  // detects filenames after 1st command
     procedure GetConfigParams;
     procedure GetCmdLineParams;
     procedure ParseCommand(const IsConfigCmd: Boolean);
@@ -533,6 +534,8 @@ procedure TParams.Parse;
         begin
           CmdName := fParamQueue.Peek;
           ParseCommand(IsConfigCmd);
+          if not IsConfigCmd and not fFirstCommandFound then
+            fFirstCommandFound := True;
         end
         else
           ParseFileName;
@@ -552,6 +555,7 @@ resourcestring
   sConfigFileErrorFmt = '%s (in config file)';
   sCommandLineErrorFmt = '%s';
 begin
+  fFirstCommandFound := False;
   GetConfigParams;
   ParseQueue(True, sConfigFileErrorFmt);
   GetCmdLineParams;
@@ -568,7 +572,7 @@ resourcestring
     + 'Please edit the file';
   // Warnings
   sDeprecatedCmd = 'The "%s" command is deprecated';
-  sDepDocType = 'The "html4" parameter to the "%s" command deprecated';
+  sDepDocType = 'The "html4" parameter of the "%s" command is deprecated';
 var
   Command: TCommand;
   CommandId: TCommandId;
@@ -765,8 +769,13 @@ begin
 end;
 
 procedure TParams.ParseFileName;
+resourcestring
+  sMixedFileNames = 'Accepting input file names after the first command '
+    + 'is deprecated.';
 begin
   // Parse file name at head of queue
+  if fFirstCommandFound then
+    fWarnings.Add(sMixedFileNames);
   fConfig.AddInputFile(fParamQueue.Peek);
   fConfig.InputSource := isFiles;
   // Next parameter
