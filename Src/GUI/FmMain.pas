@@ -184,7 +184,7 @@ begin
     PChar(
       Format('PasHiGUI %s.', [GetFileVersionStr])
         + #10#10
-        + 'A GUI front end for the PasHi Syntax Highlighter v2.'
+        + 'A GUI front end for the PasHi Syntax Highlighter v2.1.0'
         + #10#10
         + GetLegalCopyright
         + #10#10
