@@ -29,6 +29,7 @@ This release includes _PasHi_ v2.1.0 and _PasHiGUI_ v1.1.0. Change are as follow
 
 * Updated Options pane to provide support for new `--viewport` and `--edge-compatibility` options.
 * Flagged deprecated commands and options as such in Options pane.
+* Changed about box to note that _PasHi_ v2.1.0 is required.
 
 ### General
 
