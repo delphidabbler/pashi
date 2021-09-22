@@ -6,7 +6,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2005-2016 Peter Johnson (www.delphidabbler.com)
+ * Copyright (C) 2005-2021 Peter Johnson (www.delphidabbler.com)
  *
  * User guide for PasHi and PasHiGUI.
 -->
@@ -33,11 +33,16 @@
   />
   <meta
     name="copyright"
-    content="(C) 2005-2016 Peter Johnson (www.delphidabbler.com)"
+    content="(C) 2005-2021 Peter Johnson (www.delphidabbler.com)"
   />
   <meta
     name="description"
     content="Readme for DelphiDabbler PasHi Pascal Highlighter"
+  />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
   />
 
   <style type="text/css">
@@ -102,6 +107,7 @@
     pre {
       margin: 0.5em 0 0 0;
       padding: 0;
+      overflow: auto;
     }
     pre.block {
       background-color: #eef;
@@ -166,8 +172,6 @@
     }
     .pullout {
       border-left: 8px silver solid;
-      xborder-bottom: 2px silver solid;
-      xborder-top: 2px silver solid;
       background-color: #eee;
       margin: 0.5em 0 0 0;
       padding: 0.25em 0.5em;
@@ -182,18 +186,10 @@
     .indent {
       margin-left: 3em;
     }
-    .hilite {
-      color: #336;
-      font-style: italic;
-      font-weight: bold;
-    }
     .endnotes {
       margin: 1.5em 0 0 0;
       padding: 1em 0 0 0;
       border-top: 1px silver solid;
-    }
-    .comments {
-      font-style: italic;
     }
     .copyright,
     .copyright a:link,
@@ -210,6 +206,12 @@
     .smallcaps {
       font-variant: small-caps;
     }
+    .deprecated {
+      color: red;
+      background-color: LemonChiffon;
+      padding: 2px 4px;
+      font-family: Verdana, Arial, sans-serif;
+    }
     td.pad-left, th.pad-left {
       padding-left: 2em;
     }
@@ -219,6 +221,7 @@
     table {
       margins: 0;
       padding: 0;
+      overflow: auto;
     }
     td {
       vertical-align: top;
@@ -285,7 +288,7 @@
 </p>
 
 <p>
-  HTML 4, XHTML and HTML 5 are all supported. CSS is used for styling. Style
+  HTML 4 <span class="deprecated">[deprecated]</span>, XHTML and HTML 5 are all supported. CSS is used for styling. Style
   sheets may be external or can be embedded in the HTML document. Several
   predefined style sheets can be installed with the program. You can also
   create <a
@@ -360,8 +363,13 @@
 
 <p>
   <em>PahHi</em>'s behaviour can be modified by specifying one or more file
-  names and / or commands on the command line. File names and commands can be
-  intermixed.
+  names and / or commands on the command line.
+</p>
+
+<p>
+  File names and commands can be intermixed.
+  <span class="deprecated">Deprecated: a later major release may required file
+  names to be specified <strong>before</strong> the first command.</span>
 </p>
 
 <p>
@@ -459,10 +467,13 @@
       in the following parameter which must be one of:
       <ul class="squashed">
         <li>
-          <code>xhtml</code>: Complete XHTML document (the default).
+          <code>xhtml</code>: Complete XHTML document (the default):<br />
+          <span class="deprecated">Default deprecated &ndash; to change to
+          <code>html5</code>.</span>
         </li>
         <li>
           <code>html4</code>: Complete HTML 4 document.
+          <span class="deprecated">[deprecated]</span>
         </li>
         <li>
           <code>html5</code>: Complete HTML 5 document.
@@ -542,8 +553,7 @@
     <td>
       Indicates that the default title is to be used in the output document.
       Since this is the default behaviour this command is provided mainly to
-      restore that behaviour if it has been overridden in the config file.
-
+      restore that behaviour if it has been overridden in the config file.<br />
       This command has no effect if the
       <code>--doc-type fragment</code> command is also used.
     </td>
@@ -558,9 +568,9 @@
       <a href="#css">below</a>.<br />
       If the file name includes no path information, e.g.
       <code>delphi2006.css</code>, then the file will be expected to be found in
-      the <code>%AppData%\DelphiDabbler\PasHi</code> directory. To read a file
-      from the working directory, prepend <code>.\</code> to it, e.g.
-      <code>.\delphi2006.css</code>.<br />
+      the <wbr /><code>%AppData%\DelphiDabbler\<wbr />PasHi</code> directory. To
+      read a file from the working directory, prepend <code>.\</code> to it,
+      e.g. <code>.\delphi2006.css</code>.<br />
       Do not combine this command with <code>--link-css</code> or
       <code>--default-css</code> because the commands are mutually exclusive and
       the result will be unpredictable. <code>--embed-css</code> is ignored if
@@ -590,7 +600,7 @@
       Inidicates that the default style sheet is to be embedded in the output
       document. Since this is the default behaviour, this command is provided
       mainly to restore that behaviour if it has been overridden in the config
-      file.<br .>
+      file.<br />
       This command negates both the <code>--embed-css</code> and
       <code>--link-css</code> commands and should not be combined with them
       because the result will be unpredictable. <code>--default-css</code> is
@@ -598,7 +608,8 @@
     </td>
   </tr>
   <tr>
-    <td class="switch">--hide-css</td>
+    <td class="switch">--hide-css<br />
+    <span class="deprecated">[deprecated]</span></td>
     <td class="switch">-c</td>
     <td>
       Determines if embedded CSS code is wrapped in HTML comment tags
@@ -629,7 +640,9 @@
     </td>
   </tr>
   <tr>
-    <td class="switch">--legacy-css</td>
+    <td class="switch">--legacy-css<br />
+      <span class="deprecated">[deprecated]</span>
+    </td>
     <td class="switch">&nbsp;</td>
     <td>
       Determines whether CSS classes in generated HTML documents revert to those
@@ -818,6 +831,53 @@
     </td>
   </tr>
   <tr>
+    <td class="switch">--viewport</td>
+    <td class="switch">&nbsp;</td>
+    <td>
+      Determines the type, if any, of viewport meta-data that is written to a
+      HTML document head section. The type of meta-data depends on the value
+      the next parameter, which must be one of:
+      <ul class="squashed">
+        <li>
+          <code>none</code>: No viewport meta data is written (the
+          default)<br />
+          <span class="deprecated">Default deprecated: to change to
+          <code>mobile</code>.
+        </li>
+        <li>
+          <code>mobile</code>, <code>tablet</code> or <code>phone</code> (the
+          default): Meta data that sets viewport scaling suitable for use on
+          smart phones and tablets is written.
+        </li>
+      </ul>
+      This command has no effect if the <code>--doc-type fragment</code>
+      command is also used.
+    </td>
+  </tr>
+  <tr>
+    <td class="switch">--edge-compatibility</td>
+    <td class="switch">&nbsp;</td>
+    <td>
+      Determines whether a Microsoft Edge IE compatibility meta tag is written
+      to an HTML document head. The next parameter must be one of the following
+      values:
+      <ul class="squashed">
+        <li>
+          <code>True</code>, <code>1</code>, <code>Y</code>, <code>yes</code> or
+          <code>on</code>:
+          Write the meta data.
+        </li>
+        <li>
+          <code>False</code>, <code>0</code>, <code>N</code>, <code>no</code> or
+          <code>off</code>:
+          Do not write the meta data (the default).
+        </li>
+      </ul>
+      This command has no effect if the <code>--doc-type fragment</code>
+      command is also used.
+    </td>
+  </tr>
+  <tr>
     <td class="switch">--verbosity</td>
     <td class="switch">&nbsp;</td>
     <td>
@@ -830,13 +890,21 @@
           the program to display sign-on information and to display a message
           when the program completes. All output goes to standard error so that
           it does not affect highlighted source code written to standard output.
-          Any error messages are also written to standard error.
+          Any error and wraning messages are also written to standard error.
+          <br /><span class="deprecated">Default deprecated: to change to a new
+          option that displays only warnings and error messages.
         </li>
         <li>
-          <code>quiet</code>: Quiet mode. Displays no sign on or completion
-          message. If the program detects errors or if the <code>--help</code>
-          command is used then this option is ignored and the program acts as
-          if the <code>normal</code> parameter had been specified.
+          <code>no-warn</code>. Suppress warnings. Displays just as when the
+          <code>normal</code> parameter is specified, except that no warning
+          messages are displayed.
+        </li>
+        <li>
+          <code>quiet</code>: Quiet mode. Displays no sign on, completion or
+          warning messages. If the program detects errors or if the
+          <code>--help</code> command is used then this option is ignored and
+          the program acts as if the <code>no-warn</code> parameter had been
+          specified.
         </li>
       </ul>
     </td>
@@ -860,7 +928,12 @@
 <p>
   There are some commands inherited from <em>PasHi</em> v1 that are not listed
   above. They have now been superceded by other commands but are still supported
-  for compatibility reasons. They are:
+  for compatibility reasons. However they are now
+  <span class="deprecated">deprecated</span>.
+</p>
+
+<p>
+  They are:
 </p>
 
 <table>
@@ -876,28 +949,34 @@
     </th>
   <tr>
   <tr>
-    <td class="switch">-rc</td>
+    <td class="switch">-rc<br />
+    <span class="deprecated">[deprecated]</span></td>
     <td>
       Alias for the <code>--input-clipboard</code> command.
     </td>
   </tr>
   <tr>
-    <td class="switch">-wc</td>
+    <td class="switch">-wc<br />
+    <span class="deprecated">[deprecated]</span></td>
     <td>
       Alias for the <code>--output-clipboard</code> command.
     </td>
   </tr>
   <tr>
-    <td class="switch">-frag</td>
+    <td class="switch">-frag<br />
+    <span class="deprecated">[deprecated]</span></td>
     <td>
       Alias for the <code>--doc-type fragment</code> command.
     </td>
   </tr>
   <tr>
-    <td class="switch">-hidecss</td>
+    <td class="switch">-hidecss<br />
+    <span class="deprecated">[deprecated]</span></td>
     <td>
       Alias for <code>-c+</code> or the <code>--hide-css yes</code>
-      command.
+      command.<br />
+      <strong>Note:</strong> the <code>--hide-css</code> command is also
+      <span class="deprecated">[deprecated]</span>.
     </td>
   </tr>
 </table>
@@ -970,7 +1049,7 @@
     <pre
       class="indent"
       style="margin-top:0;margin-bottom:0;"
-    >PasHi -rc -wc -frag</pre>
+    >PasHi -rc -wc -frag <span class="deprecated">[deprecated]</span></pre>
   </li>
   <li>
     Switch to the editor containing the web page and paste in the
@@ -995,9 +1074,9 @@
 
 <p>
   If <em>PasHi</em> finds a file named <code>config</code> in the
-  <code>%AppData%\DelphiDabbler\PasHi</code> directory when it starts up, it is
-  read. Any commands found in that file are used to change the program's default
-  state.
+  <wbr /><code>%AppData%\DelphiDabbler\<wbr />PasHi</code> directory when it
+  starts up, it is read. Any commands found in that file are used to change the
+  program's default state.
 </p>
 
 <p>
@@ -1022,11 +1101,32 @@
     command line).
   </li>
   <li>
-    All the long form commands listed in <a
-      href="#usage"
-    >Using <em>PasHi</em></a> have an equivalent in the config file. Config
-    commands have the same name as the long form version except that the leading
-    &quot;--&quot; characters are omitted.
+    <p>
+      <strong>Most</strong> of the long form commands listed in <a
+        href="#usage"
+      >Using <em>PasHi</em></a> have an equivalent in the config file. Config
+      commands have the same name as the long form version except that the
+      leading &quot;--&quot; characters are omitted. For example, the equivalent
+      of the<code>--doc-type</code> command in the config file is
+      <code>doc-type</code>.
+    </p>
+    <p class="pullout">
+      <strong>WARNING:</strong>
+      The exception is that the  <code>--help</code> command has no equivalent
+      config file command. If <code>help</code> is included in the config file
+      <em>PasHi</em> will stop with an error every time it is run.
+    </p>
+  </li>
+  <li>
+    <p>
+      <strong>None</strong> of the short form commands can be used in the config
+      file, and nor can any of the v1 style commands.
+    </p>
+    <p class="pullout">
+      <strong>WARNING:</strong>
+      Using one of these commands in the config file will cause <em>PasHi</em>
+      to stop with an error every time it is run.
+    </p>
   </li>
   <li>
     Lines begining with &quot;#&quot; are treated as comments and ignored.
@@ -1046,20 +1146,14 @@
   and all will be well.
 </p>
 
-<p class="pullout">
-  <strong>Warning:</strong> Although <em>PasHi</em> accepts the
-  <code>help</code> command in a config file you should <strong>never</strong>
-  use it or the program will do nothing except display the help screen, no
-  matter what commands you pass on the command line.
-</p>
-
 <h3 id="config-samples">
   Sample config scripts
 </h3>
 
 <p>
   Some example config scripts are optionally installed in the
-  <code>%AppData%\DelphiDabbler\PasHi</code> directory. The sample scripts are:
+  <wbr /><code>%AppData%\DelphiDabbler\<wbr />PasHi</code> directory. The sample
+  scripts are:
 </p>
 
 <dl>
@@ -1074,7 +1168,7 @@
     script.
   </dd>
   <dt class="file">
-    config-v1
+    config-v1 <span class="deprecated">[deprecated]</span>
   </dt>
   <dd>
     Emulates, as far as possible, the functioning of <em>PasHi</em> v1. This
@@ -1085,7 +1179,7 @@
 
 <p class="pullout">
   The example config files, where installed, may not appear in the
-  <code>%AppData%\DelphiDabbler\PasHi</code> directory until after
+  <wbr /><code>%AppData%\DelphiDabbler\<wbr />PasHi</code> directory until after
   <em>PasHi</em> has been run once.
 </p>
 
@@ -1141,8 +1235,8 @@ doc-type fragment</pre>
 
 <p>
   Or, in the special case of the CSS files optionally installed with
-  <em>PasHi</em> in <code>%AppData%\DelphiDabbler\PasHi</code>, omit the path
-  information and use, for example:
+  <em>PasHi</em> in <wbr /><code>%AppData%\DelphiDabbler\<wbr />PasHi</code>,
+  omit the path information and use, for example:
 </p>
 
 <pre class="indent">embed-css twilight.css</pre>
@@ -1342,7 +1436,8 @@ doc-type fragment</pre>
 
 <div class="pullout">
   <p>
-    Note that this example also includes some additional class names. These
+    Note that this example also includes some additional class names
+    <span class="deprecated">[deprecated]</span>. These
     relate to <em>PasHi</em> v1.x, as explained below the listing.
   </p>
 </div>
@@ -1473,8 +1568,10 @@ doc-type fragment</pre>
     remaining classes had <code>pas-</code> prepended to the class name, for
     example <code>.kwd</code> was <code>.pas-kwd</code>. If you want
     <em>PasHi</em> to revert to using the old style names pass
-    &quot;<code>--legacy-css on</code>&quot; on the command line or place
-    &quot;<code>legacy-css on</code>&quot; in the <code>config</code> file
+    &quot;<code>--legacy-css on</code>&quot;
+    <span class="deprecated">[deprecated]</span>on the command line or place
+    &quot;<code>legacy-css on</code>&quot;
+    <span class="deprecated">[deprecated]</span>in the <code>config</code> file
     if you want to use the old style names by default.
   </p>
 </div>
@@ -1486,8 +1583,8 @@ doc-type fragment</pre>
 <p>
   <em>PasHi</em> provides several .css files that can be used to change the
   style of highlighted code. They are (optionally) installed into the
-  <code>%AppData%\DelphiDabbler\PasHi</code> directory when <em>PasHi</em> is
-  first run after installation. The files are:
+  <wbr /><code>%AppData%\DelphiDabbler\<wbr />PasHi</code> directory when
+  <em>PasHi</em> is first run after installation. The files are:
 </p>
 
 <dl>
@@ -1753,10 +1850,21 @@ doc-type fragment</pre>
   programs is the best means of ensuring that everything is set up correctly.
 </p>
 
+<h2>
+  Deprecated features
+</h2>
+
+<p>
+  Commands, parameters, defaults, CSS styles and configuration files marked as
+  <span class="deprecated">deprecated</span> are likely to removed in the next
+  major release. In the main these are breaking changes: they won't be
+  backwards compatible will the current version.
+</p>
+
 <div class="endnotes">
 
   <div class="copyright">
-    This document is copyright &copy; 2005-2016, P D Johnson,
+    This document is copyright &copy; 2005-2021, P D Johnson,
     <a
       href="http://delphidabbler.com/"
     >delphidabbler.com</a>.

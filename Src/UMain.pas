@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2007-2016, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2007-2021, Peter Johnson (www.delphidabbler.com).
  *
  * Implements top level class that executes program.
 }
@@ -30,9 +30,11 @@ type
     fConfig: TConfig;     // Program configurations object
     fConsole: TConsole;   // Object used to write to console
     fSignedOn: Boolean;   // Flag shows if sign on message has been displayed
+    fWarnings: TArray<string>;  // Command line parser warnings
     procedure Configure;
     procedure SignOn;
     procedure ShowHelp;
+    procedure ShowWarnings;
     function GetInputSourceCode: string;
     procedure WriteOutput(const S: string);
   public
@@ -69,6 +71,8 @@ begin
   Params := TParams.Create(fConfig);
   try
     Params.Parse; // parse command line, updating configuration object
+    if Params.HasWarnings then
+      fWarnings := Params.Warnings;
   finally
     FreeAndNil(Params);
   end;
@@ -107,6 +111,8 @@ begin
     begin
       // Sign on and initialise program
       SignOn;
+      if Length(fWarnings) > 0 then
+        ShowWarnings;
       SourceCode := GetInputSourceCode;
       Renderer := TRendererFactory.CreateRenderer(SourceCode, fConfig);
       XHTML := Renderer.Render;
@@ -163,6 +169,18 @@ begin
   finally
     RS.Free;
   end;
+end;
+
+procedure TMain.ShowWarnings;
+var
+  W: string;
+resourcestring
+  sWarning = 'WARNING: %s';
+begin
+  if fConfig.Verbosity = vbNoWarnings then
+    Exit;
+  for W in fWarnings do
+    fConsole.WriteLn(Format(sWarning, [W]));
 end;
 
 procedure TMain.SignOn;

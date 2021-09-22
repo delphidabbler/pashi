@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2005-2012, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2005-2021, Peter Johnson (www.delphidabbler.com).
  *
  * Main project file.
 }
@@ -75,6 +75,8 @@ uses
   Renderers.UTitleTag in 'Renderers.UTitleTag.pas',
   Renderers.UStyles in 'Renderers.UStyles.pas',
   Renderers.UDocument in 'Renderers.UDocument.pas',
+  Renderers.UEdgeCompatibility in 'Renderers.UEdgeCompatibility.pas',
+  Renderers.UViewport in 'Renderers.UViewport.pas',
   UVersionInfo in 'UVersionInfo.pas';
 
 { Main program code }

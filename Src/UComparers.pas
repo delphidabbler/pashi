@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2012, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2012-2021, Peter Johnson (www.delphidabbler.com).
  *
  * Defines case insensitive and case sensitive string equality comparers.
 }
@@ -50,6 +50,27 @@ type
     function GetHashCode(const Value: string): Integer; override;
   end;
 
+type
+  ///  <summary>
+  ///  Case sensitive character comparer.
+  ///  </summary>
+  TCharEqualityComparer = class(TEqualityComparer<Char>,
+    IEqualityComparer<Char>)
+  public
+    ///  <summary>Checks if two characters are equal, ignoring case
+    ///  </summary>
+    function Equals(const Left, Right: Char): Boolean; override;
+    ///  <summary>Gets hash of given character.</summary>
+    function GetHashCode(const Value: Char): Integer; override;
+  end;
+
+type
+  // <summary>Case insensitive string comparer.</summary>
+  TTextComparer = class(TComparer<string>, IComparer<string>)
+  public
+    function Compare(const Left, Right: string): Integer; override;
+  end;
+
 
 implementation
 
@@ -59,7 +80,7 @@ uses
   SysUtils;
 
 
-///  <summary>String has function.</summary>
+///  <summary>String hash function.</summary>
 ///  <remarks>Sourced from http://www.scalabium.com/faq/dct0136.htm.</summary>
 function ElfHash(const Value: string): Integer;
 var
@@ -102,6 +123,25 @@ end;
 function TStringEqualityComparer.GetHashCode(const Value: string): Integer;
 begin
   Result := ElfHash(Value);
+end;
+
+{ TCharEqualityComparer }
+
+function TCharEqualityComparer.Equals(const Left, Right: Char): Boolean;
+begin
+  Result := Left = Right;
+end;
+
+function TCharEqualityComparer.GetHashCode(const Value: Char): Integer;
+begin
+  Result := Integer(Value);
+end;
+
+{ TTextComparer }
+
+function TTextComparer.Compare(const Left, Right: string): Integer;
+begin
+  Result := AnsiCompareText(Left, Right);
 end;
 
 end.

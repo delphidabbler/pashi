@@ -4,16 +4,30 @@ inherited CSSOptionsFrame: TCSSOptionsFrame
   object lblCSSFile: TLabel
     Left = 24
     Top = 55
-    Width = 145
+    Width = 146
     Height = 13
     Caption = 'Choose or enter CSS file name'
   end
   object lblCSSURL: TLabel
     Left = 24
     Top = 130
-    Width = 107
+    Width = 108
     Height = 13
     Caption = 'Enter style sheet URL:'
+  end
+  object lblHideCSSDeprecated: TLabel
+    Left = 24
+    Top = 240
+    Width = 63
+    Height = 13
+    Caption = '(deprecated)'
+  end
+  object lblLegacyCSSDeprecated: TLabel
+    Left = 24
+    Top = 200
+    Width = 63
+    Height = 13
+    Caption = '(deprecated)'
   end
   object rbEmbedCSS: TRadioButton
     Left = 8
@@ -58,7 +72,7 @@ inherited CSSOptionsFrame: TCSSOptionsFrame
   end
   object chkHideCSS: TCheckBox
     Left = 8
-    Top = 204
+    Top = 220
     Width = 176
     Height = 17
     Caption = 'Hide CSS in HTML comments'

@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2007-2016, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2007-2021, Peter Johnson (www.delphidabbler.com).
  *
  * Implements classes that used to parse command line and record details.
 }
@@ -17,6 +17,7 @@ interface
 
 uses
   // Delphi
+  SysUtils,
   Generics.Collections,
   // Project
   UConfig;
@@ -51,7 +52,9 @@ type
     siLineNumberWidth,  // specifies width of line numbers in characters
     siLineNumberPadding,// specifies character used to pad line number lines
     siStriping,         // switches line striping on and off
-    siQuiet             // don't display any output to console
+    siQuiet,            // don't display any output to console
+    siViewport,         // which viewport meta-data to output, if any
+    siEdgeCompatibility // whether edge compatibility info meta-data is output
   );
 
 type
@@ -98,16 +101,21 @@ type
     var
       fParamQueue: TQueue<string>; // Queue of parameters to be processed
       fCmdLookup: TDictionary<string, TCommandId>;
+      fV1CommandLookup: TList<string>;
       fSwitchCmdLookup: TList<string>;
+      fConfigBlacklist: TList<TCommandId>;
       fEncodingLookup: TDictionary<string, TOutputEncodingId>;
       fDocTypeLookup: TDictionary<string, TDocType>;
       fBooleanLookup: TDictionary<string, Boolean>;
       fVerbosityLookup: TDictionary<string, TVerbosity>;
       fPaddingLookup: TDictionary<string, Char>;
+      fViewportLookup: TDictionary<string, TViewport>;
       fConfig: TConfig; // Reference to program's configuration object
+      fWarnings: TList<string>;
+      fFirstCommandFound: Boolean;  // detects filenames after 1st command
     procedure GetConfigParams;
     procedure GetCmdLineParams;
-    procedure ParseCommand;
+    procedure ParseCommand(const IsConfigCmd: Boolean);
     procedure ParseFileName;
     function GetStringParameter(const Cmd: TCommand): string;
     function GetBooleanParameter(const Cmd: TCommand): Boolean;
@@ -117,10 +125,40 @@ type
     function GetNumericParameter(const Cmd: TCommand; const Lo, Hi: UInt16):
       UInt16;
     function GetPaddingParameter(const Cmd: TCommand): Char;
+    function GetViewportParameter(const Cmd: TCommand): TViewport;
+    function GetWarnings: TArray<string>;
+    function AdjustCommandName(const Name: string; IsCfgCmd: Boolean): string;
+    function IsV1Command(const Name: string): Boolean;
   public
     constructor Create(const Config: TConfig);
     destructor Destroy; override;
     procedure Parse;
+    property Warnings: TArray<string> read GetWarnings;
+    function HasWarnings: Boolean;
+  end;
+
+  ///  <summary>Type of exception raised for a command related error.</summary>
+  ///  <param name="CommandName">string [in] Name of command for which exception
+  ///  is being raised.</param>
+  ///  <param name="FormatStr">string [in] A format string that defines the
+  ///  error message. Must have a single %s placeholder in position where the
+  ///  (possibly modified) command name will appear.</param>
+  ///  <remarks>
+  ///  <para>Do not use any of the inherited constructors. Handling code expects
+  ///  expects valid CommandName and FormatStr properties to be set.</para>
+  ///  <para>We send a FormatStr to exception handler rather than a preformatted
+  ///  string since handler may need to modify CommandName before rendering
+  ///  message string.</para>
+  ///  </remarks>
+  ECommandError = class(Exception)
+  strict private
+    var
+      fFormatStr: string;
+      fCommandName: string;
+  public
+    constructor Create(const CommandName: string; const FormatStr: string);
+    property CommandName: string read fCommandName;
+    property FormatStr: string read fFormatStr;
   end;
 
 
@@ -129,12 +167,26 @@ implementation
 
 uses
   // Delphi
-  StrUtils, SysUtils, Classes, Character,
+  StrUtils, Classes, Character,
   // Project
   UComparers, UConfigFiles;
 
 
 { TParams }
+
+function TParams.AdjustCommandName(const Name: string;
+  IsCfgCmd: Boolean): string;
+begin
+  if IsCfgCmd then
+  begin
+    if StartsStr('--', Name) then
+      Result := RightStr(Name, Length(Name) - 2)
+    else
+      Result := Name;
+  end
+  else
+    Result := Name;
+end;
 
 constructor TParams.Create(const Config: TConfig);
 begin
@@ -193,13 +245,25 @@ begin
     Add('--line-number-width', siLineNumberWidth);
     Add('--line-number-padding', siLineNumberPadding);
     Add('--striping', siStriping);
+    Add('--viewport', siViewport);
+    Add('--edge-compatibility', siEdgeCompatibility);
     // commands kept for backwards compatibility with v1.x
     Add('-frag', siFragment);
     Add('-hidecss', siForceHideCSS);
     Add('-rc', siInputClipboard);
     Add('-wc', siOutputClipboard);
   end;
-  // lookup table for short form commands that are switches
+  fV1CommandLookup := TList<string>.Create(
+    TTextComparer.Create
+  );
+  with fV1CommandLookup do
+  begin
+    Add('-wc');
+    Add('-rc');
+    Add('-hidecss');
+    Add('-frag');
+  end;
+  // list of short form commands that are switches
   fSwitchCmdLookup := TList<string>.Create;
   with fSwitchCmdLookup do
   begin
@@ -207,6 +271,12 @@ begin
     Add('-c');
     Add('-m');
     Add('-n');
+  end;
+  // list of commands blacklisted from config file
+  fConfigBlacklist := TList<TCommandId>.Create;
+  with fConfigBlacklist do
+  begin
+    Add(siHelp);
   end;
   // lookup table for --encoding command values: case insensitive
   fEncodingLookup := TDictionary<string,TOutputEncodingId>.Create(
@@ -261,6 +331,7 @@ begin
   with fVerbosityLookup do
   begin
     Add('normal', vbNormal);
+    Add('no-warn', vbNoWarnings);
     Add('quiet', vbQuiet);
   end;
   fPaddingLookup := TDictionary<string, Char>.Create(
@@ -274,16 +345,30 @@ begin
     Add('dash', '-');
     Add('dot', '.');
   end;
+  fViewportLookup := TDictionary<string,TViewport>.Create(
+    TTextEqualityComparer.Create
+  );
+  with fViewportLookup do
+  begin
+    Add('none', vpNone);
+    Add('mobile', vpPhone);
+    Add('phone', vpPhone);
+    Add('tablet', vpPhone);
+  end;
+  fWarnings := TList<string>.Create(TTextComparer.Create);
 end;
 
 destructor TParams.Destroy;
 begin
+  fWarnings.Free;
+  fViewportLookup.Free;
   fPaddingLookup.Free;
   fVerbosityLookup.Free;
   fBooleanLookup.Free;
   fDocTypeLookup.Free;
   fEncodingLookup.Free;
   fSwitchCmdLookup.Free;
+  fV1CommandLookup.Free;
   fCmdLookup.Free;
   fParamQueue.Free;
   inherited;
@@ -364,9 +449,9 @@ resourcestring
 begin
   Param := GetStringParameter(Cmd);
   if not TryStrToInt(Param, Value) then
-    raise Exception.CreateFmt(sNotNumber, [Cmd.Name]);
+    raise ECommandError.Create(Cmd.Name, sNotNumber);
   if (Value < Lo) or (Value > Hi) then
-    raise Exception.CreateFmt(sOutOfRange, [Cmd.Name, Lo, Hi]);
+    raise ECommandError.Create(Cmd.Name, Format(sOutOfRange, [Lo, Hi]));
   Result := UInt16(Value);
 end;
 
@@ -391,7 +476,7 @@ begin
   else
     Result := fParamQueue.Peek;
   if (Result = '') or AnsiStartsStr('-', Result) then
-    raise Exception.CreateFmt(sNoParam, [Cmd.Name]);
+    raise ECommandError.Create(Cmd.Name, sNoParam);
 end;
 
 function TParams.GetVerbosityParameter(const Cmd: TCommand): TVerbosity;
@@ -406,19 +491,62 @@ begin
   Result := fVerbosityLookup[Param];
 end;
 
+function TParams.GetViewportParameter(const Cmd: TCommand): TViewport;
+var
+  Param: string;
+resourcestring
+  sBadValue = 'Unrecognised viewport value "%s"';
+begin
+  Param := GetStringParameter(Cmd);
+  if not fViewportLookup.ContainsKey(Param) then
+    raise Exception.CreateFmt(sBadValue, [Param]);
+  Result := fViewportLookup[Param];
+end;
+
+function TParams.GetWarnings: TArray<string>;
+var
+  Idx: Integer;
+begin
+  SetLength(Result, fWarnings.Count);
+  for Idx := 0 to Pred(fWarnings.Count) do
+    Result[Idx] := fWarnings[Idx];
+end;
+
+function TParams.HasWarnings: Boolean;
+begin
+  Result := fWarnings.Count > 0;
+end;
+
+function TParams.IsV1Command(const Name: string): Boolean;
+begin
+  Result := fV1CommandLookup.Contains(Name);
+end;
+
 procedure TParams.Parse;
 
-  procedure ParseQueue(const ErrorFmtStr: string);
+  procedure ParseQueue(const IsConfigCmd: Boolean; const ErrorFmtStr: string);
+  var
+    CmdName: string;
   begin
     try
       while fParamQueue.Count > 0 do
       begin
         if AnsiStartsStr('-', fParamQueue.Peek) then
-          ParseCommand
+        begin
+          CmdName := fParamQueue.Peek;
+          ParseCommand(IsConfigCmd);
+          if not IsConfigCmd and not fFirstCommandFound then
+            fFirstCommandFound := True;
+        end
         else
           ParseFileName;
       end;
     except
+      on E: ECommandError do
+        raise Exception.CreateFmt(
+          ErrorFmtStr,
+          [Format(E.FormatStr, [AdjustCommandName(E.CommandName, IsConfigCmd)])]
+        );
       on E: Exception do
         raise Exception.CreateFmt(ErrorFmtStr, [E.Message]);
     end;
@@ -428,39 +556,56 @@ resourcestring
   sConfigFileErrorFmt = '%s (in config file)';
   sCommandLineErrorFmt = '%s';
 begin
+  fFirstCommandFound := False;
   GetConfigParams;
-  ParseQueue(sConfigFileErrorFmt);
+  ParseQueue(True, sConfigFileErrorFmt);
   GetCmdLineParams;
-  ParseQueue(sCommandLineErrorFmt);
+  ParseQueue(False, sCommandLineErrorFmt);
 end;
 
-procedure TParams.ParseCommand;
+procedure TParams.ParseCommand(const IsConfigCmd: Boolean);
 resourcestring
   // Error messages
   sBadCommand = 'Unrecognised command "%s"';
   sCantBeSwitch = '%s cannot be a switch command';
   sMustBeSwitch = '%s must be a switch command: append "+" or "-"';
+  sBlacklisted = 'The "%s" command is not permitted in the config file.'#13#10
+    + 'Please edit the file';
+  // Warnings
+  sDeprecatedCmd = 'The "%s" command is deprecated';
+  sDepDocType = 'The "html4" parameter of the "%s" command is deprecated';
 var
   Command: TCommand;
   CommandId: TCommandId;
 begin
   Command := fParamQueue.Dequeue;
   if not fCmdLookup.ContainsKey(Command.Name) then
-    raise Exception.CreateFmt(sBadCommand, [Command.Name]);
+    raise ECommandError.Create(Command.Name, sBadCommand);
   CommandId := fCmdLookup[Command.Name];
 
+  if IsConfigCmd and fConfigBlacklist.Contains(CommandId) then
+    raise ECommandError.Create(Command.Name, sBlacklisted);
+
   if Command.IsSwitch and not fSwitchCmdLookup.Contains(Command.Name) then
-    raise Exception.CreateFmt(sCantBeSwitch, [Command.Name]);
+    raise ECommandError.Create(Command.Name, sCantBeSwitch);
   if not Command.IsSwitch and fSwitchCmdLookup.Contains(Command.Name) then
-    raise Exception.CreateFmt(sMustBeSwitch, [Command.Name]);
+    raise ECommandError.Create(Command.Name, sMustBeSwitch);
 
   case CommandId of
     siInputClipboard:
+    begin
+      if IsV1Command(Command.Name) then
+        fWarnings.Add(Format(sDeprecatedCmd, [Command.Name]));
       fConfig.InputSource := isClipboard;
+    end;
     siInputStdIn:
       fConfig.InputSource := isStdIn;
     siOutputClipboard:
+    begin
+      if IsV1Command(Command.Name) then
+        fWarnings.Add(Format(sDeprecatedCmd, [Command.Name]));
       fConfig.OutputSink := osClipboard;
+    end;
     siOutputFile:
     begin
       fConfig.OutputFile := GetStringParameter(Command);
@@ -477,14 +622,30 @@ begin
     siOutputDocType:
     begin
       fConfig.DocType := GetDocTypeParameter(Command);
+      if fConfig.DocType = dtHTML4 then
+        fWarnings.Add(
+          Format(sDepDocType, [AdjustCommandName(Command.Name, IsConfigCmd)])
+        );
       fParamQueue.Dequeue;
     end;
     siFragment:
+    begin
+      if IsV1Command(Command.Name) then
+        fWarnings.Add(Format(sDeprecatedCmd, [Command.Name]));
       fConfig.DocType := dtFragment;
+    end;
     siForceHideCSS:
+    begin
+      fWarnings.Add(
+        Format(sDeprecatedCmd, [AdjustCommandName(Command.Name, IsConfigCmd)])
+      );
       fConfig.HideCSS := True;
+    end;
     siHideCSS:
     begin
+      fWarnings.Add(
+        Format(sDeprecatedCmd, [AdjustCommandName(Command.Name, IsConfigCmd)])
+      );
       if Command.IsSwitch then
         fConfig.HideCSS := Command.SwitchValue
       else
@@ -512,6 +673,9 @@ begin
     end;
     siLegacyCSS:
     begin
+      fWarnings.Add(
+        Format(sDeprecatedCmd, [AdjustCommandName(Command.Name, IsConfigCmd)])
+      );
       fConfig.LegacyCSSNames := GetBooleanParameter(Command);
       fParamQueue.Dequeue;
     end;
@@ -592,12 +756,27 @@ begin
     end;
     siQuiet:
       fConfig.Verbosity := vbQuiet;
+    siViewport:
+    begin
+      fConfig.Viewport := GetViewportParameter(Command);
+      fParamQueue.Dequeue;
+    end;
+    siEdgeCompatibility:
+    begin
+      fConfig.EdgeCompatibility := GetBooleanParameter(Command);
+      fParamQueue.Dequeue;
+    end;
   end;
 end;
 
 procedure TParams.ParseFileName;
+resourcestring
+  sMixedFileNames = 'Accepting input file names after the first command '
+    + 'is deprecated.';
 begin
   // Parse file name at head of queue
+  if fFirstCommandFound then
+    fWarnings.Add(sMixedFileNames);
   fConfig.AddInputFile(fParamQueue.Peek);
   fConfig.InputSource := isFiles;
   // Next parameter
@@ -690,10 +869,10 @@ end;
 
 function TCommand.SwitchValue: Boolean;
 resourcestring
-  sBadSwitch = '%s in not a switch command';
+  sBadSwitch = '%s is not a switch command';
 begin
   if not IsSwitch then
-    raise Exception.CreateFmt(sBadSwitch, [Name]);
+    raise ECommandError.Create(Name, sBadSwitch);
   Result := CharInSet(fCommand[3], TrueSwitchChars);
 end;
 
@@ -702,7 +881,16 @@ resourcestring
   sBadCommand = '"%s" is not a valid command';
 begin
   if not IsCommand(Cmd) then
-    raise Exception.CreateFmt(sBadCommand, [Cmd]);
+    raise ECommandError.Create(Cmd, sBadCommand);
+end;
+
+{ ECommandError }
+
+constructor ECommandError.Create(const CommandName, FormatStr: string);
+begin
+  inherited Create('');
+  fCommandName := CommandName;
+  fFormatStr := FormatStr;
 end;
 
 end.

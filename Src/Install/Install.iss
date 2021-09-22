@@ -3,7 +3,7 @@
 ; v. 2.0. If a copy of the MPL was not distributed with this file, You can
 ; obtain one at http://mozilla.org/MPL/2.0/
 ;
-; Copyright (C) 2012-2015, Peter Johnson (www.delphidabbler.com).
+; Copyright (C) 2012-2021, Peter Johnson (www.delphidabbler.com).
 ;
 ; PasHi install file generation script for use with Inno Setup 5 Unicode.
 ;===============================================================================
@@ -23,7 +23,7 @@
 #define ExeFile "PasHi.exe"
 #define GUIExeFile = "PasHiGUI.exe"
 #define LicenseFile "License.rtf"
-#define LicenseTextFile "LICENSE"
+#define LicenseTextFile "LICENSE.md"
 #define ReadmeFile "ReadMe.txt"
 #define UserGuide "UserGuide.html"
 #define InstUninstDir "Uninst"

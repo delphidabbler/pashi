@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2007-2016, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2007-2021, Peter Johnson (www.delphidabbler.com).
  *
  * Implements class that stores program's configuration information.
 }
@@ -61,7 +61,15 @@ type
   ///  </summary>
   TVerbosity = (
     vbQuiet,
+    vbNoWarnings,
     vbNormal
+  );
+
+  ///  <summary>Enumerates different viewport options applied to complete
+  ///  (X)HTML documents.</summary>
+  TViewport = (
+    vpNone,
+    vpPhone
   );
 
   ///  <summary>Valid range of separator lines between files.</summary>
@@ -95,6 +103,8 @@ type
     fLineNumberWidth: TLineNumberWidth;
     fLineNumberPadding: Char;
     fStriping: Boolean;
+    fViewport: TViewport;
+    fEdgeCompatibility: Boolean;
     function GetInputFiles: TArray<string>;
   public
     constructor Create;
@@ -134,6 +144,9 @@ type
     property LineNumberPadding: Char
       read fLineNumberPadding write fLineNumberPadding default ' ';
     property Striping: Boolean read fStriping write fStriping default False;
+    property Viewport: TViewport read fViewport write fViewport default vpNone;
+    property EdgeCompatibility: Boolean
+      read fEdgeCompatibility write fEdgeCompatibility default False;
     procedure AddInputFile(const FN: string);
     function OutputEncoding: TEncoding;
     function OutputEncodingName: string;
@@ -173,6 +186,8 @@ begin
   fLineNumberWidth := 3;
   fLineNumberPadding := ' ';
   fStriping := False;
+  fViewport := vpNone;
+  fEdgeCompatibility := False;
 end;
 
 destructor TConfig.Destroy;

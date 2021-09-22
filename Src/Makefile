@@ -3,7 +3,7 @@
 # v. 2.0. If a copy of the MPL was not distributed with this file, You can
 # obtain one at http://mozilla.org/MPL/2.0/
 #
-# Copyright (C) 2005-2015, Peter Johnson (www.delphidabbler.com).
+# Copyright (C) 2005-2021, Peter Johnson (www.delphidabbler.com).
 #
 # Makefile for the PasHi project.
 # ------------------------------------------------------------------------------
@@ -64,7 +64,7 @@ release:
   @echo Creating Release File $(RELEASEFILENAME)
   -@if exist $(RELEASEFILEPATH) del $(RELEASEFILEPATH)
   @$(ZIP) -j -9 $(RELEASEFILEPATH) $(EXE)\PasHi-Setup-*.exe
-  @$(ZIP) -j -9 $(RELEASEFILEPATH) $(DOCS)\ReadMe.txt $(ROOT)\LICENSE
+  @$(ZIP) -j -9 $(RELEASEFILEPATH) $(DOCS)\ReadMe.txt $(ROOT)\LICENSE.md
 
 # Clean up unwanted files
 clean:

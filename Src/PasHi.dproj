@@ -69,7 +69,11 @@
 			<DCCReference Include="Renderers.UTitleTag.pas"/>
 			<DCCReference Include="Renderers.UStyles.pas"/>
 			<DCCReference Include="Renderers.UDocument.pas"/>
-			<DCCReference Include="UVersionInfo.pas"/>
+			<DCCReference Include="Renderers.UEdgeCompatibility.pas"/>
+			<DCCReference Include="Renderers.UViewport.pas"/>
+			<DCCReference Include="UVersionInfo.pas">
+				<Form>Main program code</Form>
+			</DCCReference>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

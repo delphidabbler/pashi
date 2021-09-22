@@ -90,6 +90,10 @@ object MainForm: TMainForm
     object tsRendered: TTabSheet
       Caption = 'Display View'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object pnlRendered: TPanel
         Left = 0
         Top = 0
@@ -255,7 +259,7 @@ object MainForm: TMainForm
         Color = clWindow
         Collapsed = True
         TabOrder = 0
-        ExpandedHeight = 217
+        ExpandedHeight = 262
         inline frmMisc: TMiscOptionsFrame
           Left = 0
           Top = 0
@@ -293,7 +297,7 @@ object MainForm: TMainForm
         Color = clWindow
         Collapsed = True
         TabOrder = 2
-        ExpandedHeight = 254
+        ExpandedHeight = 286
         inline frmCSS: TCSSOptionsFrame
           Left = 0
           Top = 0
@@ -461,7 +465,7 @@ object MainForm: TMainForm
     Left = 336
     Top = 152
     Bitmap = {
-      494C0101050009000C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010105000900180010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

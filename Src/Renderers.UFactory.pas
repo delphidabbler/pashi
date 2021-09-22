@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2012, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2012-2021, Peter Johnson (www.delphidabbler.com).
  *
  * Provides factory for creating objects that render the supported types of
  * out document.
@@ -30,9 +30,9 @@ implementation
 
 uses
   Hiliter.UGlobals, Renderers.UBranding, Renderers.UCharSetTag,
-  Renderers.UDocType, Renderers.UDocument, Renderers.UProcInst,
-  Renderers.URootTag, Renderers.USourceCode, Renderers.UStyles,
-  Renderers.UTitleTag;
+  Renderers.UDocType, Renderers.UDocument, Renderers.UEdgeCompatibility,
+  Renderers.UProcInst, Renderers.URootTag, Renderers.USourceCode,
+  Renderers.UStyles, Renderers.UTitleTag, Renderers.UViewport;
 
 { TRendererFactory }
 
@@ -65,6 +65,9 @@ begin
       );
       DocParams.HTMLTag := TXHTMLRootTagRenderer.Create(Config.Language);
       DocParams.TitleTag := TTitleTagRenderer.Create(Config.Title);
+      DocParams.ViewportTag := TXMLViewportTagRenderer.Create(Config.Viewport);
+      DocParams.EdgeCompatibilityTag :=
+        TXMLEdgeCompatibilityTagRenderer.Create(not Config.EdgeCompatibility);
       DocParams.GeneratorTag := TNewMetaBrandingRenderer.Create(
         not Config.BrandingPermitted
       );
@@ -81,6 +84,9 @@ begin
       );
       DocParams.HTMLTag := THTMLRootTagRenderer.Create(Config.Language);
       DocParams.TitleTag := TTitleTagRenderer.Create(Config.Title);
+      DocParams.ViewportTag := THTMLViewportTagRenderer.Create(Config.Viewport);
+      DocParams.EdgeCompatibilityTag :=
+        THTMLEdgeCompatibilityTagRenderer.Create(not Config.EdgeCompatibility);
       DocParams.GeneratorTag := TOldMetaBrandingRenderer.Create(
         not Config.BrandingPermitted
       );
@@ -97,6 +103,9 @@ begin
       );
       DocParams.HTMLTag := THTMLRootTagRenderer.Create(Config.Language);
       DocParams.TitleTag := TTitleTagRenderer.Create(Config.Title);
+      DocParams.ViewportTag := THTMLViewportTagRenderer.Create(Config.Viewport);
+      DocParams.EdgeCompatibilityTag :=
+        THTMLEdgeCompatibilityTagRenderer.Create(not Config.EdgeCompatibility);
       DocParams.GeneratorTag := TNewMetaBrandingRenderer.Create(
         not Config.BrandingPermitted
       );
@@ -109,16 +118,7 @@ begin
       FragParams.GeneratorComment := TFragmentBrandingRenderer.Create(
         not Config.BrandingPermitted
       );
-      FragParams.SourceCode := TSourceCodeRenderer.Create(
-        SourceCode,
-        Config.LegacyCSSNames,
-        THiliteOptions.Create(
-          Config.UseLineNumbering,
-          Config.LineNumberWidth,
-          Config.LineNumberPadding,
-          Config.Striping
-        )
-      );
+      FragParams.SourceCode := SourceCodeRenderer;
       Result := TXHTMLFragmentRenderer.Create(FragParams);
     end;
   end;

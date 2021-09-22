@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2012, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2012-2021, Peter Johnson (www.delphidabbler.com).
  *
  * Object that provides access to, loads, updates and saves options that are
  * passed to PasHi from PasHiGUI. Used to permit PasHiGUI users to customise
@@ -245,6 +245,10 @@ begin
     Store('title-default');
   if not IsSet('branding') then
     Store('branding', True);
+  if not IsSet('viewport') then
+    Store('viewport', 'none');
+  if not IsSet('edge-compatibility') then
+    Store('edge-compatibility', False);
 end;
 
 procedure TOptions.Store(const Option, Value: string);

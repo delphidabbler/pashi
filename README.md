@@ -30,11 +30,11 @@ The [Git Flow](http://nvie.com/posts/a-successful-git-branching-model/) methodol
 Change Log
 ----------
 
-The program's change log is recorded in `ChangeLog.txt` in the `Docs` directory of the GitHub project. The change log is not included in the program installation.
+The program's change log is recorded in `CHANGELOG.md` in the root directory of the GitHub project. The change log is not included in the program installation.
 
 License
 -------
 
-The program's EULA can be found in the file `LICENSE` that is installed with the program. This file can also be found in the root of the GitHub repository.
+The program's EULA can be found in the file `LICENSE.md` that is installed with the program. This file can also be found in the root of the GitHub repository.
 
 Much of the source code is released under the [Mozilla Public License v2.0](http://mozilla.org/MPL/2.0/).

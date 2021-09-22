@@ -10,31 +10,31 @@
 */
 
 .code-pascal,
-.pas-source {
+/* DEPRECATED */ .pas-source {
 }
 
 .code-pascal pre,
-.pas-source pre {
+/* DEPRECATED */ .pas-source pre {
   font-family: "Courier New", monospace;
   font-size: 9pt;
   margin: 0;
 }
 
 .code-pascal pre.line,
-.pas-source pre.line {
+/* DEPRECATED */ .pas-source pre.line {
 }
 
 .code-pascal pre.odd-line,
-.pas-source pre.odd-line {
+/* DEPRECATED */ .pas-source pre.odd-line {
   background-color: #f0f0f0;
 }
 
 .code-pascal pre.even-line,
-.pas-source pre.even-line {
+/* DEPRECATED */ .pas-source pre.even-line {
 }
 
 .code-pascal .linenum,
-.pas-source .linenum {
+/* DEPRECATED */ .pas-source .linenum {
   border-right: 1px silver solid;
   padding: 1px 4px 1px 0;
   margin-right: 0.75em;

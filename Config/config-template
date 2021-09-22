@@ -13,15 +13,15 @@
 # this file makes makes no changes to PasHi's default state. However it is fully
 # commented and lists every available configuration option.
 #
-# Possible commands are noted below. For an explanation of each command, and its
-# permitted parameters (if any) see the command reference in UserGuide.html.
-#
 # FILE FORMAT
 # -----------
 #
 # Each command must be placed on its own line. Any parameters required by the
 # command must follow the command and be separated from it by one or more
 # spaces. Parameters containing spaces must not be enclosed in quotes.
+#
+# Commands must begin with a alphabetic character or a digit and can contain
+# only aplphabetic characters, digits or hyphens (minus sign).
 #
 # Blank lines are ignored, as are lines beginning with #. Leading and trailing
 # spaces and tabs are also ignored.
@@ -44,6 +44,27 @@
 # should make changes to a copy of this file.
 #
 # Commands entered on PasHi's command line override commands in this file.
+#
+# VALID COMMANDS
+# --------------
+#
+# Only the commands listed below are valid. Each command is a simile of a long
+# form command line command, except that the "--" prefix is omitted.
+#
+# For example the "doc-type" config command is a simile of the "--doc-type"
+# command line command.
+#
+# Short form command line commands are not permitted.
+#
+# Not all command line commands may be used here. Certain commands that would
+# cause PasHi to fail permanently are "blacklisted" and not permitted in the
+# config file. If such a command is present then PasHi will fail with an error
+# message.
+#
+# At present there is only one blacklisted command: "help"
+#
+# A complete list of valid commands follows. Commands and parameters that are
+# slated for removal in the next major release are flagged as deprecated.
 
 
 # --- Input source commands ---
@@ -87,8 +108,10 @@
 # Command:
 #   doc-type <param>
 #     where <param> is one of "xhtml", "html4", "html5" or "fragment"
+#     ** The "html4" <param> is DEPRECATED
 # Default:
 #   doc-type xhtml
+#   ** the default is DEPRECATED: may change in next major release
 
 
 # --- Output file branding ---
@@ -150,6 +173,7 @@
 # --- Comment out embedded style sheets ---
 # Command:
 #   hide-css <param>
+#   ** Command DEPRECATED
 #     where <param> is either "yes" or "no"
 # Default:
 #   hide-css no
@@ -158,6 +182,7 @@
 # --- CSS class naming convention ---
 # Command:
 #   legacy-css <param>
+#   ** Command DEPRECATED
 #     where <param> is either "yes" of "no"
 # Default:
 #   legacy-css no
@@ -185,16 +210,24 @@
 #   striping off
 
 
+# -- Meta tags
+# Commands:
+#   viewport <param>
+#     where <param> is one of "phone" or "none"
+#   edge-compatibility <param>
+#     where <param> is either "on" or "off"
+#   Defaults:
+#     viewport none
+#     ** the viewport default is DEPRECATED: may change in next major release
+#     edge-compatibility off
+
+
 # --- Output verbosity ---
 # Commands:
 #   verbosity <param>
-#     where <param> is either "quiet" or "normal"
+#     where <param> is either "quiet", "no-warn" or "normal"
 #   quiet
 # Default:
 #   verbosity normal
+#   ** the default is DEPRECATED: may change in next major release
 
-
-# --- Help ---
-# While it is possible to specify the help command in this file, you definitely
-# should not. If you do then PasHi will only ever display help and will ignore
-# any other commands in this file or on the command line. You have been warned!

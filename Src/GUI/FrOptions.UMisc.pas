@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2012, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2012-2021, Peter Johnson (www.delphidabbler.com).
  *
  * Frame that is used to edit various miscellaneous PasHi options not edited via
  * other option frames.
@@ -29,6 +29,8 @@ type
     edLanguage: TEdit;
     edTitle: TEdit;
     chkBranding: TCheckBox;
+    chkViewport: TCheckBox;
+    chkEdgeCompatibility: TCheckBox;
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -70,6 +72,12 @@ begin
     edTitle.Text := '';
 
   chkBranding.Checked := Options.GetParamAsBool('branding');
+
+  chkViewport.Checked := not SameText(
+    Options.GetParamAsStr('viewport'), 'none'
+  );
+
+  chkEdgeCompatibility.Checked := Options.GetParamAsBool('edge-compatibility');
 end;
 
 procedure TMiscOptionsFrame.UpdateOptions(const Options: TOptions);
@@ -93,6 +101,13 @@ begin
     Options.Store('title-default');
 
   Options.Store('branding', chkBranding.Checked);
+
+  if chkViewPort.Checked then
+    Options.Store('viewport', 'mobile')
+  else
+    Options.Store('viewport', 'none');
+
+  Options.Store('edge-compatibility', chkEdgeCompatibility.Checked);
 end;
 
 end.
