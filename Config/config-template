@@ -114,7 +114,6 @@
 #   ** the default is DEPRECATED: may change in next major release
 
 
-
 # --- Output file branding ---
 # Command:
 #   branding <param>
@@ -226,7 +225,7 @@
 # --- Output verbosity ---
 # Commands:
 #   verbosity <param>
-#     where <param> is either "quiet" or "normal"
+#     where <param> is either "quiet", "no-warn" or "normal"
 #   quiet
 # Default:
 #   verbosity normal

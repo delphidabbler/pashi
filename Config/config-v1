@@ -79,5 +79,4 @@ legacy-css on
 # style sheet replicates the v1 style while keeping the abiility to use
 # striping and line numbers.
 
-# DEPRECATED FILE: v1-default.css
 embed-css v1-default.css

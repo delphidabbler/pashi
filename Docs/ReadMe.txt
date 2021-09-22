@@ -9,10 +9,10 @@ code. It reads the original source code from standard input, files or the
 clipboard and writes the highlighted code as HTML to standard output, a file,
 or the clipboard.
 
-HTML 4, XHTML and HTML 5 are all supported. CSS is used for styling. Style
-sheets may be external or can be embedded in the HTML document. Several
-predefined style sheets may be installed with the program. You can also create
-your own.
+HTML 4 (deprecated), XHTML and HTML 5 are all supported. CSS is used for
+styling. Style sheets may be external or can be embedded in the HTML document.
+Several predefined style sheets may be installed with the program. You can also
+create your own.
 
 PasHi can either generate complete HTML documents or just fragments of HTML
 code.

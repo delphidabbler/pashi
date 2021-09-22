@@ -3,10 +3,10 @@ Executable Programs
 
 The following programs are covered by this license:
 
-* DelphiDabbler PasHi, copyright (c) 2005-2016 by
+* DelphiDabbler PasHi, copyright (c) 2005-2021 by
   [Peter D Johnson](http://www.delphidabbler.com).
 
-* DelphiDabbler PasHiGUI, copyright (c) 2006-2016 by
+* DelphiDabbler PasHiGUI, copyright (c) 2006-2021 by
   [Peter D Johnson](http://www.delphidabbler.com).
 
 Executable versions of the programs are made available under the terms of the
