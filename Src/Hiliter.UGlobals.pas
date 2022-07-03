@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2005-2016, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2005-2022, Peter Johnson (www.delphidabbler.com).
  *
  * Declares types required when using syntax highlighters. Defines interface
  * supported by highlighter objects and enumeration of different highlighter
@@ -41,21 +41,23 @@ type
     heError         // an unrecognised piece of code (shouldn't happen)
   );
 
-  ///  <summary>Records options used to customise syntaxt highlighting.
+  ///  <summary>Records options used to customise syntax highlighting.
   ///  </summary>
   THiliteOptions = record
   strict private
     fUseLineNumbering: Boolean;
     fWidth: Byte;
     fPadding: Char;
+    fStartNumber: Word;
     fAlternateLines: Boolean;
   public
     property UseLineNumbering: Boolean read fUseLineNumbering;
     property Width: Byte read fWidth;
     property Padding: Char read fPadding;
+    property StartNumber: Word read fStartNumber;
     property AlternateLines: Boolean read fAlternateLines;
     constructor Create(AUseLineNumbering: Boolean; AWidth: Byte;
-      APadding: Char; AAlternateLines: Boolean);
+      APadding: Char; AAlternateLines: Boolean; AStartNumber: Word);
   end;
 
   ///  <summary>Interface implemented by all highlighter classes.</summary>
@@ -81,18 +83,20 @@ implementation
 { THiliteOptions }
 
 constructor THiliteOptions.Create(AUseLineNumbering: Boolean;
-  AWidth: Byte; APadding: Char; AAlternateLines: Boolean);
+  AWidth: Byte; APadding: Char; AAlternateLines: Boolean; AStartNumber: Word);
 begin
   fUseLineNumbering := AUseLineNumbering;
   if fUseLineNumbering then
   begin
     fWidth := AWidth;
     fPadding := APadding;
+    fStartNumber := AStartNumber;
   end
   else
   begin
     fWidth := 0;
     fPadding := #0;
+    fStartNumber := 0;
   end;
   fAlternateLines := AAlternateLines;
 end;

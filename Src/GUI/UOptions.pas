@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2012-2021, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2012-2022, Peter Johnson (www.delphidabbler.com).
  *
  * Object that provides access to, loads, updates and saves options that are
  * passed to PasHi from PasHiGUI. Used to permit PasHiGUI users to customise
@@ -226,6 +226,8 @@ begin
     Store('line-number-width', 3);
   if not IsSet('line-number-padding') then
     Store('line-number-padding', 'space');
+  if not IsSet('line-number-start') then
+    Store('line-number-start', 1);
   if not IsSet('striping') then
     Store('striping', False);
   if not IsSet('embed-css') and not IsSet('link-css')
