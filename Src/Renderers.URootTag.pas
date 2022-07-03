@@ -58,7 +58,7 @@ end;
 
 function TXHTMLRootTagRenderer.Render: string;
 begin
-  Result := '<html xmlns="http://www.w3.org/1999/xhtml"';
+  Result := '<html xmlns="https://www.w3.org/1999/xhtml"';
   if Language <> '' then
     Result := Result + Format(' xml:lang="%0:s" lang="%0:s"', [Language]);
   Result := Result + '>';

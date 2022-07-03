@@ -4,13 +4,13 @@ Executable Programs
 The following programs are covered by this license:
 
 * DelphiDabbler PasHi, copyright (c) 2005-2021 by
-  [Peter D Johnson](http://www.delphidabbler.com).
+  [Peter D Johnson](https://delphidabbler.com).
 
 * DelphiDabbler PasHiGUI, copyright (c) 2006-2021 by
-  [Peter D Johnson](http://www.delphidabbler.com).
+  [Peter D Johnson](https://delphidabbler.com).
 
 Executable versions of the programs are made available under the terms of the
-[Mozilla Public License v2.0](http://mozilla.org/MPL/2.0/). This means you can
+[Mozilla Public License v2.0](https://mozilla.org/MPL/2.0/). This means you can
 use, copy and distribute PasHi and PasHiGUI as you wish.
 
 You may also modify the programs as you wish and you may distribute copies of
@@ -30,7 +30,7 @@ this release.
 
 With the exception of the files listed under "Exceptions" below, all of PasHi
 and PasHiGUI's original source code is made available under the terms of the
-[Mozilla Public License v2.0](http://mozilla.org/MPL/2.0/). Most source files
+[Mozilla Public License v2.0](https://mozilla.org/MPL/2.0/). Most source files
 will contain a comment to this effect. Any file without such a comment should
 be treated as being covered by this license unless it is mentioned below.
 

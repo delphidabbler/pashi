@@ -7,8 +7,8 @@
 ;
 ; Version information description file used to create VerInfo.res resource file.
 ; Build this file with DelphiDabbler Version Information Editor from
-; http://www.delphidabbler.com/. Compile the resulting .rc file using the
-; Borland BRCC32 resource compiler.
+; https://delphidabbler.com/. Compile the resulting .rc file using the Borland
+; BRCC32 resource compiler.
 ;===============================================================================
 
 [Fixed File Info]
@@ -30,7 +30,7 @@ Company Name=DelphiDabbler
 File Description=PasHi Pascal Highlighter
 File Version=<#F1>.<#F2>.<#F3> build <#F4>
 Internal Name=<SHORTFNAME>
-Legal Copyright=Copyright (C) 2005-<YEAR>, Peter Johnson (www.delphidabbler.com).
+Legal Copyright=Copyright (C) 2005-<YEAR>, Peter Johnson (https://delphidabbler.com).
 Legal Trademark=
 Original File Name=PasHi.exe
 Private Build=
@@ -41,4 +41,3 @@ Special Build=
 [Configuration Details]
 Identifier=
 NumRCComments=0
-

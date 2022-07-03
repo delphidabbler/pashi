@@ -25,7 +25,7 @@ PasHi's source code is hosted on GitHub as part of the [delphidabbler/pashi](htt
 
 > **Note:** Up to and including release 2.0 beta 2 the project's source code was maintained in a Subversion repository on GoogleCode. That repo was later converted to Git and imported to GitHub. Consequently all changes up to release 2.0 beta 2 were made to `master`. Some later changes, up to and including the creation of this ReadMe file were also committed to directly to `master`.
 
-The [Git Flow](http://nvie.com/posts/a-successful-git-branching-model/) methodology has now been adopted. This means that all development work is now done on the `develop` branch or special `feature` branches off it, leaving `master` in a production ready state.
+The [Git Flow](https://nvie.com/posts/a-successful-git-branching-model/) methodology has now been adopted. This means that all development work is now done on the `develop` branch or special `feature` branches off it, leaving `master` in a production ready state.
 
 Change Log
 ----------
@@ -37,4 +37,4 @@ License
 
 The program's EULA can be found in the file `LICENSE.md` that is installed with the program. This file can also be found in the root of the GitHub repository.
 
-Much of the source code is released under the [Mozilla Public License v2.0](http://mozilla.org/MPL/2.0/).
+Much of the source code is released under the [Mozilla Public License v2.0](https://mozilla.org/MPL/2.0/).

@@ -39,8 +39,8 @@
 #define AppName "PasHi"
 #define AppVersion DeleteToVerStart(GetFileProductVersion(ExeProg))
 #define Copyright GetStringFileInfo(ExeProg, LEGAL_COPYRIGHT)
-#define WebAddress "www.delphidabbler.com"
-#define WebURL "http://" + WebAddress + "/"
+#define WebAddress "delphidabbler.com"
+#define WebURL "https://" + WebAddress + "/"
 #define AppURL WebURL + "/software/pashi"
 #define AppDataDir "{commonappdata}" + "\" + AppPublisher + "\" + AppName;
 

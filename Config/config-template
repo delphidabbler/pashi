@@ -164,7 +164,7 @@
 #   embed-css C:\CSS\style.css
 #   embed-css .\style.css
 #   embed-css delphi7.css
-#   link-css http://example.com/css/example.css
+#   link-css https://example.com/css/example.css
 #   link-css example.css
 # Default:
 #   default-css
