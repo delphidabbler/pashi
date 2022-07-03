@@ -577,8 +577,7 @@ resourcestring
   sBadCommand = 'Unrecognised command "%s"';
   sCantBeSwitch = '%s cannot be a switch command';
   sMustBeSwitch = '%s must be a switch command: append "+" or "-"';
-  sBlacklisted = 'The "%s" command is not permitted in the config file.'#13#10
-    + 'Please edit the file';
+  sBlacklisted = 'The "%s" command is not permitted.';
   // Warnings
   sDeprecatedCmd = 'The "%s" command is deprecated';
   sDepDocType = 'The "html4" parameter of the "%s" command is deprecated';
