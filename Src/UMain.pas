@@ -34,6 +34,7 @@ type
     procedure Configure;
     procedure SignOn;
     procedure ShowHelp;
+    procedure ShowVersion;
     procedure ShowWarnings;
     function GetInputSourceCode: string;
     procedure WriteOutput(const S: string);
@@ -103,10 +104,14 @@ begin
     // Configure program
     Configure;
     // Decide if program is to write to console
-    fConsole.Silent := (fConfig.Verbosity = vbQuiet) and not fConfig.ShowHelp;
+    fConsole.Silent := (fConfig.Verbosity = vbQuiet)
+      and not fConfig.ShowHelp and not fConfig.ShowVersion;
     if fConfig.ShowHelp then
       // Want help so show it
       ShowHelp
+    else if fConfig.ShowVersion then
+      // Want version number so show it
+      ShowVersion
     else
     begin
       // Sign on and initialise program
@@ -169,6 +174,11 @@ begin
   finally
     RS.Free;
   end;
+end;
+
+procedure TMain.ShowVersion;
+begin
+  fConsole.WriteLn(GetFileVersionStr);
 end;
 
 procedure TMain.ShowWarnings;
