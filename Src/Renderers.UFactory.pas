@@ -69,7 +69,7 @@ begin
       DocParams.ViewportTag := TXMLViewportTagRenderer.Create(Config.Viewport);
       DocParams.EdgeCompatibilityTag :=
         TXMLEdgeCompatibilityTagRenderer.Create(not Config.EdgeCompatibility);
-      DocParams.GeneratorTag := TNewMetaBrandingRenderer.Create(
+      DocParams.GeneratorTag := TXHTMLMetaBrandingRenderer.Create(
         not Config.BrandingPermitted
       );
       DocParams.StyleSheet := TStyleRendererFactory.CreateRenderer(Config);
@@ -88,7 +88,7 @@ begin
       DocParams.ViewportTag := THTMLViewportTagRenderer.Create(Config.Viewport);
       DocParams.EdgeCompatibilityTag :=
         THTMLEdgeCompatibilityTagRenderer.Create(not Config.EdgeCompatibility);
-      DocParams.GeneratorTag := TOldMetaBrandingRenderer.Create(
+      DocParams.GeneratorTag := THTMLMetaBrandingRenderer.Create(
         not Config.BrandingPermitted
       );
       DocParams.StyleSheet := TStyleRendererFactory.CreateRenderer(Config);
@@ -107,7 +107,7 @@ begin
       DocParams.ViewportTag := THTMLViewportTagRenderer.Create(Config.Viewport);
       DocParams.EdgeCompatibilityTag :=
         THTMLEdgeCompatibilityTagRenderer.Create(not Config.EdgeCompatibility);
-      DocParams.GeneratorTag := TNewMetaBrandingRenderer.Create(
+      DocParams.GeneratorTag := THTMLMetaBrandingRenderer.Create(
         not Config.BrandingPermitted
       );
       DocParams.StyleSheet := TStyleRendererFactory.CreateRenderer(Config);

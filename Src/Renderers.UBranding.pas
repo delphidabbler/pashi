@@ -43,13 +43,13 @@ type
   end;
 
 type
-  TNewMetaBrandingRenderer = class sealed(TMetaBrandingRenderer, IRenderer)
+  TXHTMLMetaBrandingRenderer = class sealed(TMetaBrandingRenderer, IRenderer)
   strict protected
     function TagCloser: string; override;
   end;
 
 type
-  TOldMetaBrandingRenderer = class sealed(TMetaBrandingRenderer, IRenderer)
+  THTMLMetaBrandingRenderer = class sealed(TMetaBrandingRenderer, IRenderer)
   strict protected
     function TagCloser: string; override;
   end;
@@ -101,16 +101,16 @@ begin
   Result := Format(MetaTagFmt, [MetaContent, TagCloser]);
 end;
 
-{ TNewMetaBrandingRenderer }
+{ TXHTMLMetaBrandingRenderer }
 
-function TNewMetaBrandingRenderer.TagCloser: string;
+function TXHTMLMetaBrandingRenderer.TagCloser: string;
 begin
   Result := ' />';
 end;
 
-{ TOldMetaBrandingRenderer }
+{ THTMLMetaBrandingRenderer }
 
-function TOldMetaBrandingRenderer.TagCloser: string;
+function THTMLMetaBrandingRenderer.TagCloser: string;
 begin
   Result := '>';
 end;
