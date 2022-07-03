@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2012, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2012-2022, Peter Johnson (www.delphidabbler.com).
  *
  * Frame that is used to edit various PasHi options relating to how source code
  * lines are styled.
@@ -26,6 +26,8 @@ type
     lblNumberWidth: TLabel;
     lblPadding: TLabel;
     cbPadding: TComboBox;
+    lblStartNumber: TLabel;
+    seNumberStart: TSpinEdit;
     procedure chkLineNumberingClick(Sender: TObject);
   private
     fPaddingMap: TValueMap;
@@ -75,6 +77,7 @@ procedure TLineStyleOptionsFrame.Initialise(const Options: TOptions);
 begin
   chkLineNumbering.Checked := Options.GetParamAsBool('line-numbering');
   seNumberWidth.Value := Options.GetParamAsInt('line-number-width');
+  seNumberStart.Value := Options.GetParamAsInt('line-number-start');
   cbPadding.ItemIndex := fPaddingMap.IndexOfValue(
     Options.GetParamAsStr('line-number-padding')
   );
@@ -86,6 +89,7 @@ procedure TLineStyleOptionsFrame.UpdateOptions(const Options: TOptions);
 begin
   Options.Store('line-numbering', chkLineNumbering.Checked);
   Options.Store('line-number-width', seNumberWidth.Value);
+  Options.Store('line-number-start', seNumberStart.Value);
   Options.Store(
     'line-number-padding', fPaddingMap.ValueByIndex(cbPadding.ItemIndex)
   );
@@ -96,6 +100,7 @@ procedure TLineStyleOptionsFrame.UpdateControls;
 begin
   lblNumberWidth.Enabled := chkLineNumbering.Checked;
   seNumberWidth.Enabled := chkLineNumbering.Checked;
+  seNumberStart.Enabled := chkLineNumbering.Checked;
   lblPadding.Enabled := chkLineNumbering.Checked;
   cbPadding.Enabled := chkLineNumbering.Checked;
 end;

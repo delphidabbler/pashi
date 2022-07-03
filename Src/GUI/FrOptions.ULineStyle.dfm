@@ -13,6 +13,13 @@ inherited LineStyleOptionsFrame: TLineStyleOptionsFrame
     Height = 13
     Caption = 'Line number padding character:'
   end
+  object lblStartNumber: TLabel
+    Left = 24
+    Top = 115
+    Width = 91
+    Height = 13
+    Caption = 'Line number start: '
+  end
   object chkLineNumbering: TCheckBox
     Left = 8
     Top = 8
@@ -24,11 +31,11 @@ inherited LineStyleOptionsFrame: TLineStyleOptionsFrame
   end
   object chkStriping: TCheckBox
     Left = 8
-    Top = 116
+    Top = 144
     Width = 177
     Height = 17
     Caption = 'Highlight alternate lines'
-    TabOrder = 3
+    TabOrder = 4
   end
   object seNumberWidth: TSpinEdit
     Left = 124
@@ -49,5 +56,16 @@ inherited LineStyleOptionsFrame: TLineStyleOptionsFrame
     Height = 21
     Style = csDropDownList
     TabOrder = 2
+  end
+  object seNumberStart: TSpinEdit
+    Left = 124
+    Top = 110
+    Width = 45
+    Height = 22
+    MaxLength = 1
+    MaxValue = 9999
+    MinValue = 1
+    TabOrder = 3
+    Value = 1
   end
 end
