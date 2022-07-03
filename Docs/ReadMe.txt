@@ -27,7 +27,6 @@ provides a point and click interface to PasHi. Most, but not all, of PasHi's
 command line options are supported. Files and text can be dragged and dropped
 onto the GUI to highlight them.
 
-
 Why another Pascal highlighter?
 -------------------------------
 
@@ -48,7 +47,6 @@ I had already written highlighter code for my CodeSnip program, so I extracted
 that, tweaked it and wrapped it up in a command line program. Having made it I
 thought I'd release it in case anyone else found it useful. Since then it's been
 greatly enhanced.
-
 
 Installation
 ------------
@@ -122,9 +120,9 @@ The installer makes the following changes to your system:
   * Files required by the uninstaller are stored in the main installation's
     Uninst sub-folder.
 
-  * The program's uninstall information is registered with the Programs and
-    Features (aka Add / Remove Programs) control panel applet, which in turn
-    updates the system registry.
+  * The program's uninstall information is registered with the "Apps and
+    Features" (aka "Programs and Features" & "Add / Remove Programs") control
+    panel applet, which in turn updates the system registry.
 
   * The system path will have been modified for all users if you chose the
     relevant option.
@@ -136,23 +134,22 @@ The installer makes the following changes to your system:
     time that PasHi is run by each user, these files are also copied to that
     users's %AppData%\DelphiDabbler\PasHi directory.
 
-
 Uninstallation
 --------------
 
-Open the Programs and Features (aka Add / Remove Programs) applet from the
-Control Panel, navigate to the DelphiDabbler PasHi entry and click the Remove or
-Uninstall button. You will be asked to confirm removal of the program. Click Yes
-to proceed.
+Open the "Apps and Features" (aka "Programs and Features" & "Add / Remove
+Programs") applet from the Control Panel, navigate to the DelphiDabbler PasHi
+entry and click the Remove or Uninstall button. You will be asked to confirm
+removal of the program. Click Yes to proceed.
 
 PasHi, PasHiGUI (if installed) and all documentation will be removed.
 
-The directory %ProgramData%\DelphiDabbler\PasHi will be removed but each user's %AppData%\DelphiDabbler\PasHi directory and all its files will be left behind.
+The directory %ProgramData%\DelphiDabbler\PasHi will be removed but each user's
+%AppData%\DelphiDabbler\PasHi directory and all its files will be left behind.
 
 PasHi's install directory will be removed from the system path if present.
 
 Installation information should be removed from the registry by the uninstaller.
-
 
 Documentation
 -------------
@@ -160,24 +157,21 @@ Documentation
 Details of how to use both the command line and GUI programs can be found in the
 file UserGuide.html that is installed with the program.
 
-
 Bug Reports
 -----------
 
 Please report any bugs using the program's issue tracker on GitHub at
-<https://github.com/delphidabbler/pashi/issues>. You will need a free GitHub
+https://github.com/delphidabbler/pashi/issues. You will need a free GitHub
 account in order to create an issue.
-
 
 Source Code
 -----------
 
 Source code is available from the program's GitHub repository at
-<https://github.com/delphidabbler/pashi/>.
+https://github.com/delphidabbler/pashi/.
 
 Source code of each release of the program going back to v1.0.0 is available for
-download from <https://github.com/delphidabbler/pashi/releases>.
-
+download from https://github.com/delphidabbler/pashi/releases.
 
 License
 -------
