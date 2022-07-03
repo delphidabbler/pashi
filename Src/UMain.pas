@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2007-2021, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2007-2022, Peter Johnson (www.delphidabbler.com).
  *
  * Implements top level class that executes program.
 }
@@ -185,16 +185,12 @@ end;
 
 procedure TMain.SignOn;
 resourcestring
-  // Sign on message format string
-  sSignOn = 'PasHi %s by DelphiDabbler (www.delphidabbler.com)';
-var
-  Msg: string;  // sign on message text
+  // Sign on message
+  sSignOn = 'PasHi by DelphiDabbler (https://delphidabbler.com)';
 begin
-  // Create and write sign on message
-  Msg := Format(sSignOn, [GetFileVersionStr]);
-  fConsole.WriteLn(Msg);
-  // underline sign-on message with dashes
-  fConsole.WriteLn(StringOfChar('-', Length(Msg)));
+  // write sign on message, underlined with dashes
+  fConsole.WriteLn(sSignOn);
+  fConsole.WriteLn(StringOfChar('-', Length(sSignOn)));
   // record that we've signed on
   fSignedOn := True;
 end;
