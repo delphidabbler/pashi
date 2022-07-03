@@ -61,7 +61,7 @@
 # config file. If such a command is present then PasHi will fail with an error
 # message.
 #
-# At present there is only one blacklisted command: "help"
+# At present there are two blacklisted commands: "help" & "version".
 #
 # A complete list of valid commands follows. Commands and parameters that are
 # slated for removal in the next major release are flagged as deprecated.
@@ -196,13 +196,10 @@
 #     where <param> is a number in range 1..6
 #   line-number-padding <param>
 #     where <param> is one of "space", "zero", "dot" or "dash"
-#   line-number-start <param>
-#     where <param> is a number in range 1..9999
 # Defaults:
 #   line-numbering off
 #   line-number-width 3
 #   line-number-padding space
-#   line-number-start 1
 
 
 # -- Line styling
