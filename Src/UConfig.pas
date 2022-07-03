@@ -85,10 +85,11 @@ type
   ///  determine how program behaves.</summary>
   TConfig = class(TObject)
   private
-    fDocType: TDocType;           // Value of DocType property
-    fInputSource: TInputSource;   // Value of InputSource property
-    fOutputSink: TOutputSink;     // Value of OutputSink property
-    fShowHelp: Boolean;           // Values of ShowHelp property
+    fDocType: TDocType;
+    fInputSource: TInputSource;
+    fOutputSink: TOutputSink;
+    fShowHelp: Boolean;
+    fShowVersion: Boolean;
     fVerbosity: TVerbosity;
     fHideCSS: Boolean;
     fOutputFile: string;
@@ -123,6 +124,8 @@ type
       read fVerbosity write fVerbosity default vbNormal;
     property ShowHelp: Boolean
       read fShowHelp write fShowHelp default False;
+    property ShowVersion: Boolean
+      read fShowVersion write fShowVersion default False;
     property HideCSS: Boolean read fHideCSS write fHideCSS;
     property CSSSource: TCSSSource read fCSSSource write fCSSSource;
     property CSSLocation: string read fCSSLocation write fCSSLocation;
@@ -180,6 +183,7 @@ begin
   fOutputSink := osStdOut;
   fDocType := dtXHTML;
   fShowHelp := False;
+  fShowVersion := False;
   fHideCSS := False;
   fOutputEncodingId := oeUTF8;
   fBrandingPermitted := True;

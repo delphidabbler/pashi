@@ -93,12 +93,12 @@ PasHi supports the following commands:
                               zero - pad with zeros
                               dash - pad with dashes (-)
                               dot - pad with dots (.).
+--line-number-start   -z    Determines line number of first line of listing,
+                            in range 1..9999 [default 1].
 --line-number-width   -i    Determines minimum width, in characters, occupied
                             by line numbers. Line numbers are padded to this
                             width if necessary. The next parameter specifies
                             a width in the range 1..6 [default 3].
---line-number-start   -z    Determines line number of first line of listing,
-                            in range 1..9999 [default 1].
 --link-css            -k    Generates a <link> tag in the output HTML document
                             that references an external CSS file. A full or
                             partial URL must be specified in the next
@@ -139,6 +139,8 @@ PasHi supports the following commands:
                               no-warn - no warnings: sign-on, error and
                                 completion messages only.
                               quiet - error messages only.
+--version                   Displays program version. Do not use with other
+                            commands.
 --viewport                  Determines the type, if any, of viewport meta-data
                             written to a HTML document head section. The next
                             parameter must be one of:
@@ -152,7 +154,8 @@ application data directory. Commands are listed one per line and have the same
 names and functionality as the long form commands above, but without the
 leading "--". If a command takes a parameter it must be entered on the same
 line as the command and separated from it by one or more spaces. Parameters
-containing spaces must not be enclosed in quotes. The "help" command must *not*
-be used in a config file otherwise PasHi will exit with an error.
+containing spaces must not be enclosed in quotes. The "help" and "version"
+commands must *not* be used in a config file otherwise PasHi will exit with an
+error.
 
 PasHi's application data directory is %AppData%\DelphiDabbler\PasHi.

@@ -912,9 +912,9 @@
         <li>
           <code>quiet</code>: Quiet mode. Displays no sign on, completion or
           warning messages. If the program detects errors or if the
-          <code>--help</code> command is used then this option is ignored and
-          the program acts as if the <code>no-warn</code> parameter had been
-          specified.
+          <code>--help</code> or <code>--version</code> commands are used then
+          this option is ignored and the program acts as if the
+          <code>no-warn</code> parameter had been specified.
         </li>
       </ul>
     </td>
@@ -931,6 +931,14 @@
     <td class="switch">-h</td>
     <td>
       Displays a help screen. The remainder of the command line is ignored.
+    </td>
+  </tr>
+  <tr>
+    <td class="switch">--version</td>
+    <td class="switch">&nbsp;</td>
+    <td>
+      Displays the program's version number. The remainder of the command line
+      is ignored, except for <code>--help</code>, which takes precendence.
     </td>
   </tr>
 </table>
@@ -1122,9 +1130,10 @@
     </p>
     <p class="pullout">
       <strong>WARNING:</strong>
-      The exception is that the  <code>--help</code> command has no equivalent
-      config file command. If <code>help</code> is included in the config file
-      <em>PasHi</em> will stop with an error every time it is run.
+      The <code>--help</code> and <code>--version</code> commands are the
+      exceptions and have no equivalent config file command. If either
+      <code>help</code> or <code>version</code> are included in the config file
+      then <em>PasHi</em> will stop with an error every time it is run.
     </p>
   </li>
   <li>
@@ -1134,8 +1143,8 @@
     </p>
     <p class="pullout">
       <strong>WARNING:</strong>
-      Using one of these commands in the config file will cause <em>PasHi</em>
-      to stop with an error every time it is run.
+      Using a short form command in the config file will cause <em>PasHi</em> to
+      stop with an error every time it is run.
     </p>
   </li>
   <li>

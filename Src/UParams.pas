@@ -55,7 +55,8 @@ type
     siQuiet,            // don't display any output to console
     siViewport,         // which viewport meta-data to output, if any
     siEdgeCompatibility,// whether edge compatibility info meta-data is output
-    siLineNumberStart   // specifies starting line number
+    siLineNumberStart,  // specifies starting line number
+    siVersion           // display program's version
   );
 
 type
@@ -250,6 +251,7 @@ begin
     Add('--striping', siStriping);
     Add('--viewport', siViewport);
     Add('--edge-compatibility', siEdgeCompatibility);
+    Add('--version', siVersion);
     // commands kept for backwards compatibility with v1.x
     Add('-frag', siFragment);
     Add('-hidecss', siForceHideCSS);
@@ -280,6 +282,7 @@ begin
   with fConfigBlacklist do
   begin
     Add(siHelp);
+    Add(siVersion);
   end;
   // lookup table for --encoding command values: case insensitive
   fEncodingLookup := TDictionary<string,TOutputEncodingId>.Create(
@@ -761,6 +764,8 @@ begin
     end;
     siHelp:
       fConfig.ShowHelp := True;
+    siVersion:
+      fConfig.ShowVersion := True;
     siVerbosity:
     begin
       fConfig.Verbosity := GetVerbosityParameter(Command);
