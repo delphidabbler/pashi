@@ -213,8 +213,9 @@ begin
   // Program always use normal verbosity: don't need option
   Delete('verbosity');
   Delete('quiet');
-  // Help command shouldn't be present, but make sure!
+  // Help & version commands shouldn't be present, but make sure!
   Delete('help');
+  Delete('version');
 
   // Set defaults for user-editable values if not present in config files
   // these defaults are same as PasHi defaults per its documentation
