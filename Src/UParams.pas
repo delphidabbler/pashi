@@ -561,7 +561,7 @@ procedure TParams.Parse;
   end;
 
 resourcestring
-  sConfigFileErrorFmt = '%s (in config file)';
+  sConfigFileErrorFmt = '(in config file) %s';
   sCommandLineErrorFmt = '%s';
 begin
   fFirstCommandFound := False;
