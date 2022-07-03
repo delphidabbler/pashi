@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2005-2021, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2005-2022, Peter Johnson (www.delphidabbler.com).
  *
  * Provides highlighter classes used to format and highlight source code in
  * HTML.
@@ -149,7 +149,7 @@ var
   Parser: THilitePasParser;   // object used to parse source
 begin
   fOptions := Options;
-  fLineNumber := 0;
+  fLineNumber := Options.StartNumber - 1;
   fWriter := TStringBuilder.Create;
   try
     // Create parser
