@@ -445,13 +445,15 @@ var
   Value: Integer;
 resourcestring
   sNotNumber = 'Numeric parameter expected for %s';
-  sOutOfRange = 'Parameter for %0:s must be in range %1:d..%2:d';
+  sOutOfRange = 'Parameter for %s must be in range ';
 begin
   Param := GetStringParameter(Cmd);
   if not TryStrToInt(Param, Value) then
     raise ECommandError.Create(Cmd.Name, sNotNumber);
   if (Value < Lo) or (Value > Hi) then
-    raise ECommandError.Create(Cmd.Name, Format(sOutOfRange, [Lo, Hi]));
+    raise ECommandError.Create(
+      Cmd.Name, sOutOfRange + Format('%0:d..%1:d', [Lo, Hi])
+    );
   Result := UInt16(Value);
 end;
 
