@@ -8,9 +8,42 @@ This change log begins with the first ever pre-release version of what was then 
 
 From release 2.0.0 the version numbering has attempted to adhere to the principles of [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Release 2.2.0 - 2022-07-04
+
+This release includes _PasHi_ v2.2.0 and _PasHiGUI_ v1.2.0. Changes are as follows:
+
+### PasHi v2.2.0 [build 13]
+
+* Added new `--line-number-start` command (and `-z` short form) to enable the starting line number in line numbered output to be specified.
+* Added new `--version` command to display the program's version number. Added the associated `version` command to the config file blacklist since it is not valid for inclusion in a config file.
+* Updated sign-on message: excluded program version number and updated web address.
+* Added program version number to branding included in output HTML.
+* Fixed erroneous error message for out of range numeric parameters.
+* Modified config file error messages.
+* Fixed some HTML5 inline tag formatting errors in generated output: XHTML style closing tags were being used for some elements.
+* Updated text of help screen re the new commands.
+
+### PasHiGUI v1.2.0 [build 7]
+
+* Updated options pane to provide support for the new `--line-number-start` options.
+* Ensured any `version` command in the program options file is ignored.
+* Fixed CSS errors in HTML used to display code fragments.
+
+### General
+
+* Updated user guide `UserGuide.html`:
+  * Added details of new commands
+  * Some clarifications and corrections
+  * Fixed CSS errors
+* Made minor changes to read-me file that is included in distributions.
+* Updated various web addresses in documentation.
+* Updated `config-template` comments:
+  * noted fact that the `version` command can't be used in the `config` file
+  * added details of new `line-number-start` command & its parameters
+
 ## Release 2.1.0 - 2021-09-22
 
-This release includes _PasHi_ v2.1.0 and _PasHiGUI_ v1.1.0. Change are as follows:
+This release includes _PasHi_ v2.1.0 and _PasHiGUI_ v1.1.0. Changes are as follows:
 
 ### PasHi v2.1.0 [build 12]
 
