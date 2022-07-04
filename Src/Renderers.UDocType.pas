@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2012, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2012-2022, Peter Johnson (www.delphidabbler.com).
  *
  * Provides classes that render the DOCTYPE statement for the head of complete
  * HTML documents of different types.
@@ -42,7 +42,7 @@ implementation
 function TXHTMLDocTypeRenderer.Render: string;
 begin
   Result := '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" '
-    + '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'
+    + '"https://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'
 end;
 
 { THTML4DocTypeRenderer }
@@ -50,7 +50,7 @@ end;
 function THTML4DocTypeRenderer.Render: string;
 begin
   Result := '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" '
-    + '"http://www.w3.org/TR/html4/strict.dtd">'
+    + '"https://www.w3.org/TR/html4/strict.dtd">'
 end;
 
 { THTML5DocTypeRenderer }

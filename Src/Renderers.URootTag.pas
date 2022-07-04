@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2012, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2012-2022, Peter Johnson (www.delphidabbler.com).
  *
  * Classes that generate the correct document root (<html>) tag for each
  * supported document type.
@@ -58,7 +58,7 @@ end;
 
 function TXHTMLRootTagRenderer.Render: string;
 begin
-  Result := '<html xmlns="http://www.w3.org/1999/xhtml"';
+  Result := '<html xmlns="https://www.w3.org/1999/xhtml"';
   if Language <> '' then
     Result := Result + Format(' xml:lang="%0:s" lang="%0:s"', [Language]);
   Result := Result + '>';
