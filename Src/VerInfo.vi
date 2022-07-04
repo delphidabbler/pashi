@@ -3,17 +3,17 @@
 ; v. 2.0. If a copy of the MPL was not distributed with this file, You can
 ; obtain one at http://mozilla.org/MPL/2.0/
 ;
-; Copyright (C) 2005-2021, Peter Johnson (www.delphidabbler.com).
+; Copyright (C) 2005-2022, Peter Johnson (www.delphidabbler.com).
 ;
 ; Version information description file used to create VerInfo.res resource file.
 ; Build this file with DelphiDabbler Version Information Editor from
-; http://www.delphidabbler.com/. Compile the resulting .rc file using the
-; Borland BRCC32 resource compiler.
+; https://delphidabbler.com/. Compile the resulting .rc file using the Borland
+; BRCC32 resource compiler.
 ;===============================================================================
 
 [Fixed File Info]
-File Version #=2, 1, 0, 12
-Product Version #=2, 1, 0, 0
+File Version #=2, 2, 0, 13
+Product Version #=2, 2, 0, 0
 File OS=4
 File Type=1
 File Sub-Type=0
@@ -30,7 +30,7 @@ Company Name=DelphiDabbler
 File Description=PasHi Pascal Highlighter
 File Version=<#F1>.<#F2>.<#F3> build <#F4>
 Internal Name=<SHORTFNAME>
-Legal Copyright=Copyright (C) 2005-<YEAR>, Peter Johnson (www.delphidabbler.com).
+Legal Copyright=Copyright (C) 2005-<YEAR>, Peter Johnson (https://delphidabbler.com).
 Legal Trademark=
 Original File Name=PasHi.exe
 Private Build=
@@ -41,4 +41,3 @@ Special Build=
 [Configuration Details]
 Identifier=
 NumRCComments=0
-

@@ -90,10 +90,6 @@ object MainForm: TMainForm
     object tsRendered: TTabSheet
       Caption = 'Display View'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object pnlRendered: TPanel
         Left = 0
         Top = 0
@@ -241,6 +237,7 @@ object MainForm: TMainForm
       Top = 18
       Width = 223
       Height = 357
+      VertScrollBar.Position = 27
       VertScrollBar.Tracking = True
       Align = alNone
       Anchors = [akLeft, akTop, akBottom]
@@ -253,17 +250,18 @@ object MainForm: TMainForm
       ParentColor = True
       TabOrder = 2
       object cpnlMisc: TCategoryPanel
-        Top = 190
+        Top = 163
         Height = 30
         Caption = 'Miscellaneous'
         Color = clWindow
         Collapsed = True
         TabOrder = 0
+        ExplicitTop = 325
         ExpandedHeight = 262
         inline frmMisc: TMiscOptionsFrame
           Left = 0
           Top = 0
-          Width = 219
+          Width = 202
           Height = 0
           Align = alClient
           TabOrder = 0
@@ -272,13 +270,13 @@ object MainForm: TMainForm
         end
       end
       object cpnlLines: TCategoryPanel
-        Top = 160
+        Top = 133
         Height = 30
         Caption = 'Line Numbering && Striping'
         Color = clWindow
         Collapsed = True
         TabOrder = 1
-        ExpandedHeight = 167
+        ExpandedHeight = 192
         inline frmLines: TLineStyleOptionsFrame
           Left = 0
           Top = 0
@@ -291,7 +289,7 @@ object MainForm: TMainForm
         end
       end
       object cpnlCSS: TCategoryPanel
-        Top = 130
+        Top = 103
         Height = 30
         Caption = 'Style Sheets'
         Color = clWindow
@@ -301,7 +299,7 @@ object MainForm: TMainForm
         inline frmCSS: TCSSOptionsFrame
           Left = 0
           Top = 0
-          Width = 219
+          Width = 202
           Height = 0
           Align = alClient
           TabOrder = 0
@@ -310,7 +308,7 @@ object MainForm: TMainForm
         end
       end
       object cpnlDocType: TCategoryPanel
-        Top = 0
+        Top = -27
         Height = 130
         Caption = 'Document Type'
         Color = clWindow
@@ -318,7 +316,7 @@ object MainForm: TMainForm
         inline frmDocType: TDocTypeOptionsFrame
           Left = 0
           Top = 0
-          Width = 219
+          Width = 202
           Height = 104
           Align = alClient
           TabOrder = 0
@@ -465,7 +463,7 @@ object MainForm: TMainForm
     Left = 336
     Top = 152
     Bitmap = {
-      494C010105000900180010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C0101050009001C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

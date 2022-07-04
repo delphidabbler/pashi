@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2012-2016, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2012-2022, Peter Johnson (www.delphidabbler.com).
  *
  * Classes that render style information for inclusion in output HTML documents.
  * A <style> tag is generated for embedded CSS and a <link> tag is generated for
@@ -35,9 +35,9 @@ type
   strict private
     var
       fURL: string;
-      fNewStyleTag: Boolean;
+      fXHTMLStyle: Boolean;
   public
-    constructor Create(const URL: string; const NewStyleTag: Boolean);
+    constructor Create(const URL: string; const XHTMLStyle: Boolean);
     function Render: string;
   end;
 
@@ -95,7 +95,7 @@ begin
       );
     csLink:
       Result := TLinkedStyleSheetRenderer.Create(
-        Config.CSSLocation, Config.DocType <> dtHTML4
+        Config.CSSLocation, Config.DocType = dtXHTML
       );
   end;
 end;
@@ -103,12 +103,12 @@ end;
 { TLinkedStyleSheetRenderer }
 
 constructor TLinkedStyleSheetRenderer.Create(const URL: string;
-  const NewStyleTag: Boolean);
+  const XHTMLStyle: Boolean);
 begin
   Assert(URL <> '', ClassName + '.Create: URL is empty');
   inherited Create;
   fURL := URL;
-  fNewStyleTag := NewStyleTag;
+  fXHTMLStyle := XHTMLStyle;
 end;
 
 function TLinkedStyleSheetRenderer.Render: string;
@@ -117,7 +117,7 @@ const
 begin
   Result := Format(
     '<link type="text/css" rel="stylesheet" href="%s"%s>',
-    [fURL, TagEnders[fNewStyleTag]]
+    [fURL, TagEnders[fXHTMLStyle]]
   );
 end;
 

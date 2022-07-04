@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2014-2016, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2014-2022, Peter Johnson (www.delphidabbler.com).
  *
  * Gets details of host program's version number from its version information
  * resources.
@@ -60,7 +60,7 @@ begin
           FFI := PVSFixedFileInfo(ValPtr)^;
           // Build version info string from file version fields of FFI
           Result := Format(
-            'v%d.%d.%d',
+            '%d.%d.%d',
             [
               HiWord(FFI.dwFileVersionMS),
               LoWord(FFI.dwFileVersionMS),

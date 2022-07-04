@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2012-2021, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2012-2022, Peter Johnson (www.delphidabbler.com).
  *
  * Provides factory for creating objects that render the supported types of
  * out document.
@@ -50,7 +50,8 @@ begin
       Config.UseLineNumbering,
       Config.LineNumberWidth,
       Config.LineNumberPadding,
-      Config.Striping
+      Config.Striping,
+      Config.LineNumberStart
     )
   );
   case Config.DocType of
@@ -68,7 +69,7 @@ begin
       DocParams.ViewportTag := TXMLViewportTagRenderer.Create(Config.Viewport);
       DocParams.EdgeCompatibilityTag :=
         TXMLEdgeCompatibilityTagRenderer.Create(not Config.EdgeCompatibility);
-      DocParams.GeneratorTag := TNewMetaBrandingRenderer.Create(
+      DocParams.GeneratorTag := TXHTMLMetaBrandingRenderer.Create(
         not Config.BrandingPermitted
       );
       DocParams.StyleSheet := TStyleRendererFactory.CreateRenderer(Config);
@@ -87,7 +88,7 @@ begin
       DocParams.ViewportTag := THTMLViewportTagRenderer.Create(Config.Viewport);
       DocParams.EdgeCompatibilityTag :=
         THTMLEdgeCompatibilityTagRenderer.Create(not Config.EdgeCompatibility);
-      DocParams.GeneratorTag := TOldMetaBrandingRenderer.Create(
+      DocParams.GeneratorTag := THTMLMetaBrandingRenderer.Create(
         not Config.BrandingPermitted
       );
       DocParams.StyleSheet := TStyleRendererFactory.CreateRenderer(Config);
@@ -106,7 +107,7 @@ begin
       DocParams.ViewportTag := THTMLViewportTagRenderer.Create(Config.Viewport);
       DocParams.EdgeCompatibilityTag :=
         THTMLEdgeCompatibilityTagRenderer.Create(not Config.EdgeCompatibility);
-      DocParams.GeneratorTag := TNewMetaBrandingRenderer.Create(
+      DocParams.GeneratorTag := THTMLMetaBrandingRenderer.Create(
         not Config.BrandingPermitted
       );
       DocParams.StyleSheet := TStyleRendererFactory.CreateRenderer(Config);

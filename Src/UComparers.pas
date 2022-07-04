@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2012-2021, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2012-2022, Peter Johnson (www.delphidabbler.com).
  *
  * Defines case insensitive and case sensitive string equality comparers.
 }
@@ -81,7 +81,7 @@ uses
 
 
 ///  <summary>String hash function.</summary>
-///  <remarks>Sourced from http://www.scalabium.com/faq/dct0136.htm.</summary>
+///  <remarks>Sourced from https://www.scalabium.com/faq/dct0136.htm.</summary>
 function ElfHash(const Value: string): Integer;
 var
   I: Integer; // loops thru string

@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2007-2021, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2007-2022, Peter Johnson (www.delphidabbler.com).
  *
  * Implements class that stores program's configuration information.
 }
@@ -78,14 +78,18 @@ type
   ///  <summary>Valid range of line number widths.</summary>
   TLineNumberWidth = 1..6;
 
+  //   <summary>Valid range of line number starting values.</summary>
+  TLineNumberStart = 1..9999;
+
   ///  <summary>Class that records details of program's configuration. Used to
   ///  determine how program behaves.</summary>
   TConfig = class(TObject)
   private
-    fDocType: TDocType;           // Value of DocType property
-    fInputSource: TInputSource;   // Value of InputSource property
-    fOutputSink: TOutputSink;     // Value of OutputSink property
-    fShowHelp: Boolean;           // Values of ShowHelp property
+    fDocType: TDocType;
+    fInputSource: TInputSource;
+    fOutputSink: TOutputSink;
+    fShowHelp: Boolean;
+    fShowVersion: Boolean;
     fVerbosity: TVerbosity;
     fHideCSS: Boolean;
     fOutputFile: string;
@@ -102,6 +106,7 @@ type
     fUseLineNumbering: Boolean;
     fLineNumberWidth: TLineNumberWidth;
     fLineNumberPadding: Char;
+    fLineNumberStart: TLineNumberStart;
     fStriping: Boolean;
     fViewport: TViewport;
     fEdgeCompatibility: Boolean;
@@ -119,6 +124,8 @@ type
       read fVerbosity write fVerbosity default vbNormal;
     property ShowHelp: Boolean
       read fShowHelp write fShowHelp default False;
+    property ShowVersion: Boolean
+      read fShowVersion write fShowVersion default False;
     property HideCSS: Boolean read fHideCSS write fHideCSS;
     property CSSSource: TCSSSource read fCSSSource write fCSSSource;
     property CSSLocation: string read fCSSLocation write fCSSLocation;
@@ -143,6 +150,8 @@ type
       read fLineNumberWidth write fLineNumberWidth default 3;
     property LineNumberPadding: Char
       read fLineNumberPadding write fLineNumberPadding default ' ';
+    property LineNumberStart: TLineNumberStart
+      read fLineNumberStart write fLineNumberStart default 1;
     property Striping: Boolean read fStriping write fStriping default False;
     property Viewport: TViewport read fViewport write fViewport default vpNone;
     property EdgeCompatibility: Boolean
@@ -174,6 +183,7 @@ begin
   fOutputSink := osStdOut;
   fDocType := dtXHTML;
   fShowHelp := False;
+  fShowVersion := False;
   fHideCSS := False;
   fOutputEncodingId := oeUTF8;
   fBrandingPermitted := True;
@@ -184,6 +194,7 @@ begin
   fLegacyCSSNames := False;
   fUseLineNumbering := False;
   fLineNumberWidth := 3;
+  fLineNumberStart := 1;
   fLineNumberPadding := ' ';
   fStriping := False;
   fViewport := vpNone;

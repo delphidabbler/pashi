@@ -61,7 +61,7 @@
 # config file. If such a command is present then PasHi will fail with an error
 # message.
 #
-# At present there is only one blacklisted command: "help"
+# At present there are two blacklisted commands: "help" & "version".
 #
 # A complete list of valid commands follows. Commands and parameters that are
 # slated for removal in the next major release are flagged as deprecated.
@@ -164,7 +164,7 @@
 #   embed-css C:\CSS\style.css
 #   embed-css .\style.css
 #   embed-css delphi7.css
-#   link-css http://example.com/css/example.css
+#   link-css https://example.com/css/example.css
 #   link-css example.css
 # Default:
 #   default-css

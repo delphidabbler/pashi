@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2007-2021, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2007-2022, Peter Johnson (www.delphidabbler.com).
  *
  * Implements classes that used to parse command line and record details.
 }
@@ -54,7 +54,9 @@ type
     siStriping,         // switches line striping on and off
     siQuiet,            // don't display any output to console
     siViewport,         // which viewport meta-data to output, if any
-    siEdgeCompatibility // whether edge compatibility info meta-data is output
+    siEdgeCompatibility,// whether edge compatibility info meta-data is output
+    siLineNumberStart,  // specifies starting line number
+    siVersion           // display program's version
   );
 
 type
@@ -218,6 +220,7 @@ begin
     Add('-s', siEmbedCSS);
     Add('-t', siTitle);
     Add('-w', siOutputClipboard);
+    Add('-z', siLineNumberStart);
     // long forms
     Add('--doc-type', siOutputDocType);
     Add('--encoding', siOuputEncoding);
@@ -244,9 +247,11 @@ begin
     Add('--line-numbering', siLineNumbering);
     Add('--line-number-width', siLineNumberWidth);
     Add('--line-number-padding', siLineNumberPadding);
+    Add('--line-number-start', siLineNumberStart);
     Add('--striping', siStriping);
     Add('--viewport', siViewport);
     Add('--edge-compatibility', siEdgeCompatibility);
+    Add('--version', siVersion);
     // commands kept for backwards compatibility with v1.x
     Add('-frag', siFragment);
     Add('-hidecss', siForceHideCSS);
@@ -277,6 +282,7 @@ begin
   with fConfigBlacklist do
   begin
     Add(siHelp);
+    Add(siVersion);
   end;
   // lookup table for --encoding command values: case insensitive
   fEncodingLookup := TDictionary<string,TOutputEncodingId>.Create(
@@ -445,13 +451,15 @@ var
   Value: Integer;
 resourcestring
   sNotNumber = 'Numeric parameter expected for %s';
-  sOutOfRange = 'Parameter for %0:s must be in range %1:d..%2:d';
+  sOutOfRange = 'Parameter for %s must be in range ';
 begin
   Param := GetStringParameter(Cmd);
   if not TryStrToInt(Param, Value) then
     raise ECommandError.Create(Cmd.Name, sNotNumber);
   if (Value < Lo) or (Value > Hi) then
-    raise ECommandError.Create(Cmd.Name, Format(sOutOfRange, [Lo, Hi]));
+    raise ECommandError.Create(
+      Cmd.Name, sOutOfRange + Format('%0:d..%1:d', [Lo, Hi])
+    );
   Result := UInt16(Value);
 end;
 
@@ -553,7 +561,7 @@ procedure TParams.Parse;
   end;
 
 resourcestring
-  sConfigFileErrorFmt = '%s (in config file)';
+  sConfigFileErrorFmt = '(in config file) %s';
   sCommandLineErrorFmt = '%s';
 begin
   fFirstCommandFound := False;
@@ -569,8 +577,7 @@ resourcestring
   sBadCommand = 'Unrecognised command "%s"';
   sCantBeSwitch = '%s cannot be a switch command';
   sMustBeSwitch = '%s must be a switch command: append "+" or "-"';
-  sBlacklisted = 'The "%s" command is not permitted in the config file.'#13#10
-    + 'Please edit the file';
+  sBlacklisted = 'The "%s" command is not permitted.';
   // Warnings
   sDeprecatedCmd = 'The "%s" command is deprecated';
   sDepDocType = 'The "html4" parameter of the "%s" command is deprecated';
@@ -742,6 +749,13 @@ begin
       fConfig.LineNumberPadding := GetPaddingParameter(Command);
       fParamQueue.Dequeue;
     end;
+    siLineNumberStart:
+    begin
+      fConfig.LineNumberStart := GetNumericParameter(
+        Command, Low(TLineNumberStart), High(TLineNumberStart)
+      );
+      fParamQueue.Dequeue;
+    end;
     siStriping:
     begin
       fConfig.Striping := GetBooleanParameter(Command);
@@ -749,6 +763,8 @@ begin
     end;
     siHelp:
       fConfig.ShowHelp := True;
+    siVersion:
+      fConfig.ShowVersion := True;
     siVerbosity:
     begin
       fConfig.Verbosity := GetVerbosityParameter(Command);

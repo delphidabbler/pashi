@@ -1,17 +1,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <!--
  * This Source Code Form is subject to the terms of the Mozilla Public License,
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2005-2021 Peter Johnson (www.delphidabbler.com)
+ * Copyright (C) 2005-2022 Peter Johnson (www.delphidabbler.com)
  *
  * User guide for PasHi and PasHiGUI.
 -->
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<html xmlns="https://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 
 <head>
 
@@ -33,7 +33,7 @@
   />
   <meta
     name="copyright"
-    content="(C) 2005-2021 Peter Johnson (www.delphidabbler.com)"
+    content="(C) 2005-2022 Peter Johnson (www.delphidabbler.com)"
   />
   <meta
     name="description"
@@ -219,7 +219,7 @@
       text-align: left;
     }
     table {
-      margins: 0;
+      margin: 0;
       padding: 0;
       overflow: auto;
     }
@@ -362,13 +362,13 @@
 </h3>
 
 <p>
-  <em>PahHi</em>'s behaviour can be modified by specifying one or more file
+  <em>PasHi</em>'s behaviour can be modified by specifying one or more file
   names and / or commands on the command line.
 </p>
 
 <p>
   File names and commands can be intermixed.
-  <span class="deprecated">Deprecated: a later major release may required file
+  <span class="deprecated">Deprecated: a later major release may require file
   names to be specified <strong>before</strong> the first command.</span>
 </p>
 
@@ -381,9 +381,10 @@
 </p>
 
 <p class="pullout">
-  If you specify file names on the command line you should not also use the
-  <code>--input-stdin</code> or <code>--input-clipboard</code> commands. No
-  error will be reported if you do so, but the behaviour may not be as expected.
+  If you specify file names on the command line you should <strong>not</strong>
+  use the <code>--input-stdin</code> or <code>--input-clipboard</code> commands.
+  No error will be reported if you do so, but the behaviour may not be as
+  expected.
 </p>
 
 <p>
@@ -541,7 +542,7 @@
     <td class="switch">-t</td>
     <td>
       Sets the title of the output document. The title text must be supplied in
-      the parameter immediately follow the command. Titles containing spaces
+      the parameter immediately following the command. Titles containing spaces
       must be enclosed in double quotes.<br />
       This command has no effect if the <code>--doc-type fragment</code>
       command is also used.
@@ -612,7 +613,7 @@
     <span class="deprecated">[deprecated]</span></td>
     <td class="switch">-c</td>
     <td>
-      Determines if embedded CSS code is wrapped in HTML comment tags
+      Determines wheher embedded CSS code is wrapped in HTML comment tags
       (<code>&lt;!--</code> ... <code>--&gt;</code>). This command is provided
       because some old browsers will render the CSS as text unless it is
       enclosed in comment tags.<br />
@@ -675,7 +676,7 @@
     <td class="switch">--encoding</td>
     <td class="switch">-e</td>
     <td>
-      Sets the character encoding used for output to the encoding specified in
+      Sets the character encoding used for output to that specified in the
       next parameter. HTML documents are marked with the chosen format and the
       resulting file may include byte order marks. Valid encoding parameters are:
       <ul class="squashed">
@@ -769,8 +770,8 @@
     <td class="switch">-i</td>
     <td>
       Determines the minimum width, in characters, occupied by line numbers.
-      Line numbers are padded to this width if necessary (but longer line
-      numbers are not truncated). The required width is given in the following
+      Line numbers are padded to this width if necessary, but longer line
+      numbers are not truncated. The required width is given in the following
       parameter and must be in the range 1..6. The default value is 3.<br />
       This command is ignored if line numbering is not enabled: see the
       <code>--line-numbering</code> command.
@@ -802,6 +803,16 @@
     </td>
   </tr>
   <tr>
+    <td class="switch">--line-number-start</td>
+    <td class="switch">-z</td>
+    <td>
+      Determines the number of the first line in the listing, in the range
+      1..9999. The default value is 1.<br />
+      This command is ignored if line numbering is not enabled: see the
+      <code>--line-numbering</code> command.
+    </td>
+  </tr>
+  <tr>
     <td class="switch">--striping</td>
     <td class="switch">&nbsp;</td>
     <td>
@@ -812,7 +823,7 @@
         <li>
           <code>True</code>, <code>1</code>, <code>Y</code>, <code>yes</code> or
           <code>on</code>:
-          Styles alternate lines differently.
+          Style alternate lines differently.
         </li>
         <li>
           <code>False</code>, <code>0</code>, <code>N</code>, <code>no</code> or
@@ -846,8 +857,8 @@
         </li>
         <li>
           <code>mobile</code>, <code>tablet</code> or <code>phone</code> (the
-          default): Meta data that sets viewport scaling suitable for use on
-          smart phones and tablets is written.
+          default): Meta-data is written that sets viewport scaling suitable for
+          use on smart phones and tablets.
         </li>
       </ul>
       This command has no effect if the <code>--doc-type fragment</code>
@@ -890,7 +901,9 @@
           the program to display sign-on information and to display a message
           when the program completes. All output goes to standard error so that
           it does not affect highlighted source code written to standard output.
-          Any error and wraning messages are also written to standard error.
+          Any error and warning messages are also written to standard error.
+          When <code>--version</code> is specified no sign on or completion
+          messages are displayed: just the version number is output.
           <br /><span class="deprecated">Default deprecated: to change to a new
           option that displays only warnings and error messages.
         </li>
@@ -902,9 +915,9 @@
         <li>
           <code>quiet</code>: Quiet mode. Displays no sign on, completion or
           warning messages. If the program detects errors or if the
-          <code>--help</code> command is used then this option is ignored and
-          the program acts as if the <code>no-warn</code> parameter had been
-          specified.
+          <code>--help</code> or <code>--version</code> commands are used then
+          this option is ignored and the program acts as if the
+          <code>no-warn</code> parameter had been specified.
         </li>
       </ul>
     </td>
@@ -923,11 +936,19 @@
       Displays a help screen. The remainder of the command line is ignored.
     </td>
   </tr>
+  <tr>
+    <td class="switch">--version</td>
+    <td class="switch">&nbsp;</td>
+    <td>
+      Displays the program's version number. The remainder of the command line
+      is ignored, except for <code>--help</code>, which takes precendence.
+    </td>
+  </tr>
 </table>
 
 <p>
   There are some commands inherited from <em>PasHi</em> v1 that are not listed
-  above. They have now been superceded by other commands but are still supported
+  above. They have now been superseded by other commands but are still supported
   for compatibility reasons. However they are now
   <span class="deprecated">deprecated</span>.
 </p>
@@ -975,7 +996,8 @@
     <td>
       Alias for <code>-c+</code> or the <code>--hide-css yes</code>
       command.<br />
-      <strong>Note:</strong> the <code>--hide-css</code> command is also
+      <strong>Note:</strong> the <code>--hide-css</code> and
+      <code>-c</code> commands are also
       <span class="deprecated">[deprecated]</span>.
     </td>
   </tr>
@@ -1112,9 +1134,10 @@
     </p>
     <p class="pullout">
       <strong>WARNING:</strong>
-      The exception is that the  <code>--help</code> command has no equivalent
-      config file command. If <code>help</code> is included in the config file
-      <em>PasHi</em> will stop with an error every time it is run.
+      The <code>--help</code> and <code>--version</code> commands are
+      exceptions that have no equivalent config file command. If either
+      <code>help</code> or <code>version</code> are included in the config file
+      then <em>PasHi</em> will stop with an error every time it is run.
     </p>
   </li>
   <li>
@@ -1124,8 +1147,8 @@
     </p>
     <p class="pullout">
       <strong>WARNING:</strong>
-      Using one of these commands in the config file will cause <em>PasHi</em>
-      to stop with an error every time it is run.
+      Using a short form or v1 style command in the config file will cause
+      <em>PasHi</em> to stop with an error every time it is run.
     </p>
   </li>
   <li>
@@ -1178,7 +1201,7 @@
 </dl>
 
 <p class="pullout">
-  The example config files, where installed, may not appear in the
+  The example config files, where installed, will not appear in the
   <wbr /><code>%AppData%\DelphiDabbler\<wbr />PasHi</code> directory until after
   <em>PasHi</em> has been run once.
 </p>
@@ -1215,8 +1238,8 @@ doc-type fragment</pre>
 <p>
   Be warned that if you do this, you will need to specify the
   <code>--input-stdin</code>, <code>--output-stdout</code> and
-  <code>--doc-type xhtml</code> commands on the command line to revert to
-  default behaviour.
+  <code>--doc-type</code> commands on the command line to revert to default
+  behaviour.
 </p>
 
 <h4>
@@ -1246,7 +1269,7 @@ doc-type fragment</pre>
   a line to <code>config</code> like:
 </p>
 
-<pre class="indent">link-css http://example.com/css/my-style.css</pre>
+<pre class="indent">link-css https://example.com/css/my-style.css</pre>
 
 <p>
   Should you now need to revert <em>PasHi</em> to using its default CSS you will
@@ -1864,9 +1887,9 @@ doc-type fragment</pre>
 <div class="endnotes">
 
   <div class="copyright">
-    This document is copyright &copy; 2005-2021, P D Johnson,
+    This document is copyright &copy; 2005-2022, P D Johnson,
     <a
-      href="http://delphidabbler.com/"
+      href="https://delphidabbler.com/"
     >delphidabbler.com</a>.
   </div>
 
