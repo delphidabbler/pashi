@@ -23,7 +23,7 @@ uses
   // Project
   IntfDropDataHandler, UOptions, UDocument, UWBContainer, UInputData,
   FrOptions.UBase, FrOptions.UDocType, FrOptions.ULineStyle, FrOptions.UCSS,
-  FrOptions.UMisc;
+  FrOptions.UMisc, AppEvnts;
 
 
 type
@@ -89,6 +89,7 @@ type
     lblOptionsHide: TLabel;
     miUserGuide: TMenuItem;
     actUserGuide: TAction;
+    appEvents: TApplicationEvents;
     procedure actAboutExecute(Sender: TObject);
     procedure actCopyExecute(Sender: TObject);
     procedure actCopyUpdate(Sender: TObject);
@@ -111,6 +112,8 @@ type
     procedure lblOptionsHideMouseLeave(Sender: TObject);
     procedure actUserGuideExecute(Sender: TObject);
     procedure actUserGuideUpdate(Sender: TObject);
+    function appEventsHelp(Command: Word; Data: Integer;
+      var CallHelp: Boolean): Boolean;
   strict private
     type
       TLoadProc = reference to procedure;
@@ -315,6 +318,15 @@ begin
       // we leave Handled false to allow other update handlers to disable
       // actions if necessary
   end;
+end;
+
+function TMainForm.appEventsHelp(Command: Word; Data: Integer;
+  var CallHelp: Boolean): Boolean;
+begin
+  // Prevent Delphi Help system from interfering!
+  // This prevents exception being raised when F1 is pressed over menu items
+  CallHelp := False;
+  Result := True;
 end;
 
 procedure TMainForm.Busy(const Flag: Boolean);
