@@ -177,8 +177,15 @@ begin
 end;
 
 procedure TMain.ShowVersion;
+var
+  VI: TVersionInfo;
 begin
-  fConsole.WriteLn(GetFileVersionStr);
+  VI := TVersionInfo.Create;
+  try
+    fConsole.WriteLn(VI.CmdLineVersion);
+  finally
+    VI.Free;
+  end;
 end;
 
 procedure TMain.ShowWarnings;

@@ -24,6 +24,7 @@ type
       fInhibited: Boolean;
   strict protected
     function RenderBranding: string; virtual; abstract;
+    function GetFileVersionStr: string;
   public
     constructor Create(Inhibited: Boolean);
     function Render: string;
@@ -66,6 +67,18 @@ constructor TBrandingGenerator.Create(Inhibited: Boolean);
 begin
   inherited Create;
   fInhibited := Inhibited;
+end;
+
+function TBrandingGenerator.GetFileVersionStr: string;
+var
+  VI: TVersionInfo;
+begin
+  VI := TVersionInfo.Create;
+  try
+    Result := VI.CmdLineVersion;
+  finally
+    VI.Free;
+  end;
 end;
 
 function TBrandingGenerator.Render: string;
