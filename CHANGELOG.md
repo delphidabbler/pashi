@@ -8,6 +8,25 @@ This change log begins with the first ever pre-release version of what was then 
 
 From release 2.0.0 the version numbering has attempted to adhere to the principles of [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Release 2.2.1 - 2022-08-29
+
+This release includes _PasHi_ v2.2.1 and _PasHiGUI_ v1.2.1. Changes are as follows:
+
+### PasHi v2.2.1 [build 14]
+
+* Refactored internal handling of version information (see _General_ section below). No visible change to program output.
+
+### PasHiGUI v1.2.1 [build 8]
+
+* Fixed bug where pressing F1 key when a menu is open caused an error message to be displayed. [Issue 32]
+* Fixed bug where the About box was displaying the wrong version number for _PasHi_. [Issue 31]
+* Made minor changes to the text displayed in the About box.
+* Refactored internal handling of version information (see _General_ section below).
+
+### General
+
+* Changed method used to store and read version information. File version numbers for _PashHi_ and _PasHiGUI_ are now stored in a common `VERSION` file in the repo root. Information from this file is included in both program's version information resources and in special `RCDATA` resources. This enables each program to access the other's version numbers as required.
+
 ## Release 2.2.0 - 2022-07-04
 
 This release includes _PasHi_ v2.2.0 and _PasHiGUI_ v1.2.0. Changes are as follows:
