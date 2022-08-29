@@ -1,0 +1,7 @@
+# PasHi & PasHiGUI file & product version numbers
+
+cmdlinefilever=2.2.0
+cmdlinebuild=13
+guifilever=1.2.0
+guibuild=7
+productver=2.2.0
