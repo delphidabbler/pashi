@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2006-2021, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2006-2022, Peter Johnson (www.delphidabbler.com).
  *
  * Application's main form. Handles main user inteface interaction.
 }
@@ -182,21 +182,24 @@ const
 { TMainForm }
 
 procedure TMainForm.actAboutExecute(Sender: TObject);
+var
+  VI: TVersionInfo;
+  Msg: string;
 begin
-  Application.MessageBox(
-    PChar(
-      Format('PasHiGUI %s.', [GetFileVersionStr])
-        + #10#10
-        + 'A GUI front end for the PasHi Syntax Highlighter v2.1.0'
-        + #10#10
-        + GetLegalCopyright
-        + #10#10
-        + 'Released under the terms of the Mozilla Public License v2.0. '
-        + 'See the file LICENSE.md for full details.'
-    ),
-    'About',
-    MB_OK
-  );
+  VI := TVersionInfo.Create;
+  try
+    Msg := Format(
+      'PasHiGUI %0:s (build %1:s).'#10#10
+      + 'A GUI front end for the PasHi Syntax Highlighter v%2:s.'#10#10
+      + '%3:s'#10#10
+      + 'Released under the terms of the Mozilla Public License v2.0. '
+      + 'See the file LICENSE.md for full details.',
+      [VI.GUIVersion, VI.GUIBuild, VI.CmdLineVersion, VI.Copyright]
+    );
+    Application.MessageBox(PChar(Msg), 'About', MB_OK);
+  finally
+    VI.Free;
+  end;
 end;
 
 procedure TMainForm.actApplyExecute(Sender: TObject);
