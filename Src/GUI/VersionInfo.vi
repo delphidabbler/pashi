@@ -6,15 +6,17 @@
 ; Copyright (C) 2006-2022, Peter Johnson (www.delphidabbler.com).
 ;
 ; Version information description file used to create VersionInfo.res resource
-; file. Build this file with DelphiDabbler Version Information Editor from
-; https://delphidabbler.com/. Compile the resulting .rc file using Borland
-; BRCC32 resource compiler.
+; file. Build this file with DelphiDabbler Version Information Editor v2.14.0 or
+; later from https://delphidabbler.com/. Compile the resulting .rc file using
+; the Embarcadero BRCC32 resource compiler.
 ; ==============================================================================
 
+[Macros]
+Import:ver=../../VERSION
 
 [Fixed File Info]
-File Version #=1, 2, 0, 7
-Product Version #=2, 2, 0, 0
+File Version #=<%ver.guifilever>.<%ver.guibuild>
+Product Version #=<%ver.productver>
 File OS=4
 File Type=1
 File Sub-Type=0
@@ -31,7 +33,7 @@ Company Name=DelphiDabbler
 File Description=Pascal Highlighter GUI
 File Version=<#F1>.<#F2>.<#F3> build <#F4>
 Internal Name=<SHORTFNAME>
-Legal Copyright=Copyright (C) 2006-<YEAR>, Peter Johnson (www.delphidabbler.com).
+Legal Copyright=Copyright (C) 2006-<YEAR>, Peter Johnson  (https://delphidabbler.com).
 Legal Trademark=
 Original File Name=PasHiGUI.exe
 Private Build=
@@ -42,3 +44,5 @@ Special Build=
 [Configuration Details]
 Identifier=
 NumRCComments=0
+ResOutputDir=
+FileVersion=1

@@ -6,14 +6,17 @@
 ; Copyright (C) 2005-2022, Peter Johnson (www.delphidabbler.com).
 ;
 ; Version information description file used to create VerInfo.res resource file.
-; Build this file with DelphiDabbler Version Information Editor from
-; https://delphidabbler.com/. Compile the resulting .rc file using the Borland
-; BRCC32 resource compiler.
+; Build this file with DelphiDabbler Version Information Editor v2.14.0 or later
+; from https://delphidabbler.com/. Compile the resulting .rc file using the
+; Embarcadero BRCC32 resource compiler.
 ;===============================================================================
 
+[Macros]
+Import:ver=../VERSION
+
 [Fixed File Info]
-File Version #=2, 2, 0, 13
-Product Version #=2, 2, 0, 0
+File Version #=<%ver.cmdlinefilever>.<%ver.cmdlinebuild>
+Product Version #=<%ver.productver>
 File OS=4
 File Type=1
 File Sub-Type=0
@@ -41,3 +44,5 @@ Special Build=
 [Configuration Details]
 Identifier=
 NumRCComments=0
+ResOutputDir=
+FileVersion=1
