@@ -67,6 +67,7 @@ type
 
   ///  <summary>Supplies names of CSS classes used in highlighting.</summary>
   TCSSNames = class(TInterfacedObject, ICSSClassNames)
+  public
     function MainClass: string;
     function ElementClass(const Elem: THiliteElement): string;
   end;
