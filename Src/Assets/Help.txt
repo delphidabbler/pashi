@@ -139,7 +139,7 @@ PasHi supports the following commands:
                               no-warn - no warnings: sign-on, error and
                                 completion messages only.
                               quiet - error messages only.
---version                   Displays program version. Do not use with other
+--version             -v    Displays program version. Do not use with other
                             commands.
 --viewport                  Determines the type, if any, of viewport meta-data
                             written to a HTML document head section. The next
