@@ -219,6 +219,7 @@ begin
     Add('-r', siInputClipboard);
     Add('-s', siEmbedCSS);
     Add('-t', siTitle);
+    Add('-v', siVersion);
     Add('-w', siOutputClipboard);
     Add('-z', siLineNumberStart);
     // long forms
