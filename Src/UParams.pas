@@ -314,6 +314,7 @@ begin
     Add('html4', dtHTML4);
     Add('html5', dtHTML5);
     Add('fragment', dtFragment);
+    Add('frag', dtFragment);
   end;
   // lookup table for any command with boolean parameters
   fBooleanLookup := TDictionary<string, Boolean>.Create(
