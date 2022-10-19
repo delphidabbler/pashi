@@ -14,7 +14,7 @@ For users who prefer to use a GUI, PasHi's installer provides the option to inst
 
 For full details of how to install PasHi etc. see the file `ReadMe.txt` that is included in the program download.
 
-A comprehensive user guide, `UserGuide.html` is installed alongside PasHi. PasHiGUI provides a menu option to display the file.
+A comprehensive user guide, [`UserGuide.html`](https://htmlpreview.github.io/?https://github.com/delphidabbler/pashi/blob/master/Docs/UserGuide.html) is installed alongside PasHi. PasHiGUI provides a menu option to display the file.
 
 > **Note:** Both `ReadMe.txt` and `UserGuide.html` can also be found in the `Docs` directory in PasHi's [GitHub repository](https://github.com/delphidabbler/pashi).
 
