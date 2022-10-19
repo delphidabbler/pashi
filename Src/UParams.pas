@@ -100,6 +100,9 @@ type
   ///  commands provided.</summary>
   TParams = class(TObject)
   strict private
+    const
+      SetParamOpener = '{';
+      SetParamCloser = '}';
     var
       fParamQueue: TQueue<string>; // Queue of parameters to be processed
       fCmdLookup: TDictionary<string, TCommandId>;
@@ -119,6 +122,8 @@ type
     procedure GetCmdLineParams;
     procedure ParseCommand(const IsConfigCmd: Boolean);
     procedure ParseFileName;
+    function TryParseSetParam(const Param: string; out Elems: TStringDynArray):
+      Boolean;
     function GetStringParameter(const Cmd: TCommand): string;
     function GetBooleanParameter(const Cmd: TCommand): Boolean;
     function GetEncodingParameter(const Cmd: TCommand): TOutputEncodingId;
@@ -801,6 +806,31 @@ begin
   fConfig.InputSource := isFiles;
   // Next parameter
   fParamQueue.Dequeue;
+end;
+
+function TParams.TryParseSetParam(const Param: string;
+  out Elems: TStringDynArray): Boolean;
+var
+  ParamContent: string;
+begin
+  // A set parameter has the form (in sort of BNF):
+  //   "{" [ <elem> { "," <elem> } ] "}"
+  // where elem is simple text
+  // E.gs:
+  //   {} - empty set
+  //   {elem} - one item set
+  //   {elem1,elem2,elem3} - three item set
+  // Note - there can be no spaces anywhere in the parameter
+  SetLength(Elems, 0);
+  if Length(Param) < 2 then
+    Exit(False);
+  if Param[1] <> SetParamOpener then
+    Exit(False);
+  if Param[Length(Param)] <> SetParamCloser then
+    Exit(False);
+  ParamContent := Copy(Param, 2, Length(Param) - 2);
+  Elems := SplitString(ParamContent, ',');
+  Result := True;
 end;
 
 { TCommand }
