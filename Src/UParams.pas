@@ -18,8 +18,10 @@ interface
 uses
   // Delphi
   SysUtils,
+  Types,
   Generics.Collections,
   // Project
+  Hiliter.UGlobals,
   UConfig;
 
 type
@@ -56,7 +58,8 @@ type
     siViewport,         // which viewport meta-data to output, if any
     siEdgeCompatibility,// whether edge compatibility info meta-data is output
     siLineNumberStart,  // specifies starting line number
-    siVersion           // display program's version
+    siVersion,          // display program's version
+    siInhibitStyling    // inhibits styling of some highlight elements
   );
 
 type
@@ -115,6 +118,8 @@ type
       fVerbosityLookup: TDictionary<string, TVerbosity>;
       fPaddingLookup: TDictionary<string, Char>;
       fViewportLookup: TDictionary<string, TViewport>;
+      fHiliteSpanClsLookup: TDictionary<string, THiliteElement>;
+      fHiliteAliasLookup: TDictionary<string, THiliteElements>;
       fConfig: TConfig; // Reference to program's configuration object
       fWarnings: TList<string>;
       fFirstCommandFound: Boolean;  // detects filenames after 1st command
@@ -133,6 +138,7 @@ type
       UInt16;
     function GetPaddingParameter(const Cmd: TCommand): Char;
     function GetViewportParameter(const Cmd: TCommand): TViewport;
+    function GetExcludedSpansParameter(const Cmd: TCommand): THiliteElements;
     function GetWarnings: TArray<string>;
     function AdjustCommandName(const Name: string; IsCfgCmd: Boolean): string;
     function IsV1Command(const Name: string): Boolean;
@@ -176,6 +182,7 @@ uses
   // Delphi
   StrUtils, Classes, Character,
   // Project
+  Hiliter.UHiliters,
   UComparers, UConfigFiles;
 
 
@@ -196,6 +203,9 @@ begin
 end;
 
 constructor TParams.Create(const Config: TConfig);
+var
+  HiliteElem: THiliteElement;
+  CSSNames: TCSSNames;
 begin
   Assert(Assigned(Config), 'TParams.Create: Config is nil');
   inherited Create;
@@ -258,6 +268,7 @@ begin
     Add('--viewport', siViewport);
     Add('--edge-compatibility', siEdgeCompatibility);
     Add('--version', siVersion);
+    Add('--inhibit-styling', siInhibitStyling);
     // commands kept for backwards compatibility with v1.x
     Add('-frag', siFragment);
     Add('-hidecss', siForceHideCSS);
@@ -369,10 +380,31 @@ begin
     Add('tablet', vpPhone);
   end;
   fWarnings := TList<string>.Create(TTextComparer.Create);
+
+  fHiliteSpanClsLookup := TDictionary<string,THiliteElement>.Create(
+    TTextEqualityComparer.Create
+  );
+  fHiliteAliasLookup := TDictionary<string, THiliteElements>.Create(
+    TTextEqualityComparer.Create
+  );
+  CSSNames := TCSSNames.Create;
+  try
+    for HiliteElem := Low(THiliteElement) to High(THiliteElement) do
+    begin
+      fHiliteSpanClsLookup.Add(CSSNames.ElementClass(HiliteElem), HiliteElem);
+      // add element name as alias for {element-name}
+      fHiliteAliasLookup.Add(CSSNames.ElementClass(HiliteElem), [HiliteElem]);
+    end;
+  finally
+    CSSNames.Free;
+  end;
+  fHiliteAliasLookup.Add('-', []);  // alias for empty set {}
 end;
 
 destructor TParams.Destroy;
 begin
+  fHiliteAliasLookup.Free;
+  fHiliteSpanClsLookup.Free;
   fWarnings.Free;
   fViewportLookup.Free;
   fPaddingLookup.Free;
@@ -449,6 +481,43 @@ begin
   if not fEncodingLookup.ContainsKey(Param) then
     raise Exception.CreateFmt(sBadValue, [Param]);
   Result := fEncodingLookup[Param];
+end;
+
+function TParams.GetExcludedSpansParameter(const Cmd: TCommand):
+  THiliteElements;
+var
+  Param: string;
+  Spans: TStringDynArray;
+  Span: string;
+resourcestring
+  sBadSpanCls = 'Invalid span class name for %s: ';
+  sBadParam = 'Invalid parameter for %s: ';
+begin
+  // Parameter is EITHER a set or an alias for a set
+  // Set is enclosed in {}, alias is not.
+  Param := GetStringParameter(Cmd);
+  if TryParseSetParam(Param, Spans) then
+  begin
+    // Parameter is a valid set of zero or more elements
+    Result := [];
+    for Span in Spans do
+    begin
+      if not fHiliteSpanClsLookup.ContainsKey(Span) then
+        raise ECommandError.Create(
+          Cmd.Name, sBadSpanCls + Format('"%s', [Span])
+        );
+      Include(Result, fHiliteSpanClsLookup[Span]);
+    end;
+  end
+  else
+  begin
+    // Not a set parameter - test for a valid alias
+    if not fHiliteAliasLookup.ContainsKey(Param) then
+      raise ECommandError.Create(
+        Cmd.Name, sBadParam + Format('"%s"', [Param])
+      );
+    Result := fHiliteAliasLookup[Param];
+  end;
 end;
 
 function TParams.GetNumericParameter(const Cmd: TCommand; const Lo,
@@ -789,6 +858,11 @@ begin
     siEdgeCompatibility:
     begin
       fConfig.EdgeCompatibility := GetBooleanParameter(Command);
+      fParamQueue.Dequeue;
+    end;
+    siInhibitStyling:
+    begin
+      fConfig.ExcludedSpans := GetExcludedSpansParameter(Command);
       fParamQueue.Dequeue;
     end;
   end;
