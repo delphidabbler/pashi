@@ -41,6 +41,9 @@ type
     heError         // an unrecognised piece of code (shouldn't happen)
   );
 
+  ///  <summary>Set of hiliter elements.</summary>
+  THiliteElements = set of THiliteElement;
+
   ///  <summary>Records options used to customise syntax highlighting.
   ///  </summary>
   THiliteOptions = record
