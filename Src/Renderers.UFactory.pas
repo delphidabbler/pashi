@@ -51,7 +51,8 @@ begin
       Config.LineNumberWidth,
       Config.LineNumberPadding,
       Config.Striping,
-      Config.LineNumberStart
+      Config.LineNumberStart,
+      Config.ExcludedSpans
     )
   );
   case Config.DocType of

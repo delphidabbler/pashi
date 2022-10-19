@@ -53,14 +53,17 @@ type
     fPadding: Char;
     fStartNumber: Word;
     fAlternateLines: Boolean;
+    fExcludedElements: THiliteElements;
   public
     property UseLineNumbering: Boolean read fUseLineNumbering;
     property Width: Byte read fWidth;
     property Padding: Char read fPadding;
     property StartNumber: Word read fStartNumber;
     property AlternateLines: Boolean read fAlternateLines;
+    property ExcludedElements: THiliteElements read fExcludedElements;
     constructor Create(AUseLineNumbering: Boolean; AWidth: Byte;
-      APadding: Char; AAlternateLines: Boolean; AStartNumber: Word);
+      APadding: Char; AAlternateLines: Boolean; AStartNumber: Word;
+      AExcludedElements: THiliteElements);
   end;
 
   ///  <summary>Interface implemented by all highlighter classes.</summary>
@@ -86,7 +89,8 @@ implementation
 { THiliteOptions }
 
 constructor THiliteOptions.Create(AUseLineNumbering: Boolean;
-  AWidth: Byte; APadding: Char; AAlternateLines: Boolean; AStartNumber: Word);
+  AWidth: Byte; APadding: Char; AAlternateLines: Boolean; AStartNumber: Word;
+  AExcludedElements: THiliteElements);
 begin
   fUseLineNumbering := AUseLineNumbering;
   if fUseLineNumbering then
@@ -102,6 +106,7 @@ begin
     fStartNumber := 0;
   end;
   fAlternateLines := AAlternateLines;
+  fExcludedElements := AExcludedElements;
 end;
 
 end.
