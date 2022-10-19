@@ -78,6 +78,7 @@ type
   strict private
     fCSSClases: ICSSClassNames;  // provides name of CSS classes
     fIsEmptyLine: Boolean;       // flags if a line has no content
+    function IsElemRequired(const Elem: THiliteElement): Boolean;
   strict protected
     procedure BeginDoc; override;
     procedure EndDoc; override;
@@ -195,15 +196,17 @@ end;
 
 procedure THTMLHiliter.AfterElem(Elem: THiliteElement);
 begin
-  // Close the element's span
-  Writer.Append('</span>');
+  if IsElemRequired(Elem) then
+    // Close the element's span
+    Writer.Append('</span>');
 end;
 
 procedure THTMLHiliter.BeforeElem(Elem: THiliteElement);
 begin
   inherited;
-  // Open a span for required class
-  Writer.AppendFormat('<span class="%s">', [fCSSClases.ElementClass(Elem)]);
+  if IsElemRequired(Elem) then
+    // Open a span for required class
+    Writer.AppendFormat('<span class="%s">', [fCSSClases.ElementClass(Elem)]);
 end;
 
 procedure THTMLHiliter.BeginDoc;
@@ -247,6 +250,16 @@ begin
   if fIsEmptyLine then
     Writer.Append('&nbsp;');  // forces display: &nbsp; better than ' ' here
   Writer.AppendLine('</pre>');
+end;
+
+function THTMLHiliter.IsElemRequired(const Elem: THiliteElement): Boolean;
+var
+  E: THiliteElement;
+begin
+  for E in Options.ExcludedElements do
+    if E = Elem then
+      Exit(False);
+  Result := True;
 end;
 
 procedure THTMLHiliter.WriteElem(const ElemText: string);
