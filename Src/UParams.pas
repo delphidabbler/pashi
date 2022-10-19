@@ -485,8 +485,10 @@ begin
     Result := ''
   else
     Result := fParamQueue.Peek;
-  if (Result = '') or AnsiStartsStr('-', Result) then
-    raise ECommandError.Create(Cmd.Name, sNoParam);
+    WriteLn('Result ', Result);
+    if (Result = '')
+      or (AnsiStartsStr('-', Result) and (Result <> '-')) then
+      raise ECommandError.Create(Cmd.Name, sNoParam);
 end;
 
 function TParams.GetVerbosityParameter(const Cmd: TCommand): TVerbosity;
