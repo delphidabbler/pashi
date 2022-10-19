@@ -673,6 +673,42 @@
     </td>
   </tr>
   <tr>
+    <td class="switch">--inhibit-styling</td>
+    <td class="switch">&nbsp;</td>
+    <td>
+      Enables styling for specified syntactic elements to be omitted from the
+      HTML output. This is useful in reducing the size of HTML documents if you
+      have elements that are not styled in any way.<br />
+      This command must be followed by a parameter which is <em>either</em>
+      the name of a syntactic element for which styling is to be prevented
+      <em>or</em> a set of zero or more syntactic elements. A set is a comma
+      delimited list of element names, enclosed in <code>{</code> and
+      <code>}</code> characters. When a set of two or more elements is specified
+      styling is inhibited for all the elements. The list must not contain
+      spaces. Valid element names are:
+      <ul class="squashed">
+        <li><code>space</code> &nbsp; white space</li>
+        <li><code>comment</code> &nbsp; comments</li>
+        <li><code>kwd</code> &nbsp; keywords</li>
+        <li><code>ident</code> &nbsp; identifiers</li>
+        <li><code>sym</code> &nbsp; symbols</li>
+        <li><code>str</code> &nbsp; string literals</li>
+        <li><code>num</code> &nbsp; integers</li>
+        <li><code>float</code> &nbsp; floating point numbers</li>
+        <li><code>hex</code> &nbsp; hexadecimal numbers</li>
+        <li><code>preproc</code> &nbsp; pre-processor instructions</li>
+        <li><code>asm</code> &nbsp; assembler code</li>
+        <li><code>err</code> &nbsp; syntax errors</li>
+      </ul>
+      Use <code>{}</code> (an empty set) or <code>-</code> (a minus sign) to
+      enable all elements to be highlighted (the default).<br />
+      Examples: To suppress generation of styling for white space only, use
+      <code>--inhibit-styling space</code> or <code>--inhibit-styling
+      {space}</code>. To suppress both white space and syntax errors use
+      <code>--inhibit-styling {space,err}</code>.
+    </td>
+  </tr>
+  <tr>
     <td class="switch">--encoding</td>
     <td class="switch">-e</td>
     <td>

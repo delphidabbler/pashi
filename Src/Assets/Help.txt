@@ -63,6 +63,29 @@ PasHi supports the following commands:
                               no - do not enclose CSS [default]
                             Alternatively use -c+ to enclose CSS in comments or
                             -c- not to do so.
+--inhibit-styling           Enables styling for specified syntactic elements to
+                            be omitted from the HTML output. The following
+                            parameter must be in set format: a comma delimited
+                            list of the names of syntactic elements for which
+                            styling is to be prevented. The list must be
+                            enclosed in { and } characters, for e.g.
+                            {space,kwd}. Valid element names are:
+                              space - white space
+                              comment - comments
+                              kwd - keywords
+                              ident - identifiers
+                              sym - symbols
+                              str - string literals
+                              num - integers
+                              float - floating point numbers
+                              hex - hexadecimal numbers
+                              preproc - pre-processor instructions
+                              asm - assembler code
+                              err - syntax errors
+                            Use the empty set, {}, to style all elements
+                            [default].
+                            Where there is just one syntactic element being
+                            specified, the curly brackets can be omitted.
 --input-clipboard     -r    Read source code from the clipboard instead of
                             stdin or file(s).
 --input-stdin               Read source code from stdin [default].
