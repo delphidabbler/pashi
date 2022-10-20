@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2006-2016, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2006-2022, Peter Johnson (www.delphidabbler.com).
  *
  * Various utility routines.
 }
@@ -28,10 +28,16 @@ function StringFromStream(const Stm: TStream): string;
 
 function ListFiles(const Dir, Wildcard: string; const List: TStrings): Boolean;
 
+function IsStrInList(const Str: string; const List: array of string;
+  CaseSensitive: Boolean): Boolean;
+
+
 implementation
 
 
 uses
+  // Project
+  UConsts,
   // Delphi
   SysUtils, ActiveX;
 
@@ -114,6 +120,22 @@ begin
     // Tidy up
     FindClose(SR);
   end;
+end;
+
+function IsStrInList(const Str: string; const List: array of string;
+  CaseSensitive: Boolean): Boolean;
+var
+  TestFn: function(const A, B: string): Boolean;
+  Elem: string;
+begin
+  if CaseSensitive then
+    TestFn := SameStr
+  else
+    TestFn := SameText;
+  Result := False;
+  for Elem in List do
+    if TestFn(Elem, Str) then
+      Exit(True);
 end;
 
 end.
