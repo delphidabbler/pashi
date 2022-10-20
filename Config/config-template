@@ -220,7 +220,7 @@
 #     where <param> is a number in range 1..6
 #   line-number-padding <param>
 #     where <param> is one of "space", "zero", "dot" or "dash"
-# line-number-start <param>
+#   line-number-start <param>
 #     where <param> is a number in range 1...9999
 # Defaults:
 #   line-numbering off
