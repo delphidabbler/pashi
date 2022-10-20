@@ -574,7 +574,6 @@ begin
     Result := ''
   else
     Result := fParamQueue.Peek;
-    WriteLn('Result ', Result);
     if (Result = '')
       or (AnsiStartsStr('-', Result) and (Result <> '-')) then
       raise ECommandError.Create(Cmd.Name, sNoParam);
