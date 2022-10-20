@@ -56,9 +56,8 @@ This release includes _PasHi_ v2.2.0 and _PasHiGUI_ v1.2.0. Changes are as follo
   * Fixed CSS errors
 * Made minor changes to read-me file that is included in distributions.
 * Updated various web addresses in documentation.
-* Updated `config-template` comments:
-  * noted fact that the `version` command can't be used in the `config` file
-  * added details of new `line-number-start` command & its parameters
+* Updated `config-template` comments to note that the `version` command can't be used in the `config` file
+* Bumped config files version from 4 to 5.
 
 ## Release 2.1.0 - 2021-09-22
 
@@ -96,6 +95,7 @@ This release includes _PasHi_ v2.1.0 and _PasHiGUI_ v1.1.0. Changes are as follo
   * noted fact that the `help` command can no longer be used in the `config` file
   * added details of new `viewport` and `edge-compatibility` commands
   * noted new command parameters
+* Bumped config files version from 3 to 4.
 * Commented all v1 CSS classes as deprecated in `.css` files.
 
 ## Release 2.0.0 - 2016-09-22
