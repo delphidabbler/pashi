@@ -145,7 +145,7 @@
 #   title-default
 
 
-# -- Output document encoding ---
+# --- Output document encoding ---
 # Command:
 #   encoding <param>
 #     where <param> is one of "utf-8", "utf-16", "windows-1252" or "iso-8859-1"
@@ -188,7 +188,28 @@
 #   legacy-css no
 
 
-# -- Line numbering
+# --- Code generation ---
+# Command:
+#   inhibit-styling <param>
+#     where <param> is either:
+#       a set of zero or more of the values, "space", "comment", "kwd", "ident",
+#       "sym", "str", "num", "float", "hex", "preproc", "asm" or "err",
+#       separated by commas, with no spaces, and enclosed in curly brackets,
+#     or:
+#       a single one of the above values,
+#     or:
+#       a minus sign, "-", as an alias for the empty set "{}".
+# Examples:
+#   inhibit-styling {space}
+#   inhibit-styling space
+#   inhibit-styling {num,float,hex}
+#   inhibit-styling {}
+#   inhibit-styling -
+# Default:
+#   inhibit-styling {}
+
+
+# --- Line numbering ---
 # Commands:
 #   line-numbering <param>
 #     where <param> is either "on" or "off"
@@ -202,7 +223,7 @@
 #   line-number-padding space
 
 
-# -- Line styling
+# --- Line styling ---
 # Command:
 #   striping <param>
 #     where <param> is either "on" or "off"
@@ -210,16 +231,16 @@
 #   striping off
 
 
-# -- Meta tags
+# --- Meta tags ---
 # Commands:
 #   viewport <param>
 #     where <param> is one of "phone" or "none"
 #   edge-compatibility <param>
 #     where <param> is either "on" or "off"
-#   Defaults:
-#     viewport none
-#     ** the viewport default is DEPRECATED: may change in next major release
-#     edge-compatibility off
+# Defaults:
+#   viewport none
+#   ** the viewport default is DEPRECATED: may change in next major release
+#   edge-compatibility off
 
 
 # --- Output verbosity ---
