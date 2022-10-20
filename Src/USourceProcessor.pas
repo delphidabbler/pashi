@@ -34,6 +34,7 @@ type
 implementation
 
 uses
+  StrUtils,
   Classes,
   IO.Readers.UFactory, UConsts;
 
@@ -111,12 +112,16 @@ begin
   Lines := TStringList.Create;
   try
     Lines.Text := SourceCode;
-    for Idx := 0 to Pred(Lines.Count) do
-      Lines[Idx] := TrimRight(Lines[Idx]);
-    Result := Lines.Text;
+    Result := '';
+    if Lines.Count = 0 then
+      Exit;
+    Result := TrimRight(Lines[0]);
+    for Idx := 1 to Pred(Lines.Count) do
+      Result := Result + EOL + TrimRight(Lines[Idx]);
   finally
     Lines.Free;
   end;
 end;
 
 end.
+

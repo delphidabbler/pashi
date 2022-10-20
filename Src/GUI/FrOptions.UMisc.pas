@@ -20,7 +20,7 @@ uses
 
 type
   TMiscOptionsFrame = class(TBaseOptionsFrame)
-    chkTrim: TCheckBox;
+    chkTrimLines: TCheckBox;
     lblSeparatorLines: TLabel;
     seSeparatorLines: TSpinEdit;
     lblSeparatorLinesEnd: TLabel;
@@ -31,6 +31,7 @@ type
     chkBranding: TCheckBox;
     chkViewport: TCheckBox;
     chkEdgeCompatibility: TCheckBox;
+    chkTrimSpaces: TCheckBox;
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -39,6 +40,9 @@ type
   end;
 
 implementation
+
+uses
+  UUtils;
 
 {$R *.dfm}
 
@@ -56,8 +60,22 @@ begin
 end;
 
 procedure TMiscOptionsFrame.Initialise(const Options: TOptions);
+var
+  StrVal: string;
 begin
-  chkTrim.Checked := Options.GetParamAsBool('trim');
+  StrVal := Options.GetParamAsStr('trim');
+  // Filter out deprecated values for --trim command
+  if IsStrInList(StrVal, ['true', '1', 'y', 'yes', 'on'], False) then
+    StrVal := 'lines'
+  else if IsStrInList(StrVal, ['false', '0', 'n', 'no', 'off'], False) then
+    StrVal := '-'
+  // Choose one item from aliases for --trim parameter names
+  else if IsStrInList(StrVal, ['none', 'nothing'], False) then
+    StrVal := '-'
+  else if IsStrInList(StrVal, ['everything'], False) then
+    StrVal := 'all';
+  chkTrimLines.Checked := IsStrInList(StrVal, ['all', 'lines'], False);
+  chkTrimSpaces.Checked := IsStrInList(StrVal, ['all', 'spaces'], False);
 
   seSeparatorLines.Value := Options.GetParamAsInt('separator-lines');
 
@@ -82,7 +100,20 @@ end;
 
 procedure TMiscOptionsFrame.UpdateOptions(const Options: TOptions);
 begin
-  Options.Store('trim', chkTrim.Checked);
+  if chkTrimLines.Checked then
+  begin
+    if chkTrimSpaces.Checked then
+      Options.Store('trim', 'all')
+    else
+      Options.Store('trim', 'lines');
+  end
+  else
+  begin
+    if chkTrimSpaces.Checked then
+      Options.Store('trim', 'spaces')
+    else
+      Options.Store('trim', '-');
+  end;
 
   Options.Store('separator-lines', seSeparatorLines.Value);
 

@@ -6,6 +6,14 @@ inherited DocTypeOptionsFrame: TDocTypeOptionsFrame
     Height = 13
     Caption = 'Document type:'
   end
+  object lblInhibitStyling: TLabel
+    Left = 8
+    Top = 106
+    Width = 69
+    Height = 13
+    Caption = 'Inhibit Styling:'
+    FocusControl = clbInhibitStyling
+  end
   object rbDocTypeFragment: TRadioButton
     Left = 8
     Top = 8
@@ -33,5 +41,13 @@ inherited DocTypeOptionsFrame: TDocTypeOptionsFrame
     Height = 21
     Style = csDropDownList
     TabOrder = 2
+  end
+  object clbInhibitStyling: TCheckListBox
+    Left = 8
+    Top = 124
+    Width = 188
+    Height = 97
+    ItemHeight = 13
+    TabOrder = 3
   end
 end
