@@ -252,6 +252,8 @@ begin
     Store('viewport', 'none');
   if not IsSet('edge-compatibility') then
     Store('edge-compatibility', False);
+  if not IsSet('inhibit-styling') then
+    Store('inhibit-styling', '{}');
 end;
 
 procedure TOptions.Store(const Option, Value: string);

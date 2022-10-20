@@ -249,7 +249,7 @@ object MainForm: TMainForm
       ParentColor = True
       TabOrder = 2
       object cpnlMisc: TCategoryPanel
-        Top = 190
+        Top = 317
         Height = 30
         Caption = 'Miscellaneous'
         Color = clWindow
@@ -270,7 +270,7 @@ object MainForm: TMainForm
         end
       end
       object cpnlLines: TCategoryPanel
-        Top = 160
+        Top = 287
         Height = 30
         Caption = 'Line Numbering && Striping'
         Color = clWindow
@@ -291,7 +291,7 @@ object MainForm: TMainForm
         end
       end
       object cpnlCSS: TCategoryPanel
-        Top = 130
+        Top = 257
         Height = 30
         Caption = 'Style Sheets'
         Color = clWindow
@@ -313,19 +313,23 @@ object MainForm: TMainForm
       end
       object cpnlDocType: TCategoryPanel
         Top = 0
-        Height = 130
-        Caption = 'Document Type'
+        Height = 257
+        Caption = 'Document Generation'
         Color = clWindow
         TabOrder = 3
         inline frmDocType: TDocTypeOptionsFrame
           Left = 0
           Top = 0
           Width = 219
-          Height = 104
+          Height = 231
           Align = alClient
           TabOrder = 0
           ExplicitWidth = 219
           ExplicitHeight = 104
+          inherited clblInhibitStyling: TCheckListBox
+            BevelEdges = []
+            BevelInner = bvLowered
+          end
         end
       end
     end
