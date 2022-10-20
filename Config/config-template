@@ -65,6 +65,10 @@
 #
 # A complete list of valid commands follows. Commands and parameters that are
 # slated for removal in the next major release are flagged as deprecated.
+#
+# For an explanation of what these commands do see the documentation of the
+# related command line command in the user guide or in PasHi's help screen,
+# accessed by typing "PasHi --help".
 
 
 # --- Input source commands ---
