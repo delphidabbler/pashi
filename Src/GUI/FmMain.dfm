@@ -255,8 +255,6 @@ object MainForm: TMainForm
         Color = clWindow
         Collapsed = True
         TabOrder = 0
-        ExplicitTop = 90
-        ExplicitWidth = 204
         ExpandedHeight = 284
         inline frmMisc: TMiscOptionsFrame
           Left = 0
@@ -265,8 +263,8 @@ object MainForm: TMainForm
           Height = 0
           Align = alClient
           TabOrder = 0
-          ExplicitWidth = 202
-          ExplicitHeight = 250
+          ExplicitWidth = 219
+          ExplicitHeight = 0
         end
       end
       object cpnlLines: TCategoryPanel
@@ -276,8 +274,6 @@ object MainForm: TMainForm
         Color = clWindow
         Collapsed = True
         TabOrder = 1
-        ExplicitTop = 60
-        ExplicitWidth = 204
         ExpandedHeight = 192
         inline frmLines: TLineStyleOptionsFrame
           Left = 0
@@ -297,8 +293,6 @@ object MainForm: TMainForm
         Color = clWindow
         Collapsed = True
         TabOrder = 2
-        ExplicitTop = 30
-        ExplicitWidth = 204
         ExpandedHeight = 286
         inline frmCSS: TCSSOptionsFrame
           Left = 0
@@ -325,8 +319,8 @@ object MainForm: TMainForm
           Align = alClient
           TabOrder = 0
           ExplicitWidth = 219
-          ExplicitHeight = 104
-          inherited clblInhibitStyling: TCheckListBox
+          ExplicitHeight = 231
+          inherited clbInhibitStyling: TCheckListBox
             BevelEdges = []
             BevelInner = bvLowered
           end
@@ -471,7 +465,7 @@ object MainForm: TMainForm
     Left = 336
     Top = 152
     Bitmap = {
-      494C010105000900240010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010105000900280010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
