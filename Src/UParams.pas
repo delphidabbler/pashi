@@ -49,6 +49,7 @@ type
     siHelp,             // display help
     siVerbosity,        // determines amount of messages output by program
     siTrim,             // determines if source code is trimmed
+    siTrim2,             // determines if & how source code is trimmed
     siSeparatorLines,   // specifies number of lines that separate source files
     siLineNumbering,    // determines if output file is to be line numbered
     siLineNumberWidth,  // specifies width of line numbers in characters
@@ -120,6 +121,7 @@ type
       fViewportLookup: TDictionary<string, TViewport>;
       fHiliteSpanClsLookup: TDictionary<string, THiliteElement>;
       fHiliteAliasLookup: TDictionary<string, THiliteElements>;
+      fTrimLookup: TDictionary<string, TTrimOperation>;
       fConfig: TConfig; // Reference to program's configuration object
       fWarnings: TList<string>;
       fFirstCommandFound: Boolean;  // detects filenames after 1st command
@@ -381,6 +383,19 @@ begin
   end;
   fWarnings := TList<string>.Create(TTextComparer.Create);
 
+  fTrimLookup := TDictionary<string, TTrimOperation>.Create(
+    TTextEqualityComparer.Create
+  );
+  fTrimLookup.Add('-', tsNone);
+  fTrimLookup.Add('none', tsNone);
+  fTrimLookup.Add('nothing', tsNone);
+  fTrimLookup.Add('lines', tsLines);
+  fTrimLookup.Add('spaces', tsSpaces);
+  fTrimLookup.Add('all', tsBoth);
+  fTrimLookup.Add('everything', tsBoth);
+  // Additionally old Boolean params are supported, but deprecated.
+  //   False => 'none' and True => 'lines'
+
   fHiliteSpanClsLookup := TDictionary<string,THiliteElement>.Create(
     TTextEqualityComparer.Create
   );
@@ -490,8 +505,8 @@ var
   Spans: TStringDynArray;
   Span: string;
 resourcestring
-  sBadSpanCls = 'Invalid span class name for %s: ';
-  sBadParam = 'Invalid parameter for %s: ';
+  sBadSpanCls = 'Invalid span class name for "%s": ';
+  sBadParam = 'Invalid parameter for "%s": ';
 begin
   // Parameter is EITHER a set or an alias for a set
   // Set is enclosed in {}, alias is not.
@@ -653,15 +668,19 @@ procedure TParams.ParseCommand(const IsConfigCmd: Boolean);
 resourcestring
   // Error messages
   sBadCommand = 'Unrecognised command "%s"';
+  sBadParam = 'Unrecognised parameter "%0:s" for command "%1:s"';
   sCantBeSwitch = '%s cannot be a switch command';
   sMustBeSwitch = '%s must be a switch command: append "+" or "-"';
-  sBlacklisted = 'The "%s" command is not permitted.';
+  sBlacklisted = 'The "%s" command is not permitted';
   // Warnings
   sDeprecatedCmd = 'The "%s" command is deprecated';
+  sDeprecatedParam = 'The "%0:s" parameter of the "%1:s" command is deprecated';
+  sDeprecatedSwitch = 'The "%s" switch is deprecated';
   sDepDocType = 'The "html4" parameter of the "%s" command is deprecated';
 var
   Command: TCommand;
   CommandId: TCommandId;
+  Param: string;
 begin
   Command := fParamQueue.Dequeue;
   if not fCmdLookup.ContainsKey(Command.Name) then
@@ -791,10 +810,39 @@ begin
     siTrim:
     begin
       if Command.IsSwitch then
-        fConfig.TrimSource := Command.SwitchValue
+      begin
+        if Command.SwitchValue = True then
+          fConfig.TrimSource := tsLines
+        else
+          fConfig.TrimSource := tsNone;
+        fWarnings.Add(
+          Format(
+            sDeprecatedSwitch, [AdjustCommandName(Command.Name, IsConfigCmd)]
+          )
+        );
+      end
       else
       begin
-        fConfig.TrimSource := GetBooleanParameter(Command);
+        Param := GetStringParameter(Command);
+        if fTrimLookup.ContainsKey(Param) then
+          fConfig.TrimSource := fTrimLookup[Param]
+        else if fBooleanLookup.ContainsKey(Param) then
+        begin
+          if fBooleanLookup[Param] = True then
+            fConfig.TrimSource := tsLines
+          else
+            fConfig.TrimSource := tsNone;
+          fWarnings.Add(
+            Format(
+              sDeprecatedParam,
+              [Param, AdjustCommandName(Command.Name, IsConfigCmd)]
+            )
+          );
+        end
+        else
+          raise Exception.CreateFmt(
+            sBadParam, [Param, AdjustCommandName(Command.Name, IsConfigCmd)]
+          );
         fParamQueue.Dequeue;
       end;
     end;

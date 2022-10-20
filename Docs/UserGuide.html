@@ -741,28 +741,64 @@
   </tr>
   <tr>
     <td class="switch">--trim</td>
-    <td class="switch">-m</td>
+    <td class="switch">-m<br />
+    <span class="deprecated">[deprecated]</span></td>
     <td>
-      Determines if source code is trimmed of leading and trailing blank lines
+      Determines if or how source code is trimmed of blank lines and spaces
       before highlighting. Multiple source files are trimmed individually before
       concatenation.<br />
       In the case of <code>--trim</code> the following parameter is used to
-      turn trimming on or off:
+      specify the type of trimming to be performed:
+      <ul class="squashed">
+        <li>
+          <code>-</code>, <code>none</code> or <code>nothing</code>:
+          do not trim anything.
+        </li>
+        <li>
+          <code>lines</code>:
+          trim leading and trailing blank lines (the default)<br />
+          <span class="deprecated">Default deprecated &ndash; to change to
+          <code>all</code>.</span>.
+        </li>
+        <li>
+          <code>spaces</code>:
+          trim trailing spaces from lines.
+        </li>
+        <li>
+          <code>all</code> or <code>everything</code>:
+          trim leading and trailing blank lines and trim trailing spaces from
+          lines.
+        </li>
+      </ul>
+      <code>--trim</code> also supports the following Boolean values that were
+      used with <code>--trim</code> in <em>PasHi</em> v2.2.1 and earlier.
       <ul class="squashed">
         <li>
           <code>True</code>, <code>1</code>, <code>Y</code>, <code>yes</code> or
-          <code>on</code>:
-          Source code is trimmed (the default).
+          <code>on</code> <span class="deprecated">all deprecated</span>:
+          Aliases for <code>--trim lines</code>.
         </li>
         <li>
           <code>False</code>, <code>0</code>, <code>N</code>, <code>no</code> or
-          <code>off</code>:
-          Source code is not trimmed.
+          <code>off</code> <span class="deprecated">all deprecated</span>:
+          Aliases for <code>--trim none</code>.
         </li>
       </ul>
-      The short form of the command, <code>-m</code>, acts as a switch:
-      <code>-m+</code> and <code>-m1</code> switch trimming on while
-      <code>-m-</code> and <code>-m0</code> switch it off.
+      The short form of the command, <code>-m</code>, acted as a switch in
+      <em>PasHi</em> v2.2.1 and earlier. The command is now interpreted as
+      follows:
+      <ul class="squashed">
+        <li>
+          <code>-m+</code> and <code>-m1</code> <span class="deprecated">both
+          deprecated</span>:
+          Aliases for <code>--trim lines</code>.
+        </li>
+        <li>
+          <code>-m-</code> and <code>-m0</code> <span class="deprecated">both
+          deprecated</span>:
+          Aliases for <code>--trim none</code>.
+        </li>
+      </ul>
     </td>
   </tr>
   <tr>

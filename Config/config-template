@@ -78,9 +78,12 @@
 # --- Input source trimming ---
 # Command:
 #   trim <param>
-#     where <param> ie either "yes" or "no"
+#     where <param> is one of "-", "lines", "spaces", "all", "yes" or "no"
+#     ** the "yes" and "no" parameters are DEPRECATED
+#        use "lines" instead of "yes" and "-" instead of "no"
 # Default:
-#   trim yes
+#   trim lines
+#   ** the default is DEPRECATED: may change to "all" in next release
 
 
 # --- Multiple input file separation ---

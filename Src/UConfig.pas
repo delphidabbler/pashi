@@ -73,6 +73,15 @@ type
     vpPhone
   );
 
+  ///  <summary>Enumerates different trim operations applied to source code.
+  ///  prior to processing.</summary>
+  TTrimOperation = (
+    tsNone,         // don't trim anything
+    tsLines,        // trim blank lines from beginning and end of a source file
+    tsSpaces,       // trim trailing spaces from source code lines
+    tsBoth          // trim blank lines and spaces
+  );
+
   ///  <summary>Valid range of separator lines between files.</summary>
   TSeparatorLines = 0..16;
 
@@ -100,7 +109,7 @@ type
     fCSSSource: TCSSSource;
     fCSSLocation: string;
     fOutputEncodingId: TOutputEncodingId;
-    fTrimSource: Boolean;
+    fTrimSource: TTrimOperation;
     fInFiles: TStringList;
     fSeparatorLines: TSeparatorLines;
     fLegacyCSSNames: Boolean;
@@ -140,8 +149,8 @@ type
     property InputFiles: TArray<string> read GetInputFiles;
     property BrandingPermitted: Boolean
       read fBrandingPermitted write fBrandingPermitted default True;
-    property TrimSource: Boolean
-      read fTrimSource write fTrimSource default True;
+    property TrimSource: TTrimOperation
+      read fTrimSource write fTrimSource default tsLines;
     property SeparatorLines: TSeparatorLines
       read fSeparatorLines write fSeparatorLines default 1;
     property LegacyCSSNames: Boolean
@@ -193,7 +202,7 @@ begin
   fBrandingPermitted := True;
   fLanguage := '';
   fVerbosity := vbNormal;
-  fTrimSource := True;
+  fTrimSource := tsLines;
   fSeparatorLines := 1;
   fLegacyCSSNames := False;
   fUseLineNumbering := False;
