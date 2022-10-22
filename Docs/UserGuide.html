@@ -96,6 +96,9 @@
       margin: 0.5em 0 0 0;
       padding: 0;
     }
+    td p:first-child {
+      margin-top: 0;
+    }
     pre,
     code,
     .file,
@@ -288,10 +291,10 @@
 </p>
 
 <p>
-  HTML 4 <span class="deprecated">[deprecated]</span>, XHTML and HTML 5 are all supported. CSS is used for styling. Style
-  sheets may be external or can be embedded in the HTML document. Several
-  predefined style sheets can be installed with the program. You can also
-  create <a
+  HTML 4 <span class="deprecated">[deprecated]</span>, XHTML and HTML 5 are all
+  supported. CSS is used for styling. Style sheets may be external or can be
+  embedded in the HTML document. Several predefined style sheets can be
+  installed with the program. You can also create <a
     href="#css"
   >your own</a>.
 </p>
@@ -306,7 +309,7 @@
 </p>
 
 <p>
-  <em>PasHiGUI</em>, an optional GUI front end for <em>PasHi</em>, is included
+  <em>PasHiGUI</em>, a GUI front end for <em>PasHi</em>, is optionally included
   in the release. This provides a point and click way of using <em>PasHi</em>.
   Most, but not all, command line options are supported. Files and text can be
   dragged and dropped onto the program's window to highlight them.
@@ -410,63 +413,63 @@
     <td class="switch">--input-stdin</td>
     <td class="switch">&nbsp;</td>
     <td>
-      Reads source code from standard input. Since standard input is the default
-      input source, this command is provided mainly to restore the default
-      behaviour if it has been overridden in the config file.<br />
-      This command should not be combined with <code>--input-clipboard</code> or
-      used if file names are specified on the command line.
+      <p>Reads source code from standard input. Since standard input is the
+      default input source, this command is provided mainly to restore the
+      default behaviour if it has been overridden in the config file.</p>
+      <p>This command should not be combined with <code>--input-clipboard</code>
+      or used if file names are specified on the command line.</p>
     </td>
   </tr>
   <tr>
     <td class="switch">--input-clipboard</td>
     <td class="switch">-r</td>
     <td>
-      Reads source code from the clipboard.<br />
-      This command should not be combined with <code>--input-stdin</code> or
-      used if file names are specified on the command line.
+      <p>Reads source code from the clipboard.</p>
+      <p>This command should not be combined with <code>--input-stdin</code> or
+      used if file names are specified on the command line.</p>
     </td>
   </tr>
   <tr>
     <td class="switch">--output-stdout</td>
     <td class="switch">&nbsp;</td>
     <td>
-      Writes highlighted code to standard output. Since standard output is the
-      default output destination, this command is provided mainly to restore the
-      default behaviour if it has been overridden in the config file.<br />
-      This command should not be combined with either <code>--output-file</code>
-      or <code>--output-clipboard</code>.
+      <p>Writes highlighted code to standard output. Since standard output is
+      the default output destination, this command is provided mainly to restore
+      the default behaviour if it has been overridden in the config file.</p>
+      <p>This command should not be combined with either
+      <code>--output-file</code> or <code>--output-clipboard</code>.</p>
     </td>
   </tr>
   <tr>
     <td class="switch">--output-file</td>
     <td class="switch">-o</td>
     <td>
-      Writes highlighted code to the file specified by the following parameter.
-      Using this command has exactly the same effect as redirecting standard
-      output to a file.<br />
-      This command should not be combined with either
-      <code>--output-stdout</code> or <code>--output-clipboard</code>.
+      <p>Writes highlighted code to the file specified by the following
+      parameter. Using this command has exactly the same effect as redirecting
+      standard output to a file.</p>
+      <p>This command should not be combined with either
+      <code>--output-stdout</code> or <code>--output-clipboard</code>.</p>
     </td>
   </tr>
   <tr>
     <td class="switch">--output-clipboard</td>
     <td class="switch">-w</td>
     <td>
-      Writes highlighted code to the clipboard. All output is stored as Unicode
-      text. Character set information is excluded from complete HTML documents.
-      <br />
-      Do not combine this command with either <code>--output-stdout</code>
-      or <code>--output-file</code>.
+      <p>Writes highlighted code to the clipboard. All output is stored as
+      Unicode text. Character set information is excluded from complete HTML
+      documents.</p>
+      <p>Do not combine this command with either <code>--output-stdout</code>
+      or <code>--output-file</code>.</p>
     </td>
   </tr>
   <tr>
     <td class="switch">--doc-type</td>
     <td class="switch">-d</td>
     <td>
-      Determines the type of document to be output. All but one of the document
-      types are complete HTML documents. The required document type is specified
-      in the following parameter which must be one of:
-      <ul class="squashed">
+      <p>Determines the type of document to be output. All but one of the
+      document types are complete HTML documents. The required document type is
+      specified in the following parameter which must be one of:</p>
+      <ul>
         <li>
           <code>xhtml</code>: Complete XHTML document (the default):<br />
           <span class="deprecated">Default deprecated &ndash; to change to
@@ -492,12 +495,13 @@
     <td class="switch">--branding</td>
     <td class="switch">-b</td>
     <td>
-      Switches on or off the inclusion of &quot;branding&quot; information in
+      <p>Switches on or off the inclusion of &quot;branding&quot; information in
       output documents. Branding means that the document contains code
-      indicating that the document was generated by <em>PasHi</em>.<br />
-      In the case of <code>--branding</code>, the following parameter determines
-      whether branding is switched on or off. The parameter must be one of:
-      <ul class="squashed">
+      indicating that the document was generated by <em>PasHi</em>.</p>
+      <p>In the case of <code>--branding</code>, the following parameter
+      determines whether branding is switched on or off. The parameter must be
+      one of:</p>
+      <ul>
         <li>
           <code>True</code>, <code>1</code>, <code>Y</code>, <code>yes</code> or
           <code>on</code>:
@@ -509,103 +513,102 @@
           Exclude branding.
         </li>
       </ul>
-      The short form of the command, <code>-b</code>, acts as a switch:
+      <p>The short form of the command, <code>-b</code>, acts as a switch:
       <code>-b+</code> and <code>-b1</code> include branding while
-      <code>-b-</code> and <code>-b0</code> exclude it.
+      <code>-b-</code> and <code>-b0</code> exclude it.</p>
     </td>
   </tr>
   <tr>
     <td class="switch">--language</td>
     <td class="switch">-l</td>
     <td>
-      Specifies the language used in the output document. A language code
+      <p>Specifies the language used in the output document. A language code
       recognised by HTML must be provided in the parameter that immediately
       follows this command. The code is not checked. If this command is not
-      supplied then no language information is included in the output file.
-      <br />
-      This command has no effect if the <code>--doc-type fragment</code>
-      command is used.
+      supplied then no language information is included in the output file.</p>
+      <p>This command has no effect if the <code>--doc-type fragment</code>
+      command is used.</p>
     </td>
   </tr>
   <tr>
     <td class="switch">--language-neutral</td>
     <td class="switch">&nbsp;</td>
     <td>
-      Indicates that no language information is to be included in output
+      <p>Indicates that no language information is to be included in output
       documents. Since this is the default behaviour this command is provided
       mainly to restore that behaviour if it has been overridden in the config
-      file.
+      file.</p>
     </td>
   </tr>
   <tr>
     <td class="switch">--title</td>
     <td class="switch">-t</td>
     <td>
-      Sets the title of the output document. The title text must be supplied in
-      the parameter immediately following the command. Titles containing spaces
-      must be enclosed in double quotes.<br />
-      This command has no effect if the <code>--doc-type fragment</code>
-      command is also used.
+      <p>Sets the title of the output document. The title text must be supplied
+      in the parameter immediately following the command. Titles containing
+      spaces must be enclosed in double quotes.</p>
+      <p>This command has no effect if the <code>--doc-type fragment</code>
+      command is also used.</p>
     </td>
   </tr>
   <tr>
     <td class="switch">--title-default</td>
     <td class="switch">&nbsp;</td>
     <td>
-      Indicates that the default title is to be used in the output document.
+      <p>Indicates that the default title is to be used in the output document.
       Since this is the default behaviour this command is provided mainly to
-      restore that behaviour if it has been overridden in the config file.<br />
-      This command has no effect if the
-      <code>--doc-type fragment</code> command is also used.
+      restore that behaviour if it has been overridden in the config file.</p>
+      <p>This command has no effect if the
+      <code>--doc-type fragment</code> command is also used.</p>
     </td>
   </tr>
   <tr>
     <td class="switch">--embed-css</td>
     <td class="switch">-s</td>
     <td>
-      Creates an embedded CSS style sheet in the output document. The CSS is
+      <p>Creates an embedded CSS style sheet in the output document. The CSS is
       read from the file whose name is specified by the parameter immediately
       following the command. The CSS must define the styles described
-      <a href="#css">below</a>.<br />
-      If the file name includes no path information, e.g.
+      <a href="#css">below</a>.</p>
+      <p>If the file name includes no path information, e.g.
       <code>delphi2006.css</code>, then the file will be expected to be found in
       the <wbr /><code>%AppData%\DelphiDabbler\<wbr />PasHi</code> directory. To
       read a file from the working directory, prepend <code>.\</code> to it,
-      e.g. <code>.\delphi2006.css</code>.<br />
-      Do not combine this command with <code>--link-css</code> or
+      e.g. <code>.\delphi2006.css</code>.</p>
+      <p>Do not combine this command with <code>--link-css</code> or
       <code>--default-css</code> because the commands are mutually exclusive and
       the result will be unpredictable. <code>--embed-css</code> is ignored if
-      the <code>--doc-type fragment</code> command is also used.
+      the <code>--doc-type fragment</code> command is also used.</p>
     </td>
   </tr>
   <tr>
     <td class="switch">--link-css</td>
     <td class="switch">-k</td>
     <td>
-      Specifies the URL of an external CSS file to be linked from the generated
-      HTML file. The URL must be given in the parameter immediately following
-      this command. The URL can be relative or absolute. The linked CSS file
-      must define the styles described <a href="#css">below</a>.<br />
-      Since no CSS is embedded in the output file the
+      <p>Specifies the URL of an external CSS file to be linked from the
+      generated HTML file. The URL must be given in the parameter immediately
+      following this command. The URL can be relative or absolute. The linked
+      CSS file must define the styles described <a href="#css">below</a>.</p>
+      <p>Since no CSS is embedded in the output file the
       <code>--hide-css</code> command does nothing if used with this command.
       Do not combine <code>--link-css</code> with <code>--embed-css</code> or
       <code>--default-css</code> because the commands are mutually exclusive and
       the result will be unpredicatble. <code>--link-css</code> is ignored if
-      <code>--doc-type fragment</code> is also used.
+      <code>--doc-type fragment</code> is also used.</p>
     </td>
   </tr>
   <tr>
     <td class="switch">--default-css</td>
     <td class="switch">&nbsp;</td>
     <td>
-      Inidicates that the default style sheet is to be embedded in the output
+      <p>Inidicates that the default style sheet is to be embedded in the output
       document. Since this is the default behaviour, this command is provided
       mainly to restore that behaviour if it has been overridden in the config
-      file.<br />
-      This command negates both the <code>--embed-css</code> and
+      file.</p>
+      <p>This command negates both the <code>--embed-css</code> and
       <code>--link-css</code> commands and should not be combined with them
       because the result will be unpredictable. <code>--default-css</code> is
-      ignored if the <code>--doc-type fragment</code> command is also used.
+      ignored if the <code>--doc-type fragment</code> command is also used.</p>
     </td>
   </tr>
   <tr>
@@ -613,14 +616,14 @@
     <span class="deprecated">[deprecated]</span></td>
     <td class="switch">-c</td>
     <td>
-      Determines wheher embedded CSS code is wrapped in HTML comment tags
+      <p>Determines wheher embedded CSS code is wrapped in HTML comment tags
       (<code>&lt;!--</code> ... <code>--&gt;</code>). This command is provided
       because some old browsers will render the CSS as text unless it is
-      enclosed in comment tags.<br />
-      In the case of <code>--hide-css</code> the parameter following the command
-      determines whether the CSS is hidden in comments or not. This parameter
-      must be one of the following:
-      <ul class="squashed">
+      enclosed in comment tags.</p>
+      <p>In the case of <code>--hide-css</code> the parameter following the
+      command determines whether the CSS is hidden in comments or not. This
+      parameter must be one of the following:</p>
+      <ul>
         <li>
           <code>True</code>, <code>1</code>, <code>Y</code>, <code>yes</code> or
           <code>on</code>:
@@ -632,12 +635,12 @@
           Do not use comments (the default).
         </li>
       </ul>
-      The short form of the command, <code>-c</code>, acts as a switch.
+      <p>The short form of the command, <code>-c</code>, acts as a switch.
       <code>-c+</code> and <code>-c1</code> hide the CSS in comments while
-      <code>-c-</code> and <code>-c0</code> do not.<br />
-      <code>--hide-css</code> is ignored when either the
+      <code>-c-</code> and <code>-c0</code> do not.</p>
+      <p><code>--hide-css</code> is ignored when either the
       <code>--doc-type fragment</code> or <code>--link-css</code> commands
-      are used.
+      are used.</p>
     </td>
   </tr>
   <tr>
@@ -646,11 +649,11 @@
     </td>
     <td class="switch">&nbsp;</td>
     <td>
-      Determines whether CSS classes in generated HTML documents revert to those
-      used in <em>PasHi</em> v1 (legacy) or whether the new class names
+      <p>Determines whether CSS classes in generated HTML documents revert to
+      those used in <em>PasHi</em> v1 (legacy) or whether the new class names
       introduced in <em>PasHi</em> v2 are used. The next parameter must have one
-      of the following values:
-      <ul class="squashed">
+      of the following values:</p>
+      <ul>
         <li>
           <code>True</code>, <code>1</code>, <code>Y</code>, <code>yes</code> or
           <code>on</code>:
@@ -662,60 +665,60 @@
           Use new CSS class names (the default).
         </li>
       </ul>
-      This command is provided for when you have to maintain code that uses the
-      old CSS style names. New code should use the new class names.<br />
-      When using the <code>--embed-css</code> or <code>--link-css</code>
+      <p>This command is provided for when you have to maintain code that uses
+      the old CSS style names. New code should use the new class names.</p>
+      <p>When using the <code>--embed-css</code> or <code>--link-css</code>
       commands you should be careful to ensure that the CSS file you are
       embedding or linking defines the correct class names. The CSS files that
       are optionally installed with <em>PasHi</em> define both legacy and new
       CSS classes. See <a href="#css">below</a> for information about the
-      required CSS class names.
+      required CSS class names.</p>
     </td>
   </tr>
   <tr>
     <td class="switch">--inhibit-styling</td>
     <td class="switch">&nbsp;</td>
     <td>
-      Enables styling for specified syntactic elements to be omitted from the
+      <p>Enables styling for specified syntactic elements to be omitted from the
       HTML output. This is useful in reducing the size of HTML documents if you
-      have elements that are not styled in any way.<br />
-      This command must be followed by a parameter which is <em>either</em>
+      have elements that are not styled in any way.</p>
+      <p>This command must be followed by a parameter which is <em>either</em>
       the name of a syntactic element for which styling is to be prevented
       <em>or</em> a set of zero or more syntactic elements. A set is a comma
       delimited list of element names, enclosed in <code>{</code> and
-      <code>}</code> characters. When a set of two or more elements is specified
-      styling is inhibited for all the elements. The list must not contain
-      spaces. Valid element names are:
-      <ul class="squashed">
-        <li><code>space</code> &nbsp; white space</li>
-        <li><code>comment</code> &nbsp; comments</li>
-        <li><code>kwd</code> &nbsp; keywords</li>
-        <li><code>ident</code> &nbsp; identifiers</li>
-        <li><code>sym</code> &nbsp; symbols</li>
-        <li><code>str</code> &nbsp; string literals</li>
-        <li><code>num</code> &nbsp; integers</li>
-        <li><code>float</code> &nbsp; floating point numbers</li>
-        <li><code>hex</code> &nbsp; hexadecimal numbers</li>
-        <li><code>preproc</code> &nbsp; pre-processor instructions</li>
-        <li><code>asm</code> &nbsp; assembler code</li>
-        <li><code>err</code> &nbsp; syntax errors</li>
+      <code>}</code> characters. The list must not contain spaces. Valid element
+      names are:</p>
+      <ul>
+        <li><code>space</code>: white space</li>
+        <li><code>comment</code>: comments</li>
+        <li><code>kwd</code>: keywords</li>
+        <li><code>ident</code>: identifiers</li>
+        <li><code>sym</code>: symbols</li>
+        <li><code>str</code>: string literals</li>
+        <li><code>num</code>: integers</li>
+        <li><code>float</code>: floating point numbers</li>
+        <li><code>hex</code>: hexadecimal numbers</li>
+        <li><code>preproc</code>: pre-processor instructions</li>
+        <li><code>asm</code>: assembler code</li>
+        <li><code>err</code>: syntax errors</li>
       </ul>
-      Use <code>{}</code> (an empty set) or <code>-</code> (a minus sign) to
-      enable all elements to be highlighted (the default).<br />
-      Examples: To suppress generation of styling for white space only, use
+      <p>Use <code>{}</code> (an empty set) or <code>-</code> (a minus sign) to
+      enable all elements to be highlighted (the default).</p>
+      <p>Examples: To suppress generation of styling for white space only, use
       <code>--inhibit-styling space</code> or <code>--inhibit-styling
       {space}</code>. To suppress both white space and syntax errors use
-      <code>--inhibit-styling {space,err}</code>.
+      <code>--inhibit-styling {space,err}</code>.</p>
     </td>
   </tr>
   <tr>
     <td class="switch">--encoding</td>
     <td class="switch">-e</td>
     <td>
-      Sets the character encoding used for output to that specified in the
+      <p>Sets the character encoding used for output to that specified in the
       next parameter. HTML documents are marked with the chosen format and the
-      resulting file may include byte order marks. Valid encoding parameters are:
-      <ul class="squashed">
+      resulting file may include byte order marks. Valid encoding parameters
+      are:</p>
+      <ul>
         <li>
           <code>utf-8</code> or <code>utf8</code>: Encodes in Unicode using
           UTF-8 format with byte order mark (the default).
@@ -735,8 +738,9 @@
           <code>latin1</code>: Encodes in ISO-8859-1 format.
         </li>
       </ul>
-      This command is ignored if the <code>--output-clipboard</code> command is
-      specified, because data is always written to the clipboard in Unicode.
+      <p>This command is ignored if the <code>--output-clipboard</code> command
+      is specified, because data is always written to the clipboard in
+      Unicode.</p>
     </td>
   </tr>
   <tr>
@@ -744,12 +748,12 @@
     <td class="switch">-m<br />
     <span class="deprecated">[deprecated]</span></td>
     <td>
-      Determines if or how source code is trimmed of blank lines and spaces
+      <p>Determines if or how source code is trimmed of blank lines and spaces
       before highlighting. Multiple source files are trimmed individually before
-      concatenation.<br />
-      In the case of <code>--trim</code> the following parameter is used to
-      specify the type of trimming to be performed:
-      <ul class="squashed">
+      concatenation.</p>
+      <p>In the case of <code>--trim</code> the following parameter is used to
+      specify the type of trimming to be performed:</p>
+      <ul>
         <li>
           <code>-</code>, <code>none</code> or <code>nothing</code>:
           do not trim anything.
@@ -770,9 +774,10 @@
           lines.
         </li>
       </ul>
-      <code>--trim</code> also supports the following Boolean values that were
-      used with <code>--trim</code> in <em>PasHi</em> v2.2.1 and earlier.
-      <ul class="squashed">
+      <p><code>--trim</code> also supports the following Boolean values that
+      were used with <code>--trim</code> in <em>PasHi</em> v2.2.1 and
+      earlier.</p>
+      <ul>
         <li>
           <code>True</code>, <code>1</code>, <code>Y</code>, <code>yes</code> or
           <code>on</code> <span class="deprecated">all deprecated</span>:
@@ -784,10 +789,10 @@
           Aliases for <code>--trim none</code>.
         </li>
       </ul>
-      The short form of the command, <code>-m</code>, acted as a switch in
+      <p>The short form of the command, <code>-m</code>, acted as a switch in
       <em>PasHi</em> v2.2.1 and earlier. The command is now interpreted as
-      follows:
-      <ul class="squashed">
+      follows:</p>
+      <ul>
         <li>
           <code>-m+</code> and <code>-m1</code> <span class="deprecated">both
           deprecated</span>:
@@ -805,22 +810,22 @@
     <td class="switch">--separator-lines</td>
     <td class="switch">&nbsp;</td>
     <td>
-      Specifies the number of blank lines to insert between the contents of each
-      source file. The required number of lines is given in the following
-      parameter and must be in the range 0..16. The default value is 1.<br />
-      This command is ignored unless more than one file is specified on the
-      command line.
+      <p>Specifies the number of blank lines to insert between the contents of
+      each source file. The required number of lines is given in the following
+      parameter and must be in the range 0..16. The default value is 1.</p>
+      <p>This command is ignored unless more than one file is specified on the
+      command line.</p>
     </td>
   </tr>
   <tr>
     <td class="switch">--line-numbering</td>
     <td class="switch">-n</td>
     <td>
-      Determines whether line numbers are prepended to each line of source code
-      in the output document.<br />
-      In the case of <code>--line-numbering</code> the following parameter is
-      used to switch line numbering on or off:
-      <ul class="squashed">
+      <p>Determines whether line numbers are prepended to each line of source
+      code in the output document.</p>
+      <p>In the case of <code>--line-numbering</code> the following parameter is
+      used to switch line numbering on or off:</p>
+      <ul>
         <li>
           <code>True</code>, <code>1</code>, <code>Y</code>, <code>yes</code> or
           <code>on</code>:
@@ -832,31 +837,32 @@
           Line numbers are disabled (the default).
         </li>
       </ul>
-      The short form of the command, <code>-n</code>, acts as a switch:
+      <p>The short form of the command, <code>-n</code>, acts as a switch:
       <code>-n+</code> and <code>-n1</code> enable line numbering on while
-      <code>-n-</code> and <code>-n0</code> disable it.
+      <code>-n-</code> and <code>-n0</code> disable it.</p>
     </td>
   </tr>
   <tr>
     <td class="switch">--line-number-width</td>
     <td class="switch">-i</td>
     <td>
-      Determines the minimum width, in characters, occupied by line numbers.
+      <p>Determines the minimum width, in characters, occupied by line numbers.
       Line numbers are padded to this width if necessary, but longer line
       numbers are not truncated. The required width is given in the following
-      parameter and must be in the range 1..6. The default value is 3.<br />
-      This command is ignored if line numbering is not enabled: see the
-      <code>--line-numbering</code> command.
+      parameter and must be in the range 1..6. The default value is 3.</p>
+      <p>This command is ignored if line numbering is not enabled: see the
+      <code>--line-numbering</code> command.</p>
     </td>
   </tr>
   <tr>
     <td class="switch">--line-number-padding</td>
     <td class="switch">-p</td>
     <td>
-      Determines the padding character to be used when the number of characters
-      in a line number is less than the available width. The required character
-      is specified in the following parameter, which must be one of:
-      <ul class="squashed">
+      <p>Determines the padding character to be used when the number of
+      characters in a line number is less than the available width. The required
+      character is specified in the following parameter, which must be one
+      of:</p>
+      <ul>
         <li>
           <code>space</code>: Pads with space characters (the default).
         </li>
@@ -870,28 +876,28 @@
           <code>dot</code>: Pads with dots (.).
         </li>
       </ul>
-      This command is ignored if line numbering is not enabled: see the
-      <code>--line-numbering</code> command.
+      <p>This command is ignored if line numbering is not enabled: see the
+      <code>--line-numbering</code> command.</p>
     </td>
   </tr>
   <tr>
     <td class="switch">--line-number-start</td>
     <td class="switch">-z</td>
     <td>
-      Determines the number of the first line in the listing, in the range
-      1..9999. The default value is 1.<br />
-      This command is ignored if line numbering is not enabled: see the
-      <code>--line-numbering</code> command.
+      <p>Determines the number of the first line in the listing, in the range
+      1..9999. The default value is 1.</p>
+      <p>This command is ignored if line numbering is not enabled: see the
+      <code>--line-numbering</code> command.</p>
     </td>
   </tr>
   <tr>
     <td class="switch">--striping</td>
     <td class="switch">&nbsp;</td>
     <td>
-      Determines whether alternate lines of source code in the output document
-      are styled differently or appear the same. The next parameter must be one
-      of the following values:
-      <ul class="squashed">
+      <p>Determines whether alternate lines of source code in the output
+      document are styled differently or appear the same. The next parameter
+      must be one of the following values:</p>
+      <ul>
         <li>
           <code>True</code>, <code>1</code>, <code>Y</code>, <code>yes</code> or
           <code>on</code>:
@@ -903,24 +909,24 @@
           All lines have the same appearance (the default).
         </li>
       </ul>
-      Each line of output is enclosed in its own <code>&lt;pre&gt;</code> tag.
-      When striping is disabled each <code>&lt;pre&gt;</code> tag has class
+      <p>Each line of output is enclosed in its own <code>&lt;pre&gt;</code>
+      tag. When striping is disabled each <code>&lt;pre&gt;</code> tag has class
       <code>line</code> which can optionally be defined in CSS to style the
       line. When striping is enabled the <code>line</code> class is replaced by
       <code>odd-line</code> and <code>even-line</code> on alternate lines.
       These classes must be defined differently in CSS otherwise no difference
       between alternate lines will be visible. See <a href="#css">below</a> for
-      more information about the necessary CSS classes.
+      more information about the necessary CSS classes.</p>
     </td>
   </tr>
   <tr>
     <td class="switch">--viewport</td>
     <td class="switch">&nbsp;</td>
     <td>
-      Determines the type, if any, of viewport meta-data that is written to a
+      <p>Determines the type, if any, of viewport meta-data that is written to a
       HTML document head section. The type of meta-data depends on the value
-      the next parameter, which must be one of:
-      <ul class="squashed">
+      the next parameter, which must be one of:</p>
+      <ul>
         <li>
           <code>none</code>: No viewport meta data is written (the
           default)<br />
@@ -933,18 +939,18 @@
           use on smart phones and tablets.
         </li>
       </ul>
-      This command has no effect if the <code>--doc-type fragment</code>
-      command is also used.
+      <p>This command has no effect if the <code>--doc-type fragment</code>
+      command is also used.</p>
     </td>
   </tr>
   <tr>
     <td class="switch">--edge-compatibility</td>
     <td class="switch">&nbsp;</td>
     <td>
-      Determines whether a Microsoft Edge IE compatibility meta tag is written
-      to an HTML document head. The next parameter must be one of the following
-      values:
-      <ul class="squashed">
+      <p>Determines whether a Microsoft Edge IE compatibility meta tag is
+      written to an HTML document head. The next parameter must be one of the
+      following values:</p>
+      <ul>
         <li>
           <code>True</code>, <code>1</code>, <code>Y</code>, <code>yes</code> or
           <code>on</code>:
@@ -956,18 +962,18 @@
           Do not write the meta data (the default).
         </li>
       </ul>
-      This command has no effect if the <code>--doc-type fragment</code>
-      command is also used.
+      <p>This command has no effect if the <code>--doc-type fragment</code>
+      command is also used.</p>
     </td>
   </tr>
   <tr>
     <td class="switch">--verbosity</td>
     <td class="switch">&nbsp;</td>
     <td>
-      Determines the amount of output PasHi writes to standard error while
+      <p>Determines the amount of output PasHi writes to standard error while
       executing. The amount of output depends on the value of the next
-      parameter, which must be one of:
-      <ul class="squashed">
+      parameter, which must be one of:</p>
+      <ul>
         <li>
           <code>normal</code>: Normal screen output (the default). This causes
           the program to display sign-on information and to display a message
@@ -998,22 +1004,24 @@
     <td class="switch">--quiet</td>
     <td class="switch">-q</td>
     <td>
-      Alias for the <code>--verbosity quiet</code> command.
+      <p>Alias for the <code>--verbosity quiet</code> command.</p>
     </td>
   </tr>
   <tr>
     <td class="switch">--help</td>
     <td class="switch">-h</td>
     <td>
-      Displays a help screen. The remainder of the command line is ignored.
+      <p>Displays a help screen. The remainder of the command line is
+      ignored.</p>
     </td>
   </tr>
   <tr>
     <td class="switch">--version</td>
     <td class="switch">-v</td>
     <td>
-      Displays the program's version number. The remainder of the command line
-      is ignored, except for <code>--help</code>, which takes precendence.
+      <p>Displays the program's version number. The remainder of the command
+      line is ignored, except for <code>--help</code>, which takes
+      precendence.</p>
     </td>
   </tr>
 </table>
@@ -1045,32 +1053,32 @@
     <td class="switch">-rc<br />
     <span class="deprecated">[deprecated]</span></td>
     <td>
-      Alias for the <code>--input-clipboard</code> command.
+      <p>Alias for the <code>--input-clipboard</code> command.</p>
     </td>
   </tr>
   <tr>
     <td class="switch">-wc<br />
     <span class="deprecated">[deprecated]</span></td>
     <td>
-      Alias for the <code>--output-clipboard</code> command.
+      <p>Alias for the <code>--output-clipboard</code> command.</p>
     </td>
   </tr>
   <tr>
     <td class="switch">-frag<br />
     <span class="deprecated">[deprecated]</span></td>
     <td>
-      Alias for the <code>--doc-type fragment</code> command.
+      <p>Alias for the <code>--doc-type fragment</code> command.</p>
     </td>
   </tr>
   <tr>
     <td class="switch">-hidecss<br />
     <span class="deprecated">[deprecated]</span></td>
     <td>
-      Alias for <code>-c+</code> or the <code>--hide-css yes</code>
-      command.<br />
-      <strong>Note:</strong> the <code>--hide-css</code> and
+      <p>Alias for <code>-c+</code> or the <code>--hide-css yes</code>
+      command.</p>
+      <p><strong>Note:</strong> the <code>--hide-css</code> and
       <code>-c</code> commands are also
-      <span class="deprecated">[deprecated]</span>.
+      <span class="deprecated">[deprecated]</span>.</p>
     </td>
   </tr>
 </table>
@@ -1251,7 +1259,7 @@
   scripts are:
 </p>
 
-<dl>
+<dl class="spaced">
   <dt class="file">
     config-template
   </dt>
@@ -1374,7 +1382,7 @@ doc-type fragment</pre>
   There are further CSS classes that can be associated with each line. They are:
 </p>
 
-<dl>
+<dl class="spaced">
   <dt class="css">
     .line
   </dt>
@@ -1418,7 +1426,7 @@ doc-type fragment</pre>
   class should be provided. These classes are:
 </p>
 
-<dl>
+<dl class="spaced">
     <dt class="css">
       .comment
     </dt>
@@ -1682,7 +1690,7 @@ doc-type fragment</pre>
   <em>PasHi</em> is first run after installation. The files are:
 </p>
 
-<dl>
+<dl class="spaced">
   <dt class="file">
     delphi4.css
   </dt>

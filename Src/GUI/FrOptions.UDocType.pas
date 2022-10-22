@@ -85,6 +85,7 @@ end;
 
 destructor TDocTypeOptionsFrame.Destroy;
 begin
+  fInhibitStylesMap.Free;
   fDocTypeMap.Free;
   inherited;
 end;
