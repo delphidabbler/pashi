@@ -8,6 +8,43 @@ This change log begins with the first ever pre-release version of what was then 
 
 From release 2.0.0 the version numbering has attempted to adhere to the principles of [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Release 2.3.0 - 2022-10-22
+
+This release includes _PasHi_ v2.3.0 and _PasHiGUI_ v1.3.0
+
+### PasHi 2.3.0 [build 15]
+
+* Added new `--inhibit-styling` command to prevent `<span>` tags from being emitted for specified highlighter elements. [Issue 30]
+* Modified operation of `--trim` command to add facility to trim trailing spaces from source code lines. Added new parameters to specify whether lines, trailing spaces or nothing are to be trimmed. Maintained backward compatibility with older parameters, but deprecated them. [Issue 29]
+* Added new `-v` command as an alias for `--verbosity`. [Issue 38]
+* Added `frag` parameter as an alias for `fragment` in `--doc-type` command. [Issue 47]
+* Enabled `-` to be used as a parameter.
+* Added support for parsing set type parameters in form `{elem1,elem2,...}`.
+* Updated text of help screen re the new & modified commands.
+* Some minor refactoring.
+
+### PasHiGUI 1.3.0 [build 9]
+
+* Updated options pane to provide support for the new `--inhibit-styling` and modified `--trim` commands.
+
+### General
+
+* Update `UserGuide.html`:
+  * Add information about new & modified commands.
+  * Tweaked some content.
+  * Restyled tales for impreved readability.
+* Bumped config files version from 5 to 6. [Issue 55]
+* Updated `config-template`:
+  * Added comments detailing new `inhibit-styling` and modified `trim` commands.
+  * Added information about `line-number-satrt` command omitted from previous release. [Issue 53]
+  * Standardised formatting of comments.
+  * Added content explaining how to get help on the purpose of the config file commands.
+
+### Repository changes
+
+* Added link to user guide in `README.md`. [Issue 50]
+* Corrected formatting of Inno Setup files on GitHub. [Issue 36]
+
 ## Release 2.2.1 - 2022-08-29
 
 This release includes _PasHi_ v2.2.1 and _PasHiGUI_ v1.2.1. Changes are as follows:
@@ -56,9 +93,8 @@ This release includes _PasHi_ v2.2.0 and _PasHiGUI_ v1.2.0. Changes are as follo
   * Fixed CSS errors
 * Made minor changes to read-me file that is included in distributions.
 * Updated various web addresses in documentation.
-* Updated `config-template` comments:
-  * noted fact that the `version` command can't be used in the `config` file
-  * added details of new `line-number-start` command & its parameters
+* Updated `config-template` comments to note that the `version` command can't be used in the `config` file
+* Bumped config files version from 4 to 5.
 
 ## Release 2.1.0 - 2021-09-22
 
@@ -96,6 +132,7 @@ This release includes _PasHi_ v2.1.0 and _PasHiGUI_ v1.1.0. Changes are as follo
   * noted fact that the `help` command can no longer be used in the `config` file
   * added details of new `viewport` and `edge-compatibility` commands
   * noted new command parameters
+* Bumped config files version from 3 to 4.
 * Commented all v1 CSS classes as deprecated in `.css` files.
 
 ## Release 2.0.0 - 2016-09-22

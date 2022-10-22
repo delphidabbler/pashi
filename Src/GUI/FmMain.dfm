@@ -249,13 +249,13 @@ object MainForm: TMainForm
       ParentColor = True
       TabOrder = 2
       object cpnlMisc: TCategoryPanel
-        Top = 190
+        Top = 317
         Height = 30
         Caption = 'Miscellaneous'
         Color = clWindow
         Collapsed = True
         TabOrder = 0
-        ExpandedHeight = 262
+        ExpandedHeight = 284
         inline frmMisc: TMiscOptionsFrame
           Left = 0
           Top = 0
@@ -268,7 +268,7 @@ object MainForm: TMainForm
         end
       end
       object cpnlLines: TCategoryPanel
-        Top = 160
+        Top = 287
         Height = 30
         Caption = 'Line Numbering && Striping'
         Color = clWindow
@@ -287,7 +287,7 @@ object MainForm: TMainForm
         end
       end
       object cpnlCSS: TCategoryPanel
-        Top = 130
+        Top = 257
         Height = 30
         Caption = 'Style Sheets'
         Color = clWindow
@@ -307,19 +307,23 @@ object MainForm: TMainForm
       end
       object cpnlDocType: TCategoryPanel
         Top = 0
-        Height = 130
-        Caption = 'Document Type'
+        Height = 257
+        Caption = 'Document Generation'
         Color = clWindow
         TabOrder = 3
         inline frmDocType: TDocTypeOptionsFrame
           Left = 0
           Top = 0
           Width = 219
-          Height = 104
+          Height = 231
           Align = alClient
           TabOrder = 0
           ExplicitWidth = 219
-          ExplicitHeight = 104
+          ExplicitHeight = 231
+          inherited clbInhibitStyling: TCheckListBox
+            BevelEdges = []
+            BevelInner = bvLowered
+          end
         end
       end
     end
@@ -461,7 +465,7 @@ object MainForm: TMainForm
     Left = 336
     Top = 152
     Bitmap = {
-      494C010105000900200010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010105000900280010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

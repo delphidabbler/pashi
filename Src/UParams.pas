@@ -18,8 +18,10 @@ interface
 uses
   // Delphi
   SysUtils,
+  Types,
   Generics.Collections,
   // Project
+  Hiliter.UGlobals,
   UConfig;
 
 type
@@ -47,6 +49,7 @@ type
     siHelp,             // display help
     siVerbosity,        // determines amount of messages output by program
     siTrim,             // determines if source code is trimmed
+    siTrim2,             // determines if & how source code is trimmed
     siSeparatorLines,   // specifies number of lines that separate source files
     siLineNumbering,    // determines if output file is to be line numbered
     siLineNumberWidth,  // specifies width of line numbers in characters
@@ -56,7 +59,8 @@ type
     siViewport,         // which viewport meta-data to output, if any
     siEdgeCompatibility,// whether edge compatibility info meta-data is output
     siLineNumberStart,  // specifies starting line number
-    siVersion           // display program's version
+    siVersion,          // display program's version
+    siInhibitStyling    // inhibits styling of some highlight elements
   );
 
 type
@@ -100,6 +104,9 @@ type
   ///  commands provided.</summary>
   TParams = class(TObject)
   strict private
+    const
+      SetParamOpener = '{';
+      SetParamCloser = '}';
     var
       fParamQueue: TQueue<string>; // Queue of parameters to be processed
       fCmdLookup: TDictionary<string, TCommandId>;
@@ -112,6 +119,9 @@ type
       fVerbosityLookup: TDictionary<string, TVerbosity>;
       fPaddingLookup: TDictionary<string, Char>;
       fViewportLookup: TDictionary<string, TViewport>;
+      fHiliteSpanClsLookup: TDictionary<string, THiliteElement>;
+      fHiliteAliasLookup: TDictionary<string, THiliteElements>;
+      fTrimLookup: TDictionary<string, TTrimOperation>;
       fConfig: TConfig; // Reference to program's configuration object
       fWarnings: TList<string>;
       fFirstCommandFound: Boolean;  // detects filenames after 1st command
@@ -119,6 +129,8 @@ type
     procedure GetCmdLineParams;
     procedure ParseCommand(const IsConfigCmd: Boolean);
     procedure ParseFileName;
+    function TryParseSetParam(const Param: string; out Elems: TStringDynArray):
+      Boolean;
     function GetStringParameter(const Cmd: TCommand): string;
     function GetBooleanParameter(const Cmd: TCommand): Boolean;
     function GetEncodingParameter(const Cmd: TCommand): TOutputEncodingId;
@@ -128,6 +140,7 @@ type
       UInt16;
     function GetPaddingParameter(const Cmd: TCommand): Char;
     function GetViewportParameter(const Cmd: TCommand): TViewport;
+    function GetExcludedSpansParameter(const Cmd: TCommand): THiliteElements;
     function GetWarnings: TArray<string>;
     function AdjustCommandName(const Name: string; IsCfgCmd: Boolean): string;
     function IsV1Command(const Name: string): Boolean;
@@ -171,6 +184,7 @@ uses
   // Delphi
   StrUtils, Classes, Character,
   // Project
+  Hiliter.UHiliters,
   UComparers, UConfigFiles;
 
 
@@ -191,6 +205,9 @@ begin
 end;
 
 constructor TParams.Create(const Config: TConfig);
+var
+  HiliteElem: THiliteElement;
+  CSSNames: TCSSNames;
 begin
   Assert(Assigned(Config), 'TParams.Create: Config is nil');
   inherited Create;
@@ -219,6 +236,7 @@ begin
     Add('-r', siInputClipboard);
     Add('-s', siEmbedCSS);
     Add('-t', siTitle);
+    Add('-v', siVersion);
     Add('-w', siOutputClipboard);
     Add('-z', siLineNumberStart);
     // long forms
@@ -252,6 +270,7 @@ begin
     Add('--viewport', siViewport);
     Add('--edge-compatibility', siEdgeCompatibility);
     Add('--version', siVersion);
+    Add('--inhibit-styling', siInhibitStyling);
     // commands kept for backwards compatibility with v1.x
     Add('-frag', siFragment);
     Add('-hidecss', siForceHideCSS);
@@ -313,6 +332,7 @@ begin
     Add('html4', dtHTML4);
     Add('html5', dtHTML5);
     Add('fragment', dtFragment);
+    Add('frag', dtFragment);
   end;
   // lookup table for any command with boolean parameters
   fBooleanLookup := TDictionary<string, Boolean>.Create(
@@ -362,10 +382,44 @@ begin
     Add('tablet', vpPhone);
   end;
   fWarnings := TList<string>.Create(TTextComparer.Create);
+
+  fTrimLookup := TDictionary<string, TTrimOperation>.Create(
+    TTextEqualityComparer.Create
+  );
+  fTrimLookup.Add('-', tsNone);
+  fTrimLookup.Add('none', tsNone);
+  fTrimLookup.Add('nothing', tsNone);
+  fTrimLookup.Add('lines', tsLines);
+  fTrimLookup.Add('spaces', tsSpaces);
+  fTrimLookup.Add('all', tsBoth);
+  fTrimLookup.Add('everything', tsBoth);
+  // Additionally old Boolean params are supported, but deprecated.
+  //   False => 'none' and True => 'lines'
+
+  fHiliteSpanClsLookup := TDictionary<string,THiliteElement>.Create(
+    TTextEqualityComparer.Create
+  );
+  fHiliteAliasLookup := TDictionary<string, THiliteElements>.Create(
+    TTextEqualityComparer.Create
+  );
+  CSSNames := TCSSNames.Create;
+  try
+    for HiliteElem := Low(THiliteElement) to High(THiliteElement) do
+    begin
+      fHiliteSpanClsLookup.Add(CSSNames.ElementClass(HiliteElem), HiliteElem);
+      // add element name as alias for {element-name}
+      fHiliteAliasLookup.Add(CSSNames.ElementClass(HiliteElem), [HiliteElem]);
+    end;
+  finally
+    CSSNames.Free;
+  end;
+  fHiliteAliasLookup.Add('-', []);  // alias for empty set {}
 end;
 
 destructor TParams.Destroy;
 begin
+  fHiliteAliasLookup.Free;
+  fHiliteSpanClsLookup.Free;
   fWarnings.Free;
   fViewportLookup.Free;
   fPaddingLookup.Free;
@@ -444,6 +498,43 @@ begin
   Result := fEncodingLookup[Param];
 end;
 
+function TParams.GetExcludedSpansParameter(const Cmd: TCommand):
+  THiliteElements;
+var
+  Param: string;
+  Spans: TStringDynArray;
+  Span: string;
+resourcestring
+  sBadSpanCls = 'Invalid span class name for "%s": ';
+  sBadParam = 'Invalid parameter for "%s": ';
+begin
+  // Parameter is EITHER a set or an alias for a set
+  // Set is enclosed in {}, alias is not.
+  Param := GetStringParameter(Cmd);
+  if TryParseSetParam(Param, Spans) then
+  begin
+    // Parameter is a valid set of zero or more elements
+    Result := [];
+    for Span in Spans do
+    begin
+      if not fHiliteSpanClsLookup.ContainsKey(Span) then
+        raise ECommandError.Create(
+          Cmd.Name, sBadSpanCls + Format('"%s', [Span])
+        );
+      Include(Result, fHiliteSpanClsLookup[Span]);
+    end;
+  end
+  else
+  begin
+    // Not a set parameter - test for a valid alias
+    if not fHiliteAliasLookup.ContainsKey(Param) then
+      raise ECommandError.Create(
+        Cmd.Name, sBadParam + Format('"%s"', [Param])
+      );
+    Result := fHiliteAliasLookup[Param];
+  end;
+end;
+
 function TParams.GetNumericParameter(const Cmd: TCommand; const Lo,
   Hi: UInt16): UInt16;
 var
@@ -483,8 +574,9 @@ begin
     Result := ''
   else
     Result := fParamQueue.Peek;
-  if (Result = '') or AnsiStartsStr('-', Result) then
-    raise ECommandError.Create(Cmd.Name, sNoParam);
+    if (Result = '')
+      or (AnsiStartsStr('-', Result) and (Result <> '-')) then
+      raise ECommandError.Create(Cmd.Name, sNoParam);
 end;
 
 function TParams.GetVerbosityParameter(const Cmd: TCommand): TVerbosity;
@@ -575,15 +667,19 @@ procedure TParams.ParseCommand(const IsConfigCmd: Boolean);
 resourcestring
   // Error messages
   sBadCommand = 'Unrecognised command "%s"';
+  sBadParam = 'Unrecognised parameter "%0:s" for command "%1:s"';
   sCantBeSwitch = '%s cannot be a switch command';
   sMustBeSwitch = '%s must be a switch command: append "+" or "-"';
-  sBlacklisted = 'The "%s" command is not permitted.';
+  sBlacklisted = 'The "%s" command is not permitted';
   // Warnings
   sDeprecatedCmd = 'The "%s" command is deprecated';
+  sDeprecatedParam = 'The "%0:s" parameter of the "%1:s" command is deprecated';
+  sDeprecatedSwitch = 'The "%s" switch is deprecated';
   sDepDocType = 'The "html4" parameter of the "%s" command is deprecated';
 var
   Command: TCommand;
   CommandId: TCommandId;
+  Param: string;
 begin
   Command := fParamQueue.Dequeue;
   if not fCmdLookup.ContainsKey(Command.Name) then
@@ -713,10 +809,39 @@ begin
     siTrim:
     begin
       if Command.IsSwitch then
-        fConfig.TrimSource := Command.SwitchValue
+      begin
+        if Command.SwitchValue = True then
+          fConfig.TrimSource := tsLines
+        else
+          fConfig.TrimSource := tsNone;
+        fWarnings.Add(
+          Format(
+            sDeprecatedSwitch, [AdjustCommandName(Command.Name, IsConfigCmd)]
+          )
+        );
+      end
       else
       begin
-        fConfig.TrimSource := GetBooleanParameter(Command);
+        Param := GetStringParameter(Command);
+        if fTrimLookup.ContainsKey(Param) then
+          fConfig.TrimSource := fTrimLookup[Param]
+        else if fBooleanLookup.ContainsKey(Param) then
+        begin
+          if fBooleanLookup[Param] = True then
+            fConfig.TrimSource := tsLines
+          else
+            fConfig.TrimSource := tsNone;
+          fWarnings.Add(
+            Format(
+              sDeprecatedParam,
+              [Param, AdjustCommandName(Command.Name, IsConfigCmd)]
+            )
+          );
+        end
+        else
+          raise Exception.CreateFmt(
+            sBadParam, [Param, AdjustCommandName(Command.Name, IsConfigCmd)]
+          );
         fParamQueue.Dequeue;
       end;
     end;
@@ -782,6 +907,11 @@ begin
       fConfig.EdgeCompatibility := GetBooleanParameter(Command);
       fParamQueue.Dequeue;
     end;
+    siInhibitStyling:
+    begin
+      fConfig.ExcludedSpans := GetExcludedSpansParameter(Command);
+      fParamQueue.Dequeue;
+    end;
   end;
 end;
 
@@ -797,6 +927,31 @@ begin
   fConfig.InputSource := isFiles;
   // Next parameter
   fParamQueue.Dequeue;
+end;
+
+function TParams.TryParseSetParam(const Param: string;
+  out Elems: TStringDynArray): Boolean;
+var
+  ParamContent: string;
+begin
+  // A set parameter has the form (in sort of BNF):
+  //   "{" [ <elem> { "," <elem> } ] "}"
+  // where elem is simple text
+  // E.gs:
+  //   {} - empty set
+  //   {elem} - one item set
+  //   {elem1,elem2,elem3} - three item set
+  // Note - there can be no spaces anywhere in the parameter
+  SetLength(Elems, 0);
+  if Length(Param) < 2 then
+    Exit(False);
+  if Param[1] <> SetParamOpener then
+    Exit(False);
+  if Param[Length(Param)] <> SetParamCloser then
+    Exit(False);
+  ParamContent := Copy(Param, 2, Length(Param) - 2);
+  Elems := SplitString(ParamContent, ',');
+  Result := True;
 end;
 
 { TCommand }

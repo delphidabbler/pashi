@@ -63,6 +63,29 @@ PasHi supports the following commands:
                               no - do not enclose CSS [default]
                             Alternatively use -c+ to enclose CSS in comments or
                             -c- not to do so.
+--inhibit-styling           Enables styling for specified syntactic elements to
+                            be omitted from the HTML output. The following
+                            parameter must be in set format: a comma delimited
+                            list of the names of syntactic elements for which
+                            styling is to be prevented. The list must be
+                            enclosed in { and } characters, for e.g.
+                            {space,kwd}. Valid element names are:
+                              space - white space
+                              comment - comments
+                              kwd - keywords
+                              ident - identifiers
+                              sym - symbols
+                              str - string literals
+                              num - integers
+                              float - floating point numbers
+                              hex - hexadecimal numbers
+                              preproc - pre-processor instructions
+                              asm - assembler code
+                              err - syntax errors
+                            Use the empty set, {}, to style all elements
+                            [default].
+                            Where there is just one syntactic element being
+                            specified, the curly brackets can be omitted.
 --input-clipboard     -r    Read source code from the clipboard instead of
                             stdin or file(s).
 --input-stdin               Read source code from stdin [default].
@@ -123,14 +146,21 @@ PasHi supports the following commands:
                             include spaces surround the text in double quotes.
 --title-default             Uses the program's default title for the output
                             document [default].
---trim                -m    Determines whether input documents are trimmed of
-                            leading and trailing blank lines. --trim requires
+--trim                -m    Determines whether and how input documents are
+                            trimmed of blank lines and spaces. --trim requires
                             the next parameter to supply one of the following
                             values:
-                              yes - trim [default]
-                              no - do not trim
-                            Alternatively use -m+ to trim or -m- to prevent
-                            trimming.
+                              - - do not trim anything.
+                              lines - trim leading and trailing blank lines.
+                                [default] (*default deprecated: lines option
+                                will remain*)
+                              spaces - trim trailing spaces from lines
+                              all - trim leading and trailing blank lines and
+                                trim trailing spaces from lines
+                              yes - alias for "lines" parameter (*deprecated*)
+                              no - alias for "-" parameter (*deprecated*)
+                            -m+ (*deprecated*) is an alias for "--trim lines"
+                            and -m- (*deprecated*) is an alias for "trim -".
 --verbosity                 Specifies the amount of output from the program.
                             The next parameter must be one of:
                               normal - sign-on, error, warning and completion
@@ -139,7 +169,7 @@ PasHi supports the following commands:
                               no-warn - no warnings: sign-on, error and
                                 completion messages only.
                               quiet - error messages only.
---version                   Displays program version. Do not use with other
+--version             -v    Displays program version. Do not use with other
                             commands.
 --viewport                  Determines the type, if any, of viewport meta-data
                             written to a HTML document head section. The next

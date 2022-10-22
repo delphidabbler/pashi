@@ -15,7 +15,8 @@ unit UConfig;
 interface
 
 uses
-  SysUtils, Classes;
+  SysUtils, Classes,
+  Hiliter.UGlobals;
 
 type
 
@@ -72,6 +73,15 @@ type
     vpPhone
   );
 
+  ///  <summary>Enumerates different trim operations applied to source code.
+  ///  prior to processing.</summary>
+  TTrimOperation = (
+    tsNone,         // don't trim anything
+    tsLines,        // trim blank lines from beginning and end of a source file
+    tsSpaces,       // trim trailing spaces from source code lines
+    tsBoth          // trim blank lines and spaces
+  );
+
   ///  <summary>Valid range of separator lines between files.</summary>
   TSeparatorLines = 0..16;
 
@@ -99,7 +109,7 @@ type
     fCSSSource: TCSSSource;
     fCSSLocation: string;
     fOutputEncodingId: TOutputEncodingId;
-    fTrimSource: Boolean;
+    fTrimSource: TTrimOperation;
     fInFiles: TStringList;
     fSeparatorLines: TSeparatorLines;
     fLegacyCSSNames: Boolean;
@@ -110,6 +120,7 @@ type
     fStriping: Boolean;
     fViewport: TViewport;
     fEdgeCompatibility: Boolean;
+    fExcludedSpans: THiliteElements;
     function GetInputFiles: TArray<string>;
   public
     constructor Create;
@@ -138,8 +149,8 @@ type
     property InputFiles: TArray<string> read GetInputFiles;
     property BrandingPermitted: Boolean
       read fBrandingPermitted write fBrandingPermitted default True;
-    property TrimSource: Boolean
-      read fTrimSource write fTrimSource default True;
+    property TrimSource: TTrimOperation
+      read fTrimSource write fTrimSource default tsLines;
     property SeparatorLines: TSeparatorLines
       read fSeparatorLines write fSeparatorLines default 1;
     property LegacyCSSNames: Boolean
@@ -156,6 +167,8 @@ type
     property Viewport: TViewport read fViewport write fViewport default vpNone;
     property EdgeCompatibility: Boolean
       read fEdgeCompatibility write fEdgeCompatibility default False;
+    property ExcludedSpans: THiliteElements
+      read fExcludedSpans write fExcludedSpans default [];
     procedure AddInputFile(const FN: string);
     function OutputEncoding: TEncoding;
     function OutputEncodingName: string;
@@ -189,7 +202,7 @@ begin
   fBrandingPermitted := True;
   fLanguage := '';
   fVerbosity := vbNormal;
-  fTrimSource := True;
+  fTrimSource := tsLines;
   fSeparatorLines := 1;
   fLegacyCSSNames := False;
   fUseLineNumbering := False;
@@ -199,6 +212,7 @@ begin
   fStriping := False;
   fViewport := vpNone;
   fEdgeCompatibility := False;
+  fExcludedSpans := [];
 end;
 
 destructor TConfig.Destroy;

@@ -23,7 +23,8 @@ type
   strict private
     var
       fConfig: TConfig;
-    class function TrimSource(const SourceCode: string): string;
+    class function TrimSourceLines(const SourceCode: string): string;
+    class function TrimSourceTrailingSpaces(const SourceCode: string): string;
     function Separator: string;
   public
     constructor Create(const Config: TConfig);
@@ -33,6 +34,7 @@ type
 implementation
 
 uses
+  StrUtils,
   Classes,
   IO.Readers.UFactory, UConsts;
 
@@ -64,8 +66,10 @@ begin
     for SourceCode in Sources do
     begin
       ProcessedSource := SourceCode;
-      if fConfig.TrimSource then
-        ProcessedSource := TrimSource(ProcessedSource);
+      if fConfig.TrimSource in [tsLines, tsBoth] then
+        ProcessedSource := TrimSourceLines(ProcessedSource);
+      if fConfig.TrimSource in [tsSpaces, tsBoth] then
+        ProcessedSource := TrimSourceTrailingSpaces(ProcessedSource);
       AddToOutput(ProcessedSource);
     end;
     Result := SB.ToString;
@@ -83,7 +87,8 @@ begin
     Result := Result + CRLF;
 end;
 
-class function TSourceProcessor.TrimSource(const SourceCode: string): string;
+class function TSourceProcessor.TrimSourceLines(const SourceCode: string):
+  string;
 var
   Lines: TStringList;
 begin
@@ -98,4 +103,25 @@ begin
   end;
 end;
 
+class function TSourceProcessor.TrimSourceTrailingSpaces(
+  const SourceCode: string): string;
+var
+  Lines: TStringList;
+  Idx: Integer;
+begin
+  Lines := TStringList.Create;
+  try
+    Lines.Text := SourceCode;
+    Result := '';
+    if Lines.Count = 0 then
+      Exit;
+    Result := TrimRight(Lines[0]);
+    for Idx := 1 to Pred(Lines.Count) do
+      Result := Result + EOL + TrimRight(Lines[Idx]);
+  finally
+    Lines.Free;
+  end;
+end;
+
 end.
+
