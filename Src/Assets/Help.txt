@@ -116,8 +116,9 @@ PasHi supports the following commands:
                               zero - pad with zeros
                               dash - pad with dashes (-)
                               dot - pad with dots (.).
---line-number-start   -z    Determines line number of first line of listing,
-                            in range 1..9999 [default 1].
+--line-number-start   -z    Determines line number of first line of listing.
+                            The next parameter specifies a line number in the
+                            range 1..9999 [default 1].
 --line-number-width   -i    Determines minimum width, in characters, occupied
                             by line numbers. Line numbers are padded to this
                             width if necessary. The next parameter specifies
