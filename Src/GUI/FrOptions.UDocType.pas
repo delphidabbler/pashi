@@ -45,7 +45,8 @@ implementation
 
 uses
   StrUtils,
-  Types;
+  Types,
+  UUtils;
 
 {$R *.dfm}
 
@@ -99,7 +100,7 @@ var
   Idx: Integer;
 begin
   DocType := Options.GetParamAsStr('doc-type');
-  if DocType = 'fragment' then
+  if IsStrInList(DocType, ['fragment', 'frag'], False) then
   begin
     rbDocTypeFragment.Checked := True;
     rbDocTypeComplete.Checked := False;

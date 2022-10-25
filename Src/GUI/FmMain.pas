@@ -602,7 +602,9 @@ end;
 
 procedure TMainForm.Render;
 begin
-  if fOptions.GetParamAsStr('doc-type') = 'fragment' then
+  if IsStrInList(
+    fOptions.GetParamAsStr('doc-type'), ['fragment', 'frag'], False
+  ) then
     fDocument.OutputType := doFragment
   else
     fDocument.OutputType := doComplete;
