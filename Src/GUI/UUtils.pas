@@ -36,8 +36,6 @@ implementation
 
 
 uses
-  // Project
-  UConsts,
   // Delphi
   SysUtils, ActiveX;
 
