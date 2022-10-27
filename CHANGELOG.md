@@ -8,6 +8,19 @@ This change log begins with the first ever pre-release version of what was then 
 
 From release 2.0.0 the version numbering has attempted to adhere to the principles of [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Release 2.3.1 - 2022-10-27
+
+This release includes _PasHi_ v2.3.1 and _PasHiGUI_ v1.3.1
+
+### PasHi 2.3.1 [build 16]
+
+* Corrected help screen entry for `--line-number-start` command . [Issue 63]
+
+### PasHiGUI 1.3.1 [build 10]
+
+* Fixed compilation problem causing `UUtils` unit to fail to compile from a fresh build. [Issue 64]
+* Fixed bug where the `frag` alias for the `fragment` parameter of the `doc-type` config command was not being recognised. [Issue 66]
+
 ## Release 2.3.0 - 2022-10-22
 
 This release includes _PasHi_ v2.3.0 and _PasHiGUI_ v1.3.0
