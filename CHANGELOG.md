@@ -14,7 +14,7 @@ This release includes _PasHi_ v2.3.1 and _PasHiGUI_ v1.3.1
 
 ### PasHi 2.3.1 [build 16]
 
-* Corrected help screen entry for `--line-number-start` command . [Issue 63]
+* Corrected help screen entry for `--line-number-start` command. [Issue 63]
 
 ### PasHiGUI 1.3.1 [build 10]
 
@@ -42,14 +42,14 @@ This release includes _PasHi_ v2.3.0 and _PasHiGUI_ v1.3.0
 
 ### General
 
-* Update `UserGuide.html`:
-  * Add information about new & modified commands.
+* Updated `UserGuide.html`:
+  * Added information about new & modified commands.
   * Tweaked some content.
-  * Restyled tales for impreved readability.
+  * Restyled tables for improved readability.
 * Bumped config files version from 5 to 6. [Issue 55]
 * Updated `config-template`:
   * Added comments detailing new `inhibit-styling` and modified `trim` commands.
-  * Added information about `line-number-satrt` command omitted from previous release. [Issue 53]
+  * Added information about `line-number-start` command omitted from previous release. [Issue 53]
   * Standardised formatting of comments.
   * Added content explaining how to get help on the purpose of the config file commands.
 
@@ -60,7 +60,7 @@ This release includes _PasHi_ v2.3.0 and _PasHiGUI_ v1.3.0
 
 ## Release 2.2.1 - 2022-08-29
 
-This release includes _PasHi_ v2.2.1 and _PasHiGUI_ v1.2.1. Changes are as follows:
+This release includes _PasHi_ v2.2.1 and _PasHiGUI_ v1.2.1
 
 ### PasHi v2.2.1 [build 14]
 
@@ -79,7 +79,7 @@ This release includes _PasHi_ v2.2.1 and _PasHiGUI_ v1.2.1. Changes are as follo
 
 ## Release 2.2.0 - 2022-07-04
 
-This release includes _PasHi_ v2.2.0 and _PasHiGUI_ v1.2.0. Changes are as follows:
+This release includes _PasHi_ v2.2.0 and _PasHiGUI_ v1.2.0
 
 ### PasHi v2.2.0 [build 13]
 
@@ -87,7 +87,7 @@ This release includes _PasHi_ v2.2.0 and _PasHiGUI_ v1.2.0. Changes are as follo
 * Added new `--version` command to display the program's version number. Added the associated `version` command to the config file blacklist since it is not valid for inclusion in a config file.
 * Updated sign-on message: excluded program version number and updated web address.
 * Added program version number to branding included in output HTML.
-* Fixed erroneous error message for out of range numeric parameters.
+* Fixed erroneous error message for "out of range" numeric parameters.
 * Modified config file error messages.
 * Fixed some HTML5 inline tag formatting errors in generated output: XHTML style closing tags were being used for some elements.
 * Updated text of help screen re the new commands.
@@ -100,7 +100,7 @@ This release includes _PasHi_ v2.2.0 and _PasHiGUI_ v1.2.0. Changes are as follo
 
 ### General
 
-* Updated user guide `UserGuide.html`:
+* Updated `UserGuide.html`:
   * Added details of new commands
   * Some clarifications and corrections
   * Fixed CSS errors
@@ -111,11 +111,11 @@ This release includes _PasHi_ v2.2.0 and _PasHiGUI_ v1.2.0. Changes are as follo
 
 ## Release 2.1.0 - 2021-09-22
 
-This release includes _PasHi_ v2.1.0 and _PasHiGUI_ v1.1.0. Changes are as follows:
+This release includes _PasHi_ v2.1.0 and _PasHiGUI_ v1.1.0
 
 ### PasHi v2.1.0 [build 12]
 
-* Implemented a blacklist of commands that can't be included in the `config` file and halt the program with an error when such commands are detected. Only the `help` command is so blacklisted.
+* Implemented a blacklist of commands that can't be included in the `config` file. The program is halted with an error when such commands are detected. Only the `help` command is so blacklisted.
 * Added new `--viewport` command that can write a mobile-friendly meta tag to the `<head>` section of complete (X)HTML documents.
 * Added new `--edge-compatibility` command that can write a `http-equiv=X-UA-Compatible` meta tag for Microsoft Edge to the `<head>` section of complete (X)HTML documents.
 * Added new facility to emit warning message for deprecated items.
@@ -134,17 +134,17 @@ This release includes _PasHi_ v2.1.0 and _PasHiGUI_ v1.1.0. Changes are as follo
 
 ### General
 
-* Updated user guide `UserGuide.html`:
-  * with details of new commands.
-  * re deprecation of certain commands / options.
-  * fixed display issues on phones and tablets.
+* Updated `UserGuide.html`:
+  * Added details of new commands.
+  * Noted deprecation of certain commands / options.
+  * Fixed display issues on phones and tablets.
 * Converted license file to markdown format and renamed from `LICENSE` to `LICENSE.md`.
 * Converted this change log to markdown format, moved from `Docs` directory to project root and renamed from `ChangeLog.txt` to `CHANGELOG.md`.
 * Updated `config-template` comments:
-  * flagged deprecated commands and parameters
-  * noted fact that the `help` command can no longer be used in the `config` file
-  * added details of new `viewport` and `edge-compatibility` commands
-  * noted new command parameters
+  * Flagged deprecated commands and parameters
+  * Noted fact that the `help` command can no longer be used in the `config` file
+  * Added details of new `viewport` and `edge-compatibility` commands
+  * Noted new command parameters
 * Bumped config files version from 3 to 4.
 * Commented all v1 CSS classes as deprecated in `.css` files.
 
@@ -170,28 +170,28 @@ This is a major release. Changes from v1.1.0 include the changes below along wit
 
 ### General
 
-* Standardised format of version information for PasHi and PasHiGUI.
-* Programs now compiled with Delphi XE instead of Delphi.
+* Standardised format of version information of PasHi and PasHiGUI.
+* Programs now compiled with Delphi XE instead of Delphi 2010.
 * Major overhaul of documentation including:
-  * Former read-me HTML file was split into two documents: an HTML user guide named `UserGuide.html` that is installed with the programs and a read-me text file that is included with the installer in the program download.
+  * Former HTML read-me file was split into two documents: an HTML user guide named `UserGuide.html` that is installed with the programs and a read-me text file that is included with the installer in the program download.
   * All license information was consolidated in a new `LICENSE` file that is installed with the programs. This replaces `License.txt` and `SourceCodeLicenses.txt`.
-  * Minor modification were made to license summary displayed by installer.
+  * Minor modification were made to the license summary that is displayed by installer.
   * Many documents were updated re changes in v2 and were corrected and/or clarified.
 * Corrections were made to config file templates and some of the optionally installed CSS files. Some comments were also clarified.
-* Some code re-factored and commenting standardised.
+* Some code re-factored and commenting was standardised.
 
 ## Release 2.0-beta 2 - 2014-08-12
 
-### PasHi v1.99.2 [build 10] (aka v2.0.0 beta 2)
+### PasHi v1.99.2 [build 10] (aka v2.0.0-beta-2)
 
 * Changed some parameters to `--encoding` command.
 * Fixed bug where blank source code lines were not being displayed by browsers.
-* Sign-on message now shows this is a v2.0.0 beta version.
+* Sign-on message now shows that this is a v2.0.0 beta version.
 
-### PasHiGUI v0.99.2 [build 4] (aka v1.0.0 beta 2)
+### PasHiGUI v0.99.2 [build 4] (aka v1.0.0-beta-2)
 
 * Removed descriptive text that was shown in main display when code fragments were displayed.
-* `--default-css` option is no longer hard wired: now user configured or taken from gui-config file.
+* `--default-css` option is no longer hard wired: it is now user configured or taken from `gui-config` file.
 * Changed name of Help menu item that accesses online documentation.
 * Changed main icon to be same as PasHi.
 * Changed program title and caption to "PasHi GUI".
@@ -207,16 +207,16 @@ This is a major release. Changes from v1.1.0 include the changes below along wit
 * Some tweaks to default CSS files to fix problem displaying colours on Blogger.com.
 * New simplified EULA: installer now displays a summary instead of the full license.
 
-## Release 2.0-beta 1 - 2011-04-11
+## Release 2.0-beta-1 - 2011-04-11
 
-### PasHi v1.99.1 [build 9] (aka v2.0.0 beta 1)
+### PasHi v1.99.1 [build 9] (aka v2.0.0-beta-1)
 
 * Improved Pascal syntax highlighter:
-* Now understands Delphi 2010 keywords and directives.
+  * Now understands Delphi 2010 keywords and directives.
   * Support added for some context sensitive directives.
   * Reserved words prefixed with '&' now treated as identifiers.
 * New input handling:
-  * Source files may now be in UTF-16 (LE and BE), UTF-8 or default ANSI. Unicode formats are detected using byte order mark.
+  * Source files may now be in UTF-16 (LE and BE), UTF-8 or default ANSI encoding. Unicode formats are detected using byte order mark.
   * Input source can now be read directly from files passed on command line in addition to standard input and clipboard.
   * Where more than one input file is specified, files are concatenated before highlighting, separated by user specified number of blank lines.
   * Input source code can optionally have leading and trailing blank lines removed.
@@ -224,14 +224,14 @@ This is a major release. Changes from v1.1.0 include the changes below along wit
   * Output can now be in HTML 4 or HTML 5 in addition to XHTML and HTML fragments.
   * HTML file encoding is now user configurable and defaults to UTF-8. Byte order marks and HTML character set attributes are used as necessary.
   * User can specify language attribute of HTML output.
-  * Source code can now be preceded by line numbers.
+  * Source code lines can now be numbered.
   * Alternate source code lines can now be styled differently.
   * Custom style sheets can now be used. They can be either embedded or external.
-  * CSS class names changed but user can specify that old style names are used for compatibility with existing CSS code.
+  * CSS class names were changed, but user can specify that old style names are used for compatibility with existing CSS code.
   * Document title can be changed.
   * "Branding" (comments or meta tags declaring PasHi as generator) can be inhibited.
   * Output file name can now be specified on command line as an alternative to using shell redirection.
-  * HTML mark-up changed and requires some additional CSS classes to be defined.
+  * HTML mark-up changed, requiring some additional CSS classes to be defined.
 * Program now has full Unicode support.
 * Support for a `config` file added to allow program defaults to be configured.
 * Heavily revised command line options:
@@ -245,7 +245,7 @@ This is a major release. Changes from v1.1.0 include the changes below along wit
   * Parser no longer crashes when unexpected characters are encountered in source code.
 * Significant refactoring of source code.
 
-### PasHiGUI v0.99.1 [build 3] (aka v1.0.0 beta 1)
+### PasHiGUI v0.99.1 [build 3] (aka v1.0.0-beta-1)
 
 * Now requires PasHi v2 beta or later.
 * Now Unicode compatible.
@@ -254,7 +254,7 @@ This is a major release. Changes from v1.1.0 include the changes below along wit
   * Options to be passed to PasHi can now be set in new "Options Side Bar" displayed at the right of the main window. The side bar can be shown or hidden as required.
   * "Fragments" tool button removed: this option is now set in Options side bar.
   * Status bar removed: hints and document type are no longer displayed.
-  * A new styling is used to display HTML code fragments.
+  * Styling of HTML code fragments changed.
   * Menus and toolbar revised to reflect program changes.
   * Main window now constrained to a minimum size.
 * Multiple file names can now be passed to PasHi via file open dialog box or by dragging and dropping from Explorer.
@@ -266,9 +266,10 @@ This is a major release. Changes from v1.1.0 include the changes below along wit
 * Some refactoring.
 
 ### General
+
 * Recompiled PasHi and PasHiGUI with Delphi 2010.
 * Re-licensed source code: changed from Mozilla Public License v1.1 to v2.0.
-* New sample CSS style sheets and config template files.
+* New sample CSS style sheets and config template files added.
 * New installer program that installs PasHi and its support files and provides options to:
   * Install PasHiGUI.
   * Install sample CSS and config templates files.
@@ -286,13 +287,13 @@ This is a major release. Changes from v1.1.0 include the changes below along wit
 ### PasHiGUI v0.1.1 Beta [build 2]
 
 * Added PasHiGUI (renamed from PasHGUI) to release. No longer to be released separately.
-* Merged documentation with PasHi
+* Merged documentation with that of PasHi.
 
-> For before _PasHi_ release 1.1.0, listed below, _PasH_ and _PasHGUI_ (as they were then known) were released as separate products and are labelled as such. Releases 1.1.0 and above above have both programs as part of the main release.
+> Before _PasHi_ release 1.1.0 (above), _PasH_ and _PasHGUI_ (as they were then known) were released as separate products and their releases are noted separately below. From release 1.1.0 both programs were included in the same release.
 
 ## PasH Release 1.0 [build 7] - 2009-05-31
 
-* Added new -hidecss switch to hide contents of `<style>` tag in HTML comments. Default is now not to hide contents.
+* Added new `-hidecss` switch to hide contents of `<style>` tag in HTML comments. Default is now not to hide contents.
 * Replaced on-the-fly generation of embedded style sheets for XHTML documents with a default style sheet read from resources.
 * Updated to use Delphi 2006 keyword and directives list instead of those from Delphi 7.
 * Replaced generic DelphiDabbler icon with custom PasH icon set.
@@ -323,7 +324,7 @@ This is a major release. Changes from v1.1.0 include the changes below along wit
 
 ## PasH Release 0.1.2-beta [build 3] - 2005-11-03
 
-* Program now traps exceptions and displays error message before terminating rather than exceptions crashing program.
+* Program now traps exceptions and displays error message before terminating. Previously, exceptions crashed the program.
 * Documentation updated and changed to HTML from plain text.
 * Moved program from alpha to beta release status.
 
