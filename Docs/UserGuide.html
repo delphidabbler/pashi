@@ -522,23 +522,28 @@
     <td class="switch">--language</td>
     <td class="switch">-l</td>
     <td>
-      <p>Specifies the language used in the output document. A language code
-      recognised by HTML must be provided in the parameter that immediately
-      follows this command. The code is not checked. If this command is not
-      supplied then no language information is included in the output file.</p>
+      <p>Specifies the language used in the output document. The next parameter must be one of the following:</p>
+      <ul>
+        <li>
+          A language code recognised by HTML. The code is not checked for validity.
+        </li>
+        <li>
+          <code>-</code> or <code>neutral</code>: Specifies that no language information is to be included in output documents (the default).
+        </li>
+      </ul>
       <p>This command has no effect if the <code>--doc-type fragment</code>
       command is used.</p>
     </td>
   </tr>
   <tr>
-    <td class="switch">--language-neutral</td>
+    <td class="switch">--language-neutral<br />
+    <span class="deprecated">[deprecated]</span></td>
     <td class="switch">&nbsp;</td>
     <td>
-      <p>Indicates that no language information is to be included in output
-      documents. Since this is the default behaviour this command is provided
-      mainly to restore that behaviour if it has been overridden in the config
-      file.</p>
-    </td>
+      <p>Alias for <code>--language neutral</code>.</p>
+      <p>This command has no effect if the
+        <code>--doc-type fragment</code> command is also used.</p>
+      </td>
   </tr>
   <tr>
     <td class="switch">--title</td>
