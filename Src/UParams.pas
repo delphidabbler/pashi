@@ -1005,10 +1005,10 @@ begin
     // long form command: '-' '-' <letter> {<letter> | '-'}
     if Length(S) < 3 then
       Exit(False);
-    if not TCharacter.IsLetter(S[3]) then
+    if not S[3].IsLetter then
       Exit(False);
     for Idx := 4 to Length(S) do
-      if not TCharacter.IsLetter(S[Idx]) and (S[Idx] <> '-') then
+      if not S[Idx].IsLetter and (S[Idx] <> '-') then
         Exit(False);
     Result := True;
   end
@@ -1022,7 +1022,7 @@ begin
       Exit(True);
     // legacy:     '-' <letter> {<letter>}
     for Idx := 2 to Length(S) do
-      if not TCharacter.IsLetter(S[Idx]) then
+      if not S[Idx].IsLetter then
         Exit(False);
     Result := True;
   end
@@ -1042,7 +1042,7 @@ begin
     Exit(False);
   if Cmd[1] <> '-' then
     Exit(False);
-  if not TCharacter.IsLetter(Cmd[2]) then
+  if not Cmd[2].IsLetter then
     Exit(False);
   if (Length(Cmd) = 3) and not CharInSet(Cmd[3], SwitchChars) then
     Exit(False);

@@ -134,9 +134,9 @@ begin
       pInfo.dwFlags := pInfo.dwFlags or DOCHOSTUIFLAG_NO3DBORDER;
     if not fAllowTextSelection then
       pInfo.dwFlags := pInfo.dwFlags or DOCHOSTUIFLAG_DIALOG;
-    if ThemeServices.ThemesEnabled then
+    if StyleServices.Enabled then
       pInfo.dwFlags := pInfo.dwFlags or DOCHOSTUIFLAG_THEME
-    else if ThemeServices.ThemesAvailable then
+    else if StyleServices.Available then
       pInfo.dwFlags := pInfo.dwFlags or DOCHOSTUIFLAG_NOTHEME;
     // set CSS: must allocate space with task allocator
     // (browser frees this memory)
