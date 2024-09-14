@@ -15,7 +15,8 @@ unit UConfig;
 interface
 
 uses
-  SysUtils, Classes,
+  System.SysUtils,
+  System.Classes,
   Hiliter.UGlobals;
 
 type
@@ -178,7 +179,7 @@ type
 implementation
 
 uses
-  Windows;
+  Winapi.Windows;
 
 
 { TConfig }

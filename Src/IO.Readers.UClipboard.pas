@@ -14,7 +14,7 @@ unit IO.Readers.UClipboard;
 interface
 
 uses
-  SysUtils,
+  System.SysUtils,
   IO.UTypes;
 
 type
@@ -26,7 +26,7 @@ type
 implementation
 
 uses
-  Windows,
+  Winapi.Windows,
   UClipboardMgr;
 
 { TClipboardReader }

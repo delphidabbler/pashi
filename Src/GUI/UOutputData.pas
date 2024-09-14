@@ -18,7 +18,8 @@ interface
 
 uses
   // Delphi
-  Classes, ActiveX;
+  System.Classes,
+  Winapi.ActiveX;
 
 
 type
@@ -43,7 +44,8 @@ implementation
 
 uses
   // Delphi
-  SysUtils, Clipbrd,
+  System.SysUtils,
+  Vcl.Clipbrd,
   // Project
   UUtils;
 

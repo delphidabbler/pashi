@@ -29,7 +29,8 @@ type
 implementation
 
 uses
-  SysUtils, Classes,
+  System.SysUtils,
+  System.Classes,
   IO.UHelper;
 
 { TFilesReader }

@@ -17,7 +17,8 @@ interface
 
 uses
   // Delphi
-  Windows, ActiveX,
+  Winapi.Windows,
+  Winapi.ActiveX,
   // Project
   IntfDropDataHandler;
 
@@ -109,7 +110,8 @@ implementation
 
 uses
   // Delphi
-  Classes, Forms;
+  System.Classes,
+  Vcl.Forms;
 
 
 { TDropTarget }

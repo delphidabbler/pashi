@@ -39,7 +39,7 @@ implementation
 
 uses
   // Delphi
-  Windows;
+  Winapi.Windows;
 
 
 { TStdIO }
@@ -50,7 +50,7 @@ const
     STD_OUTPUT_HANDLE, STD_ERROR_HANDLE
   );  // maps output channels onto windows handle identifier
 begin
-  Result := Windows.GetStdHandle(cHandles[Channel]);
+  Result := Winapi.Windows.GetStdHandle(cHandles[Channel]);
 end;
 
 class function TStdIO.ReadBuf(var Buffer; const Count: Integer): Integer;
@@ -64,7 +64,7 @@ begin
     Exit;
   end;
   // Read from std input into buffer
-  Windows.ReadFile(
+  Winapi.Windows.ReadFile(
     GetStdHandle(STD_INPUT_HANDLE), Buffer, Count, BytesRead, nil
   );
   Result := BytesRead;
@@ -76,7 +76,7 @@ var
   Dummy: Cardinal;  // Unused param for Windows.WriteFile
 begin
   // Write the data
-  Windows.WriteFile(GetHandle(Channel), Buffer, Size, Dummy, nil);
+  Winapi.Windows.WriteFile(GetHandle(Channel), Buffer, Size, Dummy, nil);
 end;
 
 end.

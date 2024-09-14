@@ -19,7 +19,8 @@ interface
 
 uses
   // Delphi
-  Classes, Vcl.Graphics;
+  System.Classes,
+  Vcl.Graphics;
 
 
 type

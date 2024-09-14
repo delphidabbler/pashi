@@ -15,9 +15,20 @@ unit FrOptions.UDocType;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, CheckLst,
-  FrOptions.UHelper, FrOptions.UBase, UOptions;
+  Winapi.Windows,
+  Winapi.Messages,
+  System.SysUtils,
+  System.Variants,
+  System.Classes,
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Vcl.StdCtrls,
+  Vcl.CheckLst,
+  FrOptions.UHelper,
+  FrOptions.UBase,
+  UOptions;
 
 type
   TDocTypeOptionsFrame = class(TBaseOptionsFrame)
@@ -44,8 +55,8 @@ type
 implementation
 
 uses
-  StrUtils,
-  Types,
+  System.StrUtils,
+  System.Types,
   UUtils;
 
 {$R *.dfm}

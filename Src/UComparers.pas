@@ -17,7 +17,7 @@ interface
 
 uses
   // Delphi
-  Generics.Defaults;
+  System.Generics.Defaults;
 
 
 type
@@ -77,7 +77,7 @@ implementation
 
 uses
   // Delphi
-  SysUtils;
+  System.SysUtils;
 
 
 ///  <summary>String hash function.</summary>

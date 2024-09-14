@@ -18,7 +18,8 @@ interface
 
 uses
   // Delphi
-  Classes, Windows;
+  System.Classes,
+  Winapi.Windows;
 
 
 const
@@ -86,7 +87,8 @@ implementation
 
 uses
   // Delphi
-  SysUtils, Forms;
+  System.SysUtils,
+  Vcl.Forms;
 
 
 const

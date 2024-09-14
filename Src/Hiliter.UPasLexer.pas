@@ -17,7 +17,9 @@ interface
 
 uses
   // Delphi
-  SysUtils, Classes, Generics.Collections,
+  System.SysUtils,
+  System.Classes,
+  System.Generics.Collections,
   // Project
   UStringReader;
 
@@ -164,9 +166,10 @@ implementation
 
 uses
   // Delphi
-  Character,
+  System.Character,
   // Project
-  UComparers, UConsts;
+  UComparers,
+  UConsts;
 
 
 const

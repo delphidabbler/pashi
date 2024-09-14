@@ -18,7 +18,8 @@ interface
 
 uses
   // Delphi
-  Classes, ActiveX;
+  System.Classes,
+  WinApi.ActiveX;
 
 
 type

@@ -14,7 +14,8 @@ unit FrOptions.UHelper;
 interface
 
 uses
-  Classes, Generics.Collections;
+  System.Classes,
+  System.Generics.Collections;
 
 type
   TValueMap = class(TObject)
@@ -33,7 +34,7 @@ type
 implementation
 
 uses
-  SysUtils;
+  System.SysUtils;
 
 { TValueMap }
 

@@ -17,7 +17,7 @@ interface
 
 uses
   // Delphi
-  ActiveX;
+  Winapi.ActiveX;
 
 
 var
@@ -31,7 +31,8 @@ implementation
 
 uses
   // Delphi
-  Windows, ShlObj;
+  Winapi.Windows,
+  Winapi.ShlObj;
 
 
 initialization

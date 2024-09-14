@@ -16,7 +16,8 @@ unit Renderers.UStyles;
 interface
 
 uses
-  Renderers.UTypes, UConfig;
+  Renderers.UTypes,
+  UConfig;
 
 type
   TStyleRendererFactory = record
@@ -27,8 +28,12 @@ type
 implementation
 
 uses
-  SysUtils, StrUtils, Classes, Windows,
-  IO.UHelper, UConfigFiles;
+  System.SysUtils,
+  System.StrUtils,
+  System.Classes,
+  Winapi.Windows,
+  IO.UHelper,
+  UConfigFiles;
 
 type
   TLinkedStyleSheetRenderer = class sealed(TInterfacedObject, IRenderer)

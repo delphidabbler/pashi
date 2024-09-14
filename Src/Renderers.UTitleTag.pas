@@ -28,7 +28,7 @@ type
 implementation
 
 uses
-  SysUtils,
+  System.SysUtils,
   UHTMLUtils;
 
 { TTitleTagRenderer }

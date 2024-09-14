@@ -61,7 +61,7 @@ implementation
 
 uses
   // Delphi
-  SysUtils;
+  System.SysUtils;
 
 
 { TStringReader }

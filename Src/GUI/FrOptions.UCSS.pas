@@ -15,9 +15,22 @@ unit FrOptions.UCSS;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, FrOptions.UHelper, FrOptions.UBase, UOptions, ActnList, StdActns,
-  StdCtrls;
+  Winapi.Windows,
+  Winapi.Messages,
+  System.SysUtils,
+  System.Actions,
+  System.Variants,
+  System.Classes,
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Vcl.ActnList,
+  Vcl.StdActns,
+  Vcl.StdCtrls,
+  FrOptions.UHelper,
+  FrOptions.UBase,
+  UOptions;
 
 type
   TCSSOptionsFrame = class(TBaseOptionsFrame)

@@ -18,9 +18,10 @@ interface
 
 uses
   // Delphi
-  SysUtils,
+  System.SysUtils,
   // Project
-  Hiliter.UGlobals, Hiliter.UPasParser;
+  Hiliter.UGlobals,
+  Hiliter.UPasParser;
 
 
 type

@@ -36,7 +36,7 @@ type
 implementation
 
 uses
-  SysUtils;
+  System.SysUtils;
 
 { TXMLProcInstRenderer }
 

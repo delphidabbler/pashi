@@ -18,9 +18,14 @@ interface
 
 uses
   // Delphi
-  SysUtils, Classes, Windows, ActiveX, ShDocVw,
+  System.SysUtils,
+  System.Classes,
+  Winapi.Windows,
+  Winapi.ActiveX,
+  ShDocVw,
   // Project
-  UNulWBContainer, IntfUIHandlers;
+  UNulWBContainer,
+  IntfUIHandlers;
 
 
 type
@@ -85,7 +90,9 @@ implementation
 
 uses
   // Delphi
-  StrUtils, Themes, Forms,
+  System.StrUtils,
+  Vcl.Themes,
+  Vcl.Forms,
   // Project
   UUtils;
 

@@ -15,7 +15,7 @@ interface
 
 uses
   // Delphi
-  Classes;
+  System.Classes;
 
 type
   ///  <summary>Class that retrieves version information for both PasHi and
@@ -80,7 +80,9 @@ implementation
 
 uses
   // Delphi
-  SysUtils, StrUtils, Windows;
+  System.SysUtils,
+  System.StrUtils,
+  Winapi.Windows;
 
 { TVersionInfo }
 

@@ -18,9 +18,11 @@ interface
 
 uses
   // Delphi
-  SysUtils, Generics.Collections,
+  System.SysUtils,
+  System.Generics.Collections,
   // Project
-  Hiliter.UGlobals, Hiliter.UPasLexer;
+  Hiliter.UGlobals,
+  Hiliter.UPasLexer;
 
 
 type

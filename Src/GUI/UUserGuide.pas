@@ -32,7 +32,9 @@ implementation
 
 
 uses
-  SysUtils, Windows, ShellAPI;
+  System.SysUtils,
+  Winapi.Windows,
+  Winapi.ShellAPI;
 
 { TUserGuide }
 

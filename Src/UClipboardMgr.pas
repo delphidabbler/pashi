@@ -18,7 +18,7 @@ interface
 
 uses
   // Project
-  Messages;
+  Winapi.Messages;
 
 
 type
@@ -43,7 +43,9 @@ implementation
 
 uses
   // Project
-  SysUtils, Classes, Windows;
+  System.SysUtils,
+  System.Classes,
+  Winapi.Windows;
 
 
 { TClipboardMgr }
@@ -53,8 +55,8 @@ begin
   // If we have a clipboard window, close clipboard and release window
   if fClipWdw <> 0 then
   begin
-    Windows.CloseClipboard;
-    Classes.DeallocateHWnd(fClipWdw);
+    Winapi.Windows.CloseClipboard;
+    System.Classes.DeallocateHWnd(fClipWdw);
     fClipWdw := 0;
   end;
 end;
@@ -64,7 +66,7 @@ begin
   // Open clipboard, get data from windows then close clipboard
   Open;
   try
-    Result := Windows.GetClipboardData(Fmt);
+    Result := Winapi.Windows.GetClipboardData(Fmt);
   finally
     Close;
   end;
@@ -77,7 +79,7 @@ begin
   // Create window to receive clipbaord messages if we don't have one
   if fClipWdw = 0 then
   begin
-    fClipWdw := Classes.AllocateHWnd(WndProc);
+    fClipWdw := System.Classes.AllocateHWnd(WndProc);
     // Try to open clipboard, raising exception on error
     if not OpenClipboard(fClipWdw) then
       raise Exception.Create(sError);
@@ -91,9 +93,9 @@ begin
   Open;
   try
     // Empty clipboard and store data in it
-    Windows.EmptyClipboard;
-    if Windows.SetClipboardData(Fmt, Data) = 0 then
-      SysUtils.RaiseLastOSError;
+    Winapi.Windows.EmptyClipboard;
+    if Winapi.Windows.SetClipboardData(Fmt, Data) = 0 then
+      System.SysUtils.RaiseLastOSError;
   finally
     // Close clipboard
     Close;

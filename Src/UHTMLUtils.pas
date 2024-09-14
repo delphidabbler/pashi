@@ -48,9 +48,14 @@ implementation
 
 uses
   // Delphi
-  SysUtils, Character, Generics.Defaults, Generics.Collections, Windows,
+  System.SysUtils,
+  System.Character,
+  System.Generics.Defaults,
+  System.Generics.Collections,
+  Winapi.Windows,
   // Project
-  UComparers, UConsts;
+  UComparers,
+  UConsts;
 
 function MakeSafeHTMLText(const TheText: string): string;
 var

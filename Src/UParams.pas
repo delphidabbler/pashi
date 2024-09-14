@@ -17,9 +17,9 @@ interface
 
 uses
   // Delphi
-  SysUtils,
-  Types,
-  Generics.Collections,
+  System.SysUtils,
+  System.Types,
+  System.Generics.Collections,
   // Project
   Hiliter.UGlobals,
   UConfig;
@@ -182,10 +182,13 @@ implementation
 
 uses
   // Delphi
-  StrUtils, Classes, Character,
+  System.StrUtils,
+  System.Classes,
+  System.Character,
   // Project
   Hiliter.UHiliters,
-  UComparers, UConfigFiles;
+  UComparers,
+  UConfigFiles;
 
 
 { TParams }

@@ -20,7 +20,9 @@ interface
 
 uses
   // Delphi
-  Windows, ActiveX, SHDocVw,
+  Winapi.Windows,
+  Winapi.ActiveX,
+  SHDocVw,
   // Project
   IntfUIHandlers;
 
@@ -91,7 +93,7 @@ implementation
 
 uses
   // Delphi
-  SysUtils;
+  System.SysUtils;
 
 
 { TNulWBContainer }

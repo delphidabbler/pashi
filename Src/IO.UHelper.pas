@@ -15,7 +15,8 @@ unit IO.UHelper;
 interface
 
 uses
-  SysUtils, Classes;
+  System.SysUtils,
+  System.Classes;
 
 type
   TIOHelper = record

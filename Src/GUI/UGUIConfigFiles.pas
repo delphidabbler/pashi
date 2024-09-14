@@ -17,7 +17,7 @@ interface
 
 uses
   // Delphi
-  Classes,
+  System.Classes,
   // Project
   UConfigFiles;
 
@@ -69,7 +69,8 @@ implementation
 
 uses
   // Delphi
-  SysUtils, Windows {for inlining},
+  System.SysUtils,
+  Winapi.Windows {for inlining},
   // Project
   UUtils;
 
@@ -116,7 +117,7 @@ var
 begin
   CfgFileName := IncludeTrailingPathDelimiter(UserConfigDir) + GUICfgFileName;
   if FileExists(CfgFileName) then
-    SysUtils.DeleteFile(CfgFileName);
+    System.SysUtils.DeleteFile(CfgFileName);
 end;
 
 { TConfigFileWriter }
