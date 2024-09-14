@@ -6,8 +6,6 @@ All notable changes to this project are documented in this file.
 
 This change log begins with the first ever pre-release version of what was then known as _PasH_. Releases are listed in reverse version number order.
 
-From release 2.0.0 the version numbering has attempted to adhere to the principles of [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
 ## Release 2.3.1 - 2022-10-27
 
 This release includes _PasHi_ v2.3.1 and _PasHiGUI_ v1.3.1
@@ -150,7 +148,7 @@ This release includes _PasHi_ v2.1.0 and _PasHiGUI_ v1.1.0
 
 ## Release 2.0.0 - 2016-09-22
 
-This is a major release. Changes from v1.1.0 include the changes below along with all changes from releases 2.0 beta 1 and beta 2.
+This is a major release. Changes from v1.1.0 include the changes below along with all changes from releases v2.0-beta-1 and v2.0-beta-2.
 
 ### PasHi v2.0.0 [build 11]
 
@@ -182,13 +180,17 @@ This is a major release. Changes from v1.1.0 include the changes below along wit
 
 ## Release 2.0-beta 2 - 2014-08-12
 
-### PasHi v1.99.2 [build 10] (aka v2.0.0-beta-2)
+### PasHi v2.0.0-beta-2 [build 10]
+
+> _Internal version 1.99.2.10_
 
 * Changed some parameters to `--encoding` command.
 * Fixed bug where blank source code lines were not being displayed by browsers.
 * Sign-on message now shows that this is a v2.0.0 beta version.
 
-### PasHiGUI v0.99.2 [build 4] (aka v1.0.0-beta-2)
+### PasHiGUI v1.0.0-beta-2 [build 4]
+
+> _Internal version 0.99.2.4_
 
 * Removed descriptive text that was shown in main display when code fragments were displayed.
 * `--default-css` option is no longer hard wired: it is now user configured or taken from `gui-config` file.
@@ -209,7 +211,9 @@ This is a major release. Changes from v1.1.0 include the changes below along wit
 
 ## Release 2.0-beta-1 - 2011-04-11
 
-### PasHi v1.99.1 [build 9] (aka v2.0.0-beta-1)
+### PasHi v2.0.0-beta-1 [build 9]
+
+> _Internal version 1.99.1.9_
 
 * Improved Pascal syntax highlighter:
   * Now understands Delphi 2010 keywords and directives.
@@ -245,7 +249,9 @@ This is a major release. Changes from v1.1.0 include the changes below along wit
   * Parser no longer crashes when unexpected characters are encountered in source code.
 * Significant refactoring of source code.
 
-### PasHiGUI v0.99.1 [build 3] (aka v1.0.0-beta-1)
+### PasHiGUI v1.0.0-beta-1 [build 3]
+
+> _Internal version 0.99.1.3_
 
 * Now requires PasHi v2 beta or later.
 * Now Unicode compatible.
@@ -284,12 +290,14 @@ This is a major release. Changes from v1.1.0 include the changes below along wit
 * Rebuilt with Delphi 2006 instead of Delphi 7. Brings into line with PasHiGUI.
 * Updated documentation and merged in PasHiGUI docs.
 
-### PasHiGUI v0.1.1 Beta [build 2]
+### PasHiGUI v0.1.1-beta [build 2]
 
 * Added PasHiGUI (renamed from PasHGUI) to release. No longer to be released separately.
 * Merged documentation with that of PasHi.
 
-> Before _PasHi_ release 1.1.0 (above), _PasH_ and _PasHGUI_ (as they were then known) were released as separate products and their releases are noted separately below. From release 1.1.0 both programs were included in the same release.
+----
+
+> From _PasHi_ release 1.1.0 (see above) _PasHi_ and _PasHiGUI_ have been included in the same product. Prior to release 1.1.0 _PasH_ and _PasHGUI_ (as they were then known) were released as separate products. Their releases are noted separately below, in reverse date order.
 
 ## PasH Release 1.0 [build 7] - 2009-05-31
 
