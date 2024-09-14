@@ -36,7 +36,9 @@ implementation
 uses
   StrUtils,
   Classes,
-  IO.Readers.UFactory, UConsts;
+  Types,
+  IO.Readers.UFactory,
+  UConsts;
 
 
 { TSourceProcessor }
@@ -106,20 +108,23 @@ end;
 class function TSourceProcessor.TrimSourceTrailingSpaces(
   const SourceCode: string): string;
 var
-  Lines: TStringList;
   Idx: Integer;
+  SourceLines: TStringDynArray;
 begin
-  Lines := TStringList.Create;
-  try
-    Lines.Text := SourceCode;
-    Result := '';
-    if Lines.Count = 0 then
-      Exit;
-    Result := TrimRight(Lines[0]);
-    for Idx := 1 to Pred(Lines.Count) do
-      Result := Result + EOL + TrimRight(Lines[Idx]);
-  finally
-    Lines.Free;
+  Result := '';
+  if SourceCode = '' then
+    Exit;
+  // We convert EOL to LF in SourceCode because SplitString takes a string of
+  // character delimiters and can't handle a single multi-character delimiter
+  // like the CRLF that EOL is set to on Windows\.
+  SourceLines := SplitString(
+    StringReplace(SourceCode, EOL, LF, [rfReplaceAll]), LF
+  );
+  for Idx := Low(SourceLines) to High(SourceLines) do
+  begin
+    Result := Result + TrimRight(SourceLines[Idx]);
+    if Idx < High(SourceLines) then
+      Result := Result + EOL;
   end;
 end;
 
