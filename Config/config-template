@@ -132,24 +132,31 @@
 # --- Output file language ---
 # Commands:
 #   language <param>
-#     where <param> is a valid language code recognised by HTML
+#     where <param> is either a valid language code recognised by HTML or
+#     "neutral" (or "-") if the file is language neutral
 #   language-neutral
+#   ** Command DEPRECATED: use "language neutral" instead
+#     
 # Examples:
 #   language en
 #   language en-gb
+#   language neutral
 # Default:
-#   language-neutral
+#   language neutral
 
 
 # --- Output document title ---
 # Commands:
 #   title <param>
-#     where <param> is the required title text
+#     where <param> is either the required title text or "-" to use the default
+#     title
 #   title-default
+#   ** Command DEPRECATED: use title "-" instead
 # Example
 #   title Highlighted Pascal Source Code
+#   title -
 # Default:
-#   title-default
+#   title -
 
 
 # --- Output document encoding ---
