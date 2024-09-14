@@ -785,12 +785,21 @@ begin
     siLanguage:
     begin
       fConfig.Language := GetStringParameter(Command);
+      if (fConfig.Language = '-') or (fConfig.Language = 'neutral') then
+        fConfig.Language := '';
       fParamQueue.Dequeue;
     end;
     siLanguageNeutral:
+    begin
+      // TODO: modify warning to say to use `--language -`
+      fWarnings.Add(
+        Format(sDeprecatedCmd, [AdjustCommandName(Command.Name, IsConfigCmd)])
+      );
       fConfig.Language := '';
+    end;
     siTitle:
     begin
+      // TODO: modify warning to say to use `--title -`
       fConfig.Title := GetStringParameter(Command);
       if fConfig.Title = '-' then
         fConfig.Title := '';
