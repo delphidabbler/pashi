@@ -143,10 +143,11 @@ PasHi supports the following commands:
                               on - style alternate lines differently
                               off - all lines have same appearance [default].
 --title               -t    Sets the title used for the output document. The
-                            next parameter must contain the required text. To
-                            include spaces surround the text in double quotes.
---title-default             Uses the program's default title for the output
-                            document [default].
+                            next parameter must supply one of the following
+                            values:
+                              text - required title text (to include spaces
+                                surround the text in double quotes).
+                              - - use the default title [default].
 --trim                -m    Determines whether and how input documents are
                             trimmed of blank lines and spaces. --trim requires
                             the next parameter to supply one of the following
