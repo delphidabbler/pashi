@@ -17,7 +17,7 @@ interface
 
 uses
   // Delphi
-  Graphics;
+  Vcl.Graphics;
 
 
 ///  <summary>Encodes the given string so that any HTML-incompatible characters

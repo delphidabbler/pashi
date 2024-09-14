@@ -1,7 +1,9 @@
 Build/
 __history/
+__recovery/
 Src/GUI/PasHiGUI.cfg
 Src/PasHi.cfg
 *.local
 *.identcache
 *.todo
+*.res
