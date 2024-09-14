@@ -544,20 +544,25 @@
     <td class="switch">--title</td>
     <td class="switch">-t</td>
     <td>
-      <p>Sets the title of the output document. The title text must be supplied
-      in the parameter immediately following the command. Titles containing
-      spaces must be enclosed in double quotes.</p>
+      <p>Sets the title of the output document or restores the default title. The next parameter must be one of the following:</p>
+      <ul>
+        <li>
+          Text: The required title. Text containing spaces must be enclosed in double quotes.
+        </li>
+        <li>
+          <code>-</code> (hyphen): Use the default title (the default) 
+        </li>
+      </ul>
       <p>This command has no effect if the <code>--doc-type fragment</code>
       command is also used.</p>
     </td>
   </tr>
   <tr>
-    <td class="switch">--title-default</td>
+    <td class="switch">--title-default<br />
+    <span class="deprecated">[deprecated]</span></td>
     <td class="switch">&nbsp;</td>
     <td>
-      <p>Indicates that the default title is to be used in the output document.
-      Since this is the default behaviour this command is provided mainly to
-      restore that behaviour if it has been overridden in the config file.</p>
+      <p>Alias for <code>--title -</code>.</p>
       <p>This command has no effect if the
       <code>--doc-type fragment</code> command is also used.</p>
     </td>
