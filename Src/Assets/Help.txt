@@ -90,10 +90,12 @@ PasHi supports the following commands:
                             stdin or file(s).
 --input-stdin               Read source code from stdin [default].
 --language            -l    Specifies the language used for the output
-                            document. The following parameter must contain a
-                            language code that HTML recognises. E.g. "en" or
-                            "en-gb".
---language-neutral          Outputs no language information [default].
+                            document. The next parameter must supply one of the
+                            following values:
+                              text - required language code: this must be a
+                                language code that HTML recognises. E.g. "en" or
+                                "en-gb".
+                              neutral (or -) - language neutral [default].
 --legacy-css                Determines which CSS class names are used in the
   (*deprecated*)            output HTML document. These can either be the
                             current class names or the class names used in
