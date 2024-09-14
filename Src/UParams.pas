@@ -574,9 +574,9 @@ begin
     Result := ''
   else
     Result := fParamQueue.Peek;
-    if (Result = '')
-      or (AnsiStartsStr('-', Result) and (Result <> '-')) then
-      raise ECommandError.Create(Cmd.Name, sNoParam);
+  if (Result = '')
+    or (AnsiStartsStr('-', Result) and (Result <> '-')) then
+    raise ECommandError.Create(Cmd.Name, sNoParam);
 end;
 
 function TParams.GetVerbosityParameter(const Cmd: TCommand): TVerbosity;
@@ -792,10 +792,17 @@ begin
     siTitle:
     begin
       fConfig.Title := GetStringParameter(Command);
+      if fConfig.Title = '-' then
+        fConfig.Title := '';
       fParamQueue.Dequeue;
     end;
     siTitleDefault:
+    begin
+      fWarnings.Add(
+        Format(sDeprecatedCmd, [AdjustCommandName(Command.Name, IsConfigCmd)])
+      );
       fConfig.Title := '';
+    end;
     siBranding:
     begin
       if Command.IsSwitch then
