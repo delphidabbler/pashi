@@ -80,8 +80,16 @@ uses
   System.SysUtils;
 
 
+{$IFOPT R+}
+  {$DEFINE RANGEON}
+  {$R-}
+{$ELSE}
+  {$UNDEF RANGEON}
+{$ENDIF}
 ///  <summary>String hash function.</summary>
-///  <remarks>Sourced from https://www.scalabium.com/faq/dct0136.htm.</summary>
+///  <remarks>Sourced from https://www.scalabium.com/faq/dct0136.htm. Relies
+///  upon the hash overflowing and reseting to 0, so causes range check error.
+///  </remarks>
 function ElfHash(const Value: string): Integer;
 var
   I: Integer; // loops thru string
@@ -97,6 +105,10 @@ begin
     Result := Result and (not X);
   end;
 end;
+{$IFDEF RANGEON}
+  {$R+}
+  {$UNDEF RANGEON}
+{$ENDIF}
 
 { TTextEqualityComparer }
 
