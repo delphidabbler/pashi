@@ -18,9 +18,12 @@ interface
 
 uses
   // Delphi
-  Classes,
+  System.Classes,
   // Project
-  UPasHi, UInputData, UOutputData, UOptions;
+  UPasHi,
+  UInputData,
+  UOutputData,
+  UOptions;
 
 
 type
@@ -133,7 +136,8 @@ implementation
 
 uses
   // Delphi
-  SysUtils, Windows,
+  System.SysUtils,
+  Winapi.Windows,
   // Project
   UUtils;
 

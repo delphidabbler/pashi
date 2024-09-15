@@ -30,7 +30,7 @@ program PasHiGUI;
 
 
 uses
-  Forms,
+  Vcl.Forms,
   FmMain in 'FmMain.pas' {MainForm},
   IntfDropDataHandler in 'IntfDropDataHandler.pas',
   IntfUIHandlers in 'IntfUIHandlers.pas',

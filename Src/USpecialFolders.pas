@@ -14,7 +14,7 @@ unit USpecialFolders;
 interface
 
 uses
-  ShlObj;
+  Winapi.ShlObj;
 
 type
   TSpecialFolders = record
@@ -30,7 +30,9 @@ type
 implementation
 
 uses
-  SysUtils, Windows, ActiveX;
+  System.SysUtils,
+  Winapi.Windows,
+  Winapi.ActiveX;
 
 { TSpecialFolders }
 

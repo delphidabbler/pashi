@@ -19,7 +19,8 @@ interface
 
 uses
   // Delphi
-  Windows, ActiveX;
+  Winapi.Windows,
+  Winapi.ActiveX;
 
 
 const

@@ -14,7 +14,7 @@ unit IO.Readers.UFactory;
 interface
 
 uses
-  SysUtils,
+  System.SysUtils,
   IO.UTypes;
 
 type
@@ -29,7 +29,9 @@ type
 implementation
 
 uses
-  IO.Readers.UStdIn, IO.Readers.UClipboard, IO.Readers.UFiles;
+  IO.Readers.UStdIn,
+  IO.Readers.UClipboard,
+  IO.Readers.UFiles;
 
 { TInputReaderFactory }
 

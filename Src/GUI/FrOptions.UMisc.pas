@@ -15,8 +15,20 @@ unit FrOptions.UMisc;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, FrOptions.UBase, FrOptions.UHelper, UOptions, StdCtrls, Spin;
+  Winapi.Windows,
+  Winapi.Messages,
+  System.SysUtils,
+  System.Variants,
+  System.Classes,
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Vcl.StdCtrls,
+  Vcl.Samples.Spin,
+  FrOptions.UBase,
+  FrOptions.UHelper,
+  UOptions;
 
 type
   TMiscOptionsFrame = class(TBaseOptionsFrame)

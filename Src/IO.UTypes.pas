@@ -14,7 +14,7 @@ unit IO.UTypes;
 interface
 
 uses
-  SysUtils;
+  System.SysUtils;
 
 type
   IInputReader = interface

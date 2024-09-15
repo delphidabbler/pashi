@@ -18,7 +18,7 @@ interface
 
 uses
   // Delphi
-  Classes;
+  System.Classes;
 
 
 type
@@ -42,7 +42,7 @@ implementation
 
 uses
   // Delphi
-  SysUtils;
+  System.SysUtils;
 
 
 type

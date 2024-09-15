@@ -1,134 +1,261 @@
-﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-		<PropertyGroup>
-			<ProjectGuid>{67B6515E-38DE-40FB-AC9B-660DCB172855}</ProjectGuid>
-			<MainSource>PasHi.dpr</MainSource>
-			<Config Condition="'$(Config)'==''">Base</Config>
-			<DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
-			<ProjectVersion>12.3</ProjectVersion>
-			<Base>True</Base>
-			<Platform>Win32</Platform>
-			<AppType>Console</AppType>
-			<FrameworkType>None</FrameworkType>
-		</PropertyGroup>
-		<PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
-			<Base>true</Base>
-		</PropertyGroup>
-		<PropertyGroup Condition="'$(Base)'!=''">
-			<DCC_SYMBOL_PLATFORM>false</DCC_SYMBOL_PLATFORM>
-			<DCC_UnitSearchPath>..\Build\Bin;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
-			<DCC_DependencyCheckOutputName>..\Exe\PasHi.exe</DCC_DependencyCheckOutputName>
-			<DCC_UnitAlias>WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;$(DCC_UnitAlias)</DCC_UnitAlias>
-			<DCC_ExeOutput>..\Build\Exe</DCC_ExeOutput>
-			<DCC_ImageBase>00400000</DCC_ImageBase>
-			<DCC_CVT_WIDENING_STRING_LOST>true</DCC_CVT_WIDENING_STRING_LOST>
-			<DCC_CVT_ACHAR_TO_WCHAR>true</DCC_CVT_ACHAR_TO_WCHAR>
-			<DCC_EXPLICIT_STRING_CAST_LOSS>true</DCC_EXPLICIT_STRING_CAST_LOSS>
-			<DCC_Platform>x86</DCC_Platform>
-			<DCC_DcuOutput>..\Build\Bin</DCC_DcuOutput>
-			<DCC_SymbolReferenceInfo>1</DCC_SymbolReferenceInfo>
-		</PropertyGroup>
-		<ItemGroup>
-			<DelphiCompile Include="PasHi.dpr">
-				<MainSource>MainSource</MainSource>
-			</DelphiCompile>
-			<DCCReference Include="Hiliter.UGlobals.pas"/>
-			<DCCReference Include="UClipboardMgr.pas"/>
-			<DCCReference Include="UConfig.pas"/>
-			<DCCReference Include="UConsole.pas"/>
-			<DCCReference Include="Hiliter.UPasLexer.pas"/>
-			<DCCReference Include="Hiliter.UPasParser.pas"/>
-			<DCCReference Include="UHTMLUtils.pas"/>
-			<DCCReference Include="UMain.pas"/>
-			<DCCReference Include="UParams.pas"/>
-			<DCCReference Include="UStdIO.pas"/>
-			<DCCReference Include="Hiliter.UHiliters.pas"/>
-			<DCCReference Include="UStringReader.pas"/>
-			<DCCReference Include="UConsts.pas"/>
-			<DCCReference Include="UComparers.pas"/>
-			<DCCReference Include="IO.UTypes.pas"/>
-			<DCCReference Include="IO.Readers.UStdIn.pas"/>
-			<DCCReference Include="IO.Readers.UClipboard.pas"/>
-			<DCCReference Include="IO.Readers.UFactory.pas"/>
-			<DCCReference Include="IO.Writers.UStdOut.pas"/>
-			<DCCReference Include="IO.Writers.UClipboard.pas"/>
-			<DCCReference Include="IO.Writers.UFactory.pas"/>
-			<DCCReference Include="IO.Readers.UFiles.pas"/>
-			<DCCReference Include="IO.Writers.UFile.pas"/>
-			<DCCReference Include="IO.UHelper.pas"/>
-			<DCCReference Include="Renderers.UFactory.pas"/>
-			<DCCReference Include="UConfigFiles.pas"/>
-			<DCCReference Include="USpecialFolders.pas"/>
-			<DCCReference Include="USourceProcessor.pas"/>
-			<DCCReference Include="Renderers.UCharSetTag.pas"/>
-			<DCCReference Include="Renderers.UTypes.pas"/>
-			<DCCReference Include="Renderers.UDocType.pas"/>
-			<DCCReference Include="Renderers.UProcInst.pas"/>
-			<DCCReference Include="Renderers.URootTag.pas"/>
-			<DCCReference Include="Renderers.UBranding.pas"/>
-			<DCCReference Include="Renderers.USourceCode.pas"/>
-			<DCCReference Include="Renderers.UTitleTag.pas"/>
-			<DCCReference Include="Renderers.UStyles.pas"/>
-			<DCCReference Include="Renderers.UDocument.pas"/>
-			<DCCReference Include="Renderers.UEdgeCompatibility.pas"/>
-			<DCCReference Include="Renderers.UViewport.pas"/>
-			<DCCReference Include="UVersionInfo.pas">
-				<Form>Main program code</Form>
-			</DCCReference>
-			<BuildConfiguration Include="Base">
-				<Key>Base</Key>
-			</BuildConfiguration>
-		</ItemGroup>
-		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')" Project="$(BDS)\Bin\CodeGear.Delphi.Targets"/>
-		<Import Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')" Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj"/>
-		<ProjectExtensions>
-			<Borland.Personality>Delphi.Personality.12</Borland.Personality>
-			<Borland.ProjectType>VCLApplication</Borland.ProjectType>
-			<BorlandProject>
-				<Delphi.Personality>
-					<Source>
-						<Source Name="MainSource">PasHi.dpr</Source>
-					</Source>
-					<Parameters/>
-					<VersionInfo>
-						<VersionInfo Name="IncludeVerInfo">False</VersionInfo>
-						<VersionInfo Name="AutoIncBuild">False</VersionInfo>
-						<VersionInfo Name="MajorVer">1</VersionInfo>
-						<VersionInfo Name="MinorVer">0</VersionInfo>
-						<VersionInfo Name="Release">0</VersionInfo>
-						<VersionInfo Name="Build">0</VersionInfo>
-						<VersionInfo Name="Debug">False</VersionInfo>
-						<VersionInfo Name="PreRelease">False</VersionInfo>
-						<VersionInfo Name="Special">False</VersionInfo>
-						<VersionInfo Name="Private">False</VersionInfo>
-						<VersionInfo Name="DLL">False</VersionInfo>
-						<VersionInfo Name="Locale">2057</VersionInfo>
-						<VersionInfo Name="CodePage">1252</VersionInfo>
-					</VersionInfo>
-					<VersionInfoKeys>
-						<VersionInfoKeys Name="CompanyName"/>
-						<VersionInfoKeys Name="FileDescription"/>
-						<VersionInfoKeys Name="FileVersion">1.0.0.0</VersionInfoKeys>
-						<VersionInfoKeys Name="InternalName"/>
-						<VersionInfoKeys Name="LegalCopyright"/>
-						<VersionInfoKeys Name="LegalTrademarks"/>
-						<VersionInfoKeys Name="OriginalFilename"/>
-						<VersionInfoKeys Name="ProductName"/>
-						<VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys>
-						<VersionInfoKeys Name="Comments"/>
-					</VersionInfoKeys>
-					<Excluded_Packages>
-						<Excluded_Packages Name="$(BDSBIN)\dclib140.bpl">Embarcadero InterBase Express Components</Excluded_Packages>
-						<Excluded_Packages Name="$(BDSBIN)\dclado140.bpl">Embarcadero ADO DB Components</Excluded_Packages>
-						<Excluded_Packages Name="$(BDSBIN)\dclwebsnap140.bpl">Embarcadero WebSnap Components</Excluded_Packages>
-						<Excluded_Packages Name="$(BDSBIN)\dclwbm140.bpl">Embarcadero InternetExpress Components</Excluded_Packages>
-						<Excluded_Packages Name="$(BDSBIN)\dcloffice2k140.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
-						<Excluded_Packages Name="$(BDSBIN)\dclofficexp140.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
-					</Excluded_Packages>
-				</Delphi.Personality>
-				<Platforms>
-					<Platform value="Win32">True</Platform>
-				</Platforms>
-			</BorlandProject>
-			<ProjectFileVersion>12</ProjectFileVersion>
-		</ProjectExtensions>
-	</Project>
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{67B6515E-38DE-40FB-AC9B-660DCB172855}</ProjectGuid>
+        <MainSource>PasHi.dpr</MainSource>
+        <Config Condition="'$(Config)'==''">Debug</Config>
+        <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+        <ProjectVersion>20.2</ProjectVersion>
+        <Base>True</Base>
+        <AppType>Console</AppType>
+        <FrameworkType>None</FrameworkType>
+        <Platform Condition="'$(Platform)'==''">Win32</Platform>
+        <ProjectName Condition="'$(ProjectName)'==''">PasHi</ProjectName>
+        <TargetedPlatforms>1</TargetedPlatforms>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Base)'=='true') or '$(Base_Win32)'!=''">
+        <Base_Win32>true</Base_Win32>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_1)'!=''">
+        <Cfg_1>true</Cfg_1>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_1)'=='true') or '$(Cfg_1_Win32)'!=''">
+        <Cfg_1_Win32>true</Cfg_1_Win32>
+        <CfgParent>Cfg_1</CfgParent>
+        <Cfg_1>true</Cfg_1>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_2)'!=''">
+        <Cfg_2>true</Cfg_2>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win32)'!=''">
+        <Cfg_2_Win32>true</Cfg_2_Win32>
+        <CfgParent>Cfg_2</CfgParent>
+        <Cfg_2>true</Cfg_2>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base)'!=''">
+        <DCC_SYMBOL_PLATFORM>false</DCC_SYMBOL_PLATFORM>
+        <DCC_UnitSearchPath>..\_build\$(Platform)\$(Config)\bin;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_DependencyCheckOutputName>..\Exe\PasHi.exe</DCC_DependencyCheckOutputName>
+        <DCC_ImageBase>00400000</DCC_ImageBase>
+        <DCC_CVT_WIDENING_STRING_LOST>true</DCC_CVT_WIDENING_STRING_LOST>
+        <DCC_CVT_ACHAR_TO_WCHAR>true</DCC_CVT_ACHAR_TO_WCHAR>
+        <DCC_EXPLICIT_STRING_CAST_LOSS>true</DCC_EXPLICIT_STRING_CAST_LOSS>
+        <DCC_Platform>x86</DCC_Platform>
+        <DCC_DcuOutput>..\_build\$(Platform)\$(Config)\bin</DCC_DcuOutput>
+        <DCC_SymbolReferenceInfo>1</DCC_SymbolReferenceInfo>
+        <SanitizedProjectName>PasHi</SanitizedProjectName>
+        <VerInfo_Locale>2057</VerInfo_Locale>
+        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <Icon_MainIcon>$(BDS)\bin\delphi_PROJECTICON.ico</Icon_MainIcon>
+        <Icns_MainIcns>$(BDS)\bin\delphi_PROJECTICNS.icns</Icns_MainIcns>
+        <PreBuildEvent><![CDATA["$(VIEdRoot)\VIEd.exe" -makerc  .\VerInfo.vi .\VerInfo.virc
+"$(BDSBIN)\BRCC32" -fo "..\_build\$(Platform)\$(Config)\bin\VerInfo.res" .\VerInfo.virc
+"$(BDSBIN)\BRCC32" -fo "..\_build\$(Platform)\$(Config)\bin\Resources.res" .\Resources.rc
+$(PreBuildEvent)]]></PreBuildEvent>
+        <PostBuildEvent><![CDATA[DEL .\VerInfo.virc
+DEL .\PasHi.res
+$(PostBuildEvent)]]></PostBuildEvent>
+        <DCC_ExeOutput>..\_build\$(Platform)\$(Config)\exe</DCC_ExeOutput>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_Win32)'!=''">
+        <BT_BuildType>Debug</BT_BuildType>
+        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <Manifest_File>(None)</Manifest_File>
+        <AppDPIAwarenessMode>none</AppDPIAwarenessMode>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1)'!=''">
+        <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
+        <DCC_DebugDCUs>true</DCC_DebugDCUs>
+        <DCC_Optimize>false</DCC_Optimize>
+        <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
+        <DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
+        <DCC_RemoteDebug>true</DCC_RemoteDebug>
+        <DCC_IntegerOverflowCheck>true</DCC_IntegerOverflowCheck>
+        <DCC_RangeChecking>true</DCC_RangeChecking>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2)'!=''">
+        <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
+        <DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
+        <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+        <DCC_DebugInformation>0</DCC_DebugInformation>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+    </PropertyGroup>
+    <ItemGroup>
+        <DelphiCompile Include="$(MainSource)">
+            <MainSource>MainSource</MainSource>
+        </DelphiCompile>
+        <DCCReference Include="Hiliter.UGlobals.pas"/>
+        <DCCReference Include="UClipboardMgr.pas"/>
+        <DCCReference Include="UConfig.pas"/>
+        <DCCReference Include="UConsole.pas"/>
+        <DCCReference Include="Hiliter.UPasLexer.pas"/>
+        <DCCReference Include="Hiliter.UPasParser.pas"/>
+        <DCCReference Include="UHTMLUtils.pas"/>
+        <DCCReference Include="UMain.pas"/>
+        <DCCReference Include="UParams.pas"/>
+        <DCCReference Include="UStdIO.pas"/>
+        <DCCReference Include="Hiliter.UHiliters.pas"/>
+        <DCCReference Include="UStringReader.pas"/>
+        <DCCReference Include="UConsts.pas"/>
+        <DCCReference Include="UComparers.pas"/>
+        <DCCReference Include="IO.UTypes.pas"/>
+        <DCCReference Include="IO.Readers.UStdIn.pas"/>
+        <DCCReference Include="IO.Readers.UClipboard.pas"/>
+        <DCCReference Include="IO.Readers.UFactory.pas"/>
+        <DCCReference Include="IO.Writers.UStdOut.pas"/>
+        <DCCReference Include="IO.Writers.UClipboard.pas"/>
+        <DCCReference Include="IO.Writers.UFactory.pas"/>
+        <DCCReference Include="IO.Readers.UFiles.pas"/>
+        <DCCReference Include="IO.Writers.UFile.pas"/>
+        <DCCReference Include="IO.UHelper.pas"/>
+        <DCCReference Include="Renderers.UFactory.pas"/>
+        <DCCReference Include="UConfigFiles.pas"/>
+        <DCCReference Include="USpecialFolders.pas"/>
+        <DCCReference Include="USourceProcessor.pas"/>
+        <DCCReference Include="Renderers.UCharSetTag.pas"/>
+        <DCCReference Include="Renderers.UTypes.pas"/>
+        <DCCReference Include="Renderers.UDocType.pas"/>
+        <DCCReference Include="Renderers.UProcInst.pas"/>
+        <DCCReference Include="Renderers.URootTag.pas"/>
+        <DCCReference Include="Renderers.UBranding.pas"/>
+        <DCCReference Include="Renderers.USourceCode.pas"/>
+        <DCCReference Include="Renderers.UTitleTag.pas"/>
+        <DCCReference Include="Renderers.UStyles.pas"/>
+        <DCCReference Include="Renderers.UDocument.pas"/>
+        <DCCReference Include="Renderers.UEdgeCompatibility.pas"/>
+        <DCCReference Include="Renderers.UViewport.pas"/>
+        <DCCReference Include="UVersionInfo.pas">
+            <Form>Main program code</Form>
+        </DCCReference>
+        <BuildConfiguration Include="Base">
+            <Key>Base</Key>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Debug">
+            <Key>Cfg_1</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Release">
+            <Key>Cfg_2</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+    </ItemGroup>
+    <Import Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')" Project="$(BDS)\Bin\CodeGear.Delphi.Targets"/>
+    <Import Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')" Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj"/>
+    <ProjectExtensions>
+        <Borland.Personality>Delphi.Personality.12</Borland.Personality>
+        <Borland.ProjectType>VCLApplication</Borland.ProjectType>
+        <BorlandProject>
+            <Delphi.Personality>
+                <Source>
+                    <Source Name="MainSource">PasHi.dpr</Source>
+                </Source>
+                <Parameters/>
+                <VersionInfo>
+                    <VersionInfo Name="IncludeVerInfo">False</VersionInfo>
+                    <VersionInfo Name="AutoIncBuild">False</VersionInfo>
+                    <VersionInfo Name="MajorVer">1</VersionInfo>
+                    <VersionInfo Name="MinorVer">0</VersionInfo>
+                    <VersionInfo Name="Release">0</VersionInfo>
+                    <VersionInfo Name="Build">0</VersionInfo>
+                    <VersionInfo Name="Debug">False</VersionInfo>
+                    <VersionInfo Name="PreRelease">False</VersionInfo>
+                    <VersionInfo Name="Special">False</VersionInfo>
+                    <VersionInfo Name="Private">False</VersionInfo>
+                    <VersionInfo Name="DLL">False</VersionInfo>
+                    <VersionInfo Name="Locale">2057</VersionInfo>
+                    <VersionInfo Name="CodePage">1252</VersionInfo>
+                </VersionInfo>
+                <VersionInfoKeys>
+                    <VersionInfoKeys Name="CompanyName"/>
+                    <VersionInfoKeys Name="FileDescription"/>
+                    <VersionInfoKeys Name="FileVersion">1.0.0.0</VersionInfoKeys>
+                    <VersionInfoKeys Name="InternalName"/>
+                    <VersionInfoKeys Name="LegalCopyright"/>
+                    <VersionInfoKeys Name="LegalTrademarks"/>
+                    <VersionInfoKeys Name="OriginalFilename"/>
+                    <VersionInfoKeys Name="ProductName"/>
+                    <VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys>
+                    <VersionInfoKeys Name="Comments"/>
+                </VersionInfoKeys>
+                <Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\bcboffice2k290.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\bcbofficexp290.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k290.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp290.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+                </Excluded_Packages>
+            </Delphi.Personality>
+            <Platforms>
+                <Platform value="Linux64">False</Platform>
+                <Platform value="Win32">True</Platform>
+                <Platform value="Win64">False</Platform>
+            </Platforms>
+        </BorlandProject>
+        <ProjectFileVersion>12</ProjectFileVersion>
+    </ProjectExtensions>
+    <PropertyGroup Condition="'$(Config)'=='Debug' And '$(Platform)'=='Linux64'">
+        <PreBuildEvent>&quot;$(VIEdRoot)\VIEd.exe&quot; -makerc  .\VerInfo.vi .\VerInfo.virc&amp;&amp;&quot;$(BDSBIN)\BRCC32&quot; -fo &quot;..\_build\$(Platform)\$(Config)\bin\VerInfo.res&quot; .\VerInfo.virc&amp;&amp;&quot;$(BDSBIN)\BRCC32&quot; -fo &quot;..\_build\$(Platform)\$(Config)\bin\Resources.res&quot; .\Resources.rc</PreBuildEvent>
+        <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
+        <PreLinkEvent/>
+        <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
+        <PostBuildEvent>DEL .\VerInfo.virc&amp;&amp;DEL .\PasHi.res</PostBuildEvent>
+        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Debug' And '$(Platform)'=='Win32'">
+        <PreBuildEvent>&quot;$(VIEdRoot)\VIEd.exe&quot; -makerc  .\VerInfo.vi .\VerInfo.virc&amp;&amp;&quot;$(BDSBIN)\BRCC32&quot; -fo &quot;..\_build\$(Platform)\$(Config)\bin\VerInfo.res&quot; .\VerInfo.virc&amp;&amp;&quot;$(BDSBIN)\BRCC32&quot; -fo &quot;..\_build\$(Platform)\$(Config)\bin\Resources.res&quot; .\Resources.rc</PreBuildEvent>
+        <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
+        <PreLinkEvent/>
+        <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
+        <PostBuildEvent>DEL .\VerInfo.virc&amp;&amp;DEL .\PasHi.res</PostBuildEvent>
+        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Debug' And '$(Platform)'=='Win64'">
+        <PreBuildEvent>&quot;$(VIEdRoot)\VIEd.exe&quot; -makerc  .\VerInfo.vi .\VerInfo.virc&amp;&amp;&quot;$(BDSBIN)\BRCC32&quot; -fo &quot;..\_build\$(Platform)\$(Config)\bin\VerInfo.res&quot; .\VerInfo.virc&amp;&amp;&quot;$(BDSBIN)\BRCC32&quot; -fo &quot;..\_build\$(Platform)\$(Config)\bin\Resources.res&quot; .\Resources.rc</PreBuildEvent>
+        <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
+        <PreLinkEvent/>
+        <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
+        <PostBuildEvent>DEL .\VerInfo.virc&amp;&amp;DEL .\PasHi.res</PostBuildEvent>
+        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Release' And '$(Platform)'=='Linux64'">
+        <PreBuildEvent>&quot;$(VIEdRoot)\VIEd.exe&quot; -makerc  .\VerInfo.vi .\VerInfo.virc&amp;&amp;&quot;$(BDSBIN)\BRCC32&quot; -fo &quot;..\_build\$(Platform)\$(Config)\bin\VerInfo.res&quot; .\VerInfo.virc&amp;&amp;&quot;$(BDSBIN)\BRCC32&quot; -fo &quot;..\_build\$(Platform)\$(Config)\bin\Resources.res&quot; .\Resources.rc</PreBuildEvent>
+        <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
+        <PreLinkEvent/>
+        <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
+        <PostBuildEvent>DEL .\VerInfo.virc&amp;&amp;DEL .\PasHi.res</PostBuildEvent>
+        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Release' And '$(Platform)'=='Win32'">
+        <PreBuildEvent>&quot;$(VIEdRoot)\VIEd.exe&quot; -makerc  .\VerInfo.vi .\VerInfo.virc&amp;&amp;&quot;$(BDSBIN)\BRCC32&quot; -fo &quot;..\_build\$(Platform)\$(Config)\bin\VerInfo.res&quot; .\VerInfo.virc&amp;&amp;&quot;$(BDSBIN)\BRCC32&quot; -fo &quot;..\_build\$(Platform)\$(Config)\bin\Resources.res&quot; .\Resources.rc</PreBuildEvent>
+        <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
+        <PreLinkEvent/>
+        <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
+        <PostBuildEvent>DEL .\VerInfo.virc&amp;&amp;DEL .\PasHi.res</PostBuildEvent>
+        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Release' And '$(Platform)'=='Win64'">
+        <PreBuildEvent>&quot;$(VIEdRoot)\VIEd.exe&quot; -makerc  .\VerInfo.vi .\VerInfo.virc&amp;&amp;&quot;$(BDSBIN)\BRCC32&quot; -fo &quot;..\_build\$(Platform)\$(Config)\bin\VerInfo.res&quot; .\VerInfo.virc&amp;&amp;&quot;$(BDSBIN)\BRCC32&quot; -fo &quot;..\_build\$(Platform)\$(Config)\bin\Resources.res&quot; .\Resources.rc</PreBuildEvent>
+        <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
+        <PreLinkEvent/>
+        <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
+        <PostBuildEvent>DEL .\VerInfo.virc&amp;&amp;DEL .\PasHi.res</PostBuildEvent>
+        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+    </PropertyGroup>
+</Project>

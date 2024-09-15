@@ -14,7 +14,7 @@ unit IO.Readers.UStdIn;
 interface
 
 uses
-  SysUtils,
+  System.SysUtils,
   IO.UTypes;
 
 type
@@ -26,7 +26,9 @@ type
 implementation
 
 uses
-  UConsts, UStdIO, IO.UHelper;
+  UConsts,
+  UStdIO,
+  IO.UHelper;
 
 { TStdInReader }
 

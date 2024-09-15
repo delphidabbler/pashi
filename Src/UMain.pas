@@ -17,9 +17,11 @@ interface
 
 uses
   // Delphi
-  Classes,
+  System.Classes,
   // Project
-  Hiliter.UGlobals, UConfig, UConsole;
+  Hiliter.UGlobals,
+  UConfig,
+  UConsole;
 
 
 type
@@ -50,11 +52,18 @@ implementation
 
 uses
   // Delphi
-  SysUtils, Windows,
+  System.SysUtils,
+  Winapi.Windows,
   // Project
-  IO.UTypes, IO.Readers.UFactory, IO.Writers.UFactory, IO.UHelper,
+  IO.UTypes,
+  IO.Readers.UFactory,
+  IO.Writers.UFactory,
+  IO.UHelper,
   Renderers.UTypes,
-  UParams, Renderers.UFactory, USourceProcessor, UVersionInfo;
+  Renderers.UFactory,
+  UParams,
+  USourceProcessor,
+  UVersionInfo;
 
 
 resourcestring

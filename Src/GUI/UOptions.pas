@@ -16,7 +16,8 @@ unit UOptions;
 interface
 
 uses
-  Classes, Generics.Collections;
+  System.Classes,
+  System.Generics.Collections;
 
 
 type
@@ -55,8 +56,10 @@ type
 implementation
 
 uses
-  SysUtils,
-  UComparers, UConfigFiles, UGUIConfigFiles;
+  System.SysUtils,
+  UComparers,
+  UConfigFiles,
+  UGUIConfigFiles;
 
 { TOptions }
 

@@ -14,7 +14,7 @@ unit IO.Writers.UFile;
 interface
 
 uses
-  SysUtils,
+  System.SysUtils,
   IO.UTypes;
 
 type
@@ -30,7 +30,7 @@ type
 implementation
 
 uses
-  Classes;
+  System.Classes;
 
 { TFileWriter }
 

@@ -18,7 +18,7 @@ interface
 
 uses
   // Delphi
-  ActiveX;
+  Winapi.ActiveX;
 
 
 type
@@ -70,7 +70,10 @@ implementation
 
 uses
   // Delphi
-  SysUtils, Windows, ComObj, ShellAPI;
+  System.SysUtils,
+  System.Win.ComObj,
+  Winapi.Windows,
+  Winapi.ShellAPI;
 
 
 { TDataObjectAdapter }

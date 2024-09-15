@@ -17,7 +17,7 @@ interface
 
 uses
   // Delphi
-  Classes;
+  System.Classes;
 
 type
 
@@ -47,7 +47,8 @@ implementation
 
 uses
   // Delphi
-  SysUtils, Windows;
+  System.SysUtils,
+  Winapi.Windows;
 
 
 resourcestring

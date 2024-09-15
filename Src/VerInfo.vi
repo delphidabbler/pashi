@@ -38,7 +38,7 @@ Legal Trademark=
 Original File Name=PasHi.exe
 Private Build=
 Product Name=DelphiDabbler PasHi Pascal Highlighter
-Product Version=Release <#P1>.<#P2>.<#P3>
+Product Version=<%ver.productver>
 Special Build=
 
 [Configuration Details]

@@ -58,7 +58,7 @@ type
 implementation
 
 uses
-  SysUtils,
+  System.SysUtils,
   UVersionInfo;
 
 { TBrandingGenerator }

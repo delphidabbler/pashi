@@ -15,8 +15,9 @@ unit USourceProcessor;
 interface
 
 uses
-  SysUtils,
-  IO.UTypes, UConfig;
+  System.SysUtils,
+  IO.UTypes,
+  UConfig;
 
 type
   TSourceProcessor = class(TObject)
@@ -34,9 +35,9 @@ type
 implementation
 
 uses
-  StrUtils,
-  Classes,
-  Types,
+  System.StrUtils,
+  System.Classes,
+  System.Types,
   IO.Readers.UFactory,
   UConsts;
 
