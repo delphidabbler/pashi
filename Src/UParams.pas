@@ -116,7 +116,9 @@ type
       fEncodingLookup: TDictionary<string, TOutputEncodingId>;
       fDocTypeLookup: TDictionary<string, TDocType>;
       fBooleanLookup: TDictionary<string, Boolean>;
-      fVerbosityLookup: TDictionary<string, TVerbosity>;
+      fVerbosityStateLookup: TDictionary<string, TVerbosityState>;
+      fVerbosityAliasLookup: TDictionary<string, TVerbosityStates>;
+      fVerbosityDeprecatedLookup: TList<string>;
       fPaddingLookup: TDictionary<string, Char>;
       fViewportLookup: TDictionary<string, TViewport>;
       fHiliteSpanClsLookup: TDictionary<string, THiliteElement>;
@@ -135,7 +137,7 @@ type
     function GetBooleanParameter(const Cmd: TCommand): Boolean;
     function GetEncodingParameter(const Cmd: TCommand): TOutputEncodingId;
     function GetDocTypeParameter(const Cmd: TCommand): TDocType;
-    function GetVerbosityParameter(const Cmd: TCommand): TVerbosity;
+    function GetVerbosityParameter(const Cmd: TCommand): TVerbosityStates;
     function GetNumericParameter(const Cmd: TCommand; const Lo, Hi: UInt16):
       UInt16;
     function GetPaddingParameter(const Cmd: TCommand): Char;
@@ -354,15 +356,35 @@ begin
     Add('on', True);
     Add('off', False);
   end;
-  fVerbosityLookup := TDictionary<string, TVerbosity>.Create(
+
+  // Lookup table for --verbosity command sets and aliases
+  fVerbosityStateLookup := TDictionary<string, TVerbosityState>.Create(
     TTextEqualityComparer.Create
   );
-  with fVerbosityLookup do
-  begin
-    Add('normal', vbNormal);
-    Add('no-warn', vbNoWarnings);
-    Add('quiet', vbQuiet);
-  end;
+  fVerbosityAliasLookup := TDictionary<string, TVerbosityStates>.Create(
+    TTextEqualityComparer.Create
+  );
+  fVerbosityDeprecatedLookup := TList<string>.Create(
+    TTextComparer.Create
+  );
+  // .. set values
+  fVerbosityStateLookup.Add('info', vsInfo);
+  fVerbosityStateLookup.Add('warnings', vsWarnings);
+  fVerbosityStateLookup.Add('warning', vsWarnings);
+  fVerbosityStateLookup.Add('warn', vsWarnings);
+  fVerbosityStateLookup.Add('errors', vsErrors);
+  fVerbosityStateLookup.Add('error', vsErrors);
+  // .. aliases
+  fVerbosityAliasLookup.Add('normal', TConfig.NormalVerbosity);
+  fVerbosityAliasLookup.Add('no-warn', TConfig.NoWarnVerbosity);
+  fVerbosityAliasLookup.Add('quiet', TCOnfig.QuietVerbosity);
+  fVerbosityAliasLookup.Add('silent', TConfig.SilentVerbosity);
+  fVerbosityAliasLookup.Add('-' , TConfig.SilentVerbosity);
+  // .. deprecated params
+  fVerbosityDeprecatedLookup.Add('normal');
+  fVerbosityDeprecatedLookup.Add('no-warn');
+
+  // Lookup table for --line-number-padding command values
   fPaddingLookup := TDictionary<string, Char>.Create(
     TTextEqualityComparer.Create
   );
@@ -399,6 +421,7 @@ begin
   // Additionally old Boolean params are supported, but deprecated.
   //   False => 'none' and True => 'lines'
 
+  // Lookup tables for --inhibit-styling command sets and aliases
   fHiliteSpanClsLookup := TDictionary<string,THiliteElement>.Create(
     TTextEqualityComparer.Create
   );
@@ -417,6 +440,7 @@ begin
     CSSNames.Free;
   end;
   fHiliteAliasLookup.Add('-', []);  // alias for empty set {}
+
 end;
 
 destructor TParams.Destroy;
@@ -426,7 +450,9 @@ begin
   fWarnings.Free;
   fViewportLookup.Free;
   fPaddingLookup.Free;
-  fVerbosityLookup.Free;
+  fVerbosityDeprecatedLookup.Free;
+  fVerbosityAliasLookup.Free;
+  fVerbosityStateLookup.Free;
   fBooleanLookup.Free;
   fDocTypeLookup.Free;
   fEncodingLookup.Free;
@@ -522,7 +548,7 @@ begin
     begin
       if not fHiliteSpanClsLookup.ContainsKey(Span) then
         raise ECommandError.Create(
-          Cmd.Name, sBadSpanCls + Format('"%s', [Span])
+          Cmd.Name, sBadSpanCls + Format('"%s"', [Span])
         );
       Include(Result, fHiliteSpanClsLookup[Span]);
     end;
@@ -582,16 +608,37 @@ begin
     raise ECommandError.Create(Cmd.Name, sNoParam);
 end;
 
-function TParams.GetVerbosityParameter(const Cmd: TCommand): TVerbosity;
-var
-  Param: string;
+function TParams.GetVerbosityParameter(const Cmd: TCommand): TVerbosityStates;
 resourcestring
-  sBadValue = 'Unrecognised verbosity value "%s"';
+  sBadOption = 'Invalid option for "%s": ';
+  sBadParam = 'Invalid parameter for "%s": ';
 begin
-  Param := GetStringParameter(Cmd);
-  if not fVerbosityLookup.ContainsKey(Param) then
-    raise Exception.CreateFmt(sBadValue, [Param]);
-  Result := fVerbosityLookup[Param];
+  // Parameter is EITHER a set or an alias for a set
+  // Set is enclosed in {}, alias is not.
+  var Param := GetStringParameter(Cmd);
+  var ParamAsArray: TArray<string>;
+  if TryParseSetParam(Param, ParamAsArray) then
+  begin
+    // Parameter is a valid set of zero or more elements
+    Result := [];
+    for var Member in ParamAsArray do
+    begin
+      if not fVerbosityStateLookup.ContainsKey(Member) then
+        raise ECommandError.Create(
+          Cmd.Name, sBadOption + Format('"%s"', [Member])
+        );
+      Include(Result, fVerbosityStateLookup[Member]);
+    end;
+  end
+  else
+  begin
+    // Not a set parameter - test for a valid alias
+    if not fVerbosityAliasLookup.ContainsKey(Param) then
+      raise ECommandError.Create(
+        Cmd.Name, sBadParam +  Format('"%s"', [Param])
+      );
+    Result := fVerbosityAliasLookup[Param];
+  end;
 end;
 
 function TParams.GetViewportParameter(const Cmd: TCommand): TViewport;
@@ -679,6 +726,7 @@ resourcestring
   sDeprecatedParam = 'The "%0:s" parameter of the "%1:s" command is deprecated';
   sDeprecatedSwitch = 'The "%s" switch is deprecated';
   sDepDocType = 'The "html4" parameter of the "%s" command is deprecated';
+  sDepVerbosity = 'The "%0:s" parameter of the "%s" command is deprected';
 var
   Command: TCommand;
   CommandId: TCommandId;
@@ -911,11 +959,21 @@ begin
       fConfig.ShowVersion := True;
     siVerbosity:
     begin
+      var ParamStr := GetStringParameter(Command);
+      if fVerbosityDeprecatedLookup.Contains(ParamStr) then
+        // NOTE: no-warn is deprecated but warning is never displayed for it
+        // since no-warn switches off warnings !!
+        fWarnings.Add(
+          Format(
+            sDepVerbosity,
+            [ParamStr, AdjustCommandName(Command.Name, IsConfigCmd)]
+          )
+        );
       fConfig.Verbosity := GetVerbosityParameter(Command);
       fParamQueue.Dequeue;
     end;
     siQuiet:
-      fConfig.Verbosity := vbQuiet;
+      fConfig.Verbosity := [vsErrors];
     siViewport:
     begin
       fConfig.Viewport := GetViewportParameter(Command);
