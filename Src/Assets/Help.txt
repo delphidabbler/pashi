@@ -165,14 +165,25 @@ PasHi supports the following commands:
                               no - alias for "-" parameter (*deprecated*)
                             -m+ (*deprecated*) is an alias for "--trim lines"
                             and -m- (*deprecated*) is an alias for "trim -".
---verbosity                 Specifies the amount of output from the program.
-                            The next parameter must be one of:
-                              normal - sign-on, error, warning and completion
-                                messages. [default] (*default deprecated: normal
-                                option will remain*)
-                              no-warn - no warnings: sign-on, error and
-                                completion messages only.
-                              quiet - error messages only.
+--verbosity                 Specifies the amount of output from the program. The
+                            following parameter must be in set format or be an
+                            alias. A set format parameter is a comma separated
+                            list of zero or more verbosity states, enclosed in
+                            curly braces, for e.g. {info,warn}, {} or {error}.
+                            Valid verbosity level names are:
+                              info - display general information, including the
+                                sign-on message.
+                              warn, warning or warnings - display warnings
+                              error or errors - display error messages
+                            The following aliases can be used, without curly
+                            brackets:
+                              normal - alias for {info,warn,error} [default]
+                                (*default deprecated: normal option will
+                                remain*)
+                              no-warn - alias for {info,error}
+                              quiet - alias for {error}
+                              silent or - - alias for {}
+                            When {} is specified the program emits no output.
 --version             -v    Displays program version. Do not use with other
                             commands.
 --viewport                  Determines the type, if any, of viewport meta-data
