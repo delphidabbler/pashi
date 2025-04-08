@@ -93,8 +93,8 @@ options, all of which are selected by default:
     See the program's user guide for details of how to create a config file for
     PasHi from the provided template files.
 
-    The files will appear in your %AppData%\DelphiDabbler\PasHi directory
-    immediately after you first run PasHi.
+    The template files will appear in your %AppData%\DelphiDabbler\PasHi
+    directory immediately after you first run PasHi.
 
 3. Install GUI front end program, PasHiGUI:
 
