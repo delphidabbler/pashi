@@ -224,6 +224,7 @@ procedure TMain.ShowVersion;
 var
   VI: TVersionInfo;
 begin
+  fConsole.ValidOutputStates := [vsInfo];
   VI := TVersionInfo.Create;
   try
     fConsole.WriteLn(VI.CmdLineVersion, vsInfo);
