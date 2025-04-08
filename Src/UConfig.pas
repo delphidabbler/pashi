@@ -17,6 +17,7 @@ interface
 uses
   System.SysUtils,
   System.Classes,
+  System.Generics.Collections,
   Hiliter.UGlobals;
 
 type
@@ -103,6 +104,7 @@ type
     fOutputSink: TOutputSink;
     fShowHelp: Boolean;
     fShowVersion: Boolean;
+    fShowConfigCommands: Boolean;
     fVerbosityStates: TVerbosityStates;
     fHideCSS: Boolean;
     fOutputFile: string;
@@ -124,6 +126,7 @@ type
     fViewport: TViewport;
     fEdgeCompatibility: Boolean;
     fExcludedSpans: THiliteElements;
+    fConfigFileEntries: TList<TPair<string,string>>;
     function GetInputFiles: TArray<string>;
   public
     const
@@ -146,6 +149,8 @@ type
       read fShowHelp write fShowHelp default False;
     property ShowVersion: Boolean
       read fShowVersion write fShowVersion default False;
+    property ShowConfigCommands: Boolean
+      read fShowConfigCommands write fShowConfigCommands;
     property HideCSS: Boolean read fHideCSS write fHideCSS;
     property CSSSource: TCSSSource read fCSSSource write fCSSSource;
     property CSSLocation: string read fCSSLocation write fCSSLocation;
@@ -181,6 +186,8 @@ type
     procedure AddInputFile(const FN: string);
     function OutputEncoding: TEncoding;
     function OutputEncodingName: string;
+    procedure AddConfigFileEntry(const AEntry: TPair<string,string>);
+    function ConfigFileEntries: TArray<TPair<string,string>>;
   end;
 
 
@@ -192,9 +199,19 @@ uses
 
 { TConfig }
 
+procedure TConfig.AddConfigFileEntry(const AEntry: TPair<string, string>);
+begin
+  fConfigFileEntries.Add(AEntry);
+end;
+
 procedure TConfig.AddInputFile(const FN: string);
 begin
   fInFiles.Add(FN);
+end;
+
+function TConfig.ConfigFileEntries: TArray<TPair<string, string>>;
+begin
+  Result := fConfigFileEntries.ToArray;
 end;
 
 constructor TConfig.Create;
@@ -206,6 +223,7 @@ begin
   fDocType := dtXHTML;
   fShowHelp := False;
   fShowVersion := False;
+  fShowConfigCommands := False;
   fHideCSS := False;
   fOutputEncodingId := oeUTF8;
   fBrandingPermitted := True;
@@ -222,10 +240,12 @@ begin
   fViewport := vpNone;
   fEdgeCompatibility := False;
   fExcludedSpans := [];
+  fConfigFileEntries := TList<TPair<string,string>>.Create;
 end;
 
 destructor TConfig.Destroy;
 begin
+  fConfigFileEntries.Free;
   fInFiles.Free;
   inherited;
 end;
