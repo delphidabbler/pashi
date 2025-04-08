@@ -997,7 +997,7 @@
         <li><code>silent</code> or <code>-</code>: alias for <code>{}</code>.</li>
       </ul>
       <p>Examples: To suppress all output use <code>--verbosity {}</code> or <code>--verbosity silent</code>. To only emit warning and error messages used <code>--verbosity {warn,error}</code>.</p>
-      <p>Note that <code>--verbosity</code> is ignored when the <code>--version</code> or <code>--help</code> commands are used.</p>
+      <p>Note that <code>--verbosity</code> is ignored when the <code>--version</code>, <code>--help</code> or <code>--config-show</code> commands are used.</p>
     </td>
   </tr>
   <tr>
@@ -1020,8 +1020,17 @@
     <td class="switch">-v</td>
     <td>
       <p>Displays the program's version number. The remainder of the command
-      line is ignored, except for <code>--help</code>, which takes
-      precendence.</p>
+        line is ignored, except for <code>--help</code>, which takes
+        precendence.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="switch">--config-show</td>
+    <td class="switch">&nbsp;</td>
+    <td>
+      <p>Displays the settings defined in the <code>config</code> file. If the config is empty or not present then nothing is displayed.</p>
+      <p>The remainder of the command line is ignored, except for <code>--help</code> and <code>--version</code>, which take
+        precedence.</p>
     </td>
   </tr>
 </table>
@@ -1214,9 +1223,9 @@
     </p>
     <p class="pullout">
       <strong>WARNING:</strong>
-      The <code>--help</code> and <code>--version</code> commands are
+      The <code>--help</code>, <code>--version</code> and <code>--config-show</code> commands are
       exceptions that have no equivalent config file command. If either
-      <code>help</code> or <code>version</code> are included in the config file
+      <code>help</code>, <code>version</code> or <code>config-show</code> are included in the config file
       then <em>PasHi</em> will stop with an error every time it is run.
     </p>
   </li>
