@@ -37,6 +37,7 @@ type
     procedure SignOn;
     procedure ShowHelp;
     procedure ShowVersion;
+    procedure ShowConfig;
     procedure ShowWarnings;
     procedure ShowNormalOutput;
     function GetInputSourceCode: string;
@@ -127,6 +128,10 @@ begin
       // Want version number so show it
       ShowVersion
 
+    else if fConfig.ShowConfigCommands then
+      // Display warnings
+      ShowConfig
+
     else
     begin
       // Sign on and initialise program
@@ -175,6 +180,16 @@ begin
     Result := SourceProcessor.Process(Reader.Read)
   finally
     SourceProcessor.Free;
+  end;
+end;
+
+procedure TMain.ShowConfig;
+begin
+  fConsole.ValidOutputStates := [vsInfo];
+  if Length(fConfig.ConfigFileEntries) > 0 then
+  begin
+    for var Entry in fConfig.ConfigFileEntries do
+      fConsole.WriteLn(Format('%0:s: %1:s', [Entry.Key, Entry.Value]), vsInfo);
   end;
 end;
 

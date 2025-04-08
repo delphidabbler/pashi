@@ -24,6 +24,8 @@ PasHi supports the following commands:
                               no - no branding.
                             Alternatively use -b+ to include branding or -b- to
                             exclude it.
+--config-show               Displays the settings defined by the config file, if
+                            any. Do not use with other commands.
 --default-css               Embed the program's default CSS in a <style> tag in
                             HTML documents [default].
 --doc-type            -d    Specifies the output document type, which must be
@@ -199,8 +201,8 @@ application data directory. Commands are listed one per line and have the same
 names and functionality as the long form commands above, but without the
 leading "--". If a command takes a parameter it must be entered on the same
 line as the command and separated from it by one or more spaces. Parameters
-containing spaces must not be enclosed in quotes. The "help" and "version"
-commands must *not* be used in a config file otherwise PasHi will exit with an
-error.
+containing spaces must not be enclosed in quotes. The "help", "version" and
+"config-show" commands must *not* be used in a config file otherwise PasHi will
+exit with an error.
 
 PasHi's application data directory is %AppData%\DelphiDabbler\PasHi.

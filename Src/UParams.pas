@@ -60,7 +60,8 @@ type
     siEdgeCompatibility,// whether edge compatibility info meta-data is output
     siLineNumberStart,  // specifies starting line number
     siVersion,          // display program's version
-    siInhibitStyling    // inhibits styling of some highlight elements
+    siInhibitStyling,   // inhibits styling of some highlight elements
+    siConfigShow        // displays the setting in the config file, if any
   );
 
 type
@@ -276,6 +277,7 @@ begin
     Add('--edge-compatibility', siEdgeCompatibility);
     Add('--version', siVersion);
     Add('--inhibit-styling', siInhibitStyling);
+    Add('--config-show', siConfigShow);
     // commands kept for backwards compatibility with v1.x
     Add('-frag', siFragment);
     Add('-hidecss', siForceHideCSS);
@@ -307,6 +309,7 @@ begin
   begin
     Add(siHelp);
     Add(siVersion);
+    Add(siConfigShow);
   end;
   // lookup table for --encoding command values: case insensitive
   fEncodingLookup := TDictionary<string,TOutputEncodingId>.Create(
@@ -497,6 +500,7 @@ begin
       fParamQueue.Enqueue('--' + CfgEntry.Key);
       if CfgEntry.Value <> '' then
         fParamQueue.Enqueue(CfgEntry.Value);
+      fConfig.AddConfigFileEntry(CfgEntry);
     end;
   finally
     CfgFileReader.Free;
@@ -957,6 +961,8 @@ begin
       fConfig.ShowHelp := True;
     siVersion:
       fConfig.ShowVersion := True;
+    siConfigShow:
+      fConfig.ShowConfigCommands := True;
     siVerbosity:
     begin
       var ParamStr := GetStringParameter(Command);
