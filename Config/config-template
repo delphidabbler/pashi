@@ -61,7 +61,8 @@
 # config file. If such a command is present then PasHi will fail with an error
 # message.
 #
-# At present there are two blacklisted commands: "help" & "version".
+# At present there are three blacklisted commands: "config-show", "help" & 
+# "version".
 #
 # A complete list of valid commands follows. Commands and parameters that are
 # slated for removal in the next major release are flagged as deprecated.
