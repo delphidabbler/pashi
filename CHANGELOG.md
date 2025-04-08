@@ -27,7 +27,7 @@ This release includes _PasHi_ v2.3.0 and _PasHiGUI_ v1.3.0
 
 * Added new `--inhibit-styling` command to prevent `<span>` tags from being emitted for specified highlighter elements. [Issue 30]
 * Modified operation of `--trim` command to add facility to trim trailing spaces from source code lines. Added new parameters to specify whether lines, trailing spaces or nothing are to be trimmed. Maintained backward compatibility with older parameters, but deprecated them. [Issue 29]
-* Added new `-v` command as an alias for `--verbosity`. [Issue 38]
+* Added new `-v` command as an alias for `--version`.
 * Added `frag` parameter as an alias for `fragment` in `--doc-type` command. [Issue 47]
 * Enabled `-` to be used as a parameter.
 * Added support for parsing set type parameters in form `{elem1,elem2,...}`.
@@ -36,7 +36,7 @@ This release includes _PasHi_ v2.3.0 and _PasHiGUI_ v1.3.0
 
 ### PasHiGUI 1.3.0 [build 9]
 
-* Updated options pane to provide support for the new `--inhibit-styling` and modified `--trim` commands.
+* Updated options pane to provide support for the new `--inhibit-styling` command and the modified `--trim` command.
 
 ### General
 
