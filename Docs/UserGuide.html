@@ -981,33 +981,23 @@
     <td class="switch">&nbsp;</td>
     <td>
       <p>Determines the amount of output PasHi writes to standard error while
-      executing. The amount of output depends on the value of the next
-      parameter, which must be one of:</p>
+      executing.</p>
+      <p>This command must be followed by a parameter which is <em>either</em> a set of zero of more verbosity states <em>or</em> the name of an alias for a set of states. A set is a comma delimited list of element names, enclosed in <code>{</code> and <code>}</code> characters. The list must not contain spaces. Valid element names are:</p>
       <ul>
-        <li>
-          <code>normal</code>: Normal screen output (the default). This causes
-          the program to display sign-on information and to display a message
-          when the program completes. All output goes to standard error so that
-          it does not affect highlighted source code written to standard output.
-          Any error and warning messages are also written to standard error.
-          When <code>--version</code> is specified no sign on or completion
-          messages are displayed: just the version number is output.
-          <br /><span class="deprecated">Default deprecated: to change to a new
-          option that displays only warnings and error messages.
-        </li>
-        <li>
-          <code>no-warn</code>. Suppress warnings. Displays just as when the
-          <code>normal</code> parameter is specified, except that no warning
-          messages are displayed.
-        </li>
-        <li>
-          <code>quiet</code>: Quiet mode. Displays no sign on, completion or
-          warning messages. If the program detects errors or if the
-          <code>--help</code> or <code>--version</code> commands are used then
-          this option is ignored and the program acts as if the
-          <code>no-warn</code> parameter had been specified.
-        </li>
+        <li><code>info</code>: display general information, including the sign-on and sign-off messages.</li>
+        <li><code>warn</code>, <code>warning</code> or <code>warnings</code>: display warnings.</li>
+        <li><code>error</code> or <code>errors</code>: display error messages.</li>
       </ul>
+      <p>Valid aliases are:</p>
+      <ul>
+        <li><code>normal</code>: alias for <code>{info,warn,error}</code> (the default). <span class="deprecated">[deprecated]</span>
+        <br /><span class="deprecated">Default deprecated: will change to a new option that aliases <code>{warn,error}</code> messages.</li>
+        <li><code>no-warn</code>: alias for <code>{info,error}</code>. <span class="deprecated">[deprecated]</span></li>
+        <li><code>quiet</code>: alias for <code>{error}</code>.</li>
+        <li><code>silent</code> or <code>-</code>: alias for <code>{}</code>.</li>
+      </ul>
+      <p>Examples: To suppress all output use <code>--verbosity {}</code> or <code>--verbosity silent</code>. To only emit warning and error messages used <code>--verbosity {warn,error}</code>.</p>
+      <p>Note that <code>--verbosity</code> is ignored when the <code>--version</code> or <code>--help</code> commands are used.</p>
     </td>
   </tr>
   <tr>

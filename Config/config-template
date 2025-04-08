@@ -263,9 +263,20 @@
 # --- Output verbosity ---
 # Commands:
 #   verbosity <param>
-#     where <param> is either "quiet", "no-warn" or "normal"
-#   quiet
+#     where <param> is either:
+#       a set of zero or more of the values "info", "warn" (aka "warning" aka
+#       "warnings") or "error" (aka "errors"), separated by commas, with no
+#       spaces, and enclosed in curly brackets,
+#     or one of:
+#       "normal", "no-warn", "quiet", "silent" or a minus sign, "-"
+#     ** the "normal" and "no-warn" parameters are DEPRECATED
+#        use "{info,warn,error}" instead of "normal" and "{info,errors}" instead
+#        of "no-warn"
 # Default:
-#   verbosity normal
-#   ** the default is DEPRECATED: may change in next major release
-
+#   verbosity {info,warn,error}
+#   ** the default is DEPRECATED: may change in next major release.
+# Examples:
+#   verbosity {info}
+#   verbosity -
+#   verbosity {warnings,info}
+#   verbosity quiet

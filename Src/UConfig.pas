@@ -59,13 +59,15 @@ type
     dtFragment      // a fragment of HTML code, compatible with all HTML types
   );
 
-  ///  <summary>Enumerates different level of verbosity supported by program.
-  ///  </summary>
-  TVerbosity = (
-    vbQuiet,
-    vbNoWarnings,
-    vbNormal
+  ///  <summary>Enumerate different kinds of verbosity state.</summary>
+  TVerbosityState = (
+    vsInfo,
+    vsWarnings,
+    vsErrors
   );
+
+  ///  <summary>Set of the vebosity states supported by the program.</summary>
+  TVerbosityStates = set of TVerbosityState;
 
   ///  <summary>Enumerates different viewport options applied to complete
   ///  (X)HTML documents.</summary>
@@ -101,7 +103,7 @@ type
     fOutputSink: TOutputSink;
     fShowHelp: Boolean;
     fShowVersion: Boolean;
-    fVerbosity: TVerbosity;
+    fVerbosityStates: TVerbosityStates;
     fHideCSS: Boolean;
     fOutputFile: string;
     fLanguage: string;
@@ -124,6 +126,12 @@ type
     fExcludedSpans: THiliteElements;
     function GetInputFiles: TArray<string>;
   public
+    const
+      QuietVerbosity = [vsErrors];
+      NoWarnVerbosity = [vsInfo, vsErrors];
+      NormalVerbosity = [vsInfo, vsWarnings, vsErrors];
+      SilentVerbosity = [];
+      DefaultVerbosity = NormalVerbosity;
     constructor Create;
     destructor Destroy; override;
     property InputSource: TInputSource
@@ -132,8 +140,8 @@ type
       read fOutputSink write fOutputSink default osStdOut;
     property DocType: TDocType
       read fDocType write fDocType default dtXHTML;
-    property Verbosity: TVerbosity
-      read fVerbosity write fVerbosity default vbNormal;
+    property Verbosity: TVerbosityStates
+      read fVerbosityStates write fVerbosityStates default NormalVerbosity;
     property ShowHelp: Boolean
       read fShowHelp write fShowHelp default False;
     property ShowVersion: Boolean
@@ -202,7 +210,7 @@ begin
   fOutputEncodingId := oeUTF8;
   fBrandingPermitted := True;
   fLanguage := '';
-  fVerbosity := vbNormal;
+  fVerbosityStates := NormalVerbosity;
   fTrimSource := tsLines;
   fSeparatorLines := 1;
   fLegacyCSSNames := False;

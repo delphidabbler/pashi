@@ -31,13 +31,14 @@ type
   private
     fConfig: TConfig;     // Program configurations object
     fConsole: TConsole;   // Object used to write to console
-    fSignedOn: Boolean;   // Flag shows if sign on message has been displayed
+    fNormalOutputShown: Boolean;  // Flag true if normal output displayed
     fWarnings: TArray<string>;  // Command line parser warnings
     procedure Configure;
     procedure SignOn;
     procedure ShowHelp;
     procedure ShowVersion;
     procedure ShowWarnings;
+    procedure ShowNormalOutput;
     function GetInputSourceCode: string;
     procedure WriteOutput(const S: string);
   public
@@ -108,41 +109,49 @@ var
   XHTML: string;        // highlighted XHTML output
   Renderer: IRenderer;  // render customised output document
 begin
+
   ExitCode := 0;
+
   try
     // Configure program
     Configure;
-    // Decide if program is to write to console
-    fConsole.Silent := (fConfig.Verbosity = vbQuiet)
-      and not fConfig.ShowHelp and not fConfig.ShowVersion;
+
+    // Set up output verbosity options
+    fConsole.ValidOutputStates := fConfig.Verbosity;
+
     if fConfig.ShowHelp then
       // Want help so show it
       ShowHelp
+
     else if fConfig.ShowVersion then
       // Want version number so show it
       ShowVersion
+
     else
     begin
       // Sign on and initialise program
-      SignOn;
-      if Length(fWarnings) > 0 then
-        ShowWarnings;
+      ShowNormalOutput;
       SourceCode := GetInputSourceCode;
       Renderer := TRendererFactory.CreateRenderer(SourceCode, fConfig);
       XHTML := Renderer.Render;
       WriteOutput(XHTML);
       // Sign off
-      fConsole.WriteLn(sCompleted);
+      fConsole.WriteLn(sCompleted, vsInfo);
     end;
+
   except
+
     // Report any errors
     on E: Exception do
     begin
-      if not fSignedOn then
-        SignOn;
-      fConsole.WriteLn(Format(sError, [E.Message]));
+      // Ensure output verbosity options are set: exception could be raised
+      // before --verbostity command is processed
+      fConsole.ValidOutputStates := fConfig.Verbosity;
+      ShowNormalOutput;
+      fConsole.WriteLn(Format(sError, [E.Message]), vsErrors);
       ExitCode := 1;
     end;
+
   end;
 end;
 
@@ -174,15 +183,26 @@ var
   RS: TResourceStream;
 begin
   SignOn;
-  fConsole.WriteLn;
+  fConsole.ValidOutputStates := [vsInfo];
+  fConsole.WriteLn(vsInfo);
   RS := TResourceStream.Create(HInstance, 'HELP', RT_RCDATA);
   try
     fConsole.WriteLn(
-      TIOHelper.BytesToString(TIOHelper.StreamToBytes(RS))
+      TIOHelper.BytesToString(TIOHelper.StreamToBytes(RS)),
+      vsInfo
     );
   finally
     RS.Free;
   end;
+end;
+
+procedure TMain.ShowNormalOutput;
+begin
+  if fNormalOutputShown then
+    Exit;
+  SignOn;
+  ShowWarnings;
+  fNormalOutputShown := True;
 end;
 
 procedure TMain.ShowVersion;
@@ -191,7 +211,7 @@ var
 begin
   VI := TVersionInfo.Create;
   try
-    fConsole.WriteLn(VI.CmdLineVersion);
+    fConsole.WriteLn(VI.CmdLineVersion, vsInfo);
   finally
     VI.Free;
   end;
@@ -203,10 +223,8 @@ var
 resourcestring
   sWarning = 'WARNING: %s';
 begin
-  if fConfig.Verbosity = vbNoWarnings then
-    Exit;
   for W in fWarnings do
-    fConsole.WriteLn(Format(sWarning, [W]));
+    fConsole.WriteLn(Format(sWarning, [W]), vsWarnings);
 end;
 
 procedure TMain.SignOn;
@@ -215,10 +233,8 @@ resourcestring
   sSignOn = 'PasHi by DelphiDabbler (https://delphidabbler.com)';
 begin
   // write sign on message, underlined with dashes
-  fConsole.WriteLn(sSignOn);
-  fConsole.WriteLn(StringOfChar('-', Length(sSignOn)));
-  // record that we've signed on
-  fSignedOn := True;
+  fConsole.WriteLn(sSignOn, vsInfo);
+  fConsole.WriteLn(StringOfChar('-', Length(sSignOn)), vsInfo);
 end;
 
 procedure TMain.WriteOutput(const S: string);
