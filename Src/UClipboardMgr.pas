@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2005-2016, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2005-2025, Peter Johnson (www.delphidabbler.com).
  *
  * Defines a lightweight object that accesses and saves clipboard data. Used to
  * avoid significant overhead of VCL's ClipBrd unit.

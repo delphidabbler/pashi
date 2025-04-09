@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2012-2021, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2012-2025, Peter Johnson (www.delphidabbler.com).
  *
  * Frame that is used to edit various miscellaneous PasHi options not edited via
  * other option frames.
@@ -136,14 +136,14 @@ begin
   Options.Store('separator-lines', seSeparatorLines.Value);
 
   Options.Delete('language');
-  Options.Delete('language-neutral');   // deprecated: should get written again
+  Options.Delete('language-neutral'); // deprecated: shouldn't get written again
   if Trim(edLanguage.Text) <> '' then
     Options.Store('language', Trim(edLanguage.Text))
   else
     Options.Store('language', 'neutral');
 
   Options.Delete('title');
-  Options.Delete('title-default');      // deprecated: should get written again
+  Options.Delete('title-default');    // deprecated: shouldn't get written again
   if Trim(edTitle.Text) <> '' then
     Options.Store('title', Trim(edTitle.Text))
   else
