@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2006-2022, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2006-2025, Peter Johnson (www.delphidabbler.com).
  *
  * Various utility routines.
 }
@@ -17,7 +17,8 @@ interface
 
 uses
   // Delphi
-  Classes, Windows;
+  System.Classes,
+  Winapi.Windows;
 
 
 function IsDirectory(const DirName: string): Boolean;
@@ -37,7 +38,8 @@ implementation
 
 uses
   // Delphi
-  SysUtils, ActiveX;
+  System.SysUtils,
+  Winapi.ActiveX;
 
 
 function IsDirectory(const DirName: string): Boolean;
@@ -88,7 +90,7 @@ end;
 function ListFiles(const Dir, Wildcard: string; const List: TStrings): Boolean;
 var
   FileSpec: string;         // search file specification
-  SR: SysUtils.TSearchRec;  // file search result
+  SR: System.SysUtils.TSearchRec;  // file search result
   Success: Integer;         // success code for FindXXX routines
 begin
   Assert(Assigned(List));

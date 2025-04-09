@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2007-2022, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2007-2025, Peter Johnson (www.delphidabbler.com).
  *
  * Implements classes that used to parse command line and record details.
 }
@@ -17,9 +17,9 @@ interface
 
 uses
   // Delphi
-  SysUtils,
-  Types,
-  Generics.Collections,
+  System.SysUtils,
+  System.Types,
+  System.Generics.Collections,
   // Project
   Hiliter.UGlobals,
   UConfig;
@@ -60,7 +60,8 @@ type
     siEdgeCompatibility,// whether edge compatibility info meta-data is output
     siLineNumberStart,  // specifies starting line number
     siVersion,          // display program's version
-    siInhibitStyling    // inhibits styling of some highlight elements
+    siInhibitStyling,   // inhibits styling of some highlight elements
+    siConfigShow        // displays the setting in the config file, if any
   );
 
 type
@@ -116,7 +117,9 @@ type
       fEncodingLookup: TDictionary<string, TOutputEncodingId>;
       fDocTypeLookup: TDictionary<string, TDocType>;
       fBooleanLookup: TDictionary<string, Boolean>;
-      fVerbosityLookup: TDictionary<string, TVerbosity>;
+      fVerbosityStateLookup: TDictionary<string, TVerbosityState>;
+      fVerbosityAliasLookup: TDictionary<string, TVerbosityStates>;
+      fVerbosityDeprecatedLookup: TList<string>;
       fPaddingLookup: TDictionary<string, Char>;
       fViewportLookup: TDictionary<string, TViewport>;
       fHiliteSpanClsLookup: TDictionary<string, THiliteElement>;
@@ -135,7 +138,7 @@ type
     function GetBooleanParameter(const Cmd: TCommand): Boolean;
     function GetEncodingParameter(const Cmd: TCommand): TOutputEncodingId;
     function GetDocTypeParameter(const Cmd: TCommand): TDocType;
-    function GetVerbosityParameter(const Cmd: TCommand): TVerbosity;
+    function GetVerbosityParameter(const Cmd: TCommand): TVerbosityStates;
     function GetNumericParameter(const Cmd: TCommand; const Lo, Hi: UInt16):
       UInt16;
     function GetPaddingParameter(const Cmd: TCommand): Char;
@@ -182,10 +185,13 @@ implementation
 
 uses
   // Delphi
-  StrUtils, Classes, Character,
+  System.StrUtils,
+  System.Classes,
+  System.Character,
   // Project
   Hiliter.UHiliters,
-  UComparers, UConfigFiles;
+  UComparers,
+  UConfigFiles;
 
 
 { TParams }
@@ -271,6 +277,7 @@ begin
     Add('--edge-compatibility', siEdgeCompatibility);
     Add('--version', siVersion);
     Add('--inhibit-styling', siInhibitStyling);
+    Add('--config-show', siConfigShow);
     // commands kept for backwards compatibility with v1.x
     Add('-frag', siFragment);
     Add('-hidecss', siForceHideCSS);
@@ -302,6 +309,7 @@ begin
   begin
     Add(siHelp);
     Add(siVersion);
+    Add(siConfigShow);
   end;
   // lookup table for --encoding command values: case insensitive
   fEncodingLookup := TDictionary<string,TOutputEncodingId>.Create(
@@ -351,15 +359,35 @@ begin
     Add('on', True);
     Add('off', False);
   end;
-  fVerbosityLookup := TDictionary<string, TVerbosity>.Create(
+
+  // Lookup table for --verbosity command sets and aliases
+  fVerbosityStateLookup := TDictionary<string, TVerbosityState>.Create(
     TTextEqualityComparer.Create
   );
-  with fVerbosityLookup do
-  begin
-    Add('normal', vbNormal);
-    Add('no-warn', vbNoWarnings);
-    Add('quiet', vbQuiet);
-  end;
+  fVerbosityAliasLookup := TDictionary<string, TVerbosityStates>.Create(
+    TTextEqualityComparer.Create
+  );
+  fVerbosityDeprecatedLookup := TList<string>.Create(
+    TTextComparer.Create
+  );
+  // .. set values
+  fVerbosityStateLookup.Add('info', vsInfo);
+  fVerbosityStateLookup.Add('warnings', vsWarnings);
+  fVerbosityStateLookup.Add('warning', vsWarnings);
+  fVerbosityStateLookup.Add('warn', vsWarnings);
+  fVerbosityStateLookup.Add('errors', vsErrors);
+  fVerbosityStateLookup.Add('error', vsErrors);
+  // .. aliases
+  fVerbosityAliasLookup.Add('normal', TConfig.NormalVerbosity);
+  fVerbosityAliasLookup.Add('no-warn', TConfig.NoWarnVerbosity);
+  fVerbosityAliasLookup.Add('quiet', TCOnfig.QuietVerbosity);
+  fVerbosityAliasLookup.Add('silent', TConfig.SilentVerbosity);
+  fVerbosityAliasLookup.Add('-' , TConfig.SilentVerbosity);
+  // .. deprecated params
+  fVerbosityDeprecatedLookup.Add('normal');
+  fVerbosityDeprecatedLookup.Add('no-warn');
+
+  // Lookup table for --line-number-padding command values
   fPaddingLookup := TDictionary<string, Char>.Create(
     TTextEqualityComparer.Create
   );
@@ -396,6 +424,7 @@ begin
   // Additionally old Boolean params are supported, but deprecated.
   //   False => 'none' and True => 'lines'
 
+  // Lookup tables for --inhibit-styling command sets and aliases
   fHiliteSpanClsLookup := TDictionary<string,THiliteElement>.Create(
     TTextEqualityComparer.Create
   );
@@ -414,6 +443,7 @@ begin
     CSSNames.Free;
   end;
   fHiliteAliasLookup.Add('-', []);  // alias for empty set {}
+
 end;
 
 destructor TParams.Destroy;
@@ -423,7 +453,9 @@ begin
   fWarnings.Free;
   fViewportLookup.Free;
   fPaddingLookup.Free;
-  fVerbosityLookup.Free;
+  fVerbosityDeprecatedLookup.Free;
+  fVerbosityAliasLookup.Free;
+  fVerbosityStateLookup.Free;
   fBooleanLookup.Free;
   fDocTypeLookup.Free;
   fEncodingLookup.Free;
@@ -468,6 +500,7 @@ begin
       fParamQueue.Enqueue('--' + CfgEntry.Key);
       if CfgEntry.Value <> '' then
         fParamQueue.Enqueue(CfgEntry.Value);
+      fConfig.AddConfigFileEntry(CfgEntry);
     end;
   finally
     CfgFileReader.Free;
@@ -519,7 +552,7 @@ begin
     begin
       if not fHiliteSpanClsLookup.ContainsKey(Span) then
         raise ECommandError.Create(
-          Cmd.Name, sBadSpanCls + Format('"%s', [Span])
+          Cmd.Name, sBadSpanCls + Format('"%s"', [Span])
         );
       Include(Result, fHiliteSpanClsLookup[Span]);
     end;
@@ -574,21 +607,42 @@ begin
     Result := ''
   else
     Result := fParamQueue.Peek;
-    if (Result = '')
-      or (AnsiStartsStr('-', Result) and (Result <> '-')) then
-      raise ECommandError.Create(Cmd.Name, sNoParam);
+  if (Result = '')
+    or (AnsiStartsStr('-', Result) and (Result <> '-')) then
+    raise ECommandError.Create(Cmd.Name, sNoParam);
 end;
 
-function TParams.GetVerbosityParameter(const Cmd: TCommand): TVerbosity;
-var
-  Param: string;
+function TParams.GetVerbosityParameter(const Cmd: TCommand): TVerbosityStates;
 resourcestring
-  sBadValue = 'Unrecognised verbosity value "%s"';
+  sBadOption = 'Invalid option for "%s": ';
+  sBadParam = 'Invalid parameter for "%s": ';
 begin
-  Param := GetStringParameter(Cmd);
-  if not fVerbosityLookup.ContainsKey(Param) then
-    raise Exception.CreateFmt(sBadValue, [Param]);
-  Result := fVerbosityLookup[Param];
+  // Parameter is EITHER a set or an alias for a set
+  // Set is enclosed in {}, alias is not.
+  var Param := GetStringParameter(Cmd);
+  var ParamAsArray: TArray<string>;
+  if TryParseSetParam(Param, ParamAsArray) then
+  begin
+    // Parameter is a valid set of zero or more elements
+    Result := [];
+    for var Member in ParamAsArray do
+    begin
+      if not fVerbosityStateLookup.ContainsKey(Member) then
+        raise ECommandError.Create(
+          Cmd.Name, sBadOption + Format('"%s"', [Member])
+        );
+      Include(Result, fVerbosityStateLookup[Member]);
+    end;
+  end
+  else
+  begin
+    // Not a set parameter - test for a valid alias
+    if not fVerbosityAliasLookup.ContainsKey(Param) then
+      raise ECommandError.Create(
+        Cmd.Name, sBadParam +  Format('"%s"', [Param])
+      );
+    Result := fVerbosityAliasLookup[Param];
+  end;
 end;
 
 function TParams.GetViewportParameter(const Cmd: TCommand): TViewport;
@@ -676,6 +730,7 @@ resourcestring
   sDeprecatedParam = 'The "%0:s" parameter of the "%1:s" command is deprecated';
   sDeprecatedSwitch = 'The "%s" switch is deprecated';
   sDepDocType = 'The "html4" parameter of the "%s" command is deprecated';
+  sDepVerbosity = 'The "%0:s" parameter of the "%s" command is deprected';
 var
   Command: TCommand;
   CommandId: TCommandId;
@@ -785,17 +840,33 @@ begin
     siLanguage:
     begin
       fConfig.Language := GetStringParameter(Command);
+      if (fConfig.Language = '-') or (fConfig.Language = 'neutral') then
+        fConfig.Language := '';
       fParamQueue.Dequeue;
     end;
     siLanguageNeutral:
+    begin
+      // TODO: modify warning to say to use `--language -`
+      fWarnings.Add(
+        Format(sDeprecatedCmd, [AdjustCommandName(Command.Name, IsConfigCmd)])
+      );
       fConfig.Language := '';
+    end;
     siTitle:
     begin
+      // TODO: modify warning to say to use `--title -`
       fConfig.Title := GetStringParameter(Command);
+      if fConfig.Title = '-' then
+        fConfig.Title := '';
       fParamQueue.Dequeue;
     end;
     siTitleDefault:
+    begin
+      fWarnings.Add(
+        Format(sDeprecatedCmd, [AdjustCommandName(Command.Name, IsConfigCmd)])
+      );
       fConfig.Title := '';
+    end;
     siBranding:
     begin
       if Command.IsSwitch then
@@ -890,13 +961,25 @@ begin
       fConfig.ShowHelp := True;
     siVersion:
       fConfig.ShowVersion := True;
+    siConfigShow:
+      fConfig.ShowConfigCommands := True;
     siVerbosity:
     begin
+      var ParamStr := GetStringParameter(Command);
+      if fVerbosityDeprecatedLookup.Contains(ParamStr) then
+        // NOTE: no-warn is deprecated but warning is never displayed for it
+        // since no-warn switches off warnings !!
+        fWarnings.Add(
+          Format(
+            sDepVerbosity,
+            [ParamStr, AdjustCommandName(Command.Name, IsConfigCmd)]
+          )
+        );
       fConfig.Verbosity := GetVerbosityParameter(Command);
       fParamQueue.Dequeue;
     end;
     siQuiet:
-      fConfig.Verbosity := vbQuiet;
+      fConfig.Verbosity := [vsErrors];
     siViewport:
     begin
       fConfig.Viewport := GetViewportParameter(Command);
@@ -989,10 +1072,10 @@ begin
     // long form command: '-' '-' <letter> {<letter> | '-'}
     if Length(S) < 3 then
       Exit(False);
-    if not TCharacter.IsLetter(S[3]) then
+    if not S[3].IsLetter then
       Exit(False);
     for Idx := 4 to Length(S) do
-      if not TCharacter.IsLetter(S[Idx]) and (S[Idx] <> '-') then
+      if not S[Idx].IsLetter and (S[Idx] <> '-') then
         Exit(False);
     Result := True;
   end
@@ -1006,7 +1089,7 @@ begin
       Exit(True);
     // legacy:     '-' <letter> {<letter>}
     for Idx := 2 to Length(S) do
-      if not TCharacter.IsLetter(S[Idx]) then
+      if not S[Idx].IsLetter then
         Exit(False);
     Result := True;
   end
@@ -1026,7 +1109,7 @@ begin
     Exit(False);
   if Cmd[1] <> '-' then
     Exit(False);
-  if not TCharacter.IsLetter(Cmd[2]) then
+  if not Cmd[2].IsLetter then
     Exit(False);
   if (Length(Cmd) = 3) and not CharInSet(Cmd[3], SwitchChars) then
     Exit(False);

@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2012-2021, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2012-2025, Peter Johnson (www.delphidabbler.com).
  *
  * Frame that is used to edit various PasHi options relating cascading style
  * sheets.
@@ -15,9 +15,22 @@ unit FrOptions.UCSS;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, FrOptions.UHelper, FrOptions.UBase, UOptions, ActnList, StdActns,
-  StdCtrls;
+  Winapi.Windows,
+  Winapi.Messages,
+  System.SysUtils,
+  System.Actions,
+  System.Variants,
+  System.Classes,
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Vcl.ActnList,
+  Vcl.StdActns,
+  Vcl.StdCtrls,
+  FrOptions.UHelper,
+  FrOptions.UBase,
+  UOptions;
 
 type
   TCSSOptionsFrame = class(TBaseOptionsFrame)

@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2007-2022, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2007-2025, Peter Johnson (www.delphidabbler.com).
  *
  * Implements class that stores program's configuration information.
 }
@@ -15,7 +15,9 @@ unit UConfig;
 interface
 
 uses
-  SysUtils, Classes,
+  System.SysUtils,
+  System.Classes,
+  System.Generics.Collections,
   Hiliter.UGlobals;
 
 type
@@ -58,13 +60,15 @@ type
     dtFragment      // a fragment of HTML code, compatible with all HTML types
   );
 
-  ///  <summary>Enumerates different level of verbosity supported by program.
-  ///  </summary>
-  TVerbosity = (
-    vbQuiet,
-    vbNoWarnings,
-    vbNormal
+  ///  <summary>Enumerate different kinds of verbosity state.</summary>
+  TVerbosityState = (
+    vsInfo,
+    vsWarnings,
+    vsErrors
   );
+
+  ///  <summary>Set of the vebosity states supported by the program.</summary>
+  TVerbosityStates = set of TVerbosityState;
 
   ///  <summary>Enumerates different viewport options applied to complete
   ///  (X)HTML documents.</summary>
@@ -100,7 +104,8 @@ type
     fOutputSink: TOutputSink;
     fShowHelp: Boolean;
     fShowVersion: Boolean;
-    fVerbosity: TVerbosity;
+    fShowConfigCommands: Boolean;
+    fVerbosityStates: TVerbosityStates;
     fHideCSS: Boolean;
     fOutputFile: string;
     fLanguage: string;
@@ -121,8 +126,15 @@ type
     fViewport: TViewport;
     fEdgeCompatibility: Boolean;
     fExcludedSpans: THiliteElements;
+    fConfigFileEntries: TList<TPair<string,string>>;
     function GetInputFiles: TArray<string>;
   public
+    const
+      QuietVerbosity = [vsErrors];
+      NoWarnVerbosity = [vsInfo, vsErrors];
+      NormalVerbosity = [vsInfo, vsWarnings, vsErrors];
+      SilentVerbosity = [];
+      DefaultVerbosity = NormalVerbosity;
     constructor Create;
     destructor Destroy; override;
     property InputSource: TInputSource
@@ -131,12 +143,14 @@ type
       read fOutputSink write fOutputSink default osStdOut;
     property DocType: TDocType
       read fDocType write fDocType default dtXHTML;
-    property Verbosity: TVerbosity
-      read fVerbosity write fVerbosity default vbNormal;
+    property Verbosity: TVerbosityStates
+      read fVerbosityStates write fVerbosityStates default NormalVerbosity;
     property ShowHelp: Boolean
       read fShowHelp write fShowHelp default False;
     property ShowVersion: Boolean
       read fShowVersion write fShowVersion default False;
+    property ShowConfigCommands: Boolean
+      read fShowConfigCommands write fShowConfigCommands;
     property HideCSS: Boolean read fHideCSS write fHideCSS;
     property CSSSource: TCSSSource read fCSSSource write fCSSSource;
     property CSSLocation: string read fCSSLocation write fCSSLocation;
@@ -172,20 +186,32 @@ type
     procedure AddInputFile(const FN: string);
     function OutputEncoding: TEncoding;
     function OutputEncodingName: string;
+    procedure AddConfigFileEntry(const AEntry: TPair<string,string>);
+    function ConfigFileEntries: TArray<TPair<string,string>>;
   end;
 
 
 implementation
 
 uses
-  Windows;
+  Winapi.Windows;
 
 
 { TConfig }
 
+procedure TConfig.AddConfigFileEntry(const AEntry: TPair<string, string>);
+begin
+  fConfigFileEntries.Add(AEntry);
+end;
+
 procedure TConfig.AddInputFile(const FN: string);
 begin
   fInFiles.Add(FN);
+end;
+
+function TConfig.ConfigFileEntries: TArray<TPair<string, string>>;
+begin
+  Result := fConfigFileEntries.ToArray;
 end;
 
 constructor TConfig.Create;
@@ -197,11 +223,12 @@ begin
   fDocType := dtXHTML;
   fShowHelp := False;
   fShowVersion := False;
+  fShowConfigCommands := False;
   fHideCSS := False;
   fOutputEncodingId := oeUTF8;
   fBrandingPermitted := True;
   fLanguage := '';
-  fVerbosity := vbNormal;
+  fVerbosityStates := NormalVerbosity;
   fTrimSource := tsLines;
   fSeparatorLines := 1;
   fLegacyCSSNames := False;
@@ -213,10 +240,12 @@ begin
   fViewport := vpNone;
   fEdgeCompatibility := False;
   fExcludedSpans := [];
+  fConfigFileEntries := TList<TPair<string,string>>.Create;
 end;
 
 destructor TConfig.Destroy;
 begin
+  fConfigFileEntries.Free;
   fInFiles.Free;
   inherited;
 end;

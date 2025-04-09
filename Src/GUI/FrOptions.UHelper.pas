@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2012, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2012-2025, Peter Johnson (www.delphidabbler.com).
  *
  * Helper code for use in various frames in FrOptions namespace.
 }
@@ -14,7 +14,8 @@ unit FrOptions.UHelper;
 interface
 
 uses
-  Classes, Generics.Collections;
+  System.Classes,
+  System.Generics.Collections;
 
 type
   TValueMap = class(TObject)
@@ -33,7 +34,7 @@ type
 implementation
 
 uses
-  SysUtils;
+  System.SysUtils;
 
 { TValueMap }
 

@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2006-2016, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2006-2025, Peter Johnson (www.delphidabbler.com).
  *
  * Class that hosts the IE web browser control and enables both direct loading
  * of browser's HTML and customisation of the user interface.
@@ -18,9 +18,14 @@ interface
 
 uses
   // Delphi
-  SysUtils, Classes, Windows, ActiveX, ShDocVw,
+  System.SysUtils,
+  System.Classes,
+  Winapi.Windows,
+  Winapi.ActiveX,
+  ShDocVw,
   // Project
-  UNulWBContainer, IntfUIHandlers;
+  UNulWBContainer,
+  IntfUIHandlers;
 
 
 type
@@ -85,7 +90,9 @@ implementation
 
 uses
   // Delphi
-  StrUtils, Themes, Forms,
+  System.StrUtils,
+  Vcl.Themes,
+  Vcl.Forms,
   // Project
   UUtils;
 
@@ -134,9 +141,9 @@ begin
       pInfo.dwFlags := pInfo.dwFlags or DOCHOSTUIFLAG_NO3DBORDER;
     if not fAllowTextSelection then
       pInfo.dwFlags := pInfo.dwFlags or DOCHOSTUIFLAG_DIALOG;
-    if ThemeServices.ThemesEnabled then
+    if StyleServices.Enabled then
       pInfo.dwFlags := pInfo.dwFlags or DOCHOSTUIFLAG_THEME
-    else if ThemeServices.ThemesAvailable then
+    else if StyleServices.Available then
       pInfo.dwFlags := pInfo.dwFlags or DOCHOSTUIFLAG_NOTHEME;
     // set CSS: must allocate space with task allocator
     // (browser frees this memory)

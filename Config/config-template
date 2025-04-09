@@ -61,7 +61,8 @@
 # config file. If such a command is present then PasHi will fail with an error
 # message.
 #
-# At present there are two blacklisted commands: "help" & "version".
+# At present there are three blacklisted commands: "config-show", "help" & 
+# "version".
 #
 # A complete list of valid commands follows. Commands and parameters that are
 # slated for removal in the next major release are flagged as deprecated.
@@ -132,24 +133,31 @@
 # --- Output file language ---
 # Commands:
 #   language <param>
-#     where <param> is a valid language code recognised by HTML
+#     where <param> is either a valid language code recognised by HTML or
+#     "neutral" (or "-") if the file is language neutral
 #   language-neutral
+#   ** Command DEPRECATED: use "language neutral" instead
+#     
 # Examples:
 #   language en
 #   language en-gb
+#   language neutral
 # Default:
-#   language-neutral
+#   language neutral
 
 
 # --- Output document title ---
 # Commands:
 #   title <param>
-#     where <param> is the required title text
+#     where <param> is either the required title text or "-" to use the default
+#     title
 #   title-default
+#   ** Command DEPRECATED: use title "-" instead
 # Example
 #   title Highlighted Pascal Source Code
+#   title -
 # Default:
-#   title-default
+#   title -
 
 
 # --- Output document encoding ---
@@ -256,9 +264,20 @@
 # --- Output verbosity ---
 # Commands:
 #   verbosity <param>
-#     where <param> is either "quiet", "no-warn" or "normal"
-#   quiet
+#     where <param> is either:
+#       a set of zero or more of the values "info", "warn" (aka "warning" aka
+#       "warnings") or "error" (aka "errors"), separated by commas, with no
+#       spaces, and enclosed in curly brackets,
+#     or one of:
+#       "normal", "no-warn", "quiet", "silent" or a minus sign, "-"
+#     ** the "normal" and "no-warn" parameters are DEPRECATED
+#        use "{info,warn,error}" instead of "normal" and "{info,errors}" instead
+#        of "no-warn"
 # Default:
-#   verbosity normal
-#   ** the default is DEPRECATED: may change in next major release
-
+#   verbosity {info,warn,error}
+#   ** the default is DEPRECATED: may change in next major release.
+# Examples:
+#   verbosity {info}
+#   verbosity -
+#   verbosity {warnings,info}
+#   verbosity quiet

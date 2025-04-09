@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2005-2021, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2005-2025, Peter Johnson (www.delphidabbler.com).
  *
  * Utility functions used when generating HTML.
 }
@@ -17,7 +17,7 @@ interface
 
 uses
   // Delphi
-  Graphics;
+  Vcl.Graphics;
 
 
 ///  <summary>Encodes the given string so that any HTML-incompatible characters
@@ -48,9 +48,14 @@ implementation
 
 uses
   // Delphi
-  SysUtils, Character, Generics.Defaults, Generics.Collections, Windows,
+  System.SysUtils,
+  System.Character,
+  System.Generics.Defaults,
+  System.Generics.Collections,
+  Winapi.Windows,
   // Project
-  UComparers, UConsts;
+  UComparers,
+  UConsts;
 
 function MakeSafeHTMLText(const TheText: string): string;
 var

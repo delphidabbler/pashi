@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2005-2016, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2005-2025, Peter Johnson (www.delphidabbler.com).
  *
  * Implements class that writes text to console using standard error.
 }
@@ -15,19 +15,26 @@ unit UConsole;
 interface
 
 
+uses
+  UConfig;
+
+
 type
 
-  ///  <summary>Class that writes text to console using standard error unless
-  ///  told to be silent when all output is swallowed.</summary>
+  ///  <summary>Class that writes text to console using standard error providing
+  ///  a given verbosity level is valid.</summary>
   TConsole = class(TObject)
-  private
-    fSilent: Boolean;
+  strict private
+    var
+      fValidOutputStates: TVerbosityStates;
   public
     constructor Create;
-    procedure Write(const Text: string);
-    procedure WriteLn(const Text: string); overload;
-    procedure WriteLn; overload;
-    property Silent: Boolean read fSilent write fSilent default False;
+    procedure Write(const Text: string; AVerbosityLevel: TVerbosityState);
+    procedure WriteLn(const Text: string; AVerbosityLevel: TVerbosityState);
+      overload;
+    procedure WriteLn(AVerbosityLevel: TVerbosityState); overload;
+    property ValidOutputStates: TVerbosityStates read fValidOutputStates
+      write fValidOutputStates;
   end;
 
 
@@ -36,7 +43,7 @@ implementation
 
 uses
   // Delphi
-  SysUtils,
+  System.SysUtils,
   // Project
   UStdIO;
 
@@ -46,28 +53,29 @@ uses
 constructor TConsole.Create;
 begin
   inherited Create;
-  fSilent := False;
+  fValidOutputStates := TConfig.DefaultVerbosity;
 end;
 
-procedure TConsole.Write(const Text: string);
-var
-  ANSIBytes: TBytes;  // text converted to ANSI byte stream
+
+procedure TConsole.Write(const Text: string; AVerbosityLevel: TVerbosityState);
 begin
-  if not fSilent then
+  if (AVerbosityLevel in fValidOutputStates) and (Text <> '') then
   begin
-    ANSIBytes := TEncoding.Default.GetBytes(Text);
+    var ANSIBytes := TEncoding.Default.GetBytes(Text);
     TStdIO.Write(stdErr, Pointer(ANSIBytes)^, Length(ANSIBytes));
   end;
 end;
 
-procedure TConsole.WriteLn(const Text: string);
+procedure TConsole.WriteLn(const Text: string;
+  AVerbosityLevel: TVerbosityState);
 begin
-  Write(Text + #13#10);
+  Write(Text, AVerbosityLevel);
+  Write(sLineBreak, AVerbosityLevel);
 end;
 
-procedure TConsole.WriteLn;
+procedure TConsole.WriteLn(AVerbosityLevel: TVerbosityState);
 begin
-  WriteLn('');
+  WriteLn('', AVerbosityLevel);
 end;
 
 end.

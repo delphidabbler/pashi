@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2021, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2021-2025, Peter Johnson (www.delphidabbler.com).
  *
  * Provides classes that optionally render a viewport meta tag in HTML documents
  * of different types.
@@ -43,7 +43,7 @@ type
 implementation
 
 uses
-  SysUtils;
+  System.SysUtils;
 
 { TViewportTagRenderer }
 

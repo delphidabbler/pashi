@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2012, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2012-2025, Peter Johnson (www.delphidabbler.com).
  *
  * Provides access to PasHi config and .css template files and ensures they
  * exist.
@@ -18,7 +18,7 @@ interface
 
 uses
   // Delphi
-  Generics.Collections;
+  System.Generics.Collections;
 
 
 type
@@ -97,9 +97,13 @@ implementation
 
 uses
   // Delphi
-  SysUtils, StrUtils, Classes,
+  System.SysUtils,
+  System.StrUtils,
+  System.Classes,
   // Project
-  IO.UHelper, UComparers, USpecialFolders;
+  IO.UHelper,
+  UComparers,
+  USpecialFolders;
 
 
 ///  <summary>Copies file Source to new file named by Dest.</summary>
@@ -139,7 +143,7 @@ end;
 function ListFiles(const Dir, Wildcard: string; const List: TStrings): Boolean;
 var
   FileSpec: string;         // search file specification
-  SR: SysUtils.TSearchRec;  // file search result
+  SR: System.SysUtils.TSearchRec;  // file search result
   Success: Integer;         // success code for FindXXX routines
 const
   faVolumeId = $00000008; // redefined from SysUtils to avoid deprecated warning

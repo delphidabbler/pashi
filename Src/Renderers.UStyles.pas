@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2012-2022, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2012-2025, Peter Johnson (www.delphidabbler.com).
  *
  * Classes that render style information for inclusion in output HTML documents.
  * A <style> tag is generated for embedded CSS and a <link> tag is generated for
@@ -16,7 +16,8 @@ unit Renderers.UStyles;
 interface
 
 uses
-  Renderers.UTypes, UConfig;
+  Renderers.UTypes,
+  UConfig;
 
 type
   TStyleRendererFactory = record
@@ -27,8 +28,12 @@ type
 implementation
 
 uses
-  SysUtils, StrUtils, Classes, Windows,
-  IO.UHelper, UConfigFiles;
+  System.SysUtils,
+  System.StrUtils,
+  System.Classes,
+  Winapi.Windows,
+  IO.UHelper,
+  UConfigFiles;
 
 type
   TLinkedStyleSheetRenderer = class sealed(TInterfacedObject, IRenderer)

@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2006-2012, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2006-2025, Peter Johnson (www.delphidabbler.com).
  *
  * Implements a class that enables a source code document to the highlighted and
  * provides access to highlighted code.
@@ -18,9 +18,12 @@ interface
 
 uses
   // Delphi
-  Classes,
+  System.Classes,
   // Project
-  UPasHi, UInputData, UOutputData, UOptions;
+  UPasHi,
+  UInputData,
+  UOutputData,
+  UOptions;
 
 
 type
@@ -133,7 +136,8 @@ implementation
 
 uses
   // Delphi
-  SysUtils, Windows,
+  System.SysUtils,
+  Winapi.Windows,
   // Project
   UUtils;
 

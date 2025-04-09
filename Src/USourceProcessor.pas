@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2012, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2012-2025, Peter Johnson (www.delphidabbler.com).
  *
  * Modifies input source code per program configuration to prepare for
  * highlighting.
@@ -15,8 +15,9 @@ unit USourceProcessor;
 interface
 
 uses
-  SysUtils,
-  IO.UTypes, UConfig;
+  System.SysUtils,
+  IO.UTypes,
+  UConfig;
 
 type
   TSourceProcessor = class(TObject)
@@ -34,9 +35,11 @@ type
 implementation
 
 uses
-  StrUtils,
-  Classes,
-  IO.Readers.UFactory, UConsts;
+  System.StrUtils,
+  System.Classes,
+  System.Types,
+  IO.Readers.UFactory,
+  UConsts;
 
 
 { TSourceProcessor }
@@ -106,20 +109,23 @@ end;
 class function TSourceProcessor.TrimSourceTrailingSpaces(
   const SourceCode: string): string;
 var
-  Lines: TStringList;
   Idx: Integer;
+  SourceLines: TStringDynArray;
 begin
-  Lines := TStringList.Create;
-  try
-    Lines.Text := SourceCode;
-    Result := '';
-    if Lines.Count = 0 then
-      Exit;
-    Result := TrimRight(Lines[0]);
-    for Idx := 1 to Pred(Lines.Count) do
-      Result := Result + EOL + TrimRight(Lines[Idx]);
-  finally
-    Lines.Free;
+  Result := '';
+  if SourceCode = '' then
+    Exit;
+  // We convert EOL to LF in SourceCode because SplitString takes a string of
+  // character delimiters and can't handle a single multi-character delimiter
+  // like the CRLF that EOL is set to on Windows\.
+  SourceLines := SplitString(
+    StringReplace(SourceCode, EOL, LF, [rfReplaceAll]), LF
+  );
+  for Idx := Low(SourceLines) to High(SourceLines) do
+  begin
+    Result := Result + TrimRight(SourceLines[Idx]);
+    if Idx < High(SourceLines) then
+      Result := Result + EOL;
   end;
 end;
 

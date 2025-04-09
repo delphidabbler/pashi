@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2012, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2012-2025, Peter Johnson (www.delphidabbler.com).
  *
  * Defines an adapter class that interacts with and provides an alternate
  * interface to a IDataObject.
@@ -18,7 +18,7 @@ interface
 
 uses
   // Delphi
-  ActiveX;
+  Winapi.ActiveX;
 
 
 type
@@ -70,7 +70,10 @@ implementation
 
 uses
   // Delphi
-  SysUtils, Windows, ComObj, ShellAPI;
+  System.SysUtils,
+  System.Win.ComObj,
+  Winapi.Windows,
+  Winapi.ShellAPI;
 
 
 { TDataObjectAdapter }

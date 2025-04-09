@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2006-2016, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2006-2025, Peter Johnson (www.delphidabbler.com).
  *
  * Interface and classes that route data output from application to various
  * destinations.
@@ -18,7 +18,8 @@ interface
 
 uses
   // Delphi
-  Classes, ActiveX;
+  System.Classes,
+  Winapi.ActiveX;
 
 
 type
@@ -43,7 +44,8 @@ implementation
 
 uses
   // Delphi
-  SysUtils, Clipbrd,
+  System.SysUtils,
+  Vcl.Clipbrd,
   // Project
   UUtils;
 

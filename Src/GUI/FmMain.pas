@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2006-2022, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2006-2025, Peter Johnson (www.delphidabbler.com).
  *
  * Application's main form. Handles main user inteface interaction.
 }
@@ -16,14 +16,38 @@ interface
 
 uses
   // Delphi
-  ExtActns, ImgList, Controls, ActnList, StdActns, Classes, Menus, Forms,
-  ExtCtrls, StdCtrls, OleCtrls, SHDocVw, ComCtrls, ToolWin, ActiveX, Windows,
+  System.Classes,
+  System.ImageList,
+  System.Actions,
+  Vcl.ActnList,
+  Vcl.AppEvnts,
+  Vcl.ComCtrls,
+  Vcl.Controls,
+  Vcl.ExtActns,
+  Vcl.ExtCtrls,
+  Vcl.Forms,
+  Vcl.ImgList,
+  Vcl.Menus,
+  Vcl.OleCtrls,
+  Vcl.StdActns,
+  Vcl.StdCtrls,
+  Vcl.ToolWin,
+  Winapi.ActiveX,
+  Winapi.Windows,
+  SHDocVw,
   // 3rd Party
   PJWdwState,
   // Project
-  IntfDropDataHandler, UOptions, UDocument, UWBContainer, UInputData,
-  FrOptions.UBase, FrOptions.UDocType, FrOptions.ULineStyle, FrOptions.UCSS,
-  FrOptions.UMisc, AppEvnts;
+  IntfDropDataHandler,
+  UOptions,
+  UDocument,
+  UWBContainer,
+  UInputData,
+  FrOptions.UBase,
+  FrOptions.UDocType,
+  FrOptions.ULineStyle,
+  FrOptions.UCSS,
+  FrOptions.UMisc;
 
 
 type
@@ -166,10 +190,18 @@ implementation
 
 uses
   // Delphi
-  SysUtils, ComObj, Messages,
+  System.SysUtils,
+  System.Win.ComObj,
+  Winapi.Messages,
   // Project
-  UClipFmt, UConfigFiles, UDataObjectAdapter, UOutputData, UUtils, UDropTarget,
-  UUserGuide, UVersionInfo;
+  UClipFmt,
+  UConfigFiles,
+  UDataObjectAdapter,
+  UOutputData,
+  UUtils,
+  UDropTarget,
+  UUserGuide,
+  UVersionInfo;
 
 
 {$R *.dfm}
@@ -628,7 +660,7 @@ begin
   if ((Msg.message = WM_KEYDOWN) or (Msg.message = WM_SYSKEYDOWN)) then
   begin
     // Record state of modifier keys
-    ShiftState := Forms.KeyDataToShiftState(Msg.lParam);
+    ShiftState := Vcl.Forms.KeyDataToShiftState(Msg.lParam);
     // Process key pressed (wParam field of Msg)
     case Msg.wParam of
       Ord('A')..Ord('Z'), Ord('0')..Ord('9'):

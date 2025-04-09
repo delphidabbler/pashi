@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2006-2016, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2006-2025, Peter Johnson (www.delphidabbler.com).
  *
  * Interface and classes that route input data from various sources to the
  * application.
@@ -18,7 +18,7 @@ interface
 
 uses
   // Delphi
-  Classes;
+  System.Classes;
 
 
 type
@@ -42,7 +42,7 @@ implementation
 
 uses
   // Delphi
-  SysUtils;
+  System.SysUtils;
 
 
 type

@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2007-2022, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2007-2025, Peter Johnson (www.delphidabbler.com).
  *
  * Implements top level class that executes program.
 }
@@ -17,9 +17,11 @@ interface
 
 uses
   // Delphi
-  Classes,
+  System.Classes,
   // Project
-  Hiliter.UGlobals, UConfig, UConsole;
+  Hiliter.UGlobals,
+  UConfig,
+  UConsole;
 
 
 type
@@ -29,13 +31,15 @@ type
   private
     fConfig: TConfig;     // Program configurations object
     fConsole: TConsole;   // Object used to write to console
-    fSignedOn: Boolean;   // Flag shows if sign on message has been displayed
+    fNormalOutputShown: Boolean;  // Flag true if normal output displayed
     fWarnings: TArray<string>;  // Command line parser warnings
     procedure Configure;
     procedure SignOn;
     procedure ShowHelp;
     procedure ShowVersion;
+    procedure ShowConfig;
     procedure ShowWarnings;
+    procedure ShowNormalOutput;
     function GetInputSourceCode: string;
     procedure WriteOutput(const S: string);
   public
@@ -50,11 +54,18 @@ implementation
 
 uses
   // Delphi
-  SysUtils, Windows,
+  System.SysUtils,
+  Winapi.Windows,
   // Project
-  IO.UTypes, IO.Readers.UFactory, IO.Writers.UFactory, IO.UHelper,
+  IO.UTypes,
+  IO.Readers.UFactory,
+  IO.Writers.UFactory,
+  IO.UHelper,
   Renderers.UTypes,
-  UParams, Renderers.UFactory, USourceProcessor, UVersionInfo;
+  Renderers.UFactory,
+  UParams,
+  USourceProcessor,
+  UVersionInfo;
 
 
 resourcestring
@@ -99,41 +110,53 @@ var
   XHTML: string;        // highlighted XHTML output
   Renderer: IRenderer;  // render customised output document
 begin
+
   ExitCode := 0;
+
   try
     // Configure program
     Configure;
-    // Decide if program is to write to console
-    fConsole.Silent := (fConfig.Verbosity = vbQuiet)
-      and not fConfig.ShowHelp and not fConfig.ShowVersion;
+
+    // Set up output verbosity options
+    fConsole.ValidOutputStates := fConfig.Verbosity;
+
     if fConfig.ShowHelp then
       // Want help so show it
       ShowHelp
+
     else if fConfig.ShowVersion then
       // Want version number so show it
       ShowVersion
+
+    else if fConfig.ShowConfigCommands then
+      // Display warnings
+      ShowConfig
+
     else
     begin
       // Sign on and initialise program
-      SignOn;
-      if Length(fWarnings) > 0 then
-        ShowWarnings;
+      ShowNormalOutput;
       SourceCode := GetInputSourceCode;
       Renderer := TRendererFactory.CreateRenderer(SourceCode, fConfig);
       XHTML := Renderer.Render;
       WriteOutput(XHTML);
       // Sign off
-      fConsole.WriteLn(sCompleted);
+      fConsole.WriteLn(sCompleted, vsInfo);
     end;
+
   except
+
     // Report any errors
     on E: Exception do
     begin
-      if not fSignedOn then
-        SignOn;
-      fConsole.WriteLn(Format(sError, [E.Message]));
+      // Ensure output verbosity options are set: exception could be raised
+      // before --verbostity command is processed
+      fConsole.ValidOutputStates := fConfig.Verbosity;
+      ShowNormalOutput;
+      fConsole.WriteLn(Format(sError, [E.Message]), vsErrors);
       ExitCode := 1;
     end;
+
   end;
 end;
 
@@ -160,29 +183,51 @@ begin
   end;
 end;
 
+procedure TMain.ShowConfig;
+begin
+  fConsole.ValidOutputStates := [vsInfo];
+  if Length(fConfig.ConfigFileEntries) > 0 then
+  begin
+    for var Entry in fConfig.ConfigFileEntries do
+      fConsole.WriteLn(Format('%0:s: %1:s', [Entry.Key, Entry.Value]), vsInfo);
+  end;
+end;
+
 procedure TMain.ShowHelp;
 var
   RS: TResourceStream;
 begin
   SignOn;
-  fConsole.WriteLn;
+  fConsole.ValidOutputStates := [vsInfo];
+  fConsole.WriteLn(vsInfo);
   RS := TResourceStream.Create(HInstance, 'HELP', RT_RCDATA);
   try
     fConsole.WriteLn(
-      TIOHelper.BytesToString(TIOHelper.StreamToBytes(RS))
+      TIOHelper.BytesToString(TIOHelper.StreamToBytes(RS)),
+      vsInfo
     );
   finally
     RS.Free;
   end;
 end;
 
+procedure TMain.ShowNormalOutput;
+begin
+  if fNormalOutputShown then
+    Exit;
+  SignOn;
+  ShowWarnings;
+  fNormalOutputShown := True;
+end;
+
 procedure TMain.ShowVersion;
 var
   VI: TVersionInfo;
 begin
+  fConsole.ValidOutputStates := [vsInfo];
   VI := TVersionInfo.Create;
   try
-    fConsole.WriteLn(VI.CmdLineVersion);
+    fConsole.WriteLn(VI.CmdLineVersion, vsInfo);
   finally
     VI.Free;
   end;
@@ -194,10 +239,8 @@ var
 resourcestring
   sWarning = 'WARNING: %s';
 begin
-  if fConfig.Verbosity = vbNoWarnings then
-    Exit;
   for W in fWarnings do
-    fConsole.WriteLn(Format(sWarning, [W]));
+    fConsole.WriteLn(Format(sWarning, [W]), vsWarnings);
 end;
 
 procedure TMain.SignOn;
@@ -206,10 +249,8 @@ resourcestring
   sSignOn = 'PasHi by DelphiDabbler (https://delphidabbler.com)';
 begin
   // write sign on message, underlined with dashes
-  fConsole.WriteLn(sSignOn);
-  fConsole.WriteLn(StringOfChar('-', Length(sSignOn)));
-  // record that we've signed on
-  fSignedOn := True;
+  fConsole.WriteLn(sSignOn, vsInfo);
+  fConsole.WriteLn(StringOfChar('-', Length(sSignOn)), vsInfo);
 end;
 
 procedure TMain.WriteOutput(const S: string);

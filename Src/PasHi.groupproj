@@ -1,48 +1,48 @@
-﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-		<PropertyGroup>
-			<ProjectGuid>{B58C480B-ED29-4716-B6EC-D7DB58A030E2}</ProjectGuid>
-		</PropertyGroup>
-		<ItemGroup>
-			<Projects Include="PasHi.dproj">
-				<Dependencies/>
-			</Projects>
-			<Projects Include="GUI\PasHiGUI.dproj">
-				<Dependencies/>
-			</Projects>
-		</ItemGroup>
-		<ProjectExtensions>
-			<Borland.Personality>Default.Personality.12</Borland.Personality>
-			<Borland.ProjectType/>
-			<BorlandProject>
-				<Default.Personality/>
-			</BorlandProject>
-		</ProjectExtensions>
-		<Target Name="PasHi">
-			<MSBuild Projects="PasHi.dproj"/>
-		</Target>
-		<Target Name="PasHi:Clean">
-			<MSBuild Targets="Clean" Projects="PasHi.dproj"/>
-		</Target>
-		<Target Name="PasHi:Make">
-			<MSBuild Targets="Make" Projects="PasHi.dproj"/>
-		</Target>
-		<Target Name="PasHiGUI">
-			<MSBuild Projects="GUI\PasHiGUI.dproj"/>
-		</Target>
-		<Target Name="PasHiGUI:Clean">
-			<MSBuild Targets="Clean" Projects="GUI\PasHiGUI.dproj"/>
-		</Target>
-		<Target Name="PasHiGUI:Make">
-			<MSBuild Targets="Make" Projects="GUI\PasHiGUI.dproj"/>
-		</Target>
-		<Target Name="Build">
-			<CallTarget Targets="PasHi;PasHiGUI"/>
-		</Target>
-		<Target Name="Clean">
-			<CallTarget Targets="PasHi:Clean;PasHiGUI:Clean"/>
-		</Target>
-		<Target Name="Make">
-			<CallTarget Targets="PasHi:Make;PasHiGUI:Make"/>
-		</Target>
-		<Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
-	</Project>
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{B58C480B-ED29-4716-B6EC-D7DB58A030E2}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="PasHi.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="GUI\PasHiGUI.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="PasHi">
+        <MSBuild Projects="PasHi.dproj"/>
+    </Target>
+    <Target Name="PasHi:Clean">
+        <MSBuild Projects="PasHi.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="PasHi:Make">
+        <MSBuild Projects="PasHi.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="PasHiGUI">
+        <MSBuild Projects="GUI\PasHiGUI.dproj"/>
+    </Target>
+    <Target Name="PasHiGUI:Clean">
+        <MSBuild Projects="GUI\PasHiGUI.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="PasHiGUI:Make">
+        <MSBuild Projects="GUI\PasHiGUI.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="PasHi;PasHiGUI"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="PasHi:Clean;PasHiGUI:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="PasHi:Make;PasHiGUI:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2006-2016, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2006-2025, Peter Johnson (www.delphidabbler.com).
  *
  * Class that encapsulates and executes a command line application and
  * optionally redirects the application's standard input, output and error.
@@ -18,7 +18,8 @@ interface
 
 uses
   // Delphi
-  Classes, Windows;
+  System.Classes,
+  Winapi.Windows;
 
 
 const
@@ -86,7 +87,8 @@ implementation
 
 uses
   // Delphi
-  SysUtils, Forms;
+  System.SysUtils,
+  Vcl.Forms;
 
 
 const

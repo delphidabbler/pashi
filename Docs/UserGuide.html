@@ -6,7 +6,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2005-2022 Peter Johnson (www.delphidabbler.com)
+ * Copyright (C) 2005-2025 Peter Johnson (www.delphidabbler.com)
  *
  * User guide for PasHi and PasHiGUI.
 -->
@@ -33,7 +33,7 @@
   />
   <meta
     name="copyright"
-    content="(C) 2005-2022 Peter Johnson (www.delphidabbler.com)"
+    content="(C) 2005-2025 Peter Johnson (www.delphidabbler.com)"
   />
   <meta
     name="description"
@@ -522,42 +522,52 @@
     <td class="switch">--language</td>
     <td class="switch">-l</td>
     <td>
-      <p>Specifies the language used in the output document. A language code
-      recognised by HTML must be provided in the parameter that immediately
-      follows this command. The code is not checked. If this command is not
-      supplied then no language information is included in the output file.</p>
+      <p>Specifies the language used in the output document. The next parameter must be one of the following:</p>
+      <ul>
+        <li>
+          A language code recognised by HTML. The code is not checked for validity.
+        </li>
+        <li>
+          <code>-</code> or <code>neutral</code>: Specifies that no language information is to be included in output documents (the default).
+        </li>
+      </ul>
       <p>This command has no effect if the <code>--doc-type fragment</code>
       command is used.</p>
     </td>
   </tr>
   <tr>
-    <td class="switch">--language-neutral</td>
+    <td class="switch">--language-neutral<br />
+    <span class="deprecated">[deprecated]</span></td>
     <td class="switch">&nbsp;</td>
     <td>
-      <p>Indicates that no language information is to be included in output
-      documents. Since this is the default behaviour this command is provided
-      mainly to restore that behaviour if it has been overridden in the config
-      file.</p>
-    </td>
+      <p>Alias for <code>--language neutral</code>.</p>
+      <p>This command has no effect if the
+        <code>--doc-type fragment</code> command is also used.</p>
+      </td>
   </tr>
   <tr>
     <td class="switch">--title</td>
     <td class="switch">-t</td>
     <td>
-      <p>Sets the title of the output document. The title text must be supplied
-      in the parameter immediately following the command. Titles containing
-      spaces must be enclosed in double quotes.</p>
+      <p>Sets the title of the output document or restores the default title. The next parameter must be one of the following:</p>
+      <ul>
+        <li>
+          Text: The required title. Text containing spaces must be enclosed in double quotes.
+        </li>
+        <li>
+          <code>-</code> (hyphen): Use the default title (the default) 
+        </li>
+      </ul>
       <p>This command has no effect if the <code>--doc-type fragment</code>
       command is also used.</p>
     </td>
   </tr>
   <tr>
-    <td class="switch">--title-default</td>
+    <td class="switch">--title-default<br />
+    <span class="deprecated">[deprecated]</span></td>
     <td class="switch">&nbsp;</td>
     <td>
-      <p>Indicates that the default title is to be used in the output document.
-      Since this is the default behaviour this command is provided mainly to
-      restore that behaviour if it has been overridden in the config file.</p>
+      <p>Alias for <code>--title -</code>.</p>
       <p>This command has no effect if the
       <code>--doc-type fragment</code> command is also used.</p>
     </td>
@@ -971,33 +981,23 @@
     <td class="switch">&nbsp;</td>
     <td>
       <p>Determines the amount of output PasHi writes to standard error while
-      executing. The amount of output depends on the value of the next
-      parameter, which must be one of:</p>
+      executing.</p>
+      <p>This command must be followed by a parameter which is <em>either</em> a set of zero of more verbosity states <em>or</em> the name of an alias for a set of states. A set is a comma delimited list of element names, enclosed in <code>{</code> and <code>}</code> characters. The list must not contain spaces. Valid element names are:</p>
       <ul>
-        <li>
-          <code>normal</code>: Normal screen output (the default). This causes
-          the program to display sign-on information and to display a message
-          when the program completes. All output goes to standard error so that
-          it does not affect highlighted source code written to standard output.
-          Any error and warning messages are also written to standard error.
-          When <code>--version</code> is specified no sign on or completion
-          messages are displayed: just the version number is output.
-          <br /><span class="deprecated">Default deprecated: to change to a new
-          option that displays only warnings and error messages.
-        </li>
-        <li>
-          <code>no-warn</code>. Suppress warnings. Displays just as when the
-          <code>normal</code> parameter is specified, except that no warning
-          messages are displayed.
-        </li>
-        <li>
-          <code>quiet</code>: Quiet mode. Displays no sign on, completion or
-          warning messages. If the program detects errors or if the
-          <code>--help</code> or <code>--version</code> commands are used then
-          this option is ignored and the program acts as if the
-          <code>no-warn</code> parameter had been specified.
-        </li>
+        <li><code>info</code>: display general information, including the sign-on and sign-off messages.</li>
+        <li><code>warn</code>, <code>warning</code> or <code>warnings</code>: display warnings.</li>
+        <li><code>error</code> or <code>errors</code>: display error messages.</li>
       </ul>
+      <p>Valid aliases are:</p>
+      <ul>
+        <li><code>normal</code>: alias for <code>{info,warn,error}</code> (the default). <span class="deprecated">[deprecated]</span>
+        <br /><span class="deprecated">Default deprecated: will change to a new option that aliases <code>{warn,error}</code> messages.</li>
+        <li><code>no-warn</code>: alias for <code>{info,error}</code>. <span class="deprecated">[deprecated]</span></li>
+        <li><code>quiet</code>: alias for <code>{error}</code>.</li>
+        <li><code>silent</code> or <code>-</code>: alias for <code>{}</code>.</li>
+      </ul>
+      <p>Examples: To suppress all output use <code>--verbosity {}</code> or <code>--verbosity silent</code>. To only emit warning and error messages used <code>--verbosity {warn,error}</code>.</p>
+      <p>Note that <code>--verbosity</code> is ignored when the <code>--version</code>, <code>--help</code> or <code>--config-show</code> commands are used.</p>
     </td>
   </tr>
   <tr>
@@ -1020,8 +1020,17 @@
     <td class="switch">-v</td>
     <td>
       <p>Displays the program's version number. The remainder of the command
-      line is ignored, except for <code>--help</code>, which takes
-      precendence.</p>
+        line is ignored, except for <code>--help</code>, which takes
+        precendence.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="switch">--config-show</td>
+    <td class="switch">&nbsp;</td>
+    <td>
+      <p>Displays the settings defined in the <code>config</code> file. If the config is empty or not present then nothing is displayed.</p>
+      <p>The remainder of the command line is ignored, except for <code>--help</code> and <code>--version</code>, which take
+        precedence.</p>
     </td>
   </tr>
 </table>
@@ -1214,9 +1223,9 @@
     </p>
     <p class="pullout">
       <strong>WARNING:</strong>
-      The <code>--help</code> and <code>--version</code> commands are
+      The <code>--help</code>, <code>--version</code> and <code>--config-show</code> commands are
       exceptions that have no equivalent config file command. If either
-      <code>help</code> or <code>version</code> are included in the config file
+      <code>help</code>, <code>version</code> or <code>config-show</code> are included in the config file
       then <em>PasHi</em> will stop with an error every time it is run.
     </p>
   </li>
@@ -1967,7 +1976,7 @@ doc-type fragment</pre>
 <div class="endnotes">
 
   <div class="copyright">
-    This document is copyright &copy; 2005-2022, P D Johnson,
+    This document is copyright &copy; 2005-2025, P D Johnson,
     <a
       href="https://delphidabbler.com/"
     >delphidabbler.com</a>.

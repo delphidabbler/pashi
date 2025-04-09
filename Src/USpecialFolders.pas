@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2012, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2012-2025, Peter Johnson (www.delphidabbler.com).
  *
  * Provides access to locations of Windows special folders.
 }
@@ -14,7 +14,7 @@ unit USpecialFolders;
 interface
 
 uses
-  ShlObj;
+  Winapi.ShlObj;
 
 type
   TSpecialFolders = record
@@ -30,7 +30,9 @@ type
 implementation
 
 uses
-  SysUtils, Windows, ActiveX;
+  System.SysUtils,
+  Winapi.Windows,
+  Winapi.ActiveX;
 
 { TSpecialFolders }
 

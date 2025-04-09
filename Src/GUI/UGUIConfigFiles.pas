@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2012, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2012-2025, Peter Johnson (www.delphidabbler.com).
  *
  * Provides access to PasHi and PasHiGUI config and .css template files.
 }
@@ -17,7 +17,7 @@ interface
 
 uses
   // Delphi
-  Classes,
+  System.Classes,
   // Project
   UConfigFiles;
 
@@ -69,7 +69,8 @@ implementation
 
 uses
   // Delphi
-  SysUtils, Windows {for inlining},
+  System.SysUtils,
+  Winapi.Windows {for inlining},
   // Project
   UUtils;
 
@@ -116,7 +117,7 @@ var
 begin
   CfgFileName := IncludeTrailingPathDelimiter(UserConfigDir) + GUICfgFileName;
   if FileExists(CfgFileName) then
-    SysUtils.DeleteFile(CfgFileName);
+    System.SysUtils.DeleteFile(CfgFileName);
 end;
 
 { TConfigFileWriter }

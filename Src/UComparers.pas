@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2012-2022, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2012-2025, Peter Johnson (www.delphidabbler.com).
  *
  * Defines case insensitive and case sensitive string equality comparers.
 }
@@ -17,7 +17,7 @@ interface
 
 uses
   // Delphi
-  Generics.Defaults;
+  System.Generics.Defaults;
 
 
 type
@@ -77,11 +77,19 @@ implementation
 
 uses
   // Delphi
-  SysUtils;
+  System.SysUtils;
 
 
+{$IFOPT R+}
+  {$DEFINE RANGEON}
+  {$R-}
+{$ELSE}
+  {$UNDEF RANGEON}
+{$ENDIF}
 ///  <summary>String hash function.</summary>
-///  <remarks>Sourced from https://www.scalabium.com/faq/dct0136.htm.</summary>
+///  <remarks>Sourced from https://www.scalabium.com/faq/dct0136.htm. Relies
+///  upon the hash overflowing and reseting to 0, so causes range check error.
+///  </remarks>
 function ElfHash(const Value: string): Integer;
 var
   I: Integer; // loops thru string
@@ -97,6 +105,10 @@ begin
     Result := Result and (not X);
   end;
 end;
+{$IFDEF RANGEON}
+  {$R+}
+  {$UNDEF RANGEON}
+{$ENDIF}
 
 { TTextEqualityComparer }
 

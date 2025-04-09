@@ -51,9 +51,8 @@ greatly enhanced.
 Installation
 ------------
 
-PasHi requires Windows 2000 or later to run. You need to have administrative
-privileges to install it. Elevation may be required to install on Windows Vista
-and later.
+PasHi requires Windows 7 SP1 or later to run. You need to have administrative
+privileges to install it.
 
 If you have PasHi (a.k.a PasH) v1.x or earlier you need to remove it before
 installing this version. These early versions of the program have no setup
@@ -94,8 +93,8 @@ options, all of which are selected by default:
     See the program's user guide for details of how to create a config file for
     PasHi from the provided template files.
 
-    The files will appear in your %AppData%\DelphiDabbler\PasHi directory
-    immediately after you first run PasHi.
+    The template files will appear in your %AppData%\DelphiDabbler\PasHi
+    directory immediately after you first run PasHi.
 
 3. Install GUI front end program, PasHiGUI:
 
@@ -120,9 +119,8 @@ The installer makes the following changes to your system:
   * Files required by the uninstaller are stored in the main installation's
     Uninst sub-folder.
 
-  * The program's uninstall information is registered with the "Apps and
-    Features" (aka "Programs and Features" & "Add / Remove Programs") control
-    panel applet, which in turn updates the system registry.
+  * The program's uninstall information is registered with Windows. This updates
+    the system registry.
 
   * The system path will have been modified for all users if you chose the
     relevant option.
@@ -137,10 +135,10 @@ The installer makes the following changes to your system:
 Uninstallation
 --------------
 
-Open the "Apps and Features" (aka "Programs and Features" & "Add / Remove
-Programs") applet from the Control Panel, navigate to the DelphiDabbler PasHi
-entry and click the Remove or Uninstall button. You will be asked to confirm
-removal of the program. Click Yes to proceed.
+Open the application settings app appropriate to your version of Windows,
+locate DelphiDabbler PasHi in the list of installed programs and select the
+remove option. You will be asked to confirm removal of the program. Click Yes to
+proceed.
 
 PasHi, PasHiGUI (if installed) and all documentation will be removed.
 

@@ -3,7 +3,7 @@
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/
  *
- * Copyright (C) 2012-2021, Peter Johnson (www.delphidabbler.com).
+ * Copyright (C) 2012-2025, Peter Johnson (www.delphidabbler.com).
  *
  * Frame that is used to edit various PasHi options relating to output document
  * type.
@@ -15,9 +15,20 @@ unit FrOptions.UDocType;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, CheckLst,
-  FrOptions.UHelper, FrOptions.UBase, UOptions;
+  Winapi.Windows,
+  Winapi.Messages,
+  System.SysUtils,
+  System.Variants,
+  System.Classes,
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Vcl.StdCtrls,
+  Vcl.CheckLst,
+  FrOptions.UHelper,
+  FrOptions.UBase,
+  UOptions;
 
 type
   TDocTypeOptionsFrame = class(TBaseOptionsFrame)
@@ -44,8 +55,8 @@ type
 implementation
 
 uses
-  StrUtils,
-  Types,
+  System.StrUtils,
+  System.Types,
   UUtils;
 
 {$R *.dfm}
