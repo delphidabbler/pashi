@@ -136,14 +136,14 @@ begin
   Options.Store('separator-lines', seSeparatorLines.Value);
 
   Options.Delete('language');
-  Options.Delete('language-neutral');   // deprecated: should get written again
+  Options.Delete('language-neutral'); // deprecated: shouldn't get written again
   if Trim(edLanguage.Text) <> '' then
     Options.Store('language', Trim(edLanguage.Text))
   else
     Options.Store('language', 'neutral');
 
   Options.Delete('title');
-  Options.Delete('title-default');      // deprecated: should get written again
+  Options.Delete('title-default');    // deprecated: shouldn't get written again
   if Trim(edTitle.Text) <> '' then
     Options.Store('title', Trim(edTitle.Text))
   else
