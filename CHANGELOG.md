@@ -12,12 +12,12 @@ This release includes _PasHi_ v2.3.1 and _PasHiGUI_ v1.3.1
 
 ### PasHi 2.3.1 [build 16]
 
-* Corrected help screen entry for `--line-number-start` command. [Issue 63]
+* Corrected help screen entry for `--line-number-start` command. [Issue #63]
 
 ### PasHiGUI 1.3.1 [build 10]
 
-* Fixed compilation problem causing `UUtils` unit to fail to compile from a fresh build. [Issue 64]
-* Fixed bug where the `frag` alias for the `fragment` parameter of the `doc-type` config command was not being recognised. [Issue 66]
+* Fixed compilation problem causing `UUtils` unit to fail to compile from a fresh build. [Issue #64]
+* Fixed bug where the `frag` alias for the `fragment` parameter of the `doc-type` config command was not being recognised. [Issue #66]
 
 ## Release 2.3.0 - 2022-10-22
 
@@ -25,10 +25,10 @@ This release includes _PasHi_ v2.3.0 and _PasHiGUI_ v1.3.0
 
 ### PasHi 2.3.0 [build 15]
 
-* Added new `--inhibit-styling` command to prevent `<span>` tags from being emitted for specified highlighter elements. [Issue 30]
-* Modified operation of `--trim` command to add facility to trim trailing spaces from source code lines. Added new parameters to specify whether lines, trailing spaces or nothing are to be trimmed. Maintained backward compatibility with older parameters, but deprecated them. [Issue 29]
+* Added new `--inhibit-styling` command to prevent `<span>` tags from being emitted for specified highlighter elements. [Issue #30]
+* Modified operation of `--trim` command to add facility to trim trailing spaces from source code lines. Added new parameters to specify whether lines, trailing spaces or nothing are to be trimmed. Maintained backward compatibility with older parameters, but deprecated them. [Issue #29]
 * Added new `-v` command as an alias for `--version`.
-* Added `frag` parameter as an alias for `fragment` in `--doc-type` command. [Issue 47]
+* Added `frag` parameter as an alias for `fragment` in `--doc-type` command. [Issue #47]
 * Enabled `-` to be used as a parameter.
 * Added support for parsing set type parameters in form `{elem1,elem2,...}`.
 * Updated text of help screen re the new & modified commands.
@@ -44,17 +44,17 @@ This release includes _PasHi_ v2.3.0 and _PasHiGUI_ v1.3.0
   * Added information about new & modified commands.
   * Tweaked some content.
   * Restyled tables for improved readability.
-* Bumped config files version from 5 to 6. [Issue 55]
+* Bumped config files version from 5 to 6. [Issue #55]
 * Updated `config-template`:
   * Added comments detailing new `inhibit-styling` and modified `trim` commands.
-  * Added information about `line-number-start` command omitted from previous release. [Issue 53]
+  * Added information about `line-number-start` command omitted from previous release. [Issue #53]
   * Standardised formatting of comments.
   * Added content explaining how to get help on the purpose of the config file commands.
 
 ### Repository changes
 
-* Added link to user guide in `README.md`. [Issue 50]
-* Corrected formatting of Inno Setup files on GitHub. [Issue 36]
+* Added link to user guide in `README.md`. [Issue #50]
+* Corrected formatting of Inno Setup files on GitHub. [Issue #36]
 
 ## Release 2.2.1 - 2022-08-29
 
@@ -66,8 +66,8 @@ This release includes _PasHi_ v2.2.1 and _PasHiGUI_ v1.2.1
 
 ### PasHiGUI v1.2.1 [build 8]
 
-* Fixed bug where pressing F1 key when a menu is open caused an error message to be displayed. [Issue 32]
-* Fixed bug where the About box was displaying the wrong version number for _PasHi_. [Issue 31]
+* Fixed bug where pressing F1 key when a menu is open caused an error message to be displayed. [Issue #32]
+* Fixed bug where the About box was displaying the wrong version number for _PasHi_. [Issue #31]
 * Made minor changes to the text displayed in the About box.
 * Refactored internal handling of version information (see _General_ section below).
 
