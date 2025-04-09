@@ -6,6 +6,41 @@ All notable changes to this project are documented in this file.
 
 This change log begins with the first ever pre-release version of what was then known as _PasH_. Releases are listed in reverse version number order.
 
+## Release 2.4.0 - 2025-04-09
+
+This release includes _PasHi_ v2.4.0 and _PashHiGUI_ v1.4.0
+
+### PasHi 2.4.0 - 2025-04-09
+
+* Added a new `-` parameter to the `-t` / `--title` commands to generate the default title for HTML documents. The existing `--title-default` command has been deprecated. [Issue #57].
+* Added a new `neutral` parameter (and alias `-`) to the `-l` / `--language` commands to specify that generated HTML documents are language neutral. The existing `--language-neutral` command has been deprecated. [Issue #56].
+* Added new `--config-show` command that displays the commands and parameters set in any `config` file. [Issue #84].
+* Changed how the verbosity of program output is handled. There are now three different types of output: information, warnings and errors. Each of these types can be switched on or off independently of the others. The `--verbosity` command was heavily modified to take a set type parameter, e.g. `{info,error,warn}` to specify the required levels. The existing `normal`, `no-warn` and `quiet` parameters were retained, but `normal` and `no-warn` have been deprecated. A new `silent` parameter was added that turns off all output. [Issue #15].
+* Fixed bug in the `--trim` command that was causing the `-` and `spaces` options to render a different number of blank lines with some files. [Issue #69].
+* Updated the program's help screen re all the command line changes in this release.
+
+### PasHiGUI 1.4.0 - 2025-04-09
+
+* Changed the commands that the program writes to its `gui-config` configuration file:
+  * A blank title is now stored as `title -` instead of `title-default`.
+  * A blank (neutral) language is now stored as `language neutral` instead of `language-neutral`.
+
+### General
+
+* Programs now compiled with Delphi 12.2 instead of Delphi XE. Added Debug and Release build configurations. [Issue #78].
+* Updated build process [Issue #80]:
+  * MSBuild is now used instaed of Embarcadero Make. 
+  * Added a new `Deploy.bat` script to build release versions of both programs. Modified the install script to work with this.
+  * Updated build directory structure.
+* Updated the product version string for both programs.
+* Updated the user guide re all the command line changes in this release.
+* Updated the comments in `config-template` re all the new, modified and deprecated commands in this release.
+* Bumped config files version from 6 to 7.
+* Added further test files in the `Tests` directory, along with a read-me file to explain them. [Issue #67].
+* Edited `CHANGELOG.md` and corrected some errors. [Issue #79].
+* Updated `Docs\ReadMe.txt` file that is distributed with the install program.
+* Rewrote the build instructions in Markdown format instead of HTML: `Build.md` replaces `Build.html`.
+
 ## Release 2.3.1 - 2022-10-27
 
 This release includes _PasHi_ v2.3.1 and _PasHiGUI_ v1.3.1
